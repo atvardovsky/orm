@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "descriptor_kind": "target-workspace-mode",
+  "id": "doctrine-orm-library",
+  "title": "Doctrine ORM Library",
+  "state": "accepted",
+  "mode_kind": "library-development",
+  "purpose": "Work on this Doctrine ORM PHP Composer library fork with source, tests, docs, CI, and Alatyr adapter layers.",
+  "owner": "@atvardovsky",
+  "decision_authority": "@atvardovsky",
+  "last_reviewed": "2026-08-21",
+  "evidence_revision": "454db525ccce95aff1057cb57726900560374970",
+  "workspace_scope": {
+    "root": ".",
+    "include": [
+      "src",
+      "tests",
+      "docs",
+      "composer.json",
+      ".ai"
+    ],
+    "exclude": [
+      "vendor"
+    ]
+  },
+  "use_when": [
+    "the task concerns this Doctrine ORM repository or its Alatyr adapter"
+  ],
+  "do_not_use_when": [
+    "the task concerns a separate application repository or external dependency source checkout"
+  ],
+  "relationships": [
+    {
+      "subject": "doctrine-orm",
+      "relationship": "workspace-root",
+      "adapter_role": "active",
+      "ownership": "target",
+      "evidence": [
+        "composer.json",
+        "README.md"
+      ]
+    }
+  ],
+  "context": {
+    "root_context": "inherit",
+    "required_context": [
+      ".ai/project/blueprint.md",
+      ".ai/project/business-logic.md",
+      ".ai/project/architecture/catalog.json",
+      ".ai/project/dependencies/policy.json"
+    ],
+    "conditional_context": [
+      {
+        "path": "docs/en/reference/basic-mapping.rst",
+        "when": "mapping metadata behavior or documentation changes"
+      },
+      {
+        "path": "docs/en/reference/unitofwork.rst",
+        "when": "UnitOfWork behavior or documentation changes"
+      }
+    ]
+  },
+  "source_of_truth_ids": [
+    "project-contour",
+    "source-of-truth-registry",
+    "business-logic",
+    "architecture-catalog"
+  ],
+  "validation_entry_point_ids": [
+    "install-dependencies",
+    "unit-tests",
+    "static-analysis-default-dbal",
+    "coding-standards"
+  ],
+  "constraints": {
+    "narrows_allowed_actions": [],
+    "grants_write_scope": false,
+    "grants_approval": false,
+    "grants_permissions": false,
+    "grants_authority": false,
+    "grants_tools": false,
+    "activates_nested_adapters": false,
+    "bypasses_gates": false
+  },
+  "known_gaps": [
+    "Full local PHPUnit runs with a 1G memory limit but reports SQLite SQRT errors for QueryDqlFunctionTest::testFunctionSqrt and GH7941Test::typesShouldBeConvertedForDQLFunctions in this workspace."
+  ]
+}

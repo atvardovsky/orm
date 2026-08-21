@@ -60,14 +60,13 @@ Available next actions:
 - `drift-review`: check stale source-of-truth, docs, or adapter facts.
 - `documentation-sync`: synchronize documentation and companion explanatory surfaces after a changed fact.
 - `adapter-maturity-review`: report readiness for a task scope.
-- Optional-module operations are unavailable until the module is enabled,
-  cataloged, indexed, and backed by existing flow files.
+- Optional-module operations are available when the enabled module, catalog entry, index projection, and referenced flow agree.
 
 Validation run:
-`adapter structural validation run; Doctrine runtime tests attempted with local PHP 8 and blocked by local SQLite missing SQRT`
+`adapter structural validation run; Doctrine runtime tests attempted with local PHP 8 and blocked by local SQLite missing SQRT in two tests`
 
 Known adapter gaps:
-`backup owner missing; no target-local checker; non-blueprint optional modules deferred; default php/composer unsuitable; local SQLite lacks SQRT`
+`backup owner missing; target-local checker wrapper committed at tools/check_alatyr.py; full optional module graph enabled; default php/composer unsuitable; local SQLite lacks SQRT for two full PHPUnit tests`
 
 Suggested first request:
 Alatyr status

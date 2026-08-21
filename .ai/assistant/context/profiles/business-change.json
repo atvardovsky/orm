@@ -62,7 +62,7 @@
     "accepted_business_behavior_change"
   ],
   "validation": [
-    "/usr/local/bin/php8 vendor/bin/phpunit and relevant documentation review"
+    "/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpunit and relevant documentation review"
   ],
   "final_evidence": [
     "changed_fact",

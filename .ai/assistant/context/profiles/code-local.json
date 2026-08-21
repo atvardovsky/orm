@@ -49,7 +49,7 @@
     "protected_category_crossed"
   ],
   "validation": [
-    "/usr/local/bin/php8 vendor/bin/phpunit; /usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpstan analyse -c phpstan.neon --memory-limit=1G; /usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpstan analyse -c phpstan-dbal3.neon --memory-limit=1G; /usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpcs -d memory_limit=1G"
+    "/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpunit; /usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpstan analyse -c phpstan.neon --memory-limit=1G; /usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpstan analyse -c phpstan-dbal3.neon --memory-limit=1G; /usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpcs -d memory_limit=1G"
   ],
   "final_evidence": [
     "changed_files",

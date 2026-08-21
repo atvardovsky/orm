@@ -57,7 +57,7 @@
     "live_service_data_change"
   ],
   "validation": [
-    "/usr/local/bin/php8 vendor/bin/phpunit with relevant database configuration and manual persistence review"
+    "/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpunit with relevant database configuration and manual persistence review"
   ],
   "final_evidence": [
     "canonical_data_owner",

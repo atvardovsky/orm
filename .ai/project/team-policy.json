@@ -1,0 +1,201 @@
+{
+  "schema_version": 1,
+  "policy_kind": "target-team-policy",
+  "project": "Doctrine ORM",
+  "module_state": "enabled",
+  "policy_revision": "2026-08-21-full-alatyr",
+  "owner_actor_id": "atvardovsky",
+  "last_reviewed": "2026-08-21",
+  "review_cadence": "quarterly or when team backend changes",
+  "identity": {
+    "local_identity_path": ".ai/local/team-identity.json",
+    "selection_mode": "explicit-user-or-verified-provider",
+    "unknown_actor_action": "propose-enrollment",
+    "git_identity_is_authoritative": false,
+    "authentication_boundary": "local-selection-is-attribution-not-authentication",
+    "identity_proof_required_for": [
+      "external tracker writes",
+      "merge authority",
+      "protected approval"
+    ]
+  },
+  "coordination_backend": {
+    "mode": "repository",
+    "canonical_task_source": ".ai/assistant/team/work-registry.json",
+    "synchronization_direction": "manual-repository-local",
+    "branch_or_worktree_policy": "use current branch unless user requests a separate worktree",
+    "claim_enforcement": "advisory",
+    "claim_staleness_policy": "claims stale after branch or task evidence changes materially",
+    "storage_policy": "commit only reviewed task records; keep local identity ignored",
+    "retention_policy": "retain committed summaries while relevant to branch history",
+    "privacy_policy": "do not store raw private chat, secrets, credentials, or personal data"
+  },
+  "actors": [
+    {
+      "id": "atvardovsky",
+      "display_name": "Repository owner",
+      "aliases": [
+        "@atvardovsky"
+      ],
+      "actor_type": "human-decision-owner",
+      "status": "active",
+      "teams": [
+        "fork-owner"
+      ],
+      "roles": [
+        "owner",
+        "reviewer",
+        "approver"
+      ],
+      "responsibilities": [
+        "project direction",
+        "adapter approval",
+        "merge decision"
+      ],
+      "decision_authority": [
+        "business",
+        "architecture",
+        "data",
+        "security",
+        "adapter",
+        "commit-policy"
+      ],
+      "review_scopes": [
+        "all repository surfaces"
+      ],
+      "priority_scopes": [
+        "all"
+      ],
+      "escalation_actor_id": "atvardovsky",
+      "external_identity_refs": [
+        "github:@atvardovsky"
+      ]
+    },
+    {
+      "id": "codex",
+      "display_name": "Codex assistant",
+      "aliases": [
+        "Codex"
+      ],
+      "actor_type": "ai-assistant",
+      "status": "active",
+      "teams": [
+        "assistant"
+      ],
+      "roles": [
+        "implementer"
+      ],
+      "responsibilities": [
+        "repository edits when requested",
+        "validation",
+        "evidence reporting"
+      ],
+      "decision_authority": [],
+      "review_scopes": [
+        "self-review only; no approval authority"
+      ],
+      "priority_scopes": [],
+      "escalation_actor_id": "atvardovsky",
+      "external_identity_refs": []
+    }
+  ],
+  "priorities": [
+    {
+      "id": "normal",
+      "rank": 100,
+      "meaning": "Default repository task priority",
+      "assigner_actor_ids": [
+        "atvardovsky"
+      ],
+      "required_rationale": "short task reason",
+      "deadline_or_dependency_policy": "record blockers and dependencies when known",
+      "preemption_rule": "newest explicit user direction controls current task",
+      "escalation_rule": "ask owner when scope or approval is unclear"
+    }
+  ],
+  "review_policy": {
+    "implementer_reviewer_separation": "recommended for protected or broad changes",
+    "owner_map": "CODEOWNERS",
+    "required_review_scopes": [
+      "protected changes",
+      "public behavior changes",
+      "architecture boundary changes",
+      "dependency or CI gate changes"
+    ],
+    "merge_authority_actor_ids": [
+      "atvardovsky"
+    ],
+    "merge_readiness_validation": "applicable target validation plus Alatyr final evidence"
+  },
+  "decision_owners": {
+    "business": [
+      "atvardovsky"
+    ],
+    "architecture": [
+      "atvardovsky"
+    ],
+    "data": [
+      "atvardovsky"
+    ],
+    "security": [
+      "atvardovsky"
+    ],
+    "adapter": [
+      "atvardovsky"
+    ]
+  },
+  "state_transitions": [
+    {
+      "from": "proposed",
+      "to": "ready",
+      "allowed_roles": [
+        "owner",
+        "implementer"
+      ],
+      "required_evidence": [
+        "goal and allowed actions"
+      ]
+    },
+    {
+      "from": "ready",
+      "to": "active",
+      "allowed_roles": [
+        "implementer"
+      ],
+      "required_evidence": [
+        "branch and scope"
+      ]
+    },
+    {
+      "from": "active",
+      "to": "review",
+      "allowed_roles": [
+        "implementer"
+      ],
+      "required_evidence": [
+        "changed files and validation"
+      ]
+    },
+    {
+      "from": "review",
+      "to": "complete",
+      "allowed_roles": [
+        "owner",
+        "reviewer"
+      ],
+      "required_evidence": [
+        "acceptance or owner decision"
+      ]
+    }
+  ],
+  "conflict_policy": {
+    "fact_overlap_source": ".ai/project/source-of-truth-registry.md",
+    "consistency_map": ".ai/project/consistency-map.json",
+    "shared_contract_policy": "sequence overlapping semantic or protected work unless owner approves merge",
+    "sequencing_policy": "newest explicit user direction controls current task; preserve unrelated user changes",
+    "unresolved_overlap_action": "block and ask owner"
+  },
+  "known_gaps": [
+    "No external task tracker is configured; repository-local registry is canonical for Alatyr team records."
+  ]
+}

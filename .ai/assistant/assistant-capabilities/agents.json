@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "capability_kind": "target-assistant-surface-capabilities",
+  "assistant_surface": "agents",
+  "diagram_discussion": {
+    "route": "supported",
+    "native_inline_syntaxes": [
+      "markdown",
+      "ascii"
+    ],
+    "artifact_presentation": "both",
+    "readable_fallback": "ascii",
+    "verified_at": "2026-08-21",
+    "client_version": "unknown; not verified in this workspace",
+    "evidence": "bridge file installed; runtime not verified",
+    "expires_at": "review-trigger: assistant client or bridge file changes",
+    "review_triggers": [
+      "client version changed",
+      "assistant bridge changed",
+      "capability behavior changed"
+    ]
+  },
+  "subagent_delegation": {
+    "route": "unknown",
+    "dispatch_backend": "unknown",
+    "external_dispatcher": "none",
+    "native_subagents": "unknown",
+    "model_override": "unknown",
+    "parallel_dispatch": "unknown",
+    "actual_model_evidence": "unknown",
+    "verified_at": "unknown: runtime not verified in this workspace",
+    "client_version": "unknown: runtime not verified in this workspace",
+    "evidence": "bridge file installed; runtime behavior not verified in this workspace",
+    "expires_at": "review-trigger: assistant client, model, or delegation tool changes",
+    "review_triggers": [
+      "client version or assistant bridge changed",
+      "subagent or model-selection behavior changed",
+      "tool availability changed"
+    ]
+  }
+}

@@ -1,0 +1,186 @@
+{
+  "schema_version": 1,
+  "map_kind": "target-consistency-map",
+  "human_registry": ".ai/project/source-of-truth-registry.md",
+  "levels": [
+    "fact",
+    "contract",
+    "area",
+    "system",
+    "adapter"
+  ],
+  "relationship_types": [
+    "implements",
+    "verifies",
+    "documents",
+    "visualizes",
+    "generates",
+    "constrains",
+    "depends-on",
+    "routes"
+  ],
+  "impact_policy": {
+    "default_mode": "owner-and-applicable-direct-relationships",
+    "transitive_expand_when": [
+      "dependent fact or contract can change",
+      "cross-area contract changes",
+      "owner or relationship evidence conflicts",
+      "validation disproves the current boundary",
+      "approval trigger is reached"
+    ],
+    "required_evidence": [
+      "changed fact ids and canonical owners",
+      "selected edges and reasons",
+      "skipped edges and reasons",
+      "levels and project areas reached",
+      "missing or stale relationships",
+      "validation approvals and residual risk"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "product-behavior",
+      "fact_type": "product behavior",
+      "level": "fact",
+      "project_area": "docs/src",
+      "canonical_owner": ".ai/project/business-logic.md",
+      "relationships": [
+        {
+          "id": "product-behavior-docs",
+          "type": "documents",
+          "target": "docs/en/reference/*.rst",
+          "target_level": "contract",
+          "target_area": "docs",
+          "direction": "outbound",
+          "required_when": [
+            "accepted public behavior changes"
+          ],
+          "validation": [
+            "manual docs review and relevant PHPUnit"
+          ],
+          "approval_trigger": "accepted public behavior change"
+        }
+      ]
+    },
+    {
+      "id": "business-rule-routing",
+      "fact_type": "business rule",
+      "level": "adapter",
+      "project_area": "business-logic",
+      "canonical_owner": ".ai/project/business-logic.md",
+      "relationships": [
+        {
+          "id": "business-rule-to-blueprint",
+          "type": "routes",
+          "target": ".ai/project/blueprint.md",
+          "target_level": "adapter",
+          "target_area": "project",
+          "direction": "outbound",
+          "required_when": [
+            "business-rule family or owner changes"
+          ],
+          "validation": [
+            "adapter validator plus owner evidence review"
+          ],
+          "approval_trigger": "accepted behavior or validation routing change"
+        }
+      ]
+    },
+    {
+      "id": "architecture-boundaries",
+      "fact_type": "architecture decision",
+      "level": "area",
+      "project_area": "architecture",
+      "canonical_owner": "docs/en/reference/architecture.rst",
+      "relationships": [
+        {
+          "id": "architecture-to-source",
+          "type": "implements",
+          "target": "src/",
+          "target_level": "system",
+          "target_area": "src",
+          "direction": "outbound",
+          "required_when": [
+            "module boundary dependency or public API changes"
+          ],
+          "validation": [
+            "PHPStan and architecture manual review"
+          ],
+          "approval_trigger": "accepted architecture boundary change"
+        }
+      ]
+    },
+    {
+      "id": "mapping-persistence",
+      "fact_type": "data model",
+      "level": "contract",
+      "project_area": "mapping/persistence",
+      "canonical_owner": "docs/en/reference/basic-mapping.rst",
+      "relationships": [
+        {
+          "id": "mapping-persistence-tests",
+          "type": "verifies",
+          "target": "tests/Tests/ORM/",
+          "target_level": "system",
+          "target_area": "tests",
+          "direction": "outbound",
+          "required_when": [
+            "mapping metadata identity or persistence behavior changes"
+          ],
+          "validation": [
+            "/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpunit with relevant tests"
+          ],
+          "approval_trigger": "persistence behavior schema identity query or data-loss risk change"
+        }
+      ]
+    },
+    {
+      "id": "validation-commands",
+      "fact_type": "validation command",
+      "level": "adapter",
+      "project_area": "validation",
+      "canonical_owner": "composer.json",
+      "relationships": [
+        {
+          "id": "validation-to-gates",
+          "type": "constrains",
+          "target": ".ai/assistant/gates/checklist.md",
+          "target_level": "adapter",
+          "target_area": "assistant-adapter",
+          "direction": "outbound",
+          "required_when": [
+            "validation command or CI behavior changes"
+          ],
+          "validation": [
+            "JSON/YAML parse, git diff --check, target command evidence"
+          ],
+          "approval_trigger": "weakened tests CI gates or validation requirements"
+        }
+      ]
+    },
+    {
+      "id": "commit-policy",
+      "fact_type": "commit policy",
+      "level": "adapter",
+      "project_area": "commits",
+      "canonical_owner": ".ai/project/commit-policy.md",
+      "relationships": [
+        {
+          "id": "commit-policy-final-evidence",
+          "type": "constrains",
+          "target": ".ai/assistant/gates/final-evidence.md",
+          "target_level": "adapter",
+          "target_area": "assistant-adapter",
+          "direction": "outbound",
+          "required_when": [
+            "creating amending or reviewing commits"
+          ],
+          "validation": [
+            "staged diff review and detailed English commit message review"
+          ],
+          "approval_trigger": "weakening commit policy"
+        }
+      ]
+    }
+  ]
+}

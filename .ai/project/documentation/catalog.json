@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "catalog_kind": "target-code-documentation-catalog",
+  "project": "Doctrine ORM",
+  "module_state": "enabled",
+  "human_index": ".ai/project/documentation/README.md",
+  "profiles": ".ai/project/documentation/profiles.json",
+  "documentation_owner": "@atvardovsky",
+  "profile_decision_authority": "@atvardovsky",
+  "generation_owner": "@atvardovsky",
+  "last_reviewed": "2026-08-21",
+  "evidence_revision": "454db525ccce95aff1057cb57726900560374970",
+  "areas": [
+    {
+      "id": "runtime-source",
+      "name": "Runtime PHP source",
+      "owner": "src/ maintainers and @atvardovsky fork owner",
+      "source_scope": [
+        "src/**/*.php"
+      ],
+      "profile_ids": [
+        "php-runtime-comments"
+      ],
+      "audiences": [
+        "Doctrine ORM maintainers and contributors"
+      ],
+      "public_boundary": "supported-public-library-internals",
+      "generated_outputs": [],
+      "status": "usable",
+      "evidence": [
+        "src/",
+        "CONTRIBUTING.md"
+      ]
+    },
+    {
+      "id": "tests",
+      "name": "PHPUnit tests and fixtures",
+      "owner": "tests/ maintainers and @atvardovsky fork owner",
+      "source_scope": [
+        "tests/**/*.php"
+      ],
+      "profile_ids": [
+        "php-test-comments"
+      ],
+      "audiences": [
+        "Doctrine ORM contributors"
+      ],
+      "public_boundary": "internal-test-support",
+      "generated_outputs": [],
+      "status": "usable",
+      "evidence": [
+        "tests/README.markdown",
+        "phpunit.xml.dist"
+      ]
+    },
+    {
+      "id": "reference-docs",
+      "name": "Reference documentation",
+      "owner": "docs/ maintainers and @atvardovsky fork owner",
+      "source_scope": [
+        "docs/en/**/*.rst"
+      ],
+      "profile_ids": [
+        "rst-reference-docs"
+      ],
+      "audiences": [
+        "Doctrine ORM users and contributors"
+      ],
+      "public_boundary": "public",
+      "generated_outputs": [],
+      "status": "usable",
+      "evidence": [
+        "docs/README.md",
+        "docs/en/index.rst"
+      ]
+    }
+  ],
+  "known_gaps": [
+    "No target-owned generated API reference pipeline is accepted in this branch."
+  ]
+}

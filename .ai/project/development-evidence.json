@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "register_kind": "target-development-evidence",
+  "project": "Doctrine ORM",
+  "owner": "@atvardovsky",
+  "retention_policy": "Commit only compact reviewed summaries needed by Alatyr support records.",
+  "content_policy": "Do not store raw chat, secrets, credentials, or personal data; summarize only validated repository evidence.",
+  "last_reviewed": "2026-08-21",
+  "patterns": [
+    {
+      "id": "alatyr-full-capability-sync",
+      "category": "adapter-support",
+      "project_area": ".ai",
+      "source_owner": ".ai/alatyr.yaml",
+      "normalized_problem": "This branch needs the full Alatyr support profile and complete framework pack to be usable across support layers.",
+      "first_observed": "2026-08-21",
+      "last_observed": "2026-08-21",
+      "occurrence_count": 1,
+      "evidence_quality": "observed",
+      "status": "active",
+      "evidence_refs": [
+        ".ai/alatyr.yaml",
+        ".ai/assistant/module-profile.md",
+        ".ai/assistant/operation-catalog.json"
+      ],
+      "outcome_signals": [
+        "full profile enabled",
+        "complete pack installed",
+        "support-layer validator expected to pass"
+      ],
+      "existing_ai_item_ids": [
+        "alatyr-core-adapter"
+      ]
+    }
+  ]
+}

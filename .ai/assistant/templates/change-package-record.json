@@ -1,0 +1,156 @@
+{
+  "schema_version": 1,
+  "record_kind": "alatyr-change-package",
+  "evidence_classification": "historical-record",
+  "package_id": "<change-package-id>",
+  "package_type": "<architecture-segment-business-capability-cross-cutting-change-migration-public-contract-or-other>",
+  "status": "<proposed-approved-implementing-validated-complete-or-blocked>",
+  "activation_reason": "<change-package-activation-reason>",
+  "owner": "<target-package-owner>",
+  "operation": {
+    "id": "<operation-id>",
+    "type": "<operation-type>",
+    "large_task_packet": "<target-relative-packet-path-or-not-active>",
+    "active_workstream": "<workstream-id-or-not-active>"
+  },
+  "intent": {
+    "goal": "<goal>",
+    "non_goals": [
+      "<non-goal>"
+    ],
+    "decision_owner": "<target-decision-owner>"
+  },
+  "routing": {
+    "task_profile": "<task-profile>",
+    "project_areas": [
+      "<project-area-id>"
+    ],
+    "context_receipt": "<target-relative-context-receipt-or-inline-compact-summary>"
+  },
+  "changed_facts": [
+    {
+      "id": "<fact-id>",
+      "statement": "<changed-fact-statement>",
+      "canonical_owner": "<target-relative-owner-path-or-missing>",
+      "invariants": [
+        "<re-derived-invariant>"
+      ]
+    }
+  ],
+  "plan": {
+    "version": "<plan-version>",
+    "file": "<target-relative-plan-file-or-not-available-with-reason>",
+    "sha256": "<plan-sha256-or-not-available-with-reason>"
+  },
+  "approved_scope": {
+    "approval_records": [
+      "<target-relative-approval-record-json>"
+    ],
+    "changed_fact_ids": [
+      "<allowed-changed-fact-id>"
+    ],
+    "architecture_areas": [
+      "<allowed-architecture-area>"
+    ],
+    "behavior_categories": [
+      "<allowed-behavior-category>"
+    ],
+    "excluded_semantic_effects": [
+      "<excluded-semantic-effect-or-none>"
+    ],
+    "permitted_external_effects": [
+      "<permitted-external-effect-or-none>"
+    ],
+    "allowed_files_or_surfaces": [
+      "<target-relative-file-or-glob>"
+    ],
+    "excluded_files_or_surfaces": [
+      "<target-relative-file-or-glob-or-none>"
+    ]
+  },
+  "actual_scope": {
+    "changed_fact_ids": [
+      "<actual-changed-fact-id>"
+    ],
+    "architecture_areas": [
+      "<actual-architecture-area>"
+    ],
+    "behavior_categories": [
+      "<actual-behavior-category>"
+    ],
+    "external_effects": [
+      "<actual-external-effect-or-none>"
+    ],
+    "changed_paths": [
+      "<actual-target-relative-changed-path>"
+    ]
+  },
+  "discoveries_and_corrections": [
+    {
+      "id": "<discovery-or-correction-id>",
+      "kind": "<discovery-or-correction>",
+      "statement": "<discovery-or-correction-statement>",
+      "changed_fact_ids": [
+        "<affected-fact-id>"
+      ],
+      "scope_impact": "<none-within-approved-scope-or-reapproval-required>",
+      "approval_action": "<approval-action-or-not-required-with-reason>",
+      "evidence": "<target-relative-evidence-or-summary>"
+    }
+  ],
+  "companion_decisions": [
+    {
+      "surface_type": "<source-of-truth-architecture-decision-source-registry-contract-test-configuration-public-doc-diagram-changelog-prompt-skill-gate-bridge-checker-or-other>",
+      "owner_or_path": "<target-relative-owner-or-path-or-missing>",
+      "decision": "<updated-not-required-or-missing>",
+      "reason": "<fact-specific-reason>",
+      "evidence": "<target-relative-evidence-or-not-available-with-reason>"
+    }
+  ],
+  "architecture_discussion": {
+    "applies": "<yes-or-no>",
+    "problem_and_boundary": "<compact-problem-and-decision-boundary-or-not-applicable>",
+    "alternatives": [
+      "<alternative-or-not-applicable>"
+    ],
+    "selected_direction": "<selected-direction-or-not-applicable>",
+    "decision_status": "<observed-proposed-accepted-contradicted-unknown-or-not-applicable>",
+    "sources": [
+      "<target-relative-canonical-source-or-not-applicable>"
+    ],
+    "assumptions_or_disagreement": [
+      "<assumption-disagreement-or-none>"
+    ],
+    "raw_chat_retained": false
+  },
+  "provenance": {
+    "evidence_quality": "<git-range-pull-request-selected-file-snapshot-or-unverified>",
+    "before_revision": "<before-git-revision-or-not-available-with-reason>",
+    "after_revision": "<after-git-revision-or-not-available-with-reason>",
+    "working_tree_at_start": "<clean-dirty-or-unavailable-with-reason>",
+    "working_tree_at_validation": "<clean-dirty-or-unavailable-with-reason>",
+    "unrelated_changes_handling": "<dedicated-branch-worktree-explicitly-excluded-or-unavailable-with-reason>",
+    "pull_request": "<pull-request-reference-or-not-applicable>",
+    "selected_file_snapshot": {
+      "algorithm": "sha256",
+      "digest": "<selected-file-snapshot-sha256-or-not-applicable>",
+      "paths": [
+        "<snapshot-target-relative-path-or-not-applicable>"
+      ]
+    },
+    "public_claim_strength": "<strong-limited-or-unsupported>"
+  },
+  "validation": {
+    "results": [
+      "<validation-result-and-evidence>"
+    ],
+    "skipped": [
+      "<skipped-check-and-reason-or-none>"
+    ],
+    "logical_integrity_result": "<logical-integrity-result>",
+    "approval_scope_result": "<semantic-and-path-scope-result>",
+    "residual_risks": [
+      "<residual-risk-or-none>"
+    ]
+  }
+}

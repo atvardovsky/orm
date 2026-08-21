@@ -1,0 +1,391 @@
+{
+  "schema_version": 1,
+  "record_kind": "target-project-vocabulary-terms",
+  "project": "Doctrine ORM",
+  "terms": [
+    {
+      "id": "orm",
+      "canonical_term": "Object-relational mapper",
+      "normalized_term": "orm",
+      "kind": "technical",
+      "state": "accepted",
+      "domains": [
+        "Doctrine ORM",
+        "ORM"
+      ],
+      "usage_scopes": [
+        "docs",
+        "source",
+        "tests",
+        "adapter routing"
+      ],
+      "audiences": [
+        "maintainers",
+        "contributors",
+        "assistant users"
+      ],
+      "definition": "Doctrine ORM library that maps PHP objects to relational database persistence.",
+      "non_meanings": [],
+      "aliases": [],
+      "acronyms": [],
+      "acronym_expansions": [],
+      "discouraged_synonyms": [],
+      "replacement_term_id": "none",
+      "owner": "@atvardovsky",
+      "decision_authority": "@atvardovsky",
+      "canonical_sources": [
+        "README.md"
+      ],
+      "evidence": [
+        "README.md"
+      ],
+      "related_term_ids": [],
+      "data_dictionary_refs": [],
+      "examples": [],
+      "sensitivity": "public",
+      "validation": [
+        "manual review against canonical sources"
+      ],
+      "last_verified_revision": "454db525ccce95aff1057cb57726900560374970",
+      "contradictions": [],
+      "known_gaps": []
+    },
+    {
+      "id": "entity",
+      "canonical_term": "Entity",
+      "normalized_term": "entity",
+      "kind": "technical",
+      "state": "accepted",
+      "domains": [
+        "Doctrine ORM",
+        "ORM"
+      ],
+      "usage_scopes": [
+        "docs",
+        "source",
+        "tests",
+        "adapter routing"
+      ],
+      "audiences": [
+        "maintainers",
+        "contributors",
+        "assistant users"
+      ],
+      "definition": "PHP object type managed by Doctrine ORM metadata and UnitOfWork.",
+      "non_meanings": [],
+      "aliases": [],
+      "acronyms": [],
+      "acronym_expansions": [],
+      "discouraged_synonyms": [],
+      "replacement_term_id": "none",
+      "owner": "@atvardovsky",
+      "decision_authority": "@atvardovsky",
+      "canonical_sources": [
+        "docs/en/reference/basic-mapping.rst"
+      ],
+      "evidence": [
+        "docs/en/reference/basic-mapping.rst"
+      ],
+      "related_term_ids": [],
+      "data_dictionary_refs": [],
+      "examples": [],
+      "sensitivity": "public",
+      "validation": [
+        "manual review against canonical sources"
+      ],
+      "last_verified_revision": "454db525ccce95aff1057cb57726900560374970",
+      "contradictions": [],
+      "known_gaps": []
+    },
+    {
+      "id": "mapping-metadata",
+      "canonical_term": "Mapping metadata",
+      "normalized_term": "mapping-metadata",
+      "kind": "technical",
+      "state": "accepted",
+      "domains": [
+        "Doctrine ORM",
+        "ORM"
+      ],
+      "usage_scopes": [
+        "docs",
+        "source",
+        "tests",
+        "adapter routing"
+      ],
+      "audiences": [
+        "maintainers",
+        "contributors",
+        "assistant users"
+      ],
+      "definition": "Configuration describing how entity classes and fields map to relational persistence.",
+      "non_meanings": [],
+      "aliases": [],
+      "acronyms": [],
+      "acronym_expansions": [],
+      "discouraged_synonyms": [],
+      "replacement_term_id": "none",
+      "owner": "@atvardovsky",
+      "decision_authority": "@atvardovsky",
+      "canonical_sources": [
+        "docs/en/reference/basic-mapping.rst"
+      ],
+      "evidence": [
+        "docs/en/reference/basic-mapping.rst"
+      ],
+      "related_term_ids": [],
+      "data_dictionary_refs": [],
+      "examples": [],
+      "sensitivity": "public",
+      "validation": [
+        "manual review against canonical sources"
+      ],
+      "last_verified_revision": "454db525ccce95aff1057cb57726900560374970",
+      "contradictions": [],
+      "known_gaps": []
+    },
+    {
+      "id": "unit-of-work",
+      "canonical_term": "UnitOfWork",
+      "normalized_term": "unit-of-work",
+      "kind": "technical",
+      "state": "accepted",
+      "domains": [
+        "Doctrine ORM",
+        "ORM"
+      ],
+      "usage_scopes": [
+        "docs",
+        "source",
+        "tests",
+        "adapter routing"
+      ],
+      "audiences": [
+        "maintainers",
+        "contributors",
+        "assistant users"
+      ],
+      "definition": "Doctrine ORM component that tracks object changes and coordinates persistence during flush.",
+      "non_meanings": [],
+      "aliases": [],
+      "acronyms": [],
+      "acronym_expansions": [],
+      "discouraged_synonyms": [],
+      "replacement_term_id": "none",
+      "owner": "@atvardovsky",
+      "decision_authority": "@atvardovsky",
+      "canonical_sources": [
+        "docs/en/reference/unitofwork.rst"
+      ],
+      "evidence": [
+        "docs/en/reference/unitofwork.rst"
+      ],
+      "related_term_ids": [],
+      "data_dictionary_refs": [],
+      "examples": [],
+      "sensitivity": "public",
+      "validation": [
+        "manual review against canonical sources"
+      ],
+      "last_verified_revision": "454db525ccce95aff1057cb57726900560374970",
+      "contradictions": [],
+      "known_gaps": []
+    },
+    {
+      "id": "identity-map",
+      "canonical_term": "Identity map",
+      "normalized_term": "identity-map",
+      "kind": "technical",
+      "state": "accepted",
+      "domains": [
+        "Doctrine ORM",
+        "ORM"
+      ],
+      "usage_scopes": [
+        "docs",
+        "source",
+        "tests",
+        "adapter routing"
+      ],
+      "audiences": [
+        "maintainers",
+        "contributors",
+        "assistant users"
+      ],
+      "definition": "Runtime identity tracking that keeps one managed object instance per persistent identity where applicable.",
+      "non_meanings": [],
+      "aliases": [],
+      "acronyms": [],
+      "acronym_expansions": [],
+      "discouraged_synonyms": [],
+      "replacement_term_id": "none",
+      "owner": "@atvardovsky",
+      "decision_authority": "@atvardovsky",
+      "canonical_sources": [
+        "docs/en/reference/unitofwork.rst"
+      ],
+      "evidence": [
+        "docs/en/reference/unitofwork.rst"
+      ],
+      "related_term_ids": [],
+      "data_dictionary_refs": [],
+      "examples": [],
+      "sensitivity": "public",
+      "validation": [
+        "manual review against canonical sources"
+      ],
+      "last_verified_revision": "454db525ccce95aff1057cb57726900560374970",
+      "contradictions": [],
+      "known_gaps": []
+    },
+    {
+      "id": "dql",
+      "canonical_term": "DQL",
+      "normalized_term": "dql",
+      "kind": "acronym",
+      "state": "accepted",
+      "domains": [
+        "Doctrine ORM",
+        "ORM"
+      ],
+      "usage_scopes": [
+        "docs",
+        "source",
+        "tests",
+        "adapter routing"
+      ],
+      "audiences": [
+        "maintainers",
+        "contributors",
+        "assistant users"
+      ],
+      "definition": "Doctrine Query Language used by Doctrine ORM query APIs.",
+      "non_meanings": [],
+      "aliases": [],
+      "acronyms": [
+        "DQL"
+      ],
+      "acronym_expansions": [
+        "Doctrine Query Language"
+      ],
+      "discouraged_synonyms": [],
+      "replacement_term_id": "none",
+      "owner": "@atvardovsky",
+      "decision_authority": "@atvardovsky",
+      "canonical_sources": [
+        "docs/en/reference/dql-doctrine-query-language.rst"
+      ],
+      "evidence": [
+        "docs/en/reference/dql-doctrine-query-language.rst"
+      ],
+      "related_term_ids": [],
+      "data_dictionary_refs": [],
+      "examples": [],
+      "sensitivity": "public",
+      "validation": [
+        "manual review against canonical sources"
+      ],
+      "last_verified_revision": "454db525ccce95aff1057cb57726900560374970",
+      "contradictions": [],
+      "known_gaps": []
+    },
+    {
+      "id": "dbal",
+      "canonical_term": "DBAL",
+      "normalized_term": "dbal",
+      "kind": "acronym",
+      "state": "accepted",
+      "domains": [
+        "Doctrine ORM",
+        "ORM"
+      ],
+      "usage_scopes": [
+        "docs",
+        "source",
+        "tests",
+        "adapter routing"
+      ],
+      "audiences": [
+        "maintainers",
+        "contributors",
+        "assistant users"
+      ],
+      "definition": "Doctrine Database Abstraction Layer dependency used for database connections and platform behavior.",
+      "non_meanings": [],
+      "aliases": [],
+      "acronyms": [
+        "DBAL"
+      ],
+      "acronym_expansions": [
+        "Doctrine Database Abstraction Layer"
+      ],
+      "discouraged_synonyms": [],
+      "replacement_term_id": "none",
+      "owner": "@atvardovsky",
+      "decision_authority": "@atvardovsky",
+      "canonical_sources": [
+        "composer.json"
+      ],
+      "evidence": [
+        "composer.json"
+      ],
+      "related_term_ids": [],
+      "data_dictionary_refs": [],
+      "examples": [],
+      "sensitivity": "public",
+      "validation": [
+        "manual review against canonical sources"
+      ],
+      "last_verified_revision": "454db525ccce95aff1057cb57726900560374970",
+      "contradictions": [],
+      "known_gaps": []
+    },
+    {
+      "id": "alatyr-adapter",
+      "canonical_term": "Alatyr adapter",
+      "normalized_term": "alatyr-adapter",
+      "kind": "assistant-adapter",
+      "state": "accepted",
+      "domains": [
+        "Doctrine ORM",
+        "Alatyr adapter"
+      ],
+      "usage_scopes": [
+        "docs",
+        "source",
+        "tests",
+        "adapter routing"
+      ],
+      "audiences": [
+        "maintainers",
+        "contributors",
+        "assistant users"
+      ],
+      "definition": "Project-owned assistant support layer under .ai and root bridge files.",
+      "non_meanings": [],
+      "aliases": [],
+      "acronyms": [],
+      "acronym_expansions": [],
+      "discouraged_synonyms": [],
+      "replacement_term_id": "none",
+      "owner": "@atvardovsky",
+      "decision_authority": "@atvardovsky",
+      "canonical_sources": [
+        ".ai/README.md"
+      ],
+      "evidence": [
+        ".ai/README.md"
+      ],
+      "related_term_ids": [],
+      "data_dictionary_refs": [],
+      "examples": [],
+      "sensitivity": "public",
+      "validation": [
+        "manual review against canonical sources"
+      ],
+      "last_verified_revision": "454db525ccce95aff1057cb57726900560374970",
+      "contradictions": [],
+      "known_gaps": []
+    }
+  ]
+}

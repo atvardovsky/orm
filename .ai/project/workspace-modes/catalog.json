@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "catalog_kind": "target-workspace-mode-catalog",
+  "state": "enabled",
+  "owner": "@atvardovsky",
+  "decision_authority": "@atvardovsky",
+  "workspace": {
+    "id": "doctrine-orm",
+    "kind": "library",
+    "root": ".",
+    "adapter_role": "active",
+    "evidence": [
+      "composer.json",
+      "README.md"
+    ]
+  },
+  "selection": {
+    "default_mode_id": "doctrine-orm-library",
+    "automatic_selection": "accepted-unambiguous-only",
+    "ambiguity_behavior": "ask-user",
+    "no_match_behavior": "root-read-only",
+    "persistence": "per-task",
+    "local_preference_allowed": false,
+    "show_preflight_before_changes": true
+  },
+  "suggestions": {
+    "after_installation": true,
+    "after_framework_update": true,
+    "after_workspace_change": true,
+    "automatic_acceptance": false
+  },
+  "root_context": ".ai/project/workspace-modes/root/context.json",
+  "modes": [
+    {
+      "id": "doctrine-orm-library",
+      "title": "Doctrine ORM Library",
+      "summary": "Active library-development mode for this Doctrine ORM fork and its Alatyr adapter.",
+      "state": "accepted",
+      "mode_kind": "library-development",
+      "path": ".ai/project/workspace-modes/modes/doctrine-orm-library/mode.json",
+      "evidence_revision": "454db525ccce95aff1057cb57726900560374970"
+    }
+  ]
+}

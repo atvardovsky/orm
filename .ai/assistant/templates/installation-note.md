@@ -13,11 +13,11 @@ Installation id: `ALATYR-20260821-doctrine-orm`
 - Review cadence: quarterly or after Alatyr framework/template updates
 - CODEOWNERS or equivalent owner map: `CODEOWNERS`
 - Supported assistants: Codex
-- Target validation: /usr/local/bin/composer8 install; /usr/local/bin/php8 vendor/bin/phpunit; /usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpstan analyse -c phpstan.neon --memory-limit=1G; /usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpstan analyse -c phpstan-dbal3.neon --memory-limit=1G; /usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpcs -d memory_limit=1G; docs validation after the docs script resolves a PHP 8-compatible composer command
-- Known adapter gaps: backup owner missing; no target-local Alatyr checker; non-blueprint optional modules deferred; default php/composer are unsuitable for this branch; local SQLite lacks SQRT for the full PHPUnit suite
-- Local deviations from Alatyr Core: standard pack only; no assistant-specific bridges beyond `AGENTS.md` and `AI_ASSISTANTS.md`; CODEOWNERS scoped to adapter files; `.ai/project/blueprint.md` accepted as the Doctrine ORM blueprint index
-- Root assistant entry points checked: `AGENTS.md`, `AI_ASSISTANTS.md`
-- Supported bridge files checked: root entry points only
+- Target validation: /usr/local/bin/composer8 install; /usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpunit; /usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpstan analyse -c phpstan.neon --memory-limit=1G; /usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpstan analyse -c phpstan-dbal3.neon --memory-limit=1G; /usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpcs -d memory_limit=1G; docs validation after the docs script resolves a PHP 8-compatible composer command
+- Known adapter gaps: backup owner missing; target-local Alatyr checker wrapper committed at tools/check_alatyr.py; full optional module graph enabled; default php/composer are unsuitable for this branch; local SQLite lacks SQRT for two full PHPUnit tests
+- Local deviations from Alatyr Core: full complete pack adapted to Doctrine ORM; CODEOWNERS scoped to adapter and bridge files; `.ai/project/blueprint.md` accepted as the Doctrine ORM blueprint index; `tools/check_alatyr.py` wraps the source validator via `ALATYR_CORE_SOURCE`
+- Root assistant entry points checked: `AGENTS.md`, `AI_ASSISTANTS.md`, `CLAUDE.md`, `GEMINI.md`
+- Supported bridge files checked: Codex, generic agents, Claude, Cursor, Devin/Cascade, Gemini, GitHub Copilot, and Windsurf bridge files
 - Installed-operation request template: `.ai/assistant/templates/operation-request.md`
 - Adapter output contracts: `.ai/assistant/templates/adapter-output-contracts.md`
 - Operation help: `.ai/assistant/help.md`

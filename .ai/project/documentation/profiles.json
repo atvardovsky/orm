@@ -1,0 +1,279 @@
+{
+  "schema_version": 1,
+  "profile_kind": "target-code-documentation-profiles",
+  "project": "Doctrine ORM",
+  "selection_policy": {
+    "order": [
+      "accepted state",
+      "path or source-set match",
+      "language and framework compatibility",
+      "most specific match",
+      "explicit priority"
+    ],
+    "on_equal_conflict": "stop automatic generation and report ambiguity",
+    "on_no_accepted_match": "prepare a read-only evidence-backed proposal"
+  },
+  "profiles": [
+    {
+      "id": "php-runtime-comments",
+      "state": "accepted",
+      "owner": "@atvardovsky",
+      "priority": 100,
+      "match": {
+        "include": [
+          "src/**/*.php"
+        ],
+        "exclude": [
+          "vendor/**",
+          "tests/**"
+        ],
+        "languages": [
+          "php"
+        ],
+        "frameworks": [
+          "Doctrine ORM"
+        ]
+      },
+      "audiences": [
+        "maintainers",
+        "contributors"
+      ],
+      "visibility": "public-supported",
+      "purpose": "Clarify non-obvious runtime invariants, persistence behavior, edge cases, and extension contracts.",
+      "evidence": {
+        "existing_comments": [
+          "src/ contains existing PHPDoc and inline comments"
+        ],
+        "existing_tooling": [
+          "PHPStan, PHPCS, PHPUnit"
+        ],
+        "decision_source": ".ai/project/documentation/README.md",
+        "last_verified_revision": "454db525ccce95aff1057cb57726900560374970"
+      },
+      "comment_contract": {
+        "syntax": "phpdoc-or-inline-php-comment",
+        "required_for": [
+          "public API where existing style requires it",
+          "complex invariants",
+          "non-obvious side effects",
+          "exceptional persistence behavior"
+        ],
+        "required_sections": [
+          "purpose",
+          "invariants",
+          "side effects",
+          "failure modes when relevant"
+        ],
+        "content_focus": [
+          "mapping metadata",
+          "UnitOfWork state transitions",
+          "query/hydration behavior",
+          "DBAL platform assumptions"
+        ],
+        "avoid": [
+          "repeating identifiers or types",
+          "narrating obvious implementation",
+          "duplicating canonical policy"
+        ],
+        "canonical_fact_owners": [
+          ".ai/project/source-of-truth-registry.md",
+          "docs/en/reference/*.rst",
+          "src/",
+          "tests/"
+        ],
+        "uncertainty_policy": "record observed behavior and unresolved intent; do not invent accepted facts"
+      },
+      "generation": {
+        "generator": "manual review only",
+        "config": "none",
+        "entry_point": "documentation-sync operation",
+        "output": "repository source comments or docs diffs",
+        "output_policy": "committed-generated",
+        "direct_edit": "forbidden",
+        "publication_boundary": "source repository"
+      },
+      "validation": [
+        "/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpcs -d memory_limit=1G",
+        "/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpstan analyse -c phpstan.neon --memory-limit=1G when implementation changes"
+      ],
+      "assistant_skill": ".ai/assistant/skills/code-documentation/SKILL.md",
+      "migration_scope": [],
+      "approval_needs": [
+        "broad rewrite, generated documentation pipeline, or changed public docs policy"
+      ],
+      "known_gaps": [
+        "No automated comment linter beyond existing PHPCS/PHPStan evidence."
+      ]
+    },
+    {
+      "id": "php-test-comments",
+      "state": "accepted",
+      "owner": "@atvardovsky",
+      "priority": 90,
+      "match": {
+        "include": [
+          "tests/**/*.php"
+        ],
+        "exclude": [
+          "vendor/**"
+        ],
+        "languages": [
+          "php"
+        ],
+        "frameworks": [
+          "PHPUnit"
+        ]
+      },
+      "audiences": [
+        "contributors"
+      ],
+      "visibility": "internal",
+      "purpose": "Clarify fixture setup, regression intent, and database/platform assumptions when not obvious from test names.",
+      "evidence": {
+        "existing_comments": [
+          "tests/ contains PHPUnit fixtures and regression tests"
+        ],
+        "existing_tooling": [
+          "phpunit.xml.dist",
+          "tests/README.markdown"
+        ],
+        "decision_source": ".ai/project/documentation/README.md",
+        "last_verified_revision": "454db525ccce95aff1057cb57726900560374970"
+      },
+      "comment_contract": {
+        "syntax": "phpdoc-or-inline-php-comment",
+        "required_for": [
+          "complex fixtures",
+          "platform-specific tests",
+          "regression tests with non-obvious failures"
+        ],
+        "required_sections": [
+          "purpose",
+          "fixture assumption",
+          "expected behavior"
+        ],
+        "content_focus": [
+          "regression behavior",
+          "platform constraints",
+          "identity/persistence state"
+        ],
+        "avoid": [
+          "repeating assertions",
+          "documenting implementation instead of behavior"
+        ],
+        "canonical_fact_owners": [
+          "tests/README.markdown",
+          "tests/",
+          "docs/en/reference/*.rst"
+        ],
+        "uncertainty_policy": "state observed test intent and unresolved gaps"
+      },
+      "generation": {
+        "generator": "manual review only",
+        "config": "none",
+        "entry_point": "documentation-sync operation",
+        "output": "test comments or docs diffs",
+        "output_policy": "committed-generated",
+        "direct_edit": "forbidden",
+        "publication_boundary": "source repository"
+      },
+      "validation": [
+        "/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpunit with focused tests when environment supports them"
+      ],
+      "assistant_skill": ".ai/assistant/skills/code-documentation/SKILL.md",
+      "migration_scope": [],
+      "approval_needs": [
+        "changed test strategy or broad rewrite"
+      ],
+      "known_gaps": [
+        "Full local PHPUnit runs with a 1G memory limit but reports SQLite SQRT errors for QueryDqlFunctionTest::testFunctionSqrt and GH7941Test::typesShouldBeConvertedForDQLFunctions in this workspace."
+      ]
+    },
+    {
+      "id": "rst-reference-docs",
+      "state": "accepted",
+      "owner": "@atvardovsky",
+      "priority": 80,
+      "match": {
+        "include": [
+          "docs/en/**/*.rst"
+        ],
+        "exclude": [
+          "vendor/**"
+        ],
+        "languages": [
+          "rst"
+        ],
+        "frameworks": [
+          "Sphinx"
+        ]
+      },
+      "audiences": [
+        "users",
+        "contributors"
+      ],
+      "visibility": "public-supported",
+      "purpose": "Keep public Doctrine ORM behavior and examples synchronized with source and tests.",
+      "evidence": {
+        "existing_comments": [
+          "docs/en reference documentation exists"
+        ],
+        "existing_tooling": [
+          "composer docs command recorded but currently needs PHP 8-compatible nested composer command"
+        ],
+        "decision_source": ".ai/project/documentation/README.md",
+        "last_verified_revision": "454db525ccce95aff1057cb57726900560374970"
+      },
+      "comment_contract": {
+        "syntax": "reStructuredText",
+        "required_for": [
+          "public behavior",
+          "mapping rules",
+          "query behavior",
+          "migration or upgrade guidance"
+        ],
+        "required_sections": [
+          "purpose",
+          "examples",
+          "constraints when relevant"
+        ],
+        "content_focus": [
+          "public behavior",
+          "configuration",
+          "security assumptions"
+        ],
+        "avoid": [
+          "undocumented implementation promises",
+          "unverified future behavior"
+        ],
+        "canonical_fact_owners": [
+          "docs/en/reference/*.rst",
+          ".ai/project/business-logic.md",
+          "src/",
+          "tests/"
+        ],
+        "uncertainty_policy": "mark gaps instead of inventing docs facts"
+      },
+      "generation": {
+        "generator": "manual or existing docs tooling after environment fix",
+        "config": "docs/",
+        "entry_point": "/usr/local/bin/composer8 docs after nested composer command compatibility is resolved",
+        "output": "docs build artifacts",
+        "output_policy": "committed-generated",
+        "direct_edit": "forbidden",
+        "publication_boundary": "public docs"
+      },
+      "validation": [
+        "manual docs review; docs build only after known composer compatibility issue is resolved"
+      ],
+      "assistant_skill": ".ai/assistant/skills/code-documentation/SKILL.md",
+      "migration_scope": [],
+      "approval_needs": [
+        "public behavior change or generated docs publication policy change"
+      ],
+      "known_gaps": [
+        "Docs command is recorded as conditional in .ai/alatyr.yaml."
+      ]
+    }
+  ]
+}

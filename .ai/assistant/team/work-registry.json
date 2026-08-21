@@ -1,0 +1,21 @@
+{
+  "schema_version": 2,
+  "registry_kind": "target-team-work-registry",
+  "project": "Doctrine ORM",
+  "module_state": "enabled",
+  "coordination_backend": "repository",
+  "canonical_task_source": ".ai/assistant/team/work-registry.json",
+  "synchronization_direction": "manual-repository-local",
+  "team_policy": ".ai/project/team-policy.json",
+  "operating_model": ".ai/project/team-operating-model.md",
+  "backend_contract": ".ai/assistant/team/backend-contract.json",
+  "active_work_index": ".ai/assistant/team/active-work-index.json",
+  "task_records_directory": ".ai/assistant/team/tasks",
+  "task_record_template": ".ai/assistant/team/task-record-template.json",
+  "registry_revision": 1,
+  "updated_at": "2026-08-21",
+  "evidence_revision": "454db525ccce95aff1057cb57726900560374970",
+  "storage_policy": "commit reviewed task summaries only",
+  "retention_policy": "retain summaries while useful for branch history",
+  "privacy_policy": "no raw private chat, secrets, credentials, or personal data"
+}

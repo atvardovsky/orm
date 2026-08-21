@@ -55,3 +55,7 @@ gate, checker, prompt, bridge, or wrapper is routed, validated, and maintained.
 
 Raw conversations, secrets, credentials, and personal data must not be stored
 in project evidence.
+
+## Full Alatyr Project Layers
+
+The project contour now owns target records for architecture, consistency map, dependency knowledge, code documentation, vocabulary, workspace modes, team policy, test-first policy, development evidence, business logic, commit policy, and blueprint/source-of-truth routing. These records index Doctrine evidence; canonical Doctrine docs, source, tests, and validation files remain stronger for product behavior.

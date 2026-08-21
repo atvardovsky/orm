@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "index_kind": "target-change-package-index",
+  "owner": "@atvardovsky",
+  "state": "enabled",
+  "records": [],
+  "policy": "Use change packages for material multi-surface semantic work or explicit audit trails; routine local tasks can skip with reason."
+}

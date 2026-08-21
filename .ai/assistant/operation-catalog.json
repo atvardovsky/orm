@@ -108,6 +108,53 @@
       ]
     },
     {
+      "id": "architecture-assistance",
+      "title": "Architecture assistance",
+      "summary": "Inventory, explain, discuss, compare, review, or document project architecture and patterns from target evidence.",
+      "use_when": [
+        "architecture inventory",
+        "architecture explanation",
+        "pattern discussion",
+        "architecture alternative comparison",
+        "architecture review",
+        "architecture documentation"
+      ],
+      "context_profiles": [
+        "docs-local",
+        "architecture-change",
+        "data-change",
+        "security-sensitive"
+      ],
+      "required_module": "architecture-knowledge",
+      "flow": ".ai/assistant/flows/architecture-assistance.flow.md",
+      "minimum_inputs": [
+        "architecture question or scope",
+        "non-goals when known",
+        "decision intent when known"
+      ],
+      "allowed_actions": [
+        "read-only",
+        "docs-only",
+        "full-with-approval"
+      ],
+      "preview": "risk-gated",
+      "aliases": [
+        "Alatyr architecture",
+        "Alatyr architecture inventory",
+        "explain architecture",
+        "discuss architecture pattern",
+        "compare architecture options",
+        "review architecture",
+        "document architecture"
+      ],
+      "final_evidence": [
+        "selected architecture evidence and states",
+        "drivers options and pattern-proliferation result",
+        "documentation or change handoff",
+        "validation and residual risk"
+      ]
+    },
+    {
       "id": "recheck-after-installation",
       "title": "Recheck installation",
       "summary": "Verify a newly installed target adapter against repository evidence.",
@@ -214,6 +261,311 @@
       ]
     },
     {
+      "id": "large-task",
+      "title": "Large task",
+      "summary": "Coordinate bounded workstreams, checkpoints, and convergence for large or resumable work.",
+      "use_when": [
+        "multiple workstreams",
+        "cross-boundary task",
+        "resumable task",
+        "context budget exceeded"
+      ],
+      "context_profiles": [],
+      "required_module": "large-task-orchestration",
+      "flow": ".ai/assistant/flows/large-task-orchestration.flow.md",
+      "minimum_inputs": [
+        "goal",
+        "non-goals",
+        "affected areas",
+        "allowed actions"
+      ],
+      "allowed_actions": [
+        "read-only",
+        "docs-only",
+        "adapter-only",
+        "code-and-tests",
+        "full-with-approval"
+      ],
+      "preview": "risk-gated",
+      "aliases": [
+        "plan large task",
+        "continue large task",
+        "resume Alatyr task"
+      ],
+      "final_evidence": [
+        "workstream state",
+        "context receipts",
+        "global convergence"
+      ]
+    },
+    {
+      "id": "team-identity",
+      "title": "Team identity",
+      "summary": "Inspect, select, or clear the current local actor without granting authentication or authority.",
+      "use_when": [
+        "set current actor",
+        "who am I",
+        "clear current actor"
+      ],
+      "context_profiles": [],
+      "required_module": "team-collaboration",
+      "flow": ".ai/assistant/flows/team-identity.flow.md",
+      "minimum_inputs": [
+        "identity action",
+        "actor ID or name when selecting"
+      ],
+      "allowed_actions": [
+        "read-only",
+        "adapter-only"
+      ],
+      "preview": "never",
+      "aliases": [
+        "Alatyr set actor",
+        "Alatyr who am I",
+        "Alatyr clear actor"
+      ],
+      "final_evidence": [
+        "resolved actor and policy revision",
+        "selection and verification state",
+        "local path and actions not taken"
+      ]
+    },
+    {
+      "id": "team-status",
+      "title": "Team status",
+      "summary": "Report current team work, stale claims, conflicts, handoffs, and review state without editing.",
+      "use_when": [
+        "team status",
+        "active task overview",
+        "coordination attention"
+      ],
+      "context_profiles": [],
+      "required_module": "team-collaboration",
+      "flow": ".ai/assistant/flows/team-task-coordination.flow.md",
+      "minimum_inputs": [
+        "optional team, area, actor, or task scope"
+      ],
+      "allowed_actions": [
+        "read-only"
+      ],
+      "preview": "never",
+      "aliases": [
+        "Alatyr team status"
+      ],
+      "final_evidence": [
+        "evidence revision",
+        "active and blocked tasks",
+        "up to three coordination actions"
+      ]
+    },
+    {
+      "id": "team-task",
+      "title": "Team task coordination",
+      "summary": "Start, claim, checkpoint, or release a team task without broadening project-change scope.",
+      "use_when": [
+        "start team task",
+        "claim task",
+        "checkpoint task",
+        "release task"
+      ],
+      "context_profiles": [],
+      "required_module": "team-collaboration",
+      "flow": ".ai/assistant/flows/team-task-coordination.flow.md",
+      "minimum_inputs": [
+        "action",
+        "task ID or goal",
+        "actor ID",
+        "allowed actions"
+      ],
+      "allowed_actions": [
+        "read-only",
+        "adapter-only"
+      ],
+      "preview": "never",
+      "aliases": [
+        "Alatyr start",
+        "Alatyr claim",
+        "Alatyr checkpoint",
+        "Alatyr release"
+      ],
+      "final_evidence": [
+        "task and actor IDs",
+        "claim or checkpoint state",
+        "backend synchronization and next action"
+      ]
+    },
+    {
+      "id": "team-conflict-review",
+      "title": "Team conflict review",
+      "summary": "Detect active-task overlap from facts, owners, contracts, dependencies, and secondary file evidence.",
+      "use_when": [
+        "concurrent task conflict",
+        "changed fact overlap",
+        "task sequencing decision"
+      ],
+      "context_profiles": [],
+      "required_module": "team-collaboration",
+      "flow": ".ai/assistant/flows/team-task-coordination.flow.md",
+      "minimum_inputs": [
+        "task ID or proposed task scope"
+      ],
+      "allowed_actions": [
+        "read-only"
+      ],
+      "preview": "never",
+      "aliases": [
+        "Alatyr conflicts"
+      ],
+      "final_evidence": [
+        "overlap classification",
+        "conflicting tasks and facts",
+        "coordination or sequencing action"
+      ]
+    },
+    {
+      "id": "team-handoff",
+      "title": "Team handoff",
+      "summary": "Checkpoint and hand a task to another actor or role with bounded resume context.",
+      "use_when": [
+        "task handoff",
+        "assistant or developer change",
+        "session transfer"
+      ],
+      "context_profiles": [],
+      "required_module": "team-collaboration",
+      "flow": ".ai/assistant/flows/team-handoff.flow.md",
+      "minimum_inputs": [
+        "task ID",
+        "source actor",
+        "destination actor or role",
+        "handoff reason"
+      ],
+      "allowed_actions": [
+        "read-only",
+        "adapter-only"
+      ],
+      "preview": "never",
+      "aliases": [
+        "Alatyr handoff"
+      ],
+      "final_evidence": [
+        "checkpoint and handoff references",
+        "acceptance state",
+        "resume context and residual risk"
+      ]
+    },
+    {
+      "id": "team-decision",
+      "title": "Team decision",
+      "summary": "Structure a priority, business, architecture, data, security, or adapter decision and route accepted facts to their owners.",
+      "use_when": [
+        "team decision",
+        "business or architecture discussion",
+        "priority conflict",
+        "option tradeoff"
+      ],
+      "context_profiles": [
+        "business-change",
+        "architecture-change",
+        "data-change",
+        "security-sensitive"
+      ],
+      "required_module": "team-collaboration",
+      "flow": ".ai/assistant/flows/team-decision.flow.md",
+      "minimum_inputs": [
+        "decision question",
+        "decision type",
+        "affected facts or task IDs"
+      ],
+      "allowed_actions": [
+        "read-only",
+        "docs-only",
+        "full-with-approval"
+      ],
+      "preview": "risk-gated",
+      "aliases": [
+        "Alatyr decision",
+        "Alatyr discuss"
+      ],
+      "final_evidence": [
+        "decision owner and options",
+        "selected result or unresolved state",
+        "canonical destination and follow-up"
+      ]
+    },
+    {
+      "id": "team-review",
+      "title": "Team review",
+      "summary": "Review a task against current scope, concurrent work, required reviewers, validation, and logical integrity.",
+      "use_when": [
+        "team task review",
+        "cross-actor review",
+        "review before merge check"
+      ],
+      "context_profiles": [
+        "code-local",
+        "business-change",
+        "architecture-change",
+        "data-change",
+        "security-sensitive"
+      ],
+      "required_module": "team-collaboration",
+      "flow": ".ai/assistant/flows/team-review.flow.md",
+      "minimum_inputs": [
+        "task ID",
+        "review scope",
+        "current head and base revisions"
+      ],
+      "allowed_actions": [
+        "read-only"
+      ],
+      "preview": "never",
+      "aliases": [
+        "Alatyr review"
+      ],
+      "final_evidence": [
+        "findings by severity",
+        "overlap and reviewer evidence",
+        "validation integrity and next owners"
+      ]
+    },
+    {
+      "id": "team-merge-check",
+      "title": "Team merge check",
+      "summary": "Classify revision-bound merge readiness without performing a merge.",
+      "use_when": [
+        "merge readiness",
+        "pre-merge coordination check",
+        "final team gate"
+      ],
+      "context_profiles": [
+        "code-local",
+        "business-change",
+        "architecture-change",
+        "data-change",
+        "security-sensitive"
+      ],
+      "required_module": "team-collaboration",
+      "flow": ".ai/assistant/flows/team-review.flow.md",
+      "minimum_inputs": [
+        "task ID",
+        "current head revision",
+        "current base revision"
+      ],
+      "allowed_actions": [
+        "read-only"
+      ],
+      "preview": "never",
+      "aliases": [
+        "Alatyr merge check"
+      ],
+      "final_evidence": [
+        "readiness state",
+        "revision-bound review and approval evidence",
+        "blockers residual risk and next actor"
+      ]
+    },
+    {
       "id": "logical-integrity-review",
       "title": "Logical integrity review",
       "summary": "Check changed facts, invariants, owners, and companion surfaces for consistency.",
@@ -250,6 +602,274 @@
         "invariants",
         "repair set",
         "validation and residual risk"
+      ]
+    },
+    {
+      "id": "diagram-discussion",
+      "title": "Diagram discussion",
+      "summary": "Present, compare, or revise a diagram with a bounded portable ASCII view plus optional capability-checked rich presentation.",
+      "use_when": [
+        "show a diagram",
+        "visual explanation",
+        "architecture sketch",
+        "compare diagram alternatives"
+      ],
+      "context_profiles": [
+        "docs-local",
+        "code-local",
+        "business-change",
+        "architecture-change",
+        "data-change",
+        "security-sensitive"
+      ],
+      "required_module": "diagrams",
+      "flow": ".ai/assistant/flows/diagram-discussion.flow.md",
+      "minimum_inputs": [
+        "diagram purpose or question",
+        "scope",
+        "persistence intent when known"
+      ],
+      "allowed_actions": [
+        "read-only",
+        "docs-only"
+      ],
+      "preview": "never",
+      "aliases": [
+        "Alatyr diagram",
+        "show as a diagram",
+        "visualize architecture"
+      ],
+      "final_evidence": [
+        "stable diagram ID revision and source status",
+        "ASCII width direction readability and optional rich-presentation evidence",
+        "classification redaction external action source revision validation and stale risk"
+      ]
+    },
+    {
+      "id": "ai-infrastructure-inventory",
+      "title": "AI infrastructure inventory",
+      "summary": "Report existing target-owned AI infrastructure and unresolved inventory gaps.",
+      "use_when": [
+        "list AI infrastructure",
+        "check existing skills prompts gates or tools"
+      ],
+      "context_profiles": [
+        "ai-infrastructure"
+      ],
+      "required_module": "ai-infrastructure",
+      "flow": ".ai/assistant/flows/ai-infrastructure-inventory.flow.md",
+      "minimum_inputs": [
+        "inventory scope",
+        "target assistant surfaces"
+      ],
+      "allowed_actions": [
+        "read-only"
+      ],
+      "preview": "never",
+      "aliases": [
+        "alatyr-ai-inventory"
+      ],
+      "final_evidence": [
+        "inventory",
+        "coverage gaps",
+        "no-change confirmation"
+      ]
+    },
+    {
+      "id": "ai-infrastructure-recommendation",
+      "title": "AI infrastructure recommendation",
+      "summary": "Recommend evidence-based additions or improvements without changing infrastructure.",
+      "use_when": [
+        "suggest AI infrastructure",
+        "improve existing AI item",
+        "repeated development friction"
+      ],
+      "context_profiles": [
+        "ai-infrastructure"
+      ],
+      "required_module": "ai-infrastructure",
+      "flow": ".ai/assistant/flows/ai-infrastructure-recommendation.flow.md",
+      "minimum_inputs": [
+        "bounded project problem or item ID",
+        "available outcome evidence"
+      ],
+      "allowed_actions": [
+        "read-only"
+      ],
+      "preview": "never",
+      "aliases": [
+        "alatyr-suggest-ai",
+        "alatyr-improve-ai",
+        "Alatyr suggest extensions"
+      ],
+      "final_evidence": [
+        "recommendation",
+        "quality cost and maintenance impact",
+        "acceptance criteria"
+      ]
+    },
+    {
+      "id": "skill-adaptation",
+      "title": "AI infrastructure adaptation",
+      "summary": "Review or adapt skills, prompts, gates, tools, bridges, wrappers, and related sources.",
+      "use_when": [
+        "adapt external AI source",
+        "add AI infrastructure",
+        "change AI infrastructure item"
+      ],
+      "context_profiles": [
+        "ai-infrastructure",
+        "security-sensitive"
+      ],
+      "required_module": "ai-infrastructure",
+      "flow": ".ai/assistant/flows/skill-adaptation.flow.md",
+      "minimum_inputs": [
+        "source",
+        "item type",
+        "intended use",
+        "assistant surfaces",
+        "permissions"
+      ],
+      "allowed_actions": [
+        "read-only",
+        "adapter-only",
+        "full-with-approval"
+      ],
+      "preview": "risk-gated",
+      "aliases": [
+        "alatyr-adaptation",
+        "alatyr-add-ai"
+      ],
+      "final_evidence": [
+        "provenance",
+        "rejected source instructions",
+        "adaptation and validation"
+      ]
+    },
+    {
+      "id": "extension-management",
+      "title": "Extension management",
+      "summary": "List, inspect, plan, install, update, disable, remove, or review declarative external extension packages through target-owned locks and bindings.",
+      "use_when": [
+        "list installed extensions",
+        "inspect extension source",
+        "plan or install extension",
+        "update disable remove or review extension"
+      ],
+      "context_profiles": [
+        "ai-infrastructure",
+        "security-sensitive",
+        "framework-upgrade"
+      ],
+      "required_module": "core-profile",
+      "flow": ".ai/assistant/flows/extension-lifecycle.flow.md",
+      "minimum_inputs": [
+        "lifecycle mode",
+        "source or extension ID",
+        "allowed actions"
+      ],
+      "allowed_actions": [
+        "read-only",
+        "adapter-only",
+        "full-with-approval"
+      ],
+      "preview": "risk-gated",
+      "aliases": [
+        "Alatyr extensions",
+        "Alatyr inspect extension",
+        "Alatyr add extension",
+        "Alatyr update extension",
+        "Alatyr disable extension",
+        "Alatyr remove extension",
+        "Alatyr review extension"
+      ],
+      "final_evidence": [
+        "source revision digest license and compatibility",
+        "target bindings permissions files and ownership",
+        "catalog lock approval validation cost and residual risk"
+      ]
+    },
+    {
+      "id": "dependency-knowledge",
+      "title": "Dependency knowledge",
+      "summary": "Discover, inspect, plan, synchronize, explain, or assess passive package knowledge without activating nested adapters or changing dependencies.",
+      "use_when": [
+        "dependency knowledge status",
+        "dependency export discovery or inspection",
+        "package knowledge synchronization",
+        "explain dependency contract",
+        "dependency change impact"
+      ],
+      "context_profiles": [
+        "code-local",
+        "architecture-change",
+        "security-sensitive",
+        "framework-upgrade"
+      ],
+      "required_module": "dependency-knowledge",
+      "flow": ".ai/assistant/flows/dependency-knowledge-sync.flow.md",
+      "minimum_inputs": [
+        "mode or dependency question",
+        "package ecosystem name instance or changed lockfile when known"
+      ],
+      "allowed_actions": [
+        "read-only",
+        "adapter-only",
+        "full-with-approval"
+      ],
+      "preview": "risk-gated",
+      "aliases": [
+        "Alatyr dependencies",
+        "Alatyr dependency status",
+        "Alatyr sync dependencies",
+        "Alatyr inspect dependency",
+        "Alatyr explain dependency",
+        "Alatyr dependency impact"
+      ],
+      "final_evidence": [
+        "package instances fingerprints provenance and export state",
+        "trust freshness authority applicability and selected graph edges",
+        "projection changes validation cost and residual risk"
+      ]
+    },
+    {
+      "id": "workspace-mode",
+      "title": "Workspace modes",
+      "summary": "List, suggest, inspect, select, define, accept, update, disable, deprecate, remove, or review user-owned workspace modes.",
+      "use_when": [
+        "workspace mode status or suggestion",
+        "framework application library skeleton dependency or workspace role selection",
+        "mode definition acceptance update disablement deprecation removal or review"
+      ],
+      "context_profiles": [
+        "code-local",
+        "architecture-change",
+        "framework-upgrade"
+      ],
+      "required_module": "workspace-modes",
+      "flow": ".ai/assistant/flows/workspace-mode.flow.md",
+      "minimum_inputs": [
+        "mode action or workspace-role question",
+        "mode ID and user decision when changing accepted state"
+      ],
+      "allowed_actions": [
+        "read-only",
+        "adapter-only",
+        "full-with-approval"
+      ],
+      "preview": "risk-gated",
+      "aliases": [
+        "Alatyr modes",
+        "Alatyr mode status",
+        "Alatyr suggest modes",
+        "Alatyr mode",
+        "Alatyr define mode",
+        "Alatyr accept mode"
+      ],
+      "final_evidence": [
+        "workspace identity scope and active adapter",
+        "mode state selection basis relationships ownership and context",
+        "user decision validation cost ambiguity and residual risk"
       ]
     },
     {
@@ -331,6 +951,134 @@
         "comments and derived surfaces",
         "generator and output policy",
         "validation and residual risk"
+      ]
+    },
+    {
+      "id": "project-vocabulary",
+      "title": "Project vocabulary",
+      "summary": "Explain, propose, review, or synchronize scoped project terms, aliases, acronyms, and terminology links.",
+      "use_when": [
+        "project term definition",
+        "acronym or alias resolution",
+        "glossary proposal",
+        "vocabulary review",
+        "terminology consistency check"
+      ],
+      "context_profiles": [
+        "docs-local",
+        "code-local",
+        "business-change",
+        "architecture-change",
+        "data-change"
+      ],
+      "required_module": "project-vocabulary",
+      "flow": ".ai/assistant/flows/project-vocabulary.flow.md",
+      "minimum_inputs": [
+        "term alias acronym or bounded terminology scope",
+        "domain when known"
+      ],
+      "allowed_actions": [
+        "read-only",
+        "docs-only",
+        "full-with-approval"
+      ],
+      "preview": "risk-gated",
+      "aliases": [
+        "Alatyr glossary",
+        "Alatyr define term",
+        "propose glossary entry",
+        "check terminology",
+        "review project vocabulary"
+      ],
+      "final_evidence": [
+        "selected term IDs states and match reasons",
+        "owners sources and scoped meanings",
+        "ambiguity data links validation and residual risk"
+      ]
+    },
+    {
+      "id": "test-first-configuration",
+      "title": "Test-first configuration",
+      "summary": "Assess, enable, revise, disable, or review target-adapted test-first development without silently changing project tooling or gates.",
+      "use_when": [
+        "assess test-first value",
+        "enable or disable TDD",
+        "review test-first policy",
+        "test-first module recommendation"
+      ],
+      "context_profiles": [
+        "code-local",
+        "business-change",
+        "architecture-change",
+        "data-change",
+        "security-sensitive",
+        "framework-upgrade"
+      ],
+      "required_module": "core-profile",
+      "flow": ".ai/assistant/flows/test-first-configuration.flow.md",
+      "minimum_inputs": [
+        "configuration mode or project area",
+        "known test strategy evidence when available"
+      ],
+      "allowed_actions": [
+        "read-only",
+        "adapter-only",
+        "full-with-approval"
+      ],
+      "preview": "risk-gated",
+      "aliases": [
+        "Alatyr enable test-first",
+        "Alatyr configure TDD",
+        "Alatyr review test-first",
+        "Alatyr disable test-first"
+      ],
+      "final_evidence": [
+        "policy assessment and state",
+        "target triggers modes commands isolation and exceptions",
+        "approvals cost gaps and next action"
+      ]
+    },
+    {
+      "id": "test-first-change",
+      "title": "Test-first change",
+      "summary": "Apply an enabled target policy through recommendation, RED, GREEN, refactor, broader validation, and logical integrity evidence.",
+      "use_when": [
+        "explicit TDD or test-first request",
+        "regression-first defect fix",
+        "characterization before refactor",
+        "contract-first change",
+        "enabled test-first trigger"
+      ],
+      "context_profiles": [
+        "code-local",
+        "business-change",
+        "architecture-change",
+        "data-change",
+        "security-sensitive"
+      ],
+      "required_module": "test-first-development",
+      "flow": ".ai/assistant/flows/test-first-change.flow.md",
+      "minimum_inputs": [
+        "changed fact defect invariant contract or refactor scope",
+        "allowed actions"
+      ],
+      "allowed_actions": [
+        "read-only",
+        "code-and-tests",
+        "full-with-approval"
+      ],
+      "preview": "risk-gated",
+      "aliases": [
+        "Alatyr test first",
+        "Alatyr TDD",
+        "fix regression test first",
+        "characterize before refactor",
+        "define contract first"
+      ],
+      "final_evidence": [
+        "policy trigger mode and test level",
+        "valid RED and GREEN evidence",
+        "refactor broader validation exceptions and residual risk"
       ]
     },
     {

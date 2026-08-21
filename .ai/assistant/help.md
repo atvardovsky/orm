@@ -99,3 +99,7 @@ Expected final evidence: `<expected-final-evidence>`
 2. Show the two or three closest options.
 3. Ask for the smallest missing decision.
 4. Avoid repository edits until the operation is selected.
+
+## Full Capability Set
+
+Full Alatyr is enabled in this branch. Available routed areas include architecture, consistency, diagrams, dependency knowledge, code documentation, project vocabulary, test-first work, workspace modes, AI infrastructure, bridge capability review, extensions, durable approvals, team coordination, change packages, large-task orchestration, subagent delegation, migration diff, effectiveness reports, and scaffolding.

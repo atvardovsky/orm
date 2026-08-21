@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "descriptor_kind": "target-workspace-root-context",
+  "state": "enabled",
+  "owner": "@atvardovsky",
+  "workspace_id": "doctrine-orm",
+  "required_context": [
+    "README.md",
+    "composer.json",
+    ".ai/project/blueprint.md",
+    ".ai/project/source-of-truth-registry.md"
+  ],
+  "conditional_context": [
+    {
+      "path": "docs/en/reference/architecture.rst",
+      "when": "architecture or runtime contract work"
+    },
+    {
+      "path": "tests/README.markdown",
+      "when": "test strategy or PHPUnit fixture work"
+    }
+  ],
+  "known_gaps": [
+    "No external workspace-mode source beyond repository evidence is configured."
+  ]
+}

@@ -1,141 +1,335 @@
 schema_version: 14
 framework:
-  name: "Alatyr Core"
-  version: "0.1.0-alpha.15"
-  source: "https://github.com/atvardovsky/AlatyrCore"
+  name: Alatyr Core
+  version: 0.1.0-alpha.15
+  source: https://github.com/atvardovsky/AlatyrCore
   template_version: 15
-  pack: "standard"
-  rule_registry: ".ai/framework/rule-registry.json"
+  pack: complete
+  rule_registry: .ai/framework/rule-registry.json
 installation:
-  id: "ALATYR-20260821-doctrine-orm"
-  date: "2026-08-21"
-  mode: "new-install"
-  support_profile: "standard"
+  id: ALATYR-20260821-doctrine-orm
+  date: '2026-08-21'
+  mode: new-install
+  support_profile: full
 owner:
-  responsible_team: "atvardovsky fork owner"
-  technical_owner: "@atvardovsky"
-  backup_owner: "missing: no separate backup owner found in target evidence"
-  last_review_date: "2026-08-21"
-  review_cadence: "quarterly or after Alatyr framework/template updates"
-  codeowners: "CODEOWNERS"
+  responsible_team: atvardovsky fork owner
+  technical_owner: '@atvardovsky'
+  backup_owner: 'missing: no separate backup owner found in target evidence'
+  last_review_date: '2026-08-21'
+  review_cadence: quarterly or after Alatyr framework/template updates
+  codeowners: CODEOWNERS
   review_triggers:
-    - "Alatyr framework, adapter schema, or template version changes"
-    - "Doctrine ORM validation, security, CI, or source-of-truth files change materially"
-    - "new assistant bridge, prompt, skill, tool, or approval policy is added"
+  - Alatyr framework, adapter schema, or template version changes
+  - Doctrine ORM validation, security, CI, or source-of-truth files change materially
+  - new assistant bridge, prompt, skill, tool, or approval policy is added
 supported_assistants:
-  - "Codex"
+- Codex
 contours:
-  framework: ".ai/framework"
-  project: ".ai/project"
-  assistant: ".ai/assistant"
+  framework: .ai/framework
+  project: .ai/project
+  assistant: .ai/assistant
 source_of_truth:
-  project_contour: ".ai/project/contour.md"
-  registry: ".ai/project/source-of-truth-registry.md"
-  assistant_contour: ".ai/assistant/contour.md"
-  context_router: ".ai/assistant/context-router.json"
-  bootstrap_index: ".ai/assistant/bootstrap-index.json"
-  context_profiles: ".ai/assistant/context-profiles.md"
-  module_profile: ".ai/assistant/module-profile.md"
+  project_contour: .ai/project/contour.md
+  registry: .ai/project/source-of-truth-registry.md
+  assistant_contour: .ai/assistant/contour.md
+  context_router: .ai/assistant/context-router.json
+  bootstrap_index: .ai/assistant/bootstrap-index.json
+  context_profiles: .ai/assistant/context-profiles.md
+  module_profile: .ai/assistant/module-profile.md
   project_sources:
-    - ".ai/project/blueprint.md"
-    - ".ai/project/business-logic.md"
-    - ".ai/project/commit-policy.md"
-    - "README.md"
-    - "CONTRIBUTING.md"
-    - "SECURITY.md"
-    - "composer.json"
-    - "docs/en/reference/architecture.rst"
-    - "docs/en/reference/security.rst"
-    - "docs/en/reference/basic-mapping.rst"
-    - "docs/en/reference/unitofwork.rst"
-    - "tests/README.markdown"
-    - ".github/workflows/continuous-integration.yml"
-    - ".github/workflows/static-analysis.yml"
-    - ".github/workflows/coding-standards.yml"
+  - .ai/project/blueprint.md
+  - .ai/project/business-logic.md
+  - .ai/project/commit-policy.md
+  - README.md
+  - CONTRIBUTING.md
+  - SECURITY.md
+  - composer.json
+  - docs/en/reference/architecture.rst
+  - docs/en/reference/security.rst
+  - docs/en/reference/basic-mapping.rst
+  - docs/en/reference/unitofwork.rst
+  - tests/README.markdown
+  - .github/workflows/continuous-integration.yml
+  - .github/workflows/static-analysis.yml
+  - .github/workflows/coding-standards.yml
+  - .ai/project/architecture/README.md
+  - .ai/project/architecture/catalog.json
+  - .ai/project/consistency-map.json
+  - .ai/project/dependencies/policy.json
+  - .ai/project/dependencies/catalog.json
+  - .ai/project/dependencies/knowledge-lock.json
+  - .ai/project/dependencies/deviations.json
+  - .ai/project/documentation/README.md
+  - .ai/project/documentation/catalog.json
+  - .ai/project/documentation/profiles.json
+  - .ai/project/testing/README.md
+  - .ai/project/testing/test-first-policy.json
+  - .ai/project/vocabulary/README.md
+  - .ai/project/vocabulary/catalog.json
+  - .ai/project/vocabulary/terms.json
+  - .ai/project/vocabulary/data-dictionary-links.json
+  - .ai/project/workspace-modes/catalog.json
+  - .ai/project/workspace-modes/root/context.json
+  - .ai/project/team-policy.json
+  - .ai/project/team-operating-model.md
+  - .ai/project/development-evidence.json
+  development_evidence: .ai/project/development-evidence.json
+  consistency_map: .ai/project/consistency-map.json
+  architecture_index: .ai/project/architecture/README.md
+  architecture_catalog: .ai/project/architecture/catalog.json
+  code_documentation_index: .ai/project/documentation/README.md
+  code_documentation_catalog: .ai/project/documentation/catalog.json
+  code_documentation_profiles: .ai/project/documentation/profiles.json
+  vocabulary_index: .ai/project/vocabulary/README.md
+  vocabulary_catalog: .ai/project/vocabulary/catalog.json
+  vocabulary_terms: .ai/project/vocabulary/terms.json
+  vocabulary_data_dictionary_links: .ai/project/vocabulary/data-dictionary-links.json
+  testing_index: .ai/project/testing/README.md
+  test_first_policy: .ai/project/testing/test-first-policy.json
+  team_policy: .ai/project/team-policy.json
+  team_operating_model: .ai/project/team-operating-model.md
 context_routing:
   router_schema_version: 6
   preloaded_context:
-    - "AGENTS.md"
+  - AGENTS.md
   compact_bootstrap:
-    - ".ai/assistant/bootstrap-index.json"
+  - .ai/assistant/bootstrap-index.json
   bootstrap_max_files: 2
-  bootstrap_max_words: 1400
+  bootstrap_max_words: 5000
   profile_default_max_files: 12
   profile_default_max_total_words: 8000
   profile_default_max_portable_words: 5600
   profile_default_reserved_target_words: 2400
-  budget_behavior: "load required safety and owner evidence, then record measured expansion"
+  budget_behavior: load required safety and owner evidence, then record measured expansion
 modules:
-  core_profile: "complete-with-known-gaps"
+  core_profile: complete-with-known-gaps
   enabled:
-    - "blueprint-change"
-  deferred:
-    - "architecture-knowledge: existing architecture docs found, but no Alatyr architecture catalog owner is accepted yet"
-    - "test-first-development: tests exist, but no target-owned test-first policy is accepted yet"
-    - "diagrams: no target-owned diagram source or render policy found"
-    - "team-collaboration: no team policy, actors, or coordination backend recorded"
-    - "ai-infrastructure: no existing target AI infrastructure inventory beyond this adapter"
+  - blueprint-change
+  - consistency-map
+  - architecture-knowledge
+  - code-documentation
+  - project-vocabulary
+  - test-first-development
+  - extensions
+  - dependency-knowledge
+  - workspace-modes
+  - diagrams
+  - ai-infrastructure
+  - multi-assistant-bridges
+  - installed-operations
+  - large-task-orchestration
+  - subagent-delegation
+  - change-packages
+  - team-collaboration
+  - durable-approvals
+  - migration-diff
+  - effectiveness-metrics
+  - scaffolding
+  deferred: []
   blocked:
-    - "backup-owner: no separate backup owner found in target evidence"
-    - "target-local-checker: Alatyr source validator is available from the source checkout, but no target-local checker is committed"
+  - 'backup-owner: no separate backup owner found in target evidence'
 validation:
   commands:
-    - name: "install-dependencies"
-      command: "/usr/local/bin/composer8 install"
-      required_for:
-        - "code-local"
-        - "business-change"
-        - "architecture-change"
-        - "data-change"
-    - name: "unit-tests"
-      command: "/usr/local/bin/php8 vendor/bin/phpunit"
-      required_for:
-        - "code-local"
-        - "business-change"
-        - "data-change"
-    - name: "static-analysis-default-dbal"
-      command: "/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpstan analyse -c phpstan.neon --memory-limit=1G"
-      required_for:
-        - "code-local"
-        - "architecture-change"
-    - name: "static-analysis-dbal3"
-      command: "/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpstan analyse -c phpstan-dbal3.neon --memory-limit=1G"
-      required_for:
-        - "code-local"
-        - "architecture-change"
-    - name: "coding-standards"
-      command: "/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpcs -d memory_limit=1G"
-      required_for:
-        - "code-local"
-    - name: "documentation"
-      command: "/usr/local/bin/composer8 docs after ensuring the nested docs script resolves a PHP 8-compatible composer command"
-      required_for:
-        - "docs-local"
+  - name: install-dependencies
+    command: /usr/local/bin/composer8 install
+    required_for:
+    - code-local
+    - business-change
+    - architecture-change
+    - data-change
+  - name: unit-tests
+    command: /usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpunit
+    required_for:
+    - code-local
+    - business-change
+    - data-change
+  - name: static-analysis-default-dbal
+    command: /usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpstan analyse -c
+      phpstan.neon --memory-limit=1G
+    required_for:
+    - code-local
+    - architecture-change
+  - name: static-analysis-dbal3
+    command: /usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpstan analyse -c
+      phpstan-dbal3.neon --memory-limit=1G
+    required_for:
+    - code-local
+    - architecture-change
+  - name: coding-standards
+    command: /usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpcs -d memory_limit=1G
+    required_for:
+    - code-local
+  - name: documentation
+    command: /usr/local/bin/composer8 docs after ensuring the nested docs script resolves
+      a PHP 8-compatible composer command
+    required_for:
+    - docs-local
+  - name: alatyr-target-check
+    command: python3 tools/check_alatyr.py
+    required_for:
+    - adapter-change
+    - framework-upgrade
+    - ai-infrastructure
 operations:
-  gate_index: ".ai/assistant/gates/index.json"
-  index: ".ai/assistant/operation-index.json"
-  catalog: ".ai/assistant/operation-catalog.json"
-  routing: ".ai/assistant/flows/operation-routing.flow.md"
-  health: ".ai/assistant/flows/adapter-health.flow.md"
-  pre_change_preview: ".ai/assistant/templates/pre-change-preview.md"
-  documentation_sync: ".ai/assistant/flows/documentation-sync.flow.md"
-  help: ".ai/assistant/help.md"
-  help_reference: ".ai/assistant/help-reference.md"
-  operation_request: ".ai/assistant/templates/operation-request.md"
-  installation_note: ".ai/assistant/templates/installation-note.md"
-  output_contracts: ".ai/assistant/templates/adapter-output-contracts.md"
-  migration_note: ".ai/assistant/templates/migration-note.md"
+  gate_index: .ai/assistant/gates/index.json
+  index: .ai/assistant/operation-index.json
+  catalog: .ai/assistant/operation-catalog.json
+  routing: .ai/assistant/flows/operation-routing.flow.md
+  health: .ai/assistant/flows/adapter-health.flow.md
+  pre_change_preview: .ai/assistant/templates/pre-change-preview.md
+  documentation_sync: .ai/assistant/flows/documentation-sync.flow.md
+  help: .ai/assistant/help.md
+  help_reference: .ai/assistant/help-reference.md
+  operation_request: .ai/assistant/templates/operation-request.md
+  installation_note: .ai/assistant/templates/installation-note.md
+  output_contracts: .ai/assistant/templates/adapter-output-contracts.md
+  migration_note: .ai/assistant/templates/migration-note.md
+  diagram_discussion: .ai/assistant/flows/diagram-discussion.flow.md
+  diagram_presentation: .ai/assistant/templates/diagram-presentation.md
+  architecture_assistance: .ai/assistant/flows/architecture-assistance.flow.md
+  architecture_discussion_result: .ai/assistant/templates/architecture-discussion-result.md
+  code_documentation_profile_review: .ai/assistant/templates/code-documentation-profile-review.md
+  project_vocabulary: .ai/assistant/flows/project-vocabulary.flow.md
+  vocabulary_term_review: .ai/assistant/templates/vocabulary-term-review.md
+  test_first_configuration: .ai/assistant/flows/test-first-configuration.flow.md
+  test_first_change: .ai/assistant/flows/test-first-change.flow.md
+  test_first_evidence: .ai/assistant/templates/test-first-evidence.md
+  large_task_packet: .ai/assistant/templates/large-task-operation-packet.md
+  change_package_flow: .ai/assistant/flows/change-package.flow.md
+  change_package_index: .ai/assistant/change-packages/index.json
+  change_package_record: .ai/assistant/templates/change-package-record.json
+  change_package_report: .ai/assistant/templates/change-package-report.md
+  ai_infrastructure_inventory: .ai/assistant/templates/ai-infrastructure-inventory.md
+  ai_infrastructure_recommendation: .ai/assistant/templates/ai-infrastructure-recommendation.md
+  extension_management: .ai/assistant/flows/extension-lifecycle.flow.md
+  extension_review: .ai/assistant/templates/extension-review.md
+  extension_lifecycle_record: .ai/assistant/templates/extension-lifecycle-record.md
+  dependency_knowledge: .ai/assistant/flows/dependency-knowledge-sync.flow.md
+  dependency_knowledge_report: .ai/assistant/templates/dependency-knowledge-sync-report.md
+  workspace_mode: .ai/assistant/flows/workspace-mode.flow.md
+  workspace_mode_preflight: .ai/assistant/templates/workspace-mode-preflight.md
+  development_evidence_capture: .ai/assistant/flows/development-evidence-capture.flow.md
+  effectiveness_report: .ai/assistant/templates/effectiveness-report.md
 maturity:
-  profile: ".ai/assistant/maturity-profile.md"
+  profile: .ai/assistant/maturity-profile.md
 known_gaps:
-  - "No separate backup owner was found in target evidence; @atvardovsky is the only recorded adapter owner."
-  - "No existing CODEOWNERS file was found before installation; this install creates CODEOWNERS for adapter files only."
-  - "No target-local Alatyr checker is committed; validation currently uses the AlatyrCore source validator from the installation source checkout."
-  - "Non-blueprint optional Alatyr modules are deferred until target owners and policies are accepted."
-  - "Default php and composer binaries are not suitable for this branch in this workspace; use /usr/local/bin/php8 and /usr/local/bin/composer8."
-  - "Local SQLite lacks the SQRT SQL function; the full PHPUnit suite currently stops at Doctrine\\Tests\\ORM\\Functional\\QueryDqlFunctionTest::testFunctionSqrt in this environment."
+- No separate backup owner was found in target evidence; @atvardovsky is the only
+  recorded adapter owner.
+- No existing CODEOWNERS file was found before installation; this install creates
+  CODEOWNERS for adapter files only.
+- Default php and composer binaries are not suitable for this branch in this workspace;
+  use /usr/local/bin/php8 and /usr/local/bin/composer8.
+- Local SQLite lacks the SQRT SQL function; with /usr/local/bin/php8 -d memory_limit=1G
+  vendor/bin/phpunit the full PHPUnit suite runs 3486 tests and reports SQRT errors
+  in Doctrine\Tests\ORM\Functional\QueryDqlFunctionTest::testFunctionSqrt and Doctrine\Tests\ORM\Functional\Ticket\GH7941Test::typesShouldBeConvertedForDQLFunctions
+  in this environment.
+- Full Alatyr capability surface is installed and enabled in this branch; runtime-specific
+  assistant capabilities remain evidence-bound and unverified until each active client
+  proves them.
 local_deviations:
-  - "Installed standard framework pack without assistant-specific bridge files beyond AGENTS.md and AI_ASSISTANTS.md."
-  - "CODEOWNERS is scoped to Alatyr adapter files and root assistant entry points."
-  - "Accepted .ai/project/blueprint.md as the Doctrine ORM blueprint index for installed blueprint operations."
-  - "Accepted .ai/project/commit-policy.md as the Doctrine ORM project commit policy for logical commit scope and detailed English commit messages."
+- CODEOWNERS is scoped to Alatyr adapter files and root assistant entry points.
+- Accepted .ai/project/blueprint.md as the Doctrine ORM blueprint index for installed
+  blueprint operations.
+- Accepted .ai/project/commit-policy.md as the Doctrine ORM project commit policy
+  for logical commit scope and detailed English commit messages.
+- Expanded this branch to the complete Alatyr framework pack and enabled the full
+  optional capability graph with target-owned records.
+- Added tools/check_alatyr.py as the target-local wrapper for the Alatyr source validator;
+  ALATYR_CORE_SOURCE supplies the external checkout path at runtime.
+ai_infrastructure:
+  router: .ai/assistant/ai-infrastructure-router.json
+  inventory: .ai/assistant/templates/ai-infrastructure-inventory.md
+  recommendation: .ai/assistant/templates/ai-infrastructure-recommendation.md
+  adaptation_record: .ai/assistant/templates/ai-infrastructure-adaptation-record.md
+extensions:
+  index: .ai/assistant/extensions/README.md
+  catalog: .ai/assistant/extensions/catalog.json
+  lock: .ai/assistant/extensions/lock.json
+  intent: .ai/assistant/context/intents/extension-request.json
+  flow: .ai/assistant/flows/extension-lifecycle.flow.md
+  gate: .ai/assistant/gates/extensions.md
+  review: .ai/assistant/templates/extension-review.md
+  lifecycle_record: .ai/assistant/templates/extension-lifecycle-record.md
+dependency_knowledge:
+  index: .ai/project/dependencies/README.md
+  policy: .ai/project/dependencies/policy.json
+  catalog: .ai/project/dependencies/catalog.json
+  lock: .ai/project/dependencies/knowledge-lock.json
+  deviations: .ai/project/dependencies/deviations.json
+  snapshots: .ai/project/dependencies/snapshots
+  intent: .ai/assistant/context/intents/dependency-knowledge-request.json
+  flow: .ai/assistant/flows/dependency-knowledge-sync.flow.md
+  gate: .ai/assistant/gates/dependency-knowledge.md
+  report: .ai/assistant/templates/dependency-knowledge-sync-report.md
+workspace_modes:
+  index: .ai/project/workspace-modes/README.md
+  catalog: .ai/project/workspace-modes/catalog.json
+  root_context: .ai/project/workspace-modes/root/context.json
+  modes: .ai/project/workspace-modes/modes
+  mode_template: .ai/project/workspace-modes/modes/_template/mode.json
+  intent: .ai/assistant/context/intents/workspace-mode-request.json
+  flow: .ai/assistant/flows/workspace-mode.flow.md
+  gate: .ai/assistant/gates/workspace-mode.md
+  suggestion: .ai/assistant/templates/workspace-mode-suggestion.md
+  preflight: .ai/assistant/templates/workspace-mode-preflight.md
+team_collaboration:
+  policy: .ai/project/team-policy.json
+  operating_model: .ai/project/team-operating-model.md
+  context_overlay: .ai/assistant/team/context-overlay.json
+  work_registry: .ai/assistant/team/work-registry.json
+  active_work_index: .ai/assistant/team/active-work-index.json
+  task_records_directory: .ai/assistant/team/tasks
+  task_record_template: .ai/assistant/team/task-record-template.json
+  backend_contract: .ai/assistant/team/backend-contract.json
+  local_identity: .ai/local/team-identity.json
+  identity_example: .ai/assistant/templates/team-identity.example.json
+  identity_flow: .ai/assistant/flows/team-identity.flow.md
+  skill: .ai/assistant/skills/team-collaboration/SKILL.md
+  collaboration_review: .ai/assistant/templates/team-collaboration-review.md
+  gate: .ai/assistant/gates/team-collaboration.md
+  coordination_backend: repository
+  canonical_task_source: .ai/assistant/team/work-registry.json
+  synchronization_direction: manual-repository-local
+  record_storage: commit reviewed repository-local task summaries only
+  retention_policy: retain committed summaries while relevant to branch history
+  privacy_policy: no raw private chat, secrets, credentials, or personal data
+bridges:
+  capability_matrix: .ai/assistant/bridge-capability-matrix.md
+  capabilities: .ai/assistant/assistant-capabilities.json
+approvals:
+  directory: .ai/assistant/approvals
+  template: .ai/assistant/approvals/approval-template.md
+  machine_template: .ai/assistant/approvals/approval-record-template.json
+change_packages:
+  directory: .ai/assistant/change-packages
+  index: .ai/assistant/change-packages/index.json
+  machine_template: .ai/assistant/templates/change-package-record.json
+  human_report_template: .ai/assistant/templates/change-package-report.md
+  retention_policy: commit compact reviewed records only; do not include secrets or
+    raw private chat
+code_documentation:
+  catalog: .ai/project/documentation/catalog.json
+  profiles: .ai/project/documentation/profiles.json
+  intent: .ai/assistant/context/intents/code-documentation.json
+  flow: .ai/assistant/flows/documentation-sync.flow.md
+  skill: .ai/assistant/skills/code-documentation/SKILL.md
+  profile_review: .ai/assistant/templates/code-documentation-profile-review.md
+project_vocabulary:
+  catalog: .ai/project/vocabulary/catalog.json
+  terms: .ai/project/vocabulary/terms.json
+  data_dictionary_links: .ai/project/vocabulary/data-dictionary-links.json
+  intent: .ai/assistant/context/intents/vocabulary-request.json
+  flow: .ai/assistant/flows/project-vocabulary.flow.md
+  skill: .ai/assistant/skills/project-vocabulary/SKILL.md
+  term_review: .ai/assistant/templates/vocabulary-term-review.md
+test_first_development:
+  policy: .ai/project/testing/test-first-policy.json
+  intent: .ai/assistant/context/intents/test-first-request.json
+  configuration_flow: .ai/assistant/flows/test-first-configuration.flow.md
+  change_flow: .ai/assistant/flows/test-first-change.flow.md
+  gate: .ai/assistant/gates/test-first-development.md
+  skill: .ai/assistant/skills/test-first-development/SKILL.md
+  evidence: .ai/assistant/templates/test-first-evidence.md
+policies:
+  source_access: .ai/assistant/policies/ai-infrastructure-source-access.md
+  prompt_injection: .ai/assistant/policies/prompt-injection.md

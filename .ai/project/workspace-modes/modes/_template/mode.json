@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "descriptor_kind": "target-workspace-mode",
+  "id": "<mode-id>",
+  "title": "<mode-title>",
+  "state": "<proposed-accepted-disabled-deprecated-or-blocked>",
+  "mode_kind": "<application-development-framework-development-library-development-skeleton-development-dependency-integration-dependency-contribution-skeleton-migration-workspace-coordination-or-custom>",
+  "purpose": "<bounded-mode-purpose>",
+  "owner": "<target-mode-owner>",
+  "decision_authority": "<target-mode-decision-authority>",
+  "last_reviewed": "<yyyy-mm-dd-or-unresolved>",
+  "evidence_revision": "<target-revision-or-unresolved>",
+  "workspace_scope": {
+    "root": ".",
+    "include": [],
+    "exclude": []
+  },
+  "use_when": [
+    "<positive-mode-selection-signal>"
+  ],
+  "do_not_use_when": [
+    "<negative-mode-selection-signal>"
+  ],
+  "relationships": [
+    {
+      "subject": "<workspace-package-skeleton-or-source-id>",
+      "relationship": "<workspace-root-workspace-member-dependency-scaffold-origin-or-vendored-source>",
+      "adapter_role": "<active-passive-or-provenance-only>",
+      "ownership": "<target-upstream-or-mixed>",
+      "evidence": [
+        "<target-relative-relationship-evidence>"
+      ]
+    }
+  ],
+  "context": {
+    "root_context": "<inherit-required-or-skip>",
+    "required_context": [],
+    "conditional_context": []
+  },
+  "source_of_truth_ids": [],
+  "validation_entry_point_ids": [],
+  "constraints": {
+    "narrows_allowed_actions": [],
+    "grants_write_scope": false,
+    "grants_approval": false,
+    "grants_permissions": false,
+    "grants_authority": false,
+    "grants_tools": false,
+    "activates_nested_adapters": false,
+    "bypasses_gates": false
+  },
+  "known_gaps": []
+}

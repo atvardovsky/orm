@@ -38,7 +38,7 @@ Core owners: `composer.json`, selected `src/` and `tests/` files,
 `CONTRIBUTING.md`, `.ai/project/blueprint.md`, and
 `.ai/project/source-of-truth-registry.md`.
 
-Validation: `/usr/local/bin/php8 vendor/bin/phpunit`,
+Validation: `/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpunit`,
 `/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpstan analyse -c phpstan.neon --memory-limit=1G`,
 `/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpstan analyse -c phpstan-dbal3.neon --memory-limit=1G`,
 and `/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpcs -d memory_limit=1G`
@@ -53,7 +53,7 @@ Core owners: `.ai/project/business-logic.md`,
 `.ai/project/blueprint.md`, `README.md`, `docs/en/reference/*.rst`, selected
 source/tests, semantic-integrity gate, and final-evidence gate.
 
-Validation: `/usr/local/bin/php8 vendor/bin/phpunit` plus relevant docs/manual
+Validation: `/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpunit` plus relevant docs/manual
 review. Approval is required before accepted behavior or public contract
 changes.
 
@@ -83,7 +83,7 @@ Core owners: `.ai/project/blueprint.md`,
 `docs/en/reference/unitofwork.rst`, selected persistence source/tests,
 semantic-integrity gate, code-and-tests gate, and final-evidence gate.
 
-Validation: `/usr/local/bin/php8 vendor/bin/phpunit` with relevant database
+Validation: `/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpunit` with relevant database
 configuration and manual persistence review. Destructive or data-loss risk
 requires explicit approval.
 
@@ -126,42 +126,51 @@ reviewing, or amending a commit.
 ## Installed Operations
 
 Installed operations come only from `.ai/assistant/operation-catalog.json` and
-`.ai/assistant/operation-index.json`. The current installed set is:
+`.ai/assistant/operation-index.json`. The current full-profile installed set is:
 
 - `help`
 - `adapter-health`
 - `create-project-blueprint`
+- `architecture-assistance`
 - `recheck-after-installation`
 - `recheck-after-framework-update`
 - `product-change`
+- `large-task`
+- `team-identity`
+- `team-status`
+- `team-task`
+- `team-conflict-review`
+- `team-handoff`
+- `team-decision`
+- `team-review`
+- `team-merge-check`
 - `logical-integrity-review`
+- `diagram-discussion`
+- `ai-infrastructure-inventory`
+- `ai-infrastructure-recommendation`
+- `skill-adaptation`
+- `extension-management`
+- `dependency-knowledge`
+- `workspace-mode`
 - `drift-review`
 - `documentation-sync`
+- `project-vocabulary`
+- `test-first-configuration`
+- `test-first-change`
 - `adapter-maturity-review`
 
-Do not route to optional-module operations unless the module is enabled in
-`.ai/assistant/module-profile.md`, the operation is added to the catalog and
+Do not route to an operation unless its module is enabled in
+`.ai/assistant/module-profile.md`, the operation is projected in the compact
 index, and the referenced flow exists.
 
 ## Deferred Optional Modules
 
-`blueprint-change` is enabled. Non-blueprint optional modules are deferred
-until target owners, policies, files, and validation are accepted. Deferred
-modules must not create routing obligations, missing-file failures, or approval
-bypasses.
-
-Current deferred optional modules recorded by this adapter:
-
-- `architecture-knowledge`
-- `test-first-development`
-- `diagrams`
-- `team-collaboration`
-- `ai-infrastructure`
-
-Other Alatyr Core optional capabilities remain unavailable unless a future
-adapter expansion records them in `.ai/alatyr.yaml`,
+No optional Alatyr modules are deferred in this branch. The manifest uses
+`installation.support_profile: full`, `framework.pack: complete`, and records
+the full optional capability graph as enabled. Any future module disablement,
+blocker, or deferral must be recorded in `.ai/alatyr.yaml`,
 `.ai/assistant/module-profile.md`, the operation catalog, and the relevant
-target files.
+target-owned support files.
 
 ## Final Evidence
 
@@ -169,3 +178,13 @@ For every routed task, report selected profile and project areas, changed
 facts/files, source-of-truth owners, invariant/integrity result, validation run
 or skipped with reason, approval scope when used, context expansion, and
 residual risk.
+
+## Full Capability Overlays
+
+This branch enables the full Alatyr capability graph. The router includes intent overlays for architecture, diagrams, code documentation, dependency knowledge, vocabulary, test-first work, extensions, workspace modes, and AI infrastructure. Task-scale overlays cover large or resumable work, delegated execution, change packages, and active team coordination. Area overlays include architecture, dependencies, documentation knowledge, vocabulary, testing policy, team, workspace modes, and AI infrastructure in addition to the original Doctrine `src`, `tests`, `docs`, `business-logic`, `ci`, and `commits` overlays.
+
+Runtime-specific assistant bridge capabilities remain evidence-bound; load `.ai/assistant/assistant-capabilities.json` and `.ai/assistant/bridge-capability-matrix.md` before relying on a non-Codex bridge or delegated execution.
+
+## Profile: `ai-infrastructure`
+
+Use for AI infrastructure inventory, recommendation, skill, prompt, bridge, wrapper, MCP, checker, gate, flow, template, permission, or assistant capability changes. Load `.ai/assistant/context/profiles/ai-infrastructure.json`, `.ai/assistant/ai-infrastructure-router.json`, `.ai/assistant/assistant-capabilities.json`, and selected target item records only when the task needs them.

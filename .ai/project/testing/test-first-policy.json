@@ -1,0 +1,157 @@
+{
+  "schema_version": 1,
+  "policy_kind": "target-test-first-development-policy",
+  "project": "Doctrine ORM",
+  "state": "enabled",
+  "owner": "@atvardovsky",
+  "decision_authority": "@atvardovsky",
+  "last_reviewed": "2026-08-21",
+  "evidence_revision": "454db525ccce95aff1057cb57726900560374970",
+  "suggestion": {
+    "mode": "advisory",
+    "minimum_result": "recommended",
+    "max_per_task": 1,
+    "suppress_after_decline": true,
+    "cost_statement_required": true
+  },
+  "available_modes": [
+    "strict-tdd",
+    "regression-first",
+    "characterization-first",
+    "contract-first",
+    "test-after-with-reason"
+  ],
+  "activation_triggers": [
+    {
+      "id": "behavior-or-bugfix",
+      "state": "recommended",
+      "changed_fact_classes": [
+        "product behavior",
+        "business rule",
+        "data model",
+        "validation command",
+        "security policy"
+      ],
+      "conditions": [
+        "implementation or test behavior may change"
+      ],
+      "mode": "regression-first",
+      "test_level_ids": [
+        "focused-phpunit"
+      ],
+      "exceptions": [
+        "docs-only-no-behavior-change"
+      ]
+    },
+    {
+      "id": "public-contract-or-persistence",
+      "state": "recommended",
+      "changed_fact_classes": [
+        "public API",
+        "persistence contract",
+        "mapping metadata",
+        "query semantics"
+      ],
+      "conditions": [
+        "accepted behavior or persistence contract may change"
+      ],
+      "mode": "contract-first",
+      "test_level_ids": [
+        "focused-phpunit",
+        "static-analysis"
+      ],
+      "exceptions": [
+        "docs-only-no-behavior-change"
+      ]
+    }
+  ],
+  "test_levels": [
+    {
+      "id": "focused-phpunit",
+      "purpose": "Focused PHPUnit proof for the changed ORM contract",
+      "paths": [
+        "tests/Tests/ORM/**/*.php"
+      ],
+      "command_ids": [
+        "phpunit-focused"
+      ],
+      "feedback_time": "task-dependent; use focused filters when possible",
+      "fixtures_and_helpers": [
+        "existing Doctrine ORM test fixtures and database configuration"
+      ]
+    },
+    {
+      "id": "static-analysis",
+      "purpose": "Static contract check for code changes",
+      "paths": [
+        "src/**/*.php",
+        "tests/**/*.php"
+      ],
+      "command_ids": [
+        "phpstan-default",
+        "phpstan-dbal3",
+        "phpcs"
+      ],
+      "feedback_time": "minutes in this workspace",
+      "fixtures_and_helpers": [
+        "composer dependencies"
+      ]
+    }
+  ],
+  "commands": [
+    {
+      "id": "phpunit-focused",
+      "command": "/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpunit with relevant --filter or path",
+      "scope": "focused changed contract",
+      "live_external_actions": "forbidden"
+    },
+    {
+      "id": "phpstan-default",
+      "command": "/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpstan analyse -c phpstan.neon --memory-limit=1G",
+      "scope": "static analysis default DBAL profile",
+      "live_external_actions": "forbidden"
+    },
+    {
+      "id": "phpstan-dbal3",
+      "command": "/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpstan analyse -c phpstan-dbal3.neon --memory-limit=1G",
+      "scope": "static analysis DBAL3 profile",
+      "live_external_actions": "forbidden"
+    },
+    {
+      "id": "phpcs",
+      "command": "/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpcs -d memory_limit=1G",
+      "scope": "coding standards",
+      "live_external_actions": "forbidden"
+    }
+  ],
+  "isolation": {
+    "clock": "use existing Doctrine test helpers when time-sensitive",
+    "randomness": "avoid randomness or seed explicitly",
+    "database": "use target PHPUnit DB configuration; report local SQLite SQRT blocker",
+    "queue": "not applicable",
+    "filesystem": "use test temp directories only",
+    "network": "forbidden unless explicitly approved",
+    "secrets": "never require secrets for local tests"
+  },
+  "exceptions": [
+    {
+      "id": "docs-only-no-behavior-change",
+      "condition": "Only documentation or Alatyr support metadata changes and no source, test, public behavior, CI, or validation behavior changes.",
+      "approval": "Record docs-only scope and validation in final evidence.",
+      "alternative_validation": "Run adapter validator, parse checks, and targeted documentation review.",
+      "required_reason": true
+    }
+  ],
+  "evidence_requirements": [
+    "changed fact and owner",
+    "trigger result and selected mode",
+    "observable acceptance examples",
+    "RED command result and expected failure reason when using test-first",
+    "GREEN command result for the same focused contract",
+    "refactor result or skip reason",
+    "broader validation and residual risk"
+  ],
+  "known_gaps": [
+    "Full local PHPUnit runs with a 1G memory limit but reports SQLite SQRT errors for QueryDqlFunctionTest::testFunctionSqrt and GH7941Test::typesShouldBeConvertedForDQLFunctions in this workspace."
+  ]
+}

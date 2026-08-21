@@ -20,7 +20,7 @@ Derived surfaces:
 - `docs/`
 
 Sync direction: accepted docs and code changes must be reconciled both ways before final evidence
-Validation or manual review: `/usr/local/bin/php8 vendor/bin/phpunit` and relevant docs/manual review
+Validation or manual review: `/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpunit` and relevant docs/manual review
 Conflict resolver: repository owner or upstream Doctrine maintainer review when contributing back
 Approval trigger: accepted public behavior change or weakened validation
 Final evidence: changed facts, docs/source/test sync, validation, residual risk
@@ -42,7 +42,7 @@ Derived surfaces:
 - `docs/en/reference/`
 
 Sync direction: implementation, tests, and docs must be reconciled before final evidence
-Validation or manual review: `/usr/local/bin/php8 vendor/bin/phpunit`; docs review for public behavior
+Validation or manual review: `/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpunit`; docs review for public behavior
 Conflict resolver: repository owner or upstream Doctrine maintainer review when contributing back
 Approval trigger: accepted behavior or public contract change
 Final evidence: changed rule, owner evidence, tests/docs sync, residual risk
@@ -109,7 +109,7 @@ Derived surfaces:
 - `tests/Tests/ORM/`
 
 Sync direction: docs, source, and tests must be reconciled before final evidence
-Validation or manual review: `/usr/local/bin/php8 vendor/bin/phpunit` with relevant database configuration when needed
+Validation or manual review: `/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpunit` with relevant database configuration when needed
 Conflict resolver: repository owner or upstream Doctrine maintainer review when contributing back
 Approval trigger: persistence behavior, schema, identity, query, or data-loss risk change
 Final evidence: affected data facts, validation, rollback or residual risk
@@ -245,3 +245,28 @@ Validation or manual review: manual review only
 Conflict resolver: repository owner
 Approval trigger: enabling persistent development-evidence capture or assistant recommendation records
 Final evidence: module remains deferred unless separately accepted
+
+### Fact Type: `alatyr full capability`
+
+Fact type: `alatyr full capability`
+Canonical owner: `.ai/assistant/module-profile.md` and `.ai/alatyr.yaml`
+Consistency level: adapter-owned current state with target evidence review
+Project area: `assistant-adapter`, `ai-infrastructure`, `architecture`, `dependencies`, `testing`, `team`, `vocabulary`, `workspace-modes`
+Consistency map node: `.ai/project/consistency-map.json`
+Relationship coverage: module profile, capability catalog, context router, operation catalog/index, gate index, bridge capability matrix, target-owned project catalogs, and bootstrap index
+Invariant and dependency constraints: enabled modules must have dependency closure, owner files, routed context, installed flows/templates/gates where required, and no unresolved brace placeholders
+Derived surfaces:
+
+- `.ai/alatyr.yaml`
+- `.ai/assistant/module-profile.md`
+- `.ai/assistant/context-router.json`
+- `.ai/assistant/operation-catalog.json`
+- `.ai/assistant/operation-index.json`
+- `.ai/assistant/gates/index.json`
+- `.ai/assistant/bootstrap-index.json`
+
+Sync direction: capability enablement changes must update manifest, module profile, router, operations, gates, help/bridge surfaces, target owner records, and bootstrap together
+Validation or manual review: adapter validator, module closure audit, JSON/YAML parse, placeholder/local-path scan, markdown/front-matter review, and git diff check
+Conflict resolver: `.ai/framework/capabilities.json` defines available module contracts; `.ai/assistant/module-profile.md` and `.ai/alatyr.yaml` define target enablement
+Approval trigger: weakening capability gates, enabling external permissions, importing AI infrastructure, or broadening protected action scope
+Final evidence: enabled modules, synchronized surfaces, validation, runtime capability limits, and residual risk

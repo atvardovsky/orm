@@ -14,7 +14,7 @@ This contour describes how assistants operate in Doctrine ORM.
 - installed-operation request, adapter-recheck, framework-update review, help, and preview flows
 - operation catalog and compact operation index
 - documentation-sync rules and final evidence requirements
-- required core profile, deferred optional modules, blocked module gaps, framework version, adapter schema version, template version, known gaps, and local deviations
+- required core profile, enabled optional modules, blocked module gaps, framework version, adapter schema version, template version, known gaps, and local deviations
 
 ## Does Not Own
 

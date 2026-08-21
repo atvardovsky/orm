@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "template_kind": "target-team-task-record-template",
+  "id": "task-id",
+  "name": "short task name",
+  "goal": "specific task goal",
+  "non_goals": [],
+  "priority": "normal",
+  "status": "proposed",
+  "requested_by_actor_id": "atvardovsky",
+  "owner_actor_id": "codex",
+  "reviewer_actor_ids": [
+    "atvardovsky"
+  ],
+  "branch_or_worktree": "current branch",
+  "allowed_actions": [
+    "read-only",
+    "docs-only",
+    "adapter-only",
+    "code-and-tests",
+    "full-with-approval as approved"
+  ],
+  "context_profiles": [],
+  "project_areas": [],
+  "changed_fact_ids": [],
+  "canonical_owner_refs": [],
+  "expected_surfaces": [],
+  "dependencies": [],
+  "blockers": [],
+  "approval_records": [],
+  "validation_state": "not-run",
+  "residual_risks": [],
+  "next_action": "define next responsible action",
+  "updated_at": "2026-08-21"
+}

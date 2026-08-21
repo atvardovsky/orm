@@ -22,7 +22,7 @@ These names are assistant request shortcuts, not shell commands.
 - Business logic layer: `.ai/project/business-logic.md`
 - Commit policy: `.ai/project/commit-policy.md`
 - Project source of truth: `README.md, docs/en/reference/*.rst, SECURITY.md, CONTRIBUTING.md, composer.json, tests/README.markdown, and CI workflows`
-- Target validation: `/usr/local/bin/composer8 install`; `/usr/local/bin/php8 vendor/bin/phpunit`; `/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpstan analyse -c phpstan.neon --memory-limit=1G`; `/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpstan analyse -c phpstan-dbal3.neon --memory-limit=1G`; `/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpcs -d memory_limit=1G`; docs validation only after the docs script resolves a PHP 8-compatible composer command
+- Target validation: `/usr/local/bin/composer8 install`; `/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpunit`; `/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpstan analyse -c phpstan.neon --memory-limit=1G`; `/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpstan analyse -c phpstan-dbal3.neon --memory-limit=1G`; `/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpcs -d memory_limit=1G`; docs validation only after the docs script resolves a PHP 8-compatible composer command
 - Approval constraints: `explicit approval required for protected behavior, architecture, security, dependency, live, destructive, or weakened-gate changes`
 
 ## Entry Behavior
@@ -141,3 +141,7 @@ Reject or revise routing that:
 - claims adapter health without fresh evidence
 - claims target validation exists without target evidence
 - claims a diagram was rendered without current surface capability evidence
+
+## Full Capability Routing
+
+This branch enables all Alatyr catalog modules. Route optional-module aliases through `.ai/assistant/operation-index.json` and `.ai/assistant/operation-catalog.json`; load module owners from `.ai/assistant/module-profile.md` and project records before acting. Runtime bridge, delegation, extension, external-source, permission, dependency, live-service, destructive, or security-sensitive actions still require evidence and approval gates.

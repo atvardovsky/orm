@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "policy_kind": "target-subagent-delegation-policy",
+  "state": "suggest-only",
+  "owner": "@atvardovsky",
+  "decision_mode": "suggest-only",
+  "default_preference": "require-supported",
+  "max_parallel_delegates": 3,
+  "requirements": {
+    "primary_keeps_critical_path": true,
+    "independent_local_acceptance": true,
+    "disjoint_write_scope": true,
+    "primary_final_convergence": true,
+    "current_capability_evidence": true
+  },
+  "eligible_work": [
+    "read-only inventory",
+    "independent file inspection",
+    "focused documentation draft",
+    "isolated validation review"
+  ],
+  "prohibited_work": [
+    "unresolved business rules or semantic invariants",
+    "architecture or source-of-truth decisions",
+    "approval or decision authority",
+    "security permissions credentials destructive production spend migration or external-effect work",
+    "overlapping write scopes or final convergence",
+    "commit creation or push authority"
+  ],
+  "roles": [
+    {
+      "id": "fast-focused-worker",
+      "state": "enabled",
+      "use_when": [
+        "small focused reversible context-bounded work",
+        "objective local validation exists",
+        "disjoint file scope is explicit"
+      ],
+      "allowed_actions": [
+        "read-only",
+        "docs-only",
+        "adapter-only"
+      ],
+      "allowed_tools": [
+        "repository read-only or scoped file edits as delegated by primary"
+      ],
+      "max_files": 12,
+      "max_context_words": 6000,
+      "model_binding": {
+        "assistant_surface": "codex",
+        "selection_mode": "client-default",
+        "model": "inherit",
+        "availability": "supported",
+        "verified_at": "2026-08-21",
+        "client_version": "Codex CLI session",
+        "evidence": "multi-agent tools advertised through tool discovery",
+        "expires_at": "review when tool availability changes"
+      },
+      "required_validation": [
+        "primary reviews output and runs applicable checks"
+      ],
+      "fallback": "continue primary or stop when unsupported"
+    }
+  ],
+  "result_policy": {
+    "accept_out_of_scope_changes": false,
+    "accept_unvalidated_changes": false,
+    "require_primary_review": true,
+    "require_actual_model_or_unverified_status": true
+  },
+  "privacy_and_retention": "Store only task packet summaries; do not store raw private chat, secrets, or credentials.",
+  "validation": [
+    "JSON parse, adapter validator, manual policy review"
+  ],
+  "review_triggers": [
+    "assistant client or model availability changed",
+    "tool permission or write-isolation behavior changed",
+    "delegated work caused rework validation failure or scope drift",
+    "user changes delegation preference"
+  ]
+}

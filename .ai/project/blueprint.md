@@ -72,8 +72,10 @@ This workspace has PHP 8.2 at `/usr/local/bin/php8` and Composer 2.8 at
 `/usr/local/bin/composer8`. The plain `php` and `composer` commands are older
 and are not suitable for this branch.
 
-Local SQLite is available but lacks the SQL `SQRT()` function, so the full
-PHPUnit suite currently stops at
-`Doctrine\Tests\ORM\Functional\QueryDqlFunctionTest::testFunctionSqrt` in this
+Local SQLite is available but lacks the SQL `SQRT()` function, so the full PHPUnit suite runs to completion with a 1G PHP memory limit but reports SQLite `SQRT()` errors in `Doctrine\Tests\ORM\Functional\QueryDqlFunctionTest::testFunctionSqrt` and `Doctrine\Tests\ORM\Functional\Ticket\GH7941Test::typesShouldBeConvertedForDQLFunctions` in this
 environment. Treat that as an environment constraint unless the SQLite runtime
 is changed or the test profile is adjusted.
+
+## Full Alatyr Capability Routing
+
+Full Alatyr work routes through the enabled module graph in `.ai/assistant/module-profile.md`. Optional capability records are accepted target-owned routing layers and must stay synchronized with `.ai/project/source-of-truth-registry.md`, `.ai/project/consistency-map.json`, `.ai/assistant/context-router.json`, `.ai/assistant/operation-catalog.json`, `.ai/assistant/gates/index.json`, and the generated bootstrap index.

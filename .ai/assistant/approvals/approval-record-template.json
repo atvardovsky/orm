@@ -1,0 +1,67 @@
+{
+  "schema_version": 2,
+  "record_kind": "alatyr-approval-record",
+  "evidence_classification": "historical-record",
+  "approval_id": "<approval-id>",
+  "operation": {
+    "id": "<operation-id>",
+    "type": "<operation-type>"
+  },
+  "plan": {
+    "version": "<plan-version>",
+    "sha256": "<plan-sha256-or-not-available-with-reason>",
+    "file": "<target-relative-plan-file-or-not-available-with-reason>"
+  },
+  "diff": {
+    "base": "<approved-git-diff-base>",
+    "patch_sha256": "<patch-sha256-or-not-available-with-reason>",
+    "repository_revision_at_approval": "<repository-revision-at-approval>"
+  },
+  "scope": {
+    "allowed_protected_changes": [
+      "<allowed-protected-change>"
+    ],
+    "allowed_changed_fact_ids": [
+      "<allowed-changed-fact-id>"
+    ],
+    "allowed_architecture_areas": [
+      "<allowed-architecture-area-or-none>"
+    ],
+    "allowed_behavior_categories": [
+      "<allowed-behavior-category>"
+    ],
+    "excluded_semantic_effects": [
+      "<excluded-semantic-effect-or-none>"
+    ],
+    "permitted_external_effects": [
+      "<permitted-external-effect-or-none>"
+    ],
+    "allowed_files_or_surfaces": [
+      "<target-relative-file-or-glob>"
+    ],
+    "excluded_files_or_surfaces": [
+      "<target-relative-file-or-glob-or-none>"
+    ],
+    "excluded_actions": [
+      "<excluded-action>"
+    ],
+    "allowed_actions_mode": "<read-only-docs-only-adapter-only-code-and-tests-or-full-with-approval>",
+    "invalidation_rule": "<approval-invalidation-rule>"
+  },
+  "approval": {
+    "requested_by": "<requested-by>",
+    "approved_by": "<approved-by>",
+    "approved_at": "<approved-at>",
+    "source_or_message": "<approval-source-or-message-reference>",
+    "expires_at_or_reuse_policy": "<expiration-or-reuse-policy>"
+  },
+  "use_result": {
+    "used_by": "<task-operation-or-change-reference>",
+    "patch_changed_after_approval": "<yes-no-and-reason>",
+    "implementation_within_scope": "<yes-no-and-reason>",
+    "declared_semantic_scope_within_approval": "<yes-no-and-reason>",
+    "validation": "<validation-run-or-skipped-with-reason>",
+    "result_evidence": "<result-or-evidence-reference>",
+    "residual_risk": "<residual-risk>"
+  }
+}

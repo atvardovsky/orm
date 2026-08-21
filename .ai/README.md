@@ -59,3 +59,9 @@ known gaps, and local deviations.
 
 If adapter state is unclear, load `.ai/assistant/templates/installation-note.md`
 and run the read-only `Alatyr status` operation before broad work.
+
+## Full Alatyr Capability Set
+
+This branch uses the complete Alatyr framework pack and enables the full optional capability graph recorded in `.ai/assistant/module-profile.md`: consistency map, architecture knowledge, code documentation, project vocabulary, test-first development, dependency knowledge, workspace modes, diagrams, AI infrastructure, multi-assistant bridges, installed operations, large-task orchestration, subagent delegation, change packages, team collaboration, durable approvals, migration diff, effectiveness metrics, extensions, and scaffolding.
+
+Capability use remains evidence-bound: runtime bridge, delegation, extension, network, permission, dependency, and protected project changes require the relevant owner files, gates, validation, and approval before action.

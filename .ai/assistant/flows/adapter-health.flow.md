@@ -22,7 +22,7 @@ doctor`, or a request for the current installed adapter state.
 - Module profile: `.ai/assistant/module-profile.md`
 - Maturity profile: `.ai/assistant/maturity-profile.md`
 - Adapter recheck flow: `.ai/assistant/flows/adapter-recheck.flow.md`
-- Target validation: `/usr/local/bin/composer8 install`; `/usr/local/bin/php8 vendor/bin/phpunit`; `/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpstan analyse -c phpstan.neon --memory-limit=1G`; `/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpstan analyse -c phpstan-dbal3.neon --memory-limit=1G`; `/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpcs -d memory_limit=1G`; docs validation only after the docs script resolves a PHP 8-compatible composer command
+- Target validation: `/usr/local/bin/composer8 install`; `/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpunit`; `/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpstan analyse -c phpstan.neon --memory-limit=1G`; `/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpstan analyse -c phpstan-dbal3.neon --memory-limit=1G`; `/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpcs -d memory_limit=1G`; docs validation only after the docs script resolves a PHP 8-compatible composer command
 
 ## Steps
 

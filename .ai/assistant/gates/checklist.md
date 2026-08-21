@@ -67,17 +67,14 @@ tests, business-logic layer, blueprint, registry, or gate update was needed.
 Target commands or manual checks recorded for this workspace:
 
 - `/usr/local/bin/composer8 install`
-- `/usr/local/bin/php8 vendor/bin/phpunit`
+- `/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpunit`
 - `/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpstan analyse -c phpstan.neon --memory-limit=1G`
 - `/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpstan analyse -c phpstan-dbal3.neon --memory-limit=1G`
 - `/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpcs -d memory_limit=1G`
 - docs validation after the docs script resolves a PHP 8-compatible composer
   command
 
-Known local blocker: SQLite 3.31.1 lacks SQL `SQRT()`, so the full PHPUnit
-suite stops at
-`Doctrine\Tests\ORM\Functional\QueryDqlFunctionTest::testFunctionSqrt` in this
-environment unless SQLite/runtime/test profile changes.
+Known local blocker: SQLite 3.31.1 lacks SQL `SQRT()`, so the full PHPUnit suite reports errors in `Doctrine\Tests\ORM\Functional\QueryDqlFunctionTest::testFunctionSqrt` and `Doctrine\Tests\ORM\Functional\Ticket\GH7941Test::typesShouldBeConvertedForDQLFunctions` in this environment unless SQLite/runtime/test profile changes.
 
 ## Adapter Drift Checks
 
@@ -91,7 +88,7 @@ For adapter health, installation recheck, or framework update work, verify:
 - no unresolved all-caps brace-style placeholder markers remain in active files;
 - no local temp or absolute checkout paths leak into adapter files;
 - optional-module references are clearly deferred or guarded;
-- target-local checker status is reported as missing unless one is installed;
+- target-local checker status is reported from `tools/check_alatyr.py` when `ALATYR_CORE_SOURCE` is configured;
 - `git diff --check` passes.
 
 ## Final Evidence
@@ -100,3 +97,7 @@ Every completed task reports selected operation/profile, changed facts/files,
 source-of-truth owners, invariant/integrity result, validation run or skipped
 with reason, approvals used, context expansion when relevant, commit-policy
 check when committing, and residual risk.
+
+## Full Capability Gate Additions
+
+For full Alatyr work, also check capability dependency closure, module owner files, intent overlays, task-scale overlays, bridge/runtime evidence, durable approval records when protected scope is crossed, and module-specific gates for dependency knowledge, workspace modes, extensions, team collaboration, and test-first development.

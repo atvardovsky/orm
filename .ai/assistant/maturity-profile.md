@@ -9,10 +9,10 @@ Reviewed by: Codex installation for @atvardovsky
 Blocking gaps:
 
 - no separate backup owner recorded
-- no target-local Alatyr checker committed
-- non-blueprint optional modules deferred until target owners and policies are accepted
+- target-local Alatyr checker wrapper committed at tools/check_alatyr.py
+- full optional module graph enabled with target-owned policies and records
 - default `php` and `composer` binaries are not suitable for this branch in this workspace
-- local SQLite lacks the SQL `SQRT()` function required by part of the PHPUnit suite
+- local SQLite lacks the SQL `SQRT()` function required by two full-suite PHPUnit tests
 
 ## Documentation Work
 
@@ -86,7 +86,7 @@ Required context:
 - `.ai/project/source-of-truth-registry.md`
 
 Required owners present: yes for code/test surfaces; manual impact closure required
-Validation or manual review: `/usr/local/bin/php8 vendor/bin/phpunit`, `/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpstan analyse -c phpstan.neon --memory-limit=1G`, `/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpstan analyse -c phpstan-dbal3.neon --memory-limit=1G`, `/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpcs -d memory_limit=1G` as applicable
+Validation or manual review: `/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpunit`, `/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpstan analyse -c phpstan.neon --memory-limit=1G`, `/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpstan analyse -c phpstan-dbal3.neon --memory-limit=1G`, `/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpcs -d memory_limit=1G` as applicable
 Approval needs: approval required for protected categories or weakened validation
 Blocking criteria: unavailable source-of-truth owner for semantic behavior changes
 Residual risks: no consistency map; database extension availability varies by test profile
@@ -161,7 +161,7 @@ Required owners present: @atvardovsky for adapter files; backup owner missing
 Validation or manual review: Alatyr source validator from installation source; manual review if unavailable
 Approval needs: approval required before overwriting existing instructions, weakening gates, importing AI infrastructure, or changing protected adapter behavior
 Blocking criteria: unresolved placeholders, stale bootstrap, or unreviewed protected adapter changes
-Residual risks: no target-local checker committed
+Residual risks: target-local checker wrapper committed at tools/check_alatyr.py
 Final evidence: validator findings, framework version/schema/template state, gaps, local deviations
 
 ## Team Collaboration

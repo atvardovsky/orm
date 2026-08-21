@@ -111,7 +111,7 @@ Use for task-specific adapter readiness and blocker review. The flow is
 Target validation commands recorded for this workspace:
 
 - `/usr/local/bin/composer8 install`
-- `/usr/local/bin/php8 vendor/bin/phpunit`
+- `/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpunit`
 - `/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpstan analyse -c phpstan.neon --memory-limit=1G`
 - `/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpstan analyse -c phpstan-dbal3.neon --memory-limit=1G`
 - `/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpcs -d memory_limit=1G`
@@ -119,8 +119,7 @@ Target validation commands recorded for this workspace:
   command
 
 Known local test constraint: SQLite 3.31.1 here does not provide SQL `SQRT()`,
-so the full PHPUnit suite stops at
-`Doctrine\Tests\ORM\Functional\QueryDqlFunctionTest::testFunctionSqrt` unless
+so the full PHPUnit suite reports SQLite `SQRT()` errors in `Doctrine\Tests\ORM\Functional\QueryDqlFunctionTest::testFunctionSqrt` and `Doctrine\Tests\ORM\Functional\Ticket\GH7941Test::typesShouldBeConvertedForDQLFunctions` unless
 the SQLite runtime or test profile changes.
 
 ## Deferred Modules
@@ -143,3 +142,7 @@ validation.
 Every completed Alatyr-routed task should report the selected operation and
 profile, changed facts/files, source-of-truth owners, integrity result,
 validation run or skipped with reason, approvals used, and residual risk.
+
+## Full Capability Set
+
+This branch uses `.ai/assistant/module-profile.md` as the accepted complete capability graph. Use the operation catalog and router for exact flows, and use target-owned owner files before claiming or changing module facts. Runtime assistant capabilities remain evidence-bound and must be checked from `.ai/assistant/assistant-capabilities.json`.

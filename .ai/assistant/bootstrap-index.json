@@ -4,23 +4,23 @@
   "derived_from": {
     "manifest": {
       "path": ".ai/alatyr.yaml",
-      "sha256": "0849e774d8a59009de67ed8aff3e39f95603ac420152f450ca0f30d3d3212633"
+      "sha256": "7a12aecf1dee399ef1a1b79564992bce2ae9c4c25120cad940a96f5f51d72a1f"
     },
     "project_map": {
       "path": ".ai/README.md",
-      "sha256": "0f4388e0bc2d93162dcca048f0be322eb3b29085faff43be0567b3b4d11b7713"
+      "sha256": "fe619d6b9b6af6808c510879a6616055c625fdbd84617e0a99c15c45aedf8622"
     },
     "context_router": {
       "path": ".ai/assistant/context-router.json",
-      "sha256": "75fa0c7dcf595e1cfef8f1750cd29610988512d59f16f7de25dc2285643d2426"
+      "sha256": "c1dc046b6b7275305faaafafb9d9d460c1e4d405b1c7ea62c19ad74b4ed3f003"
     }
   },
   "installation": {
     "framework_version": "0.1.0-alpha.15",
     "adapter_schema_version": "14",
     "template_version": "15",
-    "support_profile": "standard",
-    "framework_pack": "standard"
+    "support_profile": "full",
+    "framework_pack": "complete"
   },
   "project_map": ".ai/README.md",
   "context_router": ".ai/assistant/context-router.json",
@@ -31,6 +31,7 @@
     "architecture-change",
     "data-change",
     "security-sensitive",
+    "ai-infrastructure",
     "framework-upgrade"
   ],
   "profiles": {
@@ -97,10 +98,141 @@
         "framework drift repair"
       ],
       "descriptor": ".ai/assistant/context/profiles/framework-upgrade.json"
+    },
+    "ai-infrastructure": {
+      "signals": [
+        "AI infrastructure inventory, recommendation, or item improvement",
+        "prompt or skill change",
+        "assistant wrapper or bridge change",
+        "MCP or tool config change",
+        "checker gate flow or template change",
+        "third-party assistant infrastructure review"
+      ],
+      "descriptor": ".ai/assistant/context/profiles/ai-infrastructure.json"
     }
   },
-  "intent_overlays": {},
-  "task_scale_overlays": {},
+  "intent_overlays": {
+    "diagram-request": {
+      "signals": [
+        "diagram view explanation comparison or revision request"
+      ],
+      "descriptor": ".ai/assistant/context/intents/diagram-request.json",
+      "required_module": "diagrams",
+      "operations": [
+        "diagram-discussion"
+      ]
+    },
+    "architecture-request": {
+      "signals": [
+        "architecture inventory explanation pattern discussion comparison review or documentation request"
+      ],
+      "descriptor": ".ai/assistant/context/intents/architecture-request.json",
+      "required_module": "architecture-knowledge",
+      "operations": [
+        "architecture-assistance"
+      ]
+    },
+    "code-documentation": {
+      "signals": [
+        "code comment style proposal documentation profile review generated code reference or documentation synchronization request"
+      ],
+      "descriptor": ".ai/assistant/context/intents/code-documentation.json",
+      "required_module": "code-documentation",
+      "operations": [
+        "documentation-sync"
+      ]
+    },
+    "vocabulary-request": {
+      "signals": [
+        "project term definition acronym alias ambiguity glossary vocabulary or terminology consistency request"
+      ],
+      "descriptor": ".ai/assistant/context/intents/vocabulary-request.json",
+      "required_module": "project-vocabulary",
+      "operations": [
+        "project-vocabulary"
+      ]
+    },
+    "test-first-request": {
+      "signals": [
+        "explicit test-first TDD regression-first characterization-first or contract-first request",
+        "bounded recommendation trigger or test-first configuration request"
+      ],
+      "descriptor": ".ai/assistant/context/intents/test-first-request.json",
+      "required_module": "core-profile",
+      "operations": [
+        "test-first-configuration",
+        "test-first-change"
+      ]
+    },
+    "extension-request": {
+      "signals": [
+        "extension list inspect plan install update disable remove or review request",
+        "explicit external extension source or installed extension ID"
+      ],
+      "descriptor": ".ai/assistant/context/intents/extension-request.json",
+      "required_module": "core-profile",
+      "operations": [
+        "extension-management"
+      ]
+    },
+    "dependency-knowledge-request": {
+      "signals": [
+        "dependency knowledge status discovery inspection planning synchronization explanation or impact request",
+        "package-manager lock change or selected dependency contract may affect the task"
+      ],
+      "descriptor": ".ai/assistant/context/intents/dependency-knowledge-request.json",
+      "required_module": "dependency-knowledge",
+      "operations": [
+        "dependency-knowledge"
+      ]
+    },
+    "workspace-mode-request": {
+      "signals": [
+        "workspace mode status suggestion selection definition lifecycle or review request",
+        "framework application skeleton dependency or workspace role is ambiguous"
+      ],
+      "descriptor": ".ai/assistant/context/intents/workspace-mode-request.json",
+      "required_module": "workspace-modes",
+      "operations": [
+        "workspace-mode"
+      ]
+    }
+  },
+  "task_scale_overlays": {
+    "large-or-resumable": {
+      "signals": [
+        "explicitly large phased or resumable work",
+        "multiple independently verifiable workstreams",
+        "multiple project areas or task profiles",
+        "profile context budget exceeded",
+        "separate approval or validation checkpoints"
+      ],
+      "descriptor": ".ai/assistant/context/task-scales/large-or-resumable.json"
+    },
+    "delegated-execution": {
+      "signals": [
+        "delegation"
+      ],
+      "descriptor": ".ai/assistant/context/task-scales/delegated-execution.json"
+    },
+    "change-package": {
+      "signals": [
+        "coherent material outcome across multiple project surfaces",
+        "semantic multi-surface approval",
+        "architecture segment capability migration or public contract package",
+        "audit pilot or publishable before-to-after provenance"
+      ],
+      "descriptor": ".ai/assistant/context/task-scales/change-package.json"
+    },
+    "team-active": {
+      "signals": [
+        "team identity or coordination request",
+        "enabled-team write operation matches an active task branch worktree project area changed fact owner contract dependency or surface",
+        "enabled-team write operation cannot rule out active-work overlap from the compact index"
+      ],
+      "descriptor": ".ai/assistant/team/context-overlay.json"
+    }
+  },
   "area_overlays": {
     "src": {
       "signals": [
@@ -139,21 +271,81 @@
         "reviewing staged changes",
         "writing or amending a commit message"
       ]
+    },
+    "architecture": {
+      "signals": [
+        "changes under .ai/project/architecture/",
+        "architecture assistance or pattern discussion"
+      ]
+    },
+    "dependencies": {
+      "signals": [
+        "dependency knowledge, composer metadata, or lockfile impact"
+      ]
+    },
+    "documentation-knowledge": {
+      "signals": [
+        "code documentation profile or generated documentation work"
+      ]
+    },
+    "vocabulary": {
+      "signals": [
+        "terminology, glossary, acronym, or vocabulary consistency work"
+      ]
+    },
+    "testing-policy": {
+      "signals": [
+        "test-first trigger, test strategy, or test evidence changes"
+      ]
+    },
+    "team": {
+      "signals": [
+        "team identity, task, claim, handoff, review, or decision work"
+      ]
+    },
+    "workspace-modes": {
+      "signals": [
+        "workspace mode selection, suggestion, or lifecycle work"
+      ]
+    },
+    "ai-infrastructure": {
+      "signals": [
+        "AI infrastructure inventory, recommendation, skill, prompt, tool, bridge, or extension work"
+      ]
     }
   },
   "operation_index": ".ai/assistant/operation-index.json",
   "operation_catalog": ".ai/assistant/operation-catalog.json",
   "gate_index": ".ai/assistant/gates/index.json",
   "enabled_modules": [
-    "blueprint-change"
+    "blueprint-change",
+    "consistency-map",
+    "architecture-knowledge",
+    "code-documentation",
+    "project-vocabulary",
+    "test-first-development",
+    "extensions",
+    "dependency-knowledge",
+    "workspace-modes",
+    "diagrams",
+    "ai-infrastructure",
+    "multi-assistant-bridges",
+    "installed-operations",
+    "large-task-orchestration",
+    "subagent-delegation",
+    "change-packages",
+    "team-collaboration",
+    "durable-approvals",
+    "migration-diff",
+    "effectiveness-metrics",
+    "scaffolding"
   ],
   "known_gaps": [
     "No separate backup owner was found in target evidence; @atvardovsky is the only recorded adapter owner.",
     "No existing CODEOWNERS file was found before installation; this install creates CODEOWNERS for adapter files only.",
-    "No target-local Alatyr checker is committed; validation currently uses the AlatyrCore source validator from the installation source checkout.",
-    "Non-blueprint optional Alatyr modules are deferred until target owners and policies are accepted.",
     "Default php and composer binaries are not suitable for this branch in this workspace; use /usr/local/bin/php8 and /usr/local/bin/composer8.",
-    "Local SQLite lacks the SQRT SQL function; the full PHPUnit suite currently stops at Doctrine\\Tests\\ORM\\Functional\\QueryDqlFunctionTest::testFunctionSqrt in this environment."
+    "Local SQLite lacks the SQRT SQL function; with /usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpunit the full PHPUnit suite runs 3486 tests and reports SQRT errors in Doctrine\\Tests\\ORM\\Functional\\QueryDqlFunctionTest::testFunctionSqrt and Doctrine\\Tests\\ORM\\Functional\\Ticket\\GH7941Test::typesShouldBeConvertedForDQLFunctions in this environment.",
+    "Full Alatyr capability surface is installed and enabled in this branch; runtime-specific assistant capabilities remain evidence-bound and unverified until each active client proves them."
   ],
   "expansion_policy": "load required safety and owner evidence, record expansion reason, measured context, and intentionally omitted context"
 }

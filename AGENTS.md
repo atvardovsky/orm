@@ -33,7 +33,7 @@ and `.ai/README.md` as recovery references.
 - Commit policy: `.ai/project/commit-policy.md`; every commit must have one
   logical scope and a detailed commit message written in English.
 - Fact registry: `.ai/project/source-of-truth-registry.md`.
-- Checks: `/usr/local/bin/composer8 install`; `/usr/local/bin/php8 vendor/bin/phpunit`; `/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpstan analyse -c phpstan.neon --memory-limit=1G`; `/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpstan analyse -c phpstan-dbal3.neon --memory-limit=1G`; `/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpcs -d memory_limit=1G`; docs validation only after the docs script resolves a PHP 8-compatible composer command.
+- Checks: `/usr/local/bin/composer8 install`; `/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpunit`; `/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpstan analyse -c phpstan.neon --memory-limit=1G`; `/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpstan analyse -c phpstan-dbal3.neon --memory-limit=1G`; `/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpcs -d memory_limit=1G`; docs validation only after the docs script resolves a PHP 8-compatible composer command.
 - Security/live services: SECURITY.md and docs/en/reference/security.rst; report security vulnerabilities to security@doctrine-project.org, not public GitHub issues. Do not perform destructive, credential, live-service, production, or security-sensitive actions without explicit approval.
 - Diagrams/artifacts: no target-owned diagram source was found during installation; treat diagram changes as documentation/manual-review work until the target records a diagram policy.
 
@@ -73,3 +73,9 @@ Report selected profile and areas, changed facts/files, invariant/integrity
 result, synchronized surfaces, validation run or skipped with reason, approval
 scope, context expansion, commit-policy check when committing, and residual
 risk.
+
+## Full Alatyr Branch Mode
+
+This branch enables the complete Alatyr capability graph. For architecture, diagrams, dependency knowledge, vocabulary, code documentation, test-first, workspace modes, team coordination, AI infrastructure, extensions, delegation, durable approvals, change packages, and large-task work, load the routed owner files from `.ai/assistant/context-router.json` and `.ai/assistant/module-profile.md` before acting.
+
+Runtime-specific assistant and delegation capabilities must be verified from `.ai/assistant/assistant-capabilities.json` and `.ai/assistant/bridge-capability-matrix.md` before use.

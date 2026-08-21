@@ -73,12 +73,12 @@ validation behavior was changed.
 | Adapter structural review | Alatyr source adapter validation with the repository root as target | yes | source checkout tool |
 | JSON parse | parse all `.ai/**/*.json` | yes | structural check |
 | YAML parse | parse `.ai/alatyr.yaml` | yes | structural check |
-| Doctrine runtime tests | `/usr/local/bin/php8 vendor/bin/phpunit` and related commands | no for adapter-only install | now attempted with local PHP 8; full suite is blocked by local SQLite missing `SQRT()` |
+| Doctrine runtime tests | `/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpunit` and related commands | no for adapter-only install | now attempted with local PHP 8; full suite is blocked by local SQLite missing `SQRT()` in two tests |
 
 ## Risks
 
 - No backup owner is recorded.
-- No target-local Alatyr checker is committed.
+- Target-local Alatyr checker wrapper is committed at `tools/check_alatyr.py` and delegates to `ALATYR_CORE_SOURCE`.
 - Non-blueprint optional modules are deferred.
 - The default local `php` and `composer` binaries are not suitable for this branch; use `/usr/local/bin/php8` and `/usr/local/bin/composer8`.
-- Local SQLite lacks `SQRT()`, blocking the full PHPUnit suite in this environment.
+- Local SQLite lacks `SQRT()`, so the full PHPUnit suite reports errors in `Doctrine\Tests\ORM\Functional\QueryDqlFunctionTest::testFunctionSqrt` and `Doctrine\Tests\ORM\Functional\Ticket\GH7941Test::typesShouldBeConvertedForDQLFunctions` in this environment.

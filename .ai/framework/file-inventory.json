@@ -3,39 +3,45 @@
   "files": [
     {
       "path": "framework/README.md",
-      "projected": true,
       "rule_ids": [],
-      "sha256": "d53b3de65eded7abac997c908c4bf6d3dc8ad3388fd7260687be852a8f51a454"
+      "sha256": "952ff55adfa2f8b819ba74017a82a69c0cc958ca2181e6192244be855e5d2b07"
     },
     {
       "path": "framework/adapter-maturity.md",
-      "projected": false,
       "rule_ids": [],
       "sha256": "7191c0384308af1032b6ef13817881837267a1e6e5341c25210d9130bd1f25c0"
     },
     {
       "path": "framework/ai-infrastructure-recommendations.md",
-      "projected": false,
       "rule_ids": [],
       "sha256": "18a84d8c27d5b45a813759463026b3ff0c6ba8c4f8334186f4ad996e083d0892"
     },
     {
       "path": "framework/ai-infrastructure-routing.md",
-      "projected": false,
       "rule_ids": [],
       "sha256": "42f2e6a8042aefc5902b92a8405e00361d219ce2333d7d2ef9bc964622c9435d"
     },
     {
       "path": "framework/approval-records.md",
-      "projected": false,
       "rule_ids": [
         "ALATYR-APPROVAL-001"
       ],
       "sha256": "bfb96cad3671f0534056244cec252eec94a1f8f993120aa4b078aa0f9dadca0a"
     },
     {
+      "path": "framework/architecture-knowledge.md",
+      "rule_ids": [
+        "ALATYR-ARCHITECTURE-001"
+      ],
+      "sha256": "ca52641fca946c087b63e77d3fd9187cef0f74a0ead70f2e80a98a960030504c"
+    },
+    {
+      "path": "framework/ascii-diagrams.md",
+      "rule_ids": [],
+      "sha256": "5ca399d6bcddd74b7ff14ef9cca70b256730fc912aecc2fc274ca79a62bcc5f8"
+    },
+    {
       "path": "framework/blueprint-driven-change.md",
-      "projected": false,
       "rule_ids": [
         "ALATYR-CHANGE-001"
       ],
@@ -43,7 +49,6 @@
     },
     {
       "path": "framework/bridge-capability-matrix.md",
-      "projected": false,
       "rule_ids": [
         "ALATYR-BRIDGE-001"
       ],
@@ -51,33 +56,42 @@
     },
     {
       "path": "framework/capabilities.json",
-      "projected": false,
       "rule_ids": [],
       "sha256": "ddfe46fbf12c80d99a02480dd9ab605408cf594d3bb69591327a5517c3070696"
     },
     {
+      "path": "framework/change-packages.md",
+      "rule_ids": [
+        "ALATYR-PACKAGE-001"
+      ],
+      "sha256": "0db12303a621d9340f56bb523c8f76e2568c436fbbc5d75a2579b33303e0b29a"
+    },
+    {
       "path": "framework/change-risk-model.md",
-      "projected": false,
       "rule_ids": [
         "ALATYR-RISK-001"
       ],
       "sha256": "5291465239946e3916f0c7da4c74d5e67db5977f813d7097e930c515dec4c145"
     },
     {
+      "path": "framework/code-documentation.md",
+      "rule_ids": [
+        "ALATYR-CODEDOC-001"
+      ],
+      "sha256": "3995f21616fb44304bf15080cc681271e1b686c678636398a04ad75c0b11acdc"
+    },
+    {
       "path": "framework/consistency-model.md",
-      "projected": false,
       "rule_ids": [],
       "sha256": "9770fb0b5ac01543d06c4b18f483542e647662db79f63ff4817ed509dd48e650"
     },
     {
       "path": "framework/context-discovery.md",
-      "projected": false,
       "rule_ids": [],
       "sha256": "3dcf71e3f3c2369e110237ce4c14fe7d9c951b246f4bf4089876197f74549efb"
     },
     {
       "path": "framework/context-profiles.md",
-      "projected": false,
       "rule_ids": [
         "ALATYR-CONTEXT-001"
       ],
@@ -85,25 +99,47 @@
     },
     {
       "path": "framework/context-router.md",
-      "projected": false,
       "rule_ids": [],
       "sha256": "b843ba1d11ead3b035904baab8678c54ff3c2a848a836fd6152d2ae793667cd5"
     },
     {
       "path": "framework/contour.md",
-      "projected": false,
       "rule_ids": [],
       "sha256": "cdd554fe420fdc70a8f6590f0458765a3a9087a3f66a9e7542f8bbab778a2465"
     },
     {
+      "path": "framework/dependency-knowledge.md",
+      "rule_ids": [
+        "ALATYR-DEPENDENCY-001"
+      ],
+      "sha256": "166f1fa32229bbc8455b6edfa4a629a25b93bc321839a78034c6ef0fbf4d58cf"
+    },
+    {
+      "path": "framework/diagram-guidance.md",
+      "rule_ids": [
+        "ALATYR-DIAGRAM-001"
+      ],
+      "sha256": "aa63daf895e17036f48feca1215fb76653ccd4fdfaeef600f16be3883bc4091f"
+    },
+    {
+      "path": "framework/effectiveness-metrics.md",
+      "rule_ids": [],
+      "sha256": "f696856e0e4d7e4e4011dcbc9a7b0c937ba25df5274935b5f3e61cf50f67279c"
+    },
+    {
+      "path": "framework/extensions.md",
+      "rule_ids": [
+        "ALATYR-EXTENSION-001"
+      ],
+      "sha256": "f256c58309605c0553729d5df1f4a5f16e80ee36f95cd665ac62732cce33d38f"
+    },
+    {
       "path": "framework/framework-packs.json",
-      "projected": false,
       "rule_ids": [],
       "sha256": "c4b4b788ef13e3745f618e9a4bc5083b22a34543c02f84415cb57969bf98e2ee"
     },
     {
       "path": "framework/guarantees.md",
-      "projected": false,
       "rule_ids": [
         "ALATYR-EVIDENCE-001"
       ],
@@ -111,19 +147,16 @@
     },
     {
       "path": "framework/installed-operations.md",
-      "projected": false,
       "rule_ids": [],
       "sha256": "37289719b6ba8abf36cc2b148750ec55457ab3aa27cdf6ed30a59f2358c8624e"
     },
     {
       "path": "framework/large-task-orchestration.md",
-      "projected": false,
       "rule_ids": [],
       "sha256": "0a80092709246d687db4adb37bca64cfaf3c271d9b803c980ec001ba1d12634a"
     },
     {
       "path": "framework/lifecycle.md",
-      "projected": false,
       "rule_ids": [
         "ALATYR-LIFECYCLE-001"
       ],
@@ -131,7 +164,6 @@
     },
     {
       "path": "framework/logical-integrity.md",
-      "projected": false,
       "rule_ids": [
         "ALATYR-INTEGRITY-001"
       ],
@@ -139,13 +171,11 @@
     },
     {
       "path": "framework/migration-diff.md",
-      "projected": false,
       "rule_ids": [],
       "sha256": "4895b5a115637622b2cf83c06c8c795a95a3e1066497e0ca88db9e221eb9634f"
     },
     {
       "path": "framework/module-profile.md",
-      "projected": false,
       "rule_ids": [
         "ALATYR-MODULE-001"
       ],
@@ -153,7 +183,6 @@
     },
     {
       "path": "framework/operation-help.md",
-      "projected": false,
       "rule_ids": [
         "ALATYR-OPERATION-001"
       ],
@@ -161,21 +190,25 @@
     },
     {
       "path": "framework/portability.md",
-      "projected": false,
       "rule_ids": [],
       "sha256": "b409b7b8b7dfef955db3eefd1804bc7a8e748d7263c83650085881e6fe098863"
     },
     {
       "path": "framework/project-adapter-contract.md",
-      "projected": false,
       "rule_ids": [
         "ALATYR-ADAPTER-001"
       ],
       "sha256": "9c4e16ca9d3f36f7572af740735a12808edde5e0be3cfe15ec91e00ed4f50153"
     },
     {
+      "path": "framework/project-vocabulary.md",
+      "rule_ids": [
+        "ALATYR-VOCABULARY-001"
+      ],
+      "sha256": "2bf7c1ff14b61cc9e56c355ebb370fba612ac357c7da9076954c291fccb2f4e0"
+    },
+    {
       "path": "framework/prompt-injection.md",
-      "projected": false,
       "rule_ids": [
         "ALATYR-SAFETY-002"
       ],
@@ -183,25 +216,26 @@
     },
     {
       "path": "framework/rule-ownership.md",
-      "projected": true,
       "rule_ids": [],
-      "sha256": "cdb26ea9fc8ea4e5a64164a74c3459a7879758f1c357299b6e2f7c4aa6be9ec2"
+      "sha256": "1d450cda0dbce3fff9b3ddf16739c99adf84f44b1f091a15166a0d3fb1415c2d"
     },
     {
       "path": "framework/rule-registry.json",
-      "projected": true,
       "rule_ids": [],
-      "sha256": "bd10f555365903f60d6f85b594631a5872d836c3251a903bab1f261f61a637a5"
+      "sha256": "d4fdf6b7b4b463e50dbe9b80974aa00b8d11dd1cd37620d493678490954cea6d"
     },
     {
       "path": "framework/rule-registry.md",
-      "projected": true,
       "rule_ids": [],
-      "sha256": "507dab14e3eae81f31c86b13d6b0b8876e52477bf81a6cf46a93733925913744"
+      "sha256": "39da5b3e2038fd794e22684fe35d3d983a8a98618e8d4462303fe33800a6357a"
+    },
+    {
+      "path": "framework/scaffolding.md",
+      "rule_ids": [],
+      "sha256": "c245c21731e2de644a52e508693d77e718b94625aa30ee5b5fc7c6114abb5594"
     },
     {
       "path": "framework/security-safety-guidance.md",
-      "projected": false,
       "rule_ids": [
         "ALATYR-SAFETY-001"
       ],
@@ -209,26 +243,50 @@
     },
     {
       "path": "framework/skill-adaptation.md",
-      "projected": false,
       "rule_ids": [],
       "sha256": "ce8efd3f52a04b83dbc500a7a1faa732d7a34555adfd8b66b0e924e6b3568d91"
     },
     {
       "path": "framework/source-of-truth-registry.md",
-      "projected": false,
       "rule_ids": [
         "ALATYR-SOURCE-001"
       ],
       "sha256": "048cea36a1f5ab1baf92038bae5b35218c7b587526cd01dc746ecc5a11f5f6e3"
     },
     {
+      "path": "framework/subagent-delegation.md",
+      "rule_ids": [
+        "ALATYR-DELEGATION-001"
+      ],
+      "sha256": "a3c3ad9c1df14c38986c7b4ecd42f20cad05967f842ff0ff13fe49ddf9035e39"
+    },
+    {
+      "path": "framework/team-collaboration.md",
+      "rule_ids": [
+        "ALATYR-TEAM-001"
+      ],
+      "sha256": "280f217d2d659d9338a2dae60b656aae90d71cb80bff06eb95c5f9f7714b8606"
+    },
+    {
+      "path": "framework/test-first-development.md",
+      "rule_ids": [
+        "ALATYR-TDD-001"
+      ],
+      "sha256": "0494df75ebb9c7f9eb1b6a633ff7e6d1d99f3ee47d0360ef9c860e3f1f7e02a7"
+    },
+    {
       "path": "framework/testing-guidance.md",
-      "projected": false,
       "rule_ids": [],
       "sha256": "c27c8cdf2fe52e07e8e975833db98368bcb9d5e3f9fe5c7be11bb6dd9f6332aa"
+    },
+    {
+      "path": "framework/workspace-modes.md",
+      "rule_ids": [
+        "ALATYR-MODE-001"
+      ],
+      "sha256": "dc1b84f72ca465f735d51ee5de02d3c26fd8054688556b4f11c1663eddc239da"
     }
   ],
-  "framework_pack": "standard",
   "framework_version": "0.1.0-alpha.15",
   "inventory_kind": "alatyr-framework-files",
   "schema_version": 1,

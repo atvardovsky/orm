@@ -5,36 +5,116 @@
   "gates": {
     "core": {
       "path": ".ai/assistant/gates/core.md",
-      "use_when": ["every state-changing task"]
+      "use_when": [
+        "every state-changing task"
+      ]
     },
     "documentation": {
       "path": ".ai/assistant/gates/documentation.md",
-      "use_when": ["documentation or public explanation changes"]
+      "use_when": [
+        "documentation or public explanation changes"
+      ]
     },
     "code-and-tests": {
       "path": ".ai/assistant/gates/code-and-tests.md",
-      "use_when": ["implementation or test changes"]
+      "use_when": [
+        "implementation or test changes"
+      ]
     },
     "semantic-integrity": {
       "path": ".ai/assistant/gates/semantic-integrity.md",
-      "use_when": ["semantic fact or accepted contract may change"]
+      "use_when": [
+        "semantic fact or accepted contract may change"
+      ]
     },
     "security-approval": {
       "path": ".ai/assistant/gates/security-approval.md",
-      "use_when": ["protected security live destructive permission dependency or approval boundary"]
+      "use_when": [
+        "protected security live destructive permission dependency or approval boundary"
+      ]
     },
     "final-evidence": {
       "path": ".ai/assistant/gates/final-evidence.md",
-      "use_when": ["before reporting completion"]
+      "use_when": [
+        "before reporting completion"
+      ]
+    },
+    "dependency-knowledge": {
+      "path": ".ai/assistant/gates/dependency-knowledge.md",
+      "use_when": [
+        "dependency knowledge is used"
+      ]
+    },
+    "workspace-mode": {
+      "path": ".ai/assistant/gates/workspace-mode.md",
+      "use_when": [
+        "workspace mode is selected or changed"
+      ]
+    },
+    "extensions": {
+      "path": ".ai/assistant/gates/extensions.md",
+      "use_when": [
+        "extension lifecycle changes"
+      ]
+    },
+    "team-collaboration": {
+      "path": ".ai/assistant/gates/team-collaboration.md",
+      "use_when": [
+        "team coordination changes"
+      ]
+    },
+    "test-first-development": {
+      "path": ".ai/assistant/gates/test-first-development.md",
+      "use_when": [
+        "test-first trigger applies"
+      ]
     }
   },
   "profile_defaults": {
-    "docs-local": ["core", "documentation", "final-evidence"],
-    "code-local": ["core", "code-and-tests", "final-evidence"],
-    "business-change": ["core", "semantic-integrity", "final-evidence"],
-    "architecture-change": ["core", "semantic-integrity", "final-evidence"],
-    "data-change": ["core", "semantic-integrity", "code-and-tests", "final-evidence"],
-    "security-sensitive": ["core", "semantic-integrity", "security-approval", "final-evidence"],
-    "framework-upgrade": ["core", "final-evidence"]
+    "docs-local": [
+      "core",
+      "documentation",
+      "final-evidence"
+    ],
+    "code-local": [
+      "core",
+      "code-and-tests",
+      "test-first-development",
+      "final-evidence"
+    ],
+    "business-change": [
+      "core",
+      "semantic-integrity",
+      "test-first-development",
+      "final-evidence"
+    ],
+    "architecture-change": [
+      "core",
+      "semantic-integrity",
+      "test-first-development",
+      "final-evidence"
+    ],
+    "data-change": [
+      "core",
+      "semantic-integrity",
+      "code-and-tests",
+      "test-first-development",
+      "final-evidence"
+    ],
+    "security-sensitive": [
+      "core",
+      "semantic-integrity",
+      "security-approval",
+      "final-evidence"
+    ],
+    "framework-upgrade": [
+      "core",
+      "final-evidence"
+    ],
+    "ai-infrastructure": [
+      "core",
+      "security-approval",
+      "final-evidence"
+    ]
   }
 }

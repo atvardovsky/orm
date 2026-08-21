@@ -10,14 +10,66 @@
     "create blueprint": "create-project-blueprint",
     "repair blueprint": "create-project-blueprint",
     "recheck blueprint": "create-project-blueprint",
+    "Alatyr architecture": "architecture-assistance",
+    "Alatyr architecture inventory": "architecture-assistance",
+    "explain architecture": "architecture-assistance",
+    "discuss architecture pattern": "architecture-assistance",
+    "compare architecture options": "architecture-assistance",
+    "review architecture": "architecture-assistance",
+    "document architecture": "architecture-assistance",
     "check Alatyr after installation": "recheck-after-installation",
     "recheck installation": "recheck-after-installation",
     "update Alatyr": "recheck-after-framework-update",
     "recheck Alatyr update": "recheck-after-framework-update",
     "change business rule": "product-change",
     "product change": "product-change",
+    "plan large task": "large-task",
+    "continue large task": "large-task",
+    "resume Alatyr task": "large-task",
+    "Alatyr set actor": "team-identity",
+    "Alatyr who am I": "team-identity",
+    "Alatyr clear actor": "team-identity",
+    "Alatyr team status": "team-status",
+    "Alatyr start": "team-task",
+    "Alatyr claim": "team-task",
+    "Alatyr checkpoint": "team-task",
+    "Alatyr release": "team-task",
+    "Alatyr conflicts": "team-conflict-review",
+    "Alatyr handoff": "team-handoff",
+    "Alatyr decision": "team-decision",
+    "Alatyr discuss": "team-decision",
+    "Alatyr review": "team-review",
+    "Alatyr merge check": "team-merge-check",
     "check integrity": "logical-integrity-review",
     "logical integrity review": "logical-integrity-review",
+    "Alatyr diagram": "diagram-discussion",
+    "show as a diagram": "diagram-discussion",
+    "visualize architecture": "diagram-discussion",
+    "alatyr-ai-inventory": "ai-infrastructure-inventory",
+    "alatyr-suggest-ai": "ai-infrastructure-recommendation",
+    "alatyr-improve-ai": "ai-infrastructure-recommendation",
+    "Alatyr suggest extensions": "ai-infrastructure-recommendation",
+    "alatyr-adaptation": "skill-adaptation",
+    "alatyr-add-ai": "skill-adaptation",
+    "Alatyr extensions": "extension-management",
+    "Alatyr inspect extension": "extension-management",
+    "Alatyr add extension": "extension-management",
+    "Alatyr update extension": "extension-management",
+    "Alatyr disable extension": "extension-management",
+    "Alatyr remove extension": "extension-management",
+    "Alatyr review extension": "extension-management",
+    "Alatyr dependencies": "dependency-knowledge",
+    "Alatyr dependency status": "dependency-knowledge",
+    "Alatyr sync dependencies": "dependency-knowledge",
+    "Alatyr inspect dependency": "dependency-knowledge",
+    "Alatyr explain dependency": "dependency-knowledge",
+    "Alatyr dependency impact": "dependency-knowledge",
+    "Alatyr modes": "workspace-mode",
+    "Alatyr mode status": "workspace-mode",
+    "Alatyr suggest modes": "workspace-mode",
+    "Alatyr mode": "workspace-mode",
+    "Alatyr define mode": "workspace-mode",
+    "Alatyr accept mode": "workspace-mode",
     "review drift": "drift-review",
     "find stale Alatyr facts": "drift-review",
     "sync documentation": "documentation-sync",
@@ -26,6 +78,20 @@
     "propose comment style": "documentation-sync",
     "generate code docs": "documentation-sync",
     "review code documentation": "documentation-sync",
+    "Alatyr glossary": "project-vocabulary",
+    "Alatyr define term": "project-vocabulary",
+    "propose glossary entry": "project-vocabulary",
+    "check terminology": "project-vocabulary",
+    "review project vocabulary": "project-vocabulary",
+    "Alatyr enable test-first": "test-first-configuration",
+    "Alatyr configure TDD": "test-first-configuration",
+    "Alatyr review test-first": "test-first-configuration",
+    "Alatyr disable test-first": "test-first-configuration",
+    "Alatyr test first": "test-first-change",
+    "Alatyr TDD": "test-first-change",
+    "fix regression test first": "test-first-change",
+    "characterize before refactor": "test-first-change",
+    "define contract first": "test-first-change",
     "check Alatyr maturity": "adapter-maturity-review",
     "review adapter readiness": "adapter-maturity-review"
   },
@@ -43,6 +109,13 @@
     "create-project-blueprint": [
       "blueprint-change",
       ".ai/assistant/flows/project-blueprint-creation.flow.md",
+      "read-only",
+      "docs-only",
+      "full-with-approval"
+    ],
+    "architecture-assistance": [
+      "architecture-knowledge",
+      ".ai/assistant/flows/architecture-assistance.flow.md",
       "read-only",
       "docs-only",
       "full-with-approval"
@@ -69,6 +142,60 @@
       "code-and-tests",
       "full-with-approval"
     ],
+    "large-task": [
+      "large-task-orchestration",
+      ".ai/assistant/flows/large-task-orchestration.flow.md",
+      "read-only",
+      "docs-only",
+      "adapter-only",
+      "code-and-tests",
+      "full-with-approval"
+    ],
+    "team-identity": [
+      "team-collaboration",
+      ".ai/assistant/flows/team-identity.flow.md",
+      "read-only",
+      "adapter-only"
+    ],
+    "team-status": [
+      "team-collaboration",
+      ".ai/assistant/flows/team-task-coordination.flow.md",
+      "read-only"
+    ],
+    "team-task": [
+      "team-collaboration",
+      ".ai/assistant/flows/team-task-coordination.flow.md",
+      "read-only",
+      "adapter-only"
+    ],
+    "team-conflict-review": [
+      "team-collaboration",
+      ".ai/assistant/flows/team-task-coordination.flow.md",
+      "read-only"
+    ],
+    "team-handoff": [
+      "team-collaboration",
+      ".ai/assistant/flows/team-handoff.flow.md",
+      "read-only",
+      "adapter-only"
+    ],
+    "team-decision": [
+      "team-collaboration",
+      ".ai/assistant/flows/team-decision.flow.md",
+      "read-only",
+      "docs-only",
+      "full-with-approval"
+    ],
+    "team-review": [
+      "team-collaboration",
+      ".ai/assistant/flows/team-review.flow.md",
+      "read-only"
+    ],
+    "team-merge-check": [
+      "team-collaboration",
+      ".ai/assistant/flows/team-review.flow.md",
+      "read-only"
+    ],
     "logical-integrity-review": [
       "core-profile",
       ".ai/assistant/flows/logical-integrity-review.flow.md",
@@ -76,6 +203,50 @@
       "docs-only",
       "adapter-only",
       "code-and-tests",
+      "full-with-approval"
+    ],
+    "diagram-discussion": [
+      "diagrams",
+      ".ai/assistant/flows/diagram-discussion.flow.md",
+      "read-only",
+      "docs-only"
+    ],
+    "ai-infrastructure-inventory": [
+      "ai-infrastructure",
+      ".ai/assistant/flows/ai-infrastructure-inventory.flow.md",
+      "read-only"
+    ],
+    "ai-infrastructure-recommendation": [
+      "ai-infrastructure",
+      ".ai/assistant/flows/ai-infrastructure-recommendation.flow.md",
+      "read-only"
+    ],
+    "skill-adaptation": [
+      "ai-infrastructure",
+      ".ai/assistant/flows/skill-adaptation.flow.md",
+      "read-only",
+      "adapter-only",
+      "full-with-approval"
+    ],
+    "extension-management": [
+      "core-profile",
+      ".ai/assistant/flows/extension-lifecycle.flow.md",
+      "read-only",
+      "adapter-only",
+      "full-with-approval"
+    ],
+    "dependency-knowledge": [
+      "dependency-knowledge",
+      ".ai/assistant/flows/dependency-knowledge-sync.flow.md",
+      "read-only",
+      "adapter-only",
+      "full-with-approval"
+    ],
+    "workspace-mode": [
+      "workspace-modes",
+      ".ai/assistant/flows/workspace-mode.flow.md",
+      "read-only",
+      "adapter-only",
       "full-with-approval"
     ],
     "drift-review": [
@@ -93,6 +264,27 @@
       "read-only",
       "docs-only",
       "adapter-only",
+      "code-and-tests",
+      "full-with-approval"
+    ],
+    "project-vocabulary": [
+      "project-vocabulary",
+      ".ai/assistant/flows/project-vocabulary.flow.md",
+      "read-only",
+      "docs-only",
+      "full-with-approval"
+    ],
+    "test-first-configuration": [
+      "core-profile",
+      ".ai/assistant/flows/test-first-configuration.flow.md",
+      "read-only",
+      "adapter-only",
+      "full-with-approval"
+    ],
+    "test-first-change": [
+      "test-first-development",
+      ".ai/assistant/flows/test-first-change.flow.md",
+      "read-only",
       "code-and-tests",
       "full-with-approval"
     ],

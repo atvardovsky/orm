@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "record_kind": "target-vocabulary-data-dictionary-links",
+  "project": "Doctrine ORM",
+  "links": [
+    {
+      "id": "entity-mapping-source",
+      "term_id": "entity",
+      "fact_type": "data-model-fact",
+      "canonical_owner": "docs/en/reference/basic-mapping.rst",
+      "target_identifier": "docs/en/reference/basic-mapping.rst",
+      "relationship": "represents",
+      "direction": "term-to-owner",
+      "evidence": [
+        "docs/en/reference/basic-mapping.rst",
+        "src/Mapping"
+      ],
+      "validation": [
+        "manual docs/source review"
+      ],
+      "last_verified_revision": "454db525ccce95aff1057cb57726900560374970",
+      "known_gaps": []
+    }
+  ],
+  "known_gaps": [
+    "No standalone data dictionary exists beyond Doctrine documentation and source."
+  ]
+}

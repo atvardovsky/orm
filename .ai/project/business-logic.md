@@ -135,13 +135,10 @@ possible.
 
 Use target-recorded validation:
 
-- `/usr/local/bin/php8 vendor/bin/phpunit`
+- `/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpunit`
 - `/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpstan analyse -c phpstan.neon --memory-limit=1G`
 - `/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpstan analyse -c phpstan-dbal3.neon --memory-limit=1G`
 - `/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpcs -d memory_limit=1G`
 - relevant docs/manual review
 
-Known local blocker: SQLite 3.31.1 lacks SQL `SQRT()`, so the full PHPUnit
-suite stops at
-`Doctrine\Tests\ORM\Functional\QueryDqlFunctionTest::testFunctionSqrt` in this
-environment unless SQLite/runtime/test profile changes.
+Known local blocker: SQLite 3.31.1 lacks SQL `SQRT()`, so the full PHPUnit suite reports errors in `Doctrine\Tests\ORM\Functional\QueryDqlFunctionTest::testFunctionSqrt` and `Doctrine\Tests\ORM\Functional\Ticket\GH7941Test::typesShouldBeConvertedForDQLFunctions` in this environment unless SQLite/runtime/test profile changes.

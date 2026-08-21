@@ -1,0 +1,143 @@
+{
+  "schema_version": 1,
+  "catalog_kind": "target-project-vocabulary-catalog",
+  "project": "Doctrine ORM",
+  "module_state": "enabled",
+  "human_index": ".ai/project/vocabulary/README.md",
+  "terms": ".ai/project/vocabulary/terms.json",
+  "data_dictionary_links": ".ai/project/vocabulary/data-dictionary-links.json",
+  "vocabulary_owner": "@atvardovsky",
+  "term_decision_authority": "@atvardovsky",
+  "normalization_policy": "lowercase ids; preserve Doctrine product capitalization in display terms",
+  "last_reviewed": "2026-08-21",
+  "evidence_revision": "454db525ccce95aff1057cb57726900560374970",
+  "entries": [
+    {
+      "term_id": "orm",
+      "canonical_term": "Object-relational mapper",
+      "normalized_term": "orm",
+      "aliases": [],
+      "acronyms": [],
+      "domains": [
+        "Doctrine ORM",
+        "ORM"
+      ],
+      "state": "accepted",
+      "record": ".ai/project/vocabulary/terms.json#orm",
+      "replacement_term_id": "none",
+      "last_verified_revision": "454db525ccce95aff1057cb57726900560374970"
+    },
+    {
+      "term_id": "entity",
+      "canonical_term": "Entity",
+      "normalized_term": "entity",
+      "aliases": [],
+      "acronyms": [],
+      "domains": [
+        "Doctrine ORM",
+        "ORM"
+      ],
+      "state": "accepted",
+      "record": ".ai/project/vocabulary/terms.json#entity",
+      "replacement_term_id": "none",
+      "last_verified_revision": "454db525ccce95aff1057cb57726900560374970"
+    },
+    {
+      "term_id": "mapping-metadata",
+      "canonical_term": "Mapping metadata",
+      "normalized_term": "mapping-metadata",
+      "aliases": [],
+      "acronyms": [],
+      "domains": [
+        "Doctrine ORM",
+        "ORM"
+      ],
+      "state": "accepted",
+      "record": ".ai/project/vocabulary/terms.json#mapping-metadata",
+      "replacement_term_id": "none",
+      "last_verified_revision": "454db525ccce95aff1057cb57726900560374970"
+    },
+    {
+      "term_id": "unit-of-work",
+      "canonical_term": "UnitOfWork",
+      "normalized_term": "unit-of-work",
+      "aliases": [],
+      "acronyms": [],
+      "domains": [
+        "Doctrine ORM",
+        "ORM"
+      ],
+      "state": "accepted",
+      "record": ".ai/project/vocabulary/terms.json#unit-of-work",
+      "replacement_term_id": "none",
+      "last_verified_revision": "454db525ccce95aff1057cb57726900560374970"
+    },
+    {
+      "term_id": "identity-map",
+      "canonical_term": "Identity map",
+      "normalized_term": "identity-map",
+      "aliases": [],
+      "acronyms": [],
+      "domains": [
+        "Doctrine ORM",
+        "ORM"
+      ],
+      "state": "accepted",
+      "record": ".ai/project/vocabulary/terms.json#identity-map",
+      "replacement_term_id": "none",
+      "last_verified_revision": "454db525ccce95aff1057cb57726900560374970"
+    },
+    {
+      "term_id": "dql",
+      "canonical_term": "DQL",
+      "normalized_term": "dql",
+      "aliases": [],
+      "acronyms": [
+        "DQL"
+      ],
+      "domains": [
+        "Doctrine ORM",
+        "ORM"
+      ],
+      "state": "accepted",
+      "record": ".ai/project/vocabulary/terms.json#dql",
+      "replacement_term_id": "none",
+      "last_verified_revision": "454db525ccce95aff1057cb57726900560374970"
+    },
+    {
+      "term_id": "dbal",
+      "canonical_term": "DBAL",
+      "normalized_term": "dbal",
+      "aliases": [],
+      "acronyms": [
+        "DBAL"
+      ],
+      "domains": [
+        "Doctrine ORM",
+        "ORM"
+      ],
+      "state": "accepted",
+      "record": ".ai/project/vocabulary/terms.json#dbal",
+      "replacement_term_id": "none",
+      "last_verified_revision": "454db525ccce95aff1057cb57726900560374970"
+    },
+    {
+      "term_id": "alatyr-adapter",
+      "canonical_term": "Alatyr adapter",
+      "normalized_term": "alatyr-adapter",
+      "aliases": [],
+      "acronyms": [],
+      "domains": [
+        "Doctrine ORM",
+        "Alatyr adapter"
+      ],
+      "state": "accepted",
+      "record": ".ai/project/vocabulary/terms.json#alatyr-adapter",
+      "replacement_term_id": "none",
+      "last_verified_revision": "454db525ccce95aff1057cb57726900560374970"
+    }
+  ],
+  "known_gaps": [
+    "Vocabulary catalog is intentionally selective; use public docs for exhaustive terminology."
+  ]
+}

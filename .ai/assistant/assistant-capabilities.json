@@ -1,0 +1,17 @@
+{
+  "schema_version": 2,
+  "capability_kind": "target-assistant-capability-index",
+  "human_reference": ".ai/assistant/bridge-capability-matrix.md",
+  "default_surface": "generic",
+  "surfaces": {
+    "agents": ".ai/assistant/assistant-capabilities/agents.json",
+    "claude": ".ai/assistant/assistant-capabilities/claude.json",
+    "codex": ".ai/assistant/assistant-capabilities/codex.json",
+    "cursor": ".ai/assistant/assistant-capabilities/cursor.json",
+    "devin-cascade": ".ai/assistant/assistant-capabilities/devin-cascade.json",
+    "gemini": ".ai/assistant/assistant-capabilities/gemini.json",
+    "generic": ".ai/assistant/assistant-capabilities/generic.json",
+    "github-copilot": ".ai/assistant/assistant-capabilities/github-copilot.json",
+    "windsurf": ".ai/assistant/assistant-capabilities/windsurf.json"
+  }
+}

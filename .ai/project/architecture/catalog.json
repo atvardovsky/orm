@@ -1,0 +1,231 @@
+{
+  "schema_version": 1,
+  "catalog_kind": "target-architecture-knowledge-catalog",
+  "project": "Doctrine ORM",
+  "module_state": "enabled",
+  "human_index": ".ai/project/architecture/README.md",
+  "architecture_owner": "@atvardovsky",
+  "decision_authority": "@atvardovsky",
+  "canonical_sources": [
+    "docs/en/reference/architecture.rst",
+    "composer.json",
+    "src/",
+    "docs/en/reference/basic-mapping.rst",
+    "docs/en/reference/unitofwork.rst",
+    ".ai/project/blueprint.md",
+    ".ai/project/business-logic.md"
+  ],
+  "decision_sources": [
+    ".ai/project/source-of-truth-registry.md",
+    "CODEOWNERS"
+  ],
+  "last_reviewed": "2026-08-21",
+  "evidence_revision": "454db525ccce95aff1057cb57726900560374970",
+  "areas": [
+    {
+      "id": "mapping-metadata",
+      "name": "Mapping metadata",
+      "status": "accepted",
+      "owner": "src/Mapping/ and docs/en/reference/basic-mapping.rst",
+      "detail": "docs/en/reference/basic-mapping.rst",
+      "evidence": [
+        "src/Mapping/",
+        "tests/Tests/ORM/Mapping/"
+      ],
+      "pattern_ids": [
+        "metadata-driven-orm"
+      ]
+    },
+    {
+      "id": "unit-of-work",
+      "name": "UnitOfWork and persistence lifecycle",
+      "status": "accepted",
+      "owner": "src/UnitOfWork.php",
+      "detail": "docs/en/reference/unitofwork.rst",
+      "evidence": [
+        "src/UnitOfWork.php",
+        "tests/Tests/ORM/Functional/"
+      ],
+      "pattern_ids": [
+        "identity-map-unit-of-work"
+      ]
+    },
+    {
+      "id": "query-hydration",
+      "name": "DQL query and hydration",
+      "status": "accepted",
+      "owner": "src/Query/ and docs/en/reference/dql-doctrine-query-language.rst",
+      "detail": "docs/en/reference/dql-doctrine-query-language.rst",
+      "evidence": [
+        "src/Query/",
+        "tests/Tests/ORM/Query/"
+      ],
+      "pattern_ids": [
+        "dql-to-sql-pipeline"
+      ]
+    },
+    {
+      "id": "dbal-integration",
+      "name": "DBAL integration boundary",
+      "status": "accepted",
+      "owner": "composer.json and CI workflows",
+      "detail": "docs/en/reference/architecture.rst",
+      "evidence": [
+        "composer.json",
+        ".github/workflows/continuous-integration.yml"
+      ],
+      "pattern_ids": [
+        "platform-backed-persistence"
+      ]
+    },
+    {
+      "id": "validation",
+      "name": "Validation and quality gates",
+      "status": "accepted",
+      "owner": "composer.json, phpunit.xml.dist, phpstan*.neon, phpcs.xml.dist, CI workflows",
+      "detail": "CONTRIBUTING.md",
+      "evidence": [
+        "composer.json",
+        "phpunit.xml.dist",
+        "phpstan.neon",
+        "phpstan-dbal3.neon",
+        "phpcs.xml.dist",
+        ".github/workflows/"
+      ],
+      "pattern_ids": [
+        "matrix-backed-validation"
+      ]
+    }
+  ],
+  "patterns": [
+    {
+      "id": "metadata-driven-orm",
+      "name": "Metadata-driven object-relational mapping",
+      "kind": "data",
+      "status": "accepted",
+      "scope": [
+        "mapping-metadata",
+        "unit-of-work"
+      ],
+      "problem": "Map PHP object metadata to relational persistence behavior while keeping public mapping rules documented.",
+      "decision_owner": "@atvardovsky",
+      "decision_record": "docs/en/reference/basic-mapping.rst",
+      "detail": "docs/en/reference/basic-mapping.rst",
+      "evidence": [
+        "src/Mapping/",
+        "tests/Tests/ORM/Mapping/"
+      ],
+      "validation": [
+        "/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpunit with relevant mapping tests"
+      ],
+      "related_pattern_ids": [
+        "identity-map-unit-of-work"
+      ],
+      "last_verified_revision": "454db525ccce95aff1057cb57726900560374970"
+    },
+    {
+      "id": "identity-map-unit-of-work",
+      "name": "Identity Map plus UnitOfWork",
+      "kind": "runtime",
+      "status": "accepted",
+      "scope": [
+        "unit-of-work",
+        "query-hydration"
+      ],
+      "problem": "Track object identity and persistence changes before flushing database state.",
+      "decision_owner": "@atvardovsky",
+      "decision_record": "docs/en/reference/unitofwork.rst",
+      "detail": "src/UnitOfWork.php",
+      "evidence": [
+        "src/UnitOfWork.php",
+        "docs/en/reference/unitofwork.rst"
+      ],
+      "validation": [
+        "/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpunit with relevant functional tests"
+      ],
+      "related_pattern_ids": [
+        "metadata-driven-orm"
+      ],
+      "last_verified_revision": "454db525ccce95aff1057cb57726900560374970"
+    },
+    {
+      "id": "dql-to-sql-pipeline",
+      "name": "DQL to SQL query pipeline",
+      "kind": "integration",
+      "status": "accepted",
+      "scope": [
+        "query-hydration",
+        "dbal-integration"
+      ],
+      "problem": "Translate DQL and query builders into SQL and hydrated object or scalar results.",
+      "decision_owner": "@atvardovsky",
+      "decision_record": "docs/en/reference/dql-doctrine-query-language.rst",
+      "detail": "src/Query/",
+      "evidence": [
+        "src/Query/",
+        "tests/Tests/ORM/Query/"
+      ],
+      "validation": [
+        "/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpunit with query and hydration tests"
+      ],
+      "related_pattern_ids": [
+        "platform-backed-persistence"
+      ],
+      "last_verified_revision": "454db525ccce95aff1057cb57726900560374970"
+    },
+    {
+      "id": "platform-backed-persistence",
+      "name": "DBAL platform backed persistence",
+      "kind": "integration",
+      "status": "accepted",
+      "scope": [
+        "dbal-integration",
+        "validation"
+      ],
+      "problem": "Keep ORM behavior portable across DBAL-supported database platforms.",
+      "decision_owner": "@atvardovsky",
+      "decision_record": "composer.json",
+      "detail": ".github/workflows/continuous-integration.yml",
+      "evidence": [
+        "composer.json",
+        "ci/github/phpunit/",
+        ".github/workflows/continuous-integration.yml"
+      ],
+      "validation": [
+        "Composer validation plus PHPUnit matrix where environment supports it"
+      ],
+      "related_pattern_ids": [
+        "matrix-backed-validation"
+      ],
+      "last_verified_revision": "454db525ccce95aff1057cb57726900560374970"
+    },
+    {
+      "id": "matrix-backed-validation",
+      "name": "Composer and CI backed validation",
+      "kind": "operational",
+      "status": "accepted",
+      "scope": [
+        "validation"
+      ],
+      "problem": "Bind assistant claims to target-owned commands and known local environment limits.",
+      "decision_owner": "@atvardovsky",
+      "decision_record": ".ai/alatyr.yaml",
+      "detail": "CONTRIBUTING.md",
+      "evidence": [
+        "composer.json",
+        "tests/README.markdown",
+        ".github/workflows/"
+      ],
+      "validation": [
+        "adapter validator, JSON/YAML parse, git diff --check, and applicable PHP checks"
+      ],
+      "related_pattern_ids": [
+        "platform-backed-persistence"
+      ],
+      "last_verified_revision": "454db525ccce95aff1057cb57726900560374970"
+    }
+  ],
+  "known_gaps": [
+    "No standalone upstream ADR catalog exists in this branch; architecture catalog is an Alatyr routing index backed by Doctrine docs/source/tests."
+  ]
+}

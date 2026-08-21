@@ -1,0 +1,228 @@
+{
+  "schema_version": 1,
+  "catalog_kind": "target-dependency-knowledge-catalog",
+  "owner": "@atvardovsky",
+  "package_lock_fingerprint": "0e91690d915cf2e63e1ad9ba8b46df2629ae297274d96e727db86e1fb1e795e6",
+  "packages": [
+    {
+      "instance_id": "composer:composer-runtime-api@^2#require",
+      "ecosystem": "composer",
+      "name": "composer-runtime-api",
+      "version": "^2",
+      "export_status": "unsupported",
+      "trust": "reviewed",
+      "freshness": "current",
+      "exports": []
+    },
+    {
+      "instance_id": "composer:doctrine/collections@2.6.0#require",
+      "ecosystem": "composer",
+      "name": "doctrine/collections",
+      "version": "2.6.0",
+      "export_status": "unsupported",
+      "trust": "reviewed",
+      "freshness": "current",
+      "exports": []
+    },
+    {
+      "instance_id": "composer:doctrine/dbal@4.4.4#require",
+      "ecosystem": "composer",
+      "name": "doctrine/dbal",
+      "version": "4.4.4",
+      "export_status": "unsupported",
+      "trust": "reviewed",
+      "freshness": "current",
+      "exports": []
+    },
+    {
+      "instance_id": "composer:doctrine/deprecations@1.1.6#require",
+      "ecosystem": "composer",
+      "name": "doctrine/deprecations",
+      "version": "1.1.6",
+      "export_status": "unsupported",
+      "trust": "reviewed",
+      "freshness": "current",
+      "exports": []
+    },
+    {
+      "instance_id": "composer:doctrine/event-manager@2.1.1#require",
+      "ecosystem": "composer",
+      "name": "doctrine/event-manager",
+      "version": "2.1.1",
+      "export_status": "unsupported",
+      "trust": "reviewed",
+      "freshness": "current",
+      "exports": []
+    },
+    {
+      "instance_id": "composer:doctrine/inflector@2.1.0#require",
+      "ecosystem": "composer",
+      "name": "doctrine/inflector",
+      "version": "2.1.0",
+      "export_status": "unsupported",
+      "trust": "reviewed",
+      "freshness": "current",
+      "exports": []
+    },
+    {
+      "instance_id": "composer:doctrine/instantiator@2.0.0#require",
+      "ecosystem": "composer",
+      "name": "doctrine/instantiator",
+      "version": "2.0.0",
+      "export_status": "unsupported",
+      "trust": "reviewed",
+      "freshness": "current",
+      "exports": []
+    },
+    {
+      "instance_id": "composer:doctrine/lexer@3.0.1#require",
+      "ecosystem": "composer",
+      "name": "doctrine/lexer",
+      "version": "3.0.1",
+      "export_status": "unsupported",
+      "trust": "reviewed",
+      "freshness": "current",
+      "exports": []
+    },
+    {
+      "instance_id": "composer:doctrine/persistence@4.2.0#require",
+      "ecosystem": "composer",
+      "name": "doctrine/persistence",
+      "version": "4.2.0",
+      "export_status": "unsupported",
+      "trust": "reviewed",
+      "freshness": "current",
+      "exports": []
+    },
+    {
+      "instance_id": "composer:ext-ctype@*#require",
+      "ecosystem": "composer",
+      "name": "ext-ctype",
+      "version": "*",
+      "export_status": "unsupported",
+      "trust": "reviewed",
+      "freshness": "current",
+      "exports": []
+    },
+    {
+      "instance_id": "composer:php@^8.1#require",
+      "ecosystem": "composer",
+      "name": "php",
+      "version": "^8.1",
+      "export_status": "unsupported",
+      "trust": "reviewed",
+      "freshness": "current",
+      "exports": []
+    },
+    {
+      "instance_id": "composer:psr/cache@3.0.0#require",
+      "ecosystem": "composer",
+      "name": "psr/cache",
+      "version": "3.0.0",
+      "export_status": "unsupported",
+      "trust": "reviewed",
+      "freshness": "current",
+      "exports": []
+    },
+    {
+      "instance_id": "composer:symfony/console@v7.4.16#require",
+      "ecosystem": "composer",
+      "name": "symfony/console",
+      "version": "v7.4.16",
+      "export_status": "unsupported",
+      "trust": "reviewed",
+      "freshness": "current",
+      "exports": []
+    },
+    {
+      "instance_id": "composer:symfony/var-exporter@v7.4.16#require",
+      "ecosystem": "composer",
+      "name": "symfony/var-exporter",
+      "version": "v7.4.16",
+      "export_status": "unsupported",
+      "trust": "reviewed",
+      "freshness": "current",
+      "exports": []
+    },
+    {
+      "instance_id": "composer:doctrine/coding-standard@14.0.0#require-dev",
+      "ecosystem": "composer",
+      "name": "doctrine/coding-standard",
+      "version": "14.0.0",
+      "export_status": "unsupported",
+      "trust": "reviewed",
+      "freshness": "current",
+      "exports": []
+    },
+    {
+      "instance_id": "composer:phpbench/phpbench@1.7.0#require-dev",
+      "ecosystem": "composer",
+      "name": "phpbench/phpbench",
+      "version": "1.7.0",
+      "export_status": "unsupported",
+      "trust": "reviewed",
+      "freshness": "current",
+      "exports": []
+    },
+    {
+      "instance_id": "composer:phpstan/extension-installer@1.4.3#require-dev",
+      "ecosystem": "composer",
+      "name": "phpstan/extension-installer",
+      "version": "1.4.3",
+      "export_status": "unsupported",
+      "trust": "reviewed",
+      "freshness": "current",
+      "exports": []
+    },
+    {
+      "instance_id": "composer:phpstan/phpstan@2.1.23#require-dev",
+      "ecosystem": "composer",
+      "name": "phpstan/phpstan",
+      "version": "2.1.23",
+      "export_status": "unsupported",
+      "trust": "reviewed",
+      "freshness": "current",
+      "exports": []
+    },
+    {
+      "instance_id": "composer:phpstan/phpstan-deprecation-rules@2.0.3#require-dev",
+      "ecosystem": "composer",
+      "name": "phpstan/phpstan-deprecation-rules",
+      "version": "2.0.3",
+      "export_status": "unsupported",
+      "trust": "reviewed",
+      "freshness": "current",
+      "exports": []
+    },
+    {
+      "instance_id": "composer:phpunit/phpunit@11.5.56#require-dev",
+      "ecosystem": "composer",
+      "name": "phpunit/phpunit",
+      "version": "11.5.56",
+      "export_status": "unsupported",
+      "trust": "reviewed",
+      "freshness": "current",
+      "exports": []
+    },
+    {
+      "instance_id": "composer:psr/log@3.0.2#require-dev",
+      "ecosystem": "composer",
+      "name": "psr/log",
+      "version": "3.0.2",
+      "export_status": "unsupported",
+      "trust": "reviewed",
+      "freshness": "current",
+      "exports": []
+    },
+    {
+      "instance_id": "composer:symfony/cache@v7.4.16#require-dev",
+      "ecosystem": "composer",
+      "name": "symfony/cache",
+      "version": "v7.4.16",
+      "export_status": "unsupported",
+      "trust": "reviewed",
+      "freshness": "current",
+      "exports": []
+    }
+  ]
+}

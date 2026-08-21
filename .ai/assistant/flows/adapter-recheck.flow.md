@@ -16,7 +16,7 @@ when the programmer asks whether the installed adapter is still coherent.
 - Context profiles: `.ai/assistant/context-profiles.md`
 - Module profile: `.ai/assistant/module-profile.md`
 - Maturity profile: `.ai/assistant/maturity-profile.md`
-- Target validation: `/usr/local/bin/composer8 install`; `/usr/local/bin/php8 vendor/bin/phpunit`; `/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpstan analyse -c phpstan.neon --memory-limit=1G`; `/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpstan analyse -c phpstan-dbal3.neon --memory-limit=1G`; `/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpcs -d memory_limit=1G`; docs validation only after the docs script resolves a PHP 8-compatible composer command
+- Target validation: `/usr/local/bin/composer8 install`; `/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpunit`; `/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpstan analyse -c phpstan.neon --memory-limit=1G`; `/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpstan analyse -c phpstan-dbal3.neon --memory-limit=1G`; `/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpcs -d memory_limit=1G`; docs validation only after the docs script resolves a PHP 8-compatible composer command
 - Supported assistants: `Codex`
 - Operation index, catalog, help, routing, health, and preview:
   `.ai/assistant/operation-index.json`,
@@ -30,7 +30,7 @@ when the programmer asks whether the installed adapter is still coherent.
 - Optional module files: check only when the corresponding module is enabled
   in `.ai/assistant/module-profile.md` or `.ai/alatyr.yaml`; missing optional
   files for deferred modules are not health failures.
-- Known adapter gaps: `backup owner missing; no target-local checker; non-blueprint optional modules deferred; local SQLite lacks SQRT`
+- Known adapter gaps: `backup owner missing; target-local checker wrapper committed at tools/check_alatyr.py; full optional module graph enabled; local SQLite lacks SQRT for two full PHPUnit tests`
 
 ## Steps
 

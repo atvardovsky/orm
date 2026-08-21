@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "identity_kind": "local-team-identity",
+  "actor_id": "<actor-id>",
+  "selected_at": "<observation-time>",
+  "selected_by": "explicit-user-request",
+  "policy_revision": "<target-team-policy-revision>",
+  "verification": "unverified-local-selection",
+  "external_identity_ref": "<verified-external-identity-reference-or-none>"
+}

@@ -11,8 +11,8 @@
   "context_budgets": {
     "bootstrap": {
       "max_files": 2,
-      "max_words": 1400,
-      "soft_max_words": 1200
+      "max_words": 5000,
+      "soft_max_words": 4500
     },
     "profile_default": {
       "max_files": 12,
@@ -58,12 +58,132 @@
     "automatic_when": "single enabled sufficient match",
     "preview_policy": "risk-gated"
   },
-  "intent_overlays": {},
+  "intent_overlays": {
+    "diagram-request": {
+      "use_when": [
+        "diagram view explanation comparison or revision request"
+      ],
+      "descriptor": ".ai/assistant/context/intents/diagram-request.json",
+      "operation_candidates": [
+        "diagram-discussion"
+      ],
+      "required_module": "diagrams"
+    },
+    "architecture-request": {
+      "use_when": [
+        "architecture inventory explanation pattern discussion comparison review or documentation request"
+      ],
+      "descriptor": ".ai/assistant/context/intents/architecture-request.json",
+      "operation_candidates": [
+        "architecture-assistance"
+      ],
+      "required_module": "architecture-knowledge"
+    },
+    "code-documentation": {
+      "use_when": [
+        "code comment style proposal documentation profile review generated code reference or documentation synchronization request"
+      ],
+      "descriptor": ".ai/assistant/context/intents/code-documentation.json",
+      "operation_candidates": [
+        "documentation-sync"
+      ],
+      "required_module": "code-documentation"
+    },
+    "vocabulary-request": {
+      "use_when": [
+        "project term definition acronym alias ambiguity glossary vocabulary or terminology consistency request"
+      ],
+      "descriptor": ".ai/assistant/context/intents/vocabulary-request.json",
+      "operation_candidates": [
+        "project-vocabulary"
+      ],
+      "required_module": "project-vocabulary"
+    },
+    "test-first-request": {
+      "use_when": [
+        "explicit test-first TDD regression-first characterization-first or contract-first request",
+        "bounded recommendation trigger or test-first configuration request"
+      ],
+      "descriptor": ".ai/assistant/context/intents/test-first-request.json",
+      "operation_candidates": [
+        "test-first-configuration",
+        "test-first-change"
+      ],
+      "required_module": "core-profile"
+    },
+    "extension-request": {
+      "use_when": [
+        "extension list inspect plan install update disable remove or review request",
+        "explicit external extension source or installed extension ID"
+      ],
+      "descriptor": ".ai/assistant/context/intents/extension-request.json",
+      "operation_candidates": [
+        "extension-management"
+      ],
+      "required_module": "core-profile"
+    },
+    "dependency-knowledge-request": {
+      "use_when": [
+        "dependency knowledge status discovery inspection planning synchronization explanation or impact request",
+        "package-manager lock change or selected dependency contract may affect the task"
+      ],
+      "descriptor": ".ai/assistant/context/intents/dependency-knowledge-request.json",
+      "operation_candidates": [
+        "dependency-knowledge"
+      ],
+      "required_module": "dependency-knowledge"
+    },
+    "workspace-mode-request": {
+      "use_when": [
+        "workspace mode status suggestion selection definition lifecycle or review request",
+        "framework application skeleton dependency or workspace role is ambiguous"
+      ],
+      "descriptor": ".ai/assistant/context/intents/workspace-mode-request.json",
+      "operation_candidates": [
+        "workspace-mode"
+      ],
+      "required_module": "workspace-modes"
+    }
+  },
   "migration_routing": {
     "assessment_required_before_changes": true,
     "descriptor": ".ai/assistant/context/migration-routing.json"
   },
-  "task_scale_overlays": {},
+  "task_scale_overlays": {
+    "large-or-resumable": {
+      "use_when": [
+        "explicitly large phased or resumable work",
+        "multiple independently verifiable workstreams",
+        "multiple project areas or task profiles",
+        "profile context budget exceeded",
+        "separate approval or validation checkpoints"
+      ],
+      "descriptor": ".ai/assistant/context/task-scales/large-or-resumable.json"
+    },
+    "delegated-execution": {
+      "use_when": [
+        "delegation"
+      ],
+      "descriptor": ".ai/assistant/context/task-scales/delegated-execution.json"
+    },
+    "change-package": {
+      "use_when": [
+        "coherent material outcome across multiple project surfaces",
+        "semantic multi-surface approval",
+        "architecture segment capability migration or public contract package",
+        "audit pilot or publishable before-to-after provenance"
+      ],
+      "descriptor": ".ai/assistant/context/task-scales/change-package.json"
+    },
+    "team-active": {
+      "use_when": [
+        "team identity or coordination request",
+        "enabled-team write operation matches an active task branch worktree project area changed fact owner contract dependency or surface",
+        "enabled-team write operation cannot rule out active-work overlap from the compact index"
+      ],
+      "descriptor": ".ai/assistant/team/context-overlay.json"
+    }
+  },
   "area_overlays": {
     "src": {
       "use_when": [
@@ -150,6 +270,110 @@
       "expand_when": [
         "staged diff spans independent logical scopes or commit policy changes"
       ]
+    },
+    "architecture": {
+      "use_when": [
+        "changes under .ai/project/architecture/",
+        "architecture assistance or pattern discussion"
+      ],
+      "required_context": [
+        ".ai/project/architecture/README.md",
+        ".ai/project/architecture/catalog.json",
+        "docs/en/reference/architecture.rst"
+      ],
+      "expand_when": [
+        "accepted architecture boundary or public API facts change"
+      ]
+    },
+    "dependencies": {
+      "use_when": [
+        "dependency knowledge, composer metadata, or lockfile impact"
+      ],
+      "required_context": [
+        ".ai/project/dependencies/policy.json",
+        ".ai/project/dependencies/catalog.json",
+        "composer.json"
+      ],
+      "expand_when": [
+        "dependency versions, trust, license, CI, or platform constraints change"
+      ]
+    },
+    "documentation-knowledge": {
+      "use_when": [
+        "code documentation profile or generated documentation work"
+      ],
+      "required_context": [
+        ".ai/project/documentation/README.md",
+        ".ai/project/documentation/catalog.json",
+        ".ai/project/documentation/profiles.json"
+      ],
+      "expand_when": [
+        "public docs, generated outputs, or comment policy changes"
+      ]
+    },
+    "vocabulary": {
+      "use_when": [
+        "terminology, glossary, acronym, or vocabulary consistency work"
+      ],
+      "required_context": [
+        ".ai/project/vocabulary/README.md",
+        ".ai/project/vocabulary/catalog.json",
+        ".ai/project/vocabulary/terms.json"
+      ],
+      "expand_when": [
+        "public terminology or canonical docs change"
+      ]
+    },
+    "testing-policy": {
+      "use_when": [
+        "test-first trigger, test strategy, or test evidence changes"
+      ],
+      "required_context": [
+        ".ai/project/testing/README.md",
+        ".ai/project/testing/test-first-policy.json",
+        "tests/README.markdown"
+      ],
+      "expand_when": [
+        "implementation, validation gates, or CI behavior changes"
+      ]
+    },
+    "team": {
+      "use_when": [
+        "team identity, task, claim, handoff, review, or decision work"
+      ],
+      "required_context": [
+        ".ai/project/team-policy.json",
+        ".ai/project/team-operating-model.md",
+        ".ai/assistant/team/work-registry.json"
+      ],
+      "expand_when": [
+        "active task overlap, external backend, or approval authority is involved"
+      ]
+    },
+    "workspace-modes": {
+      "use_when": [
+        "workspace mode selection, suggestion, or lifecycle work"
+      ],
+      "required_context": [
+        ".ai/project/workspace-modes/catalog.json",
+        ".ai/project/workspace-modes/root/context.json"
+      ],
+      "expand_when": [
+        "mode acceptance, default mode, or workspace role changes"
+      ]
+    },
+    "ai-infrastructure": {
+      "use_when": [
+        "AI infrastructure inventory, recommendation, skill, prompt, tool, bridge, or extension work"
+      ],
+      "required_context": [
+        ".ai/assistant/ai-infrastructure-router.json",
+        ".ai/assistant/policies/ai-infrastructure-source-access.md",
+        ".ai/assistant/policies/prompt-injection.md"
+      ],
+      "expand_when": [
+        "third-party source, tool permission, prompt injection, or bridge capability changes"
+      ]
     }
   },
   "cost_scenarios": {
@@ -162,6 +386,7 @@
     "architecture-change",
     "data-change",
     "security-sensitive",
+    "ai-infrastructure",
     "framework-upgrade"
   ],
   "profile_index": {
@@ -228,6 +453,34 @@
         "framework drift repair"
       ],
       "descriptor": ".ai/assistant/context/profiles/framework-upgrade.json"
+    },
+    "ai-infrastructure": {
+      "use_when": [
+        "AI infrastructure inventory, recommendation, or item improvement",
+        "prompt or skill change",
+        "assistant wrapper or bridge change",
+        "MCP or tool config change",
+        "checker gate flow or template change",
+        "third-party assistant infrastructure review"
+      ],
+      "descriptor": ".ai/assistant/context/profiles/ai-infrastructure.json"
     }
+  },
+  "workspace_mode_routing": {
+    "required_module": "workspace-modes",
+    "catalog": ".ai/project/workspace-modes/catalog.json",
+    "root_context": ".ai/project/workspace-modes/root/context.json",
+    "mode_path_pattern": ".ai/project/workspace-modes/modes/<mode-id>/mode.json",
+    "selection_order": [
+      "explicit accepted mode",
+      "single unambiguous accepted evidence match",
+      "accepted default whose conditions apply"
+    ],
+    "ambiguity_behavior": "ask-user-and-remain-read-only",
+    "no_match_behavior": "root-read-only",
+    "preflight": ".ai/assistant/templates/workspace-mode-preflight.md"
+  },
+  "consistency_routing": {
+    "descriptor": ".ai/assistant/context/consistency-routing.json"
   }
 }

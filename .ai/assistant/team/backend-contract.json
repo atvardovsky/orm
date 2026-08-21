@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "contract_kind": "target-team-backend-contract",
+  "project": "Doctrine ORM",
+  "backend_id": "repository-local-alatyr-team",
+  "backend_mode": "repository",
+  "provider": "repository",
+  "canonical_task_source": ".ai/assistant/team/work-registry.json",
+  "projection_direction": "manual-repository-local",
+  "consistency_model": "manual",
+  "write_strategy": "manual-reviewed-edits",
+  "capabilities": [
+    "read-tasks",
+    "create-task",
+    "claim",
+    "release",
+    "checkpoint",
+    "handoff",
+    "review",
+    "sync-status"
+  ],
+  "idempotency_policy": "stable task IDs and explicit status transitions",
+  "conflict_policy": "do not overwrite concurrent registry changes; inspect diff and reconcile manually",
+  "unavailable_evidence_policy": "partial-or-unverified",
+  "permission_policy": "repository file permissions only; no external tracker permission",
+  "authentication_policy": "local actor selection is attribution, not authentication",
+  "extension_id": "none",
+  "validation": "JSON parse, team policy review, adapter validator"
+}

@@ -1,6 +1,17 @@
 # Alatyr target adapter ownership for the atvardovsky Doctrine ORM fork.
 
 /.ai/ @atvardovsky
+/.agents/ @atvardovsky
+/.cursor/ @atvardovsky
+/.cursorrules @atvardovsky
+/.devin/ @atvardovsky
+/.github/copilot-instructions.md @atvardovsky
+/.github/prompts/ @atvardovsky
+/.windsurf/ @atvardovsky
+/.windsurfrules @atvardovsky
 /AGENTS.md @atvardovsky
 /AI_ASSISTANTS.md @atvardovsky
+/CLAUDE.md @atvardovsky
+/GEMINI.md @atvardovsky
 /CODEOWNERS @atvardovsky
+/tools/check_alatyr.py @atvardovsky

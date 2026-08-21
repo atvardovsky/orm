@@ -1,0 +1,382 @@
+{
+  "schema_version": 1,
+  "lock_kind": "target-dependency-knowledge-lock",
+  "knowledge_api": 1,
+  "package_lock_fingerprint": "0e91690d915cf2e63e1ad9ba8b46df2629ae297274d96e727db86e1fb1e795e6",
+  "instances": [
+    {
+      "instance_id": "composer:composer-runtime-api@^2#require",
+      "ecosystem": "composer",
+      "name": "composer-runtime-api",
+      "version": "^2",
+      "source": "composer.json root constraint",
+      "integrity": "platform-or-root-constraint-no-artifact",
+      "revision": "root-manifest-constraint",
+      "modifications": [],
+      "manifest": null,
+      "exports": [],
+      "graph": {
+        "dependency_set": "require",
+        "direct": true,
+        "public_instance_ids": []
+      }
+    },
+    {
+      "instance_id": "composer:doctrine/collections@2.6.0#require",
+      "ecosystem": "composer",
+      "name": "doctrine/collections",
+      "version": "2.6.0",
+      "source": "https://api.github.com/repos/doctrine/collections/zipball/7713da39d8e237f28411d6a616a3dce5e20d5de2",
+      "integrity": "7713da39d8e237f28411d6a616a3dce5e20d5de2",
+      "revision": "7713da39d8e237f28411d6a616a3dce5e20d5de2",
+      "modifications": [],
+      "manifest": null,
+      "exports": [],
+      "graph": {
+        "dependency_set": "require",
+        "direct": true,
+        "public_instance_ids": []
+      }
+    },
+    {
+      "instance_id": "composer:doctrine/dbal@4.4.4#require",
+      "ecosystem": "composer",
+      "name": "doctrine/dbal",
+      "version": "4.4.4",
+      "source": "https://api.github.com/repos/doctrine/dbal/zipball/fb9e0ffe15e1590e24dc61c0c0a23f9a33ee42ce",
+      "integrity": "fb9e0ffe15e1590e24dc61c0c0a23f9a33ee42ce",
+      "revision": "fb9e0ffe15e1590e24dc61c0c0a23f9a33ee42ce",
+      "modifications": [],
+      "manifest": null,
+      "exports": [],
+      "graph": {
+        "dependency_set": "require",
+        "direct": true,
+        "public_instance_ids": []
+      }
+    },
+    {
+      "instance_id": "composer:doctrine/deprecations@1.1.6#require",
+      "ecosystem": "composer",
+      "name": "doctrine/deprecations",
+      "version": "1.1.6",
+      "source": "https://api.github.com/repos/doctrine/deprecations/zipball/d4fe3e6fd9bb9e72557a19674f44d8ac7db4c6ca",
+      "integrity": "d4fe3e6fd9bb9e72557a19674f44d8ac7db4c6ca",
+      "revision": "d4fe3e6fd9bb9e72557a19674f44d8ac7db4c6ca",
+      "modifications": [],
+      "manifest": null,
+      "exports": [],
+      "graph": {
+        "dependency_set": "require",
+        "direct": true,
+        "public_instance_ids": []
+      }
+    },
+    {
+      "instance_id": "composer:doctrine/event-manager@2.1.1#require",
+      "ecosystem": "composer",
+      "name": "doctrine/event-manager",
+      "version": "2.1.1",
+      "source": "https://api.github.com/repos/doctrine/event-manager/zipball/dda33921b198841ca8dbad2eaa5d4d34769d18cf",
+      "integrity": "dda33921b198841ca8dbad2eaa5d4d34769d18cf",
+      "revision": "dda33921b198841ca8dbad2eaa5d4d34769d18cf",
+      "modifications": [],
+      "manifest": null,
+      "exports": [],
+      "graph": {
+        "dependency_set": "require",
+        "direct": true,
+        "public_instance_ids": []
+      }
+    },
+    {
+      "instance_id": "composer:doctrine/inflector@2.1.0#require",
+      "ecosystem": "composer",
+      "name": "doctrine/inflector",
+      "version": "2.1.0",
+      "source": "https://api.github.com/repos/doctrine/inflector/zipball/6d6c96277ea252fc1304627204c3d5e6e15faa3b",
+      "integrity": "6d6c96277ea252fc1304627204c3d5e6e15faa3b",
+      "revision": "6d6c96277ea252fc1304627204c3d5e6e15faa3b",
+      "modifications": [],
+      "manifest": null,
+      "exports": [],
+      "graph": {
+        "dependency_set": "require",
+        "direct": true,
+        "public_instance_ids": []
+      }
+    },
+    {
+      "instance_id": "composer:doctrine/instantiator@2.0.0#require",
+      "ecosystem": "composer",
+      "name": "doctrine/instantiator",
+      "version": "2.0.0",
+      "source": "https://api.github.com/repos/doctrine/instantiator/zipball/c6222283fa3f4ac679f8b9ced9a4e23f163e80d0",
+      "integrity": "c6222283fa3f4ac679f8b9ced9a4e23f163e80d0",
+      "revision": "c6222283fa3f4ac679f8b9ced9a4e23f163e80d0",
+      "modifications": [],
+      "manifest": null,
+      "exports": [],
+      "graph": {
+        "dependency_set": "require",
+        "direct": true,
+        "public_instance_ids": []
+      }
+    },
+    {
+      "instance_id": "composer:doctrine/lexer@3.0.1#require",
+      "ecosystem": "composer",
+      "name": "doctrine/lexer",
+      "version": "3.0.1",
+      "source": "https://api.github.com/repos/doctrine/lexer/zipball/31ad66abc0fc9e1a1f2d9bc6a42668d2fbbcd6dd",
+      "integrity": "31ad66abc0fc9e1a1f2d9bc6a42668d2fbbcd6dd",
+      "revision": "31ad66abc0fc9e1a1f2d9bc6a42668d2fbbcd6dd",
+      "modifications": [],
+      "manifest": null,
+      "exports": [],
+      "graph": {
+        "dependency_set": "require",
+        "direct": true,
+        "public_instance_ids": []
+      }
+    },
+    {
+      "instance_id": "composer:doctrine/persistence@4.2.0#require",
+      "ecosystem": "composer",
+      "name": "doctrine/persistence",
+      "version": "4.2.0",
+      "source": "https://api.github.com/repos/doctrine/persistence/zipball/49ab73e0d3e2ac8d1f5ecda3dd8acd5503781e8b",
+      "integrity": "49ab73e0d3e2ac8d1f5ecda3dd8acd5503781e8b",
+      "revision": "49ab73e0d3e2ac8d1f5ecda3dd8acd5503781e8b",
+      "modifications": [],
+      "manifest": null,
+      "exports": [],
+      "graph": {
+        "dependency_set": "require",
+        "direct": true,
+        "public_instance_ids": []
+      }
+    },
+    {
+      "instance_id": "composer:ext-ctype@*#require",
+      "ecosystem": "composer",
+      "name": "ext-ctype",
+      "version": "*",
+      "source": "composer.json root constraint",
+      "integrity": "platform-or-root-constraint-no-artifact",
+      "revision": "root-manifest-constraint",
+      "modifications": [],
+      "manifest": null,
+      "exports": [],
+      "graph": {
+        "dependency_set": "require",
+        "direct": true,
+        "public_instance_ids": []
+      }
+    },
+    {
+      "instance_id": "composer:php@^8.1#require",
+      "ecosystem": "composer",
+      "name": "php",
+      "version": "^8.1",
+      "source": "composer.json root constraint",
+      "integrity": "platform-or-root-constraint-no-artifact",
+      "revision": "root-manifest-constraint",
+      "modifications": [],
+      "manifest": null,
+      "exports": [],
+      "graph": {
+        "dependency_set": "require",
+        "direct": true,
+        "public_instance_ids": []
+      }
+    },
+    {
+      "instance_id": "composer:psr/cache@3.0.0#require",
+      "ecosystem": "composer",
+      "name": "psr/cache",
+      "version": "3.0.0",
+      "source": "https://api.github.com/repos/php-fig/cache/zipball/aa5030cfa5405eccfdcb1083ce040c2cb8d253bf",
+      "integrity": "aa5030cfa5405eccfdcb1083ce040c2cb8d253bf",
+      "revision": "aa5030cfa5405eccfdcb1083ce040c2cb8d253bf",
+      "modifications": [],
+      "manifest": null,
+      "exports": [],
+      "graph": {
+        "dependency_set": "require",
+        "direct": true,
+        "public_instance_ids": []
+      }
+    },
+    {
+      "instance_id": "composer:symfony/console@v7.4.16#require",
+      "ecosystem": "composer",
+      "name": "symfony/console",
+      "version": "v7.4.16",
+      "source": "https://api.github.com/repos/symfony/console/zipball/f4c69c9aed03abf933b294257d618bdd9b30a06d",
+      "integrity": "f4c69c9aed03abf933b294257d618bdd9b30a06d",
+      "revision": "f4c69c9aed03abf933b294257d618bdd9b30a06d",
+      "modifications": [],
+      "manifest": null,
+      "exports": [],
+      "graph": {
+        "dependency_set": "require",
+        "direct": true,
+        "public_instance_ids": []
+      }
+    },
+    {
+      "instance_id": "composer:symfony/var-exporter@v7.4.16#require",
+      "ecosystem": "composer",
+      "name": "symfony/var-exporter",
+      "version": "v7.4.16",
+      "source": "https://api.github.com/repos/symfony/var-exporter/zipball/ca31404415670aa3834809005b529df1b84f0790",
+      "integrity": "ca31404415670aa3834809005b529df1b84f0790",
+      "revision": "ca31404415670aa3834809005b529df1b84f0790",
+      "modifications": [],
+      "manifest": null,
+      "exports": [],
+      "graph": {
+        "dependency_set": "require",
+        "direct": true,
+        "public_instance_ids": []
+      }
+    },
+    {
+      "instance_id": "composer:doctrine/coding-standard@14.0.0#require-dev",
+      "ecosystem": "composer",
+      "name": "doctrine/coding-standard",
+      "version": "14.0.0",
+      "source": "https://api.github.com/repos/doctrine/coding-standard/zipball/897a7dc209e49ee6cf04e689c41112df17967130",
+      "integrity": "897a7dc209e49ee6cf04e689c41112df17967130",
+      "revision": "897a7dc209e49ee6cf04e689c41112df17967130",
+      "modifications": [],
+      "manifest": null,
+      "exports": [],
+      "graph": {
+        "dependency_set": "require-dev",
+        "direct": true,
+        "public_instance_ids": []
+      }
+    },
+    {
+      "instance_id": "composer:phpbench/phpbench@1.7.0#require-dev",
+      "ecosystem": "composer",
+      "name": "phpbench/phpbench",
+      "version": "1.7.0",
+      "source": "https://api.github.com/repos/phpbench/phpbench/zipball/3d13c0d5dcf8730a67b70fa7fb03b4556b5cc0fe",
+      "integrity": "3d13c0d5dcf8730a67b70fa7fb03b4556b5cc0fe",
+      "revision": "3d13c0d5dcf8730a67b70fa7fb03b4556b5cc0fe",
+      "modifications": [],
+      "manifest": null,
+      "exports": [],
+      "graph": {
+        "dependency_set": "require-dev",
+        "direct": true,
+        "public_instance_ids": []
+      }
+    },
+    {
+      "instance_id": "composer:phpstan/extension-installer@1.4.3#require-dev",
+      "ecosystem": "composer",
+      "name": "phpstan/extension-installer",
+      "version": "1.4.3",
+      "source": "https://api.github.com/repos/phpstan/extension-installer/zipball/85e90b3942d06b2326fba0403ec24fe912372936",
+      "integrity": "85e90b3942d06b2326fba0403ec24fe912372936",
+      "revision": "85e90b3942d06b2326fba0403ec24fe912372936",
+      "modifications": [],
+      "manifest": null,
+      "exports": [],
+      "graph": {
+        "dependency_set": "require-dev",
+        "direct": true,
+        "public_instance_ids": []
+      }
+    },
+    {
+      "instance_id": "composer:phpstan/phpstan@2.1.23#require-dev",
+      "ecosystem": "composer",
+      "name": "phpstan/phpstan",
+      "version": "2.1.23",
+      "source": "https://api.github.com/repos/phpstan/phpstan/zipball/a34502adbbd5c2366b5a97679848a5ace4f6f2f5",
+      "integrity": "a34502adbbd5c2366b5a97679848a5ace4f6f2f5",
+      "revision": "a34502adbbd5c2366b5a97679848a5ace4f6f2f5",
+      "modifications": [],
+      "manifest": null,
+      "exports": [],
+      "graph": {
+        "dependency_set": "require-dev",
+        "direct": true,
+        "public_instance_ids": []
+      }
+    },
+    {
+      "instance_id": "composer:phpstan/phpstan-deprecation-rules@2.0.3#require-dev",
+      "ecosystem": "composer",
+      "name": "phpstan/phpstan-deprecation-rules",
+      "version": "2.0.3",
+      "source": "https://api.github.com/repos/phpstan/phpstan-deprecation-rules/zipball/468e02c9176891cc901143da118f09dc9505fc2f",
+      "integrity": "468e02c9176891cc901143da118f09dc9505fc2f",
+      "revision": "468e02c9176891cc901143da118f09dc9505fc2f",
+      "modifications": [],
+      "manifest": null,
+      "exports": [],
+      "graph": {
+        "dependency_set": "require-dev",
+        "direct": true,
+        "public_instance_ids": []
+      }
+    },
+    {
+      "instance_id": "composer:phpunit/phpunit@11.5.56#require-dev",
+      "ecosystem": "composer",
+      "name": "phpunit/phpunit",
+      "version": "11.5.56",
+      "source": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/5f83edffa6967c3db468d48a695ec7bcb02e9256",
+      "integrity": "5f83edffa6967c3db468d48a695ec7bcb02e9256",
+      "revision": "5f83edffa6967c3db468d48a695ec7bcb02e9256",
+      "modifications": [],
+      "manifest": null,
+      "exports": [],
+      "graph": {
+        "dependency_set": "require-dev",
+        "direct": true,
+        "public_instance_ids": []
+      }
+    },
+    {
+      "instance_id": "composer:psr/log@3.0.2#require-dev",
+      "ecosystem": "composer",
+      "name": "psr/log",
+      "version": "3.0.2",
+      "source": "https://api.github.com/repos/php-fig/log/zipball/f16e1d5863e37f8d8c2a01719f5b34baa2b714d3",
+      "integrity": "f16e1d5863e37f8d8c2a01719f5b34baa2b714d3",
+      "revision": "f16e1d5863e37f8d8c2a01719f5b34baa2b714d3",
+      "modifications": [],
+      "manifest": null,
+      "exports": [],
+      "graph": {
+        "dependency_set": "require-dev",
+        "direct": true,
+        "public_instance_ids": []
+      }
+    },
+    {
+      "instance_id": "composer:symfony/cache@v7.4.16#require-dev",
+      "ecosystem": "composer",
+      "name": "symfony/cache",
+      "version": "v7.4.16",
+      "source": "https://api.github.com/repos/symfony/cache/zipball/23a2c5298ca72c4d26b04611ed966c86762ffd49",
+      "integrity": "23a2c5298ca72c4d26b04611ed966c86762ffd49",
+      "revision": "23a2c5298ca72c4d26b04611ed966c86762ffd49",
+      "modifications": [],
+      "manifest": null,
+      "exports": [],
+      "graph": {
+        "dependency_set": "require-dev",
+        "direct": true,
+        "public_instance_ids": []
+      }
+    }
+  ]
+}
