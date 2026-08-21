@@ -1,0 +1,173 @@
+---
+alatyr_doc:
+  id: framework.source-of-truth-registry
+  type: framework-rule-owner
+  owns_rules:
+    - ALATYR-SOURCE-001
+  depends_on:
+    - ALATYR-ADAPTER-001
+  applies_to:
+    - docs-local
+    - code-local
+    - business-change
+    - architecture-change
+    - data-change
+---
+# Source Of Truth Registry
+
+A source-of-truth registry maps fact types to canonical owners and derived
+surfaces.
+
+It prevents assistants from choosing owners by convenience, file proximity, or
+recency when project evidence conflicts.
+
+## Purpose
+
+The registry should answer:
+
+- which file or surface owns a fact type
+- which files are derived from that owner
+- which direction synchronization should flow
+- which stable fact ID, consistency level, and project area identify the owner
+- which machine-map node routes to related contracts and surfaces
+- which invariants constrain scope, identity, ownership, lifecycle, and
+  dependent behavior when the fact changes
+- which validation or manual review confirms consistency
+- who decides when two canonical-looking sources disagree
+
+Do not define one global precedence order for all facts. API contracts,
+database schemas, ADRs, tests, public docs, runtime config, and assistant
+policy can each have different owners.
+
+## Registry Entry Contract
+
+Each entry should define:
+
+- fact type
+- canonical owner
+- stable fact ID, consistency level, and project area
+- consistency-map node or an explicit missing relationship record
+- relationship coverage and known gaps
+- invariant and dependency constraints that must be re-derived during change
+- derived surfaces
+- sync direction
+- validation or manual review
+- conflict resolver
+- approval trigger when changing the canonical owner
+- final evidence expected after a change
+
+If a target does not know the owner for a fact type, mark it as missing instead
+of inferring ownership from the nearest file.
+
+## Machine-Readable Relationship Companion
+
+Large repositories may enable a machine-readable consistency map. The human
+registry remains canonical for ownership and conflict explanation. The map
+provides compact changed-fact routing to contracts, project areas,
+implementations, tests, docs, diagrams, generated artifacts, and assistant
+governance.
+
+Use stable fact IDs to connect registry entries to map nodes. A missing or
+stale relationship remains an adapter gap; it does not justify scanning every
+project surface or inventing an edge.
+
+## Common Fact Types
+
+Target adapters may include fact types such as:
+
+- product behavior
+- business rule
+- public API contract
+- internal service contract
+- architecture decision
+- architecture pattern or architectural item
+- data model
+- migration
+- runtime configuration
+- security policy
+- validation command
+- diagram source
+- generated documentation
+- structured code-comment contract
+- code-documentation profile and generator policy
+- project vocabulary term, alias, acronym, and acceptance state
+- vocabulary-to-data-dictionary link
+- test strategy and accepted test-first policy
+- assistant operation
+- structured team policy, actor identity mapping, authority, or priority policy
+- skill, prompt, wrapper, or bridge behavior
+- approval rule
+- external dependency public contract
+- target dependency configuration, restriction, wrapper, or patch deviation
+- cross-package integration contract
+
+The target adapter decides the actual names and owners.
+
+Dependency exports are external claims, not automatically target-owned facts.
+When dependency knowledge is enabled, register the applicable ownership split:
+the package owner controls its declared public guarantee, the target controls
+local use and deviation, and a named integration owner controls cross-package
+behavior. Record trust, freshness, authority, and applicability separately;
+do not encode them as one precedence value.
+
+Workspace identity, accepted development modes, default selection, and
+artifact relationships are target-owned project facts when workspace modes are
+enabled. Register their decision authority and evidence. Mode descriptors may
+link to architecture, package, skeleton, ownership, or validation sources but
+must not replace those owners. A selected mode routes context; it does not
+become source of truth for the facts it references.
+
+## Baseline Template Entries
+
+The target registry template should include baseline entries for fact types
+that commonly create drift when left ownerless:
+
+- product behavior
+- business rule
+- architecture decision
+- data model
+- validation command
+- security policy
+- assistant operation
+- AI infrastructure item
+- team policy when team collaboration is enabled
+- code documentation profile when code-documentation generation is enabled
+- project vocabulary when terminology support is enabled
+- test strategy and test-first policy when that optional module is enabled
+
+Each baseline entry may remain placeholder-based during installation planning,
+but before an adapter claims maturity the owner should be resolved from target
+evidence or explicitly marked missing.
+
+Generated reference documentation is a derived surface. A target may assign
+bounded symbol-level explanation to structured comments, but declarations,
+registered API specifications, business blueprints, architecture decisions,
+security policy, data owners, and operational sources retain the fact types
+assigned to them. A generator cannot change that ownership direction.
+
+Accepted vocabulary records may own a scoped project term's meaning, aliases,
+acronym expansion, and discouraged synonyms when the target assigns that fact
+type to them. They remain links or derived explanations for business rules,
+schemas, APIs, data fields, architecture decisions, security policy, code, and
+operational facts owned elsewhere.
+
+## Conflict Handling
+
+When sources disagree:
+
+1. Identify the fact type.
+2. Read the registry entry for that fact type.
+3. Name the canonical owner and derived surfaces.
+4. When a consistency map is enabled, build the applicable relationship impact
+   closure from the changed fact ID.
+5. Re-derive the entry's invariant and dependency constraints. When the map is
+   unavailable, use those constraints to build a compact manual closure.
+6. If the owner or relationship coverage is missing or ambiguous, report the
+   missing adapter fact.
+7. Repair the smallest coherent set of selected relationship surfaces.
+8. Record invariant results, selected and skipped edges, validation, and
+   residual risk.
+
+If the registry itself is wrong or stale, treat that as an adapter change. Do
+not silently repair product facts by changing the registry unless approval is
+present when required.

@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "descriptor_kind": "target-context-profile",
+  "profile": "code-local",
+  "use_when": [
+    "implementation change",
+    "test change",
+    "no accepted behavior change",
+    "review comments or defect fixes"
+  ],
+  "operation_candidates": [
+    "logical-integrity-review",
+    "drift-review",
+    "product-change"
+  ],
+  "required_context": [
+    ".ai/framework/context-discovery.md",
+    ".ai/framework/change-risk-model.md",
+    ".ai/framework/logical-integrity.md",
+    ".ai/assistant/gates/core.md",
+    ".ai/assistant/gates/code-and-tests.md",
+    ".ai/assistant/gates/final-evidence.md",
+    "composer.json"
+  ],
+  "conditional_context": [
+    {
+      "path": ".ai/framework/testing-guidance.md",
+      "when": "test level isolation or cross-boundary validation is unfamiliar or disputed"
+    },
+    {
+      "path": ".ai/assistant/gates/semantic-integrity.md",
+      "when": "the repair changes or may contradict an accepted semantic fact"
+    },
+    {
+      "path": ".ai/assistant/gates/security-approval.md",
+      "when": "the repair crosses a protected or security-sensitive boundary"
+    }
+  ],
+  "expand_when": [
+    "accepted_behavior_changes",
+    "architecture_boundary_changes",
+    "data_model_changes",
+    "external_contract_changes",
+    "security_posture_changes",
+    "ai_infrastructure_changes",
+    "shared_invariant_or_review_item_cluster_detected"
+  ],
+  "approval_gates": [
+    "protected_category_crossed"
+  ],
+  "validation": [
+    "/usr/local/bin/php8 vendor/bin/phpunit; /usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpstan analyse -c phpstan.neon --memory-limit=1G; /usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpstan analyse -c phpstan-dbal3.neon --memory-limit=1G; /usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpcs -d memory_limit=1G"
+  ],
+  "final_evidence": [
+    "changed_files",
+    "re_derived_invariants",
+    "review_item_reconciliation",
+    "validation",
+    "doc_sync_result",
+    "residual_risk"
+  ]
+}

@@ -1,0 +1,233 @@
+{
+  "schema_version": 6,
+  "router_kind": "target-context-router",
+  "human_reference": ".ai/assistant/context-profiles.md",
+  "preloaded_context": [
+    "AGENTS.md"
+  ],
+  "bootstrap_context": [
+    ".ai/assistant/bootstrap-index.json"
+  ],
+  "context_budgets": {
+    "bootstrap": {
+      "max_files": 2,
+      "max_words": 1400,
+      "soft_max_words": 1200
+    },
+    "profile_default": {
+      "max_files": 12,
+      "max_total_words": 8000,
+      "max_portable_words": 5600,
+      "reserved_target_words": 2400
+    },
+    "on_exceed": "load required safety and owner evidence, record expansion reason, measured context, and intentionally omitted context"
+  },
+  "context_receipt": {
+    "required_for": [
+      "budget exceeded",
+      "multiple project areas",
+      "cross-boundary work"
+    ],
+    "fields": [
+      "selected profiles",
+      "selected intent overlays",
+      "selected task scale overlay",
+      "selected project areas",
+      "loaded files and reasons",
+      "approximate context volume",
+      "expansion triggers",
+      "intentionally omitted context",
+      "residual risk"
+    ]
+  },
+  "operation_routing": {
+    "index": ".ai/assistant/operation-index.json",
+    "catalog": ".ai/assistant/operation-catalog.json",
+    "fallback_operation": "help",
+    "health_operation": "adapter-health",
+    "single_entry_alias": "Alatyr",
+    "load_index_when": [
+      "exact operation ID or request alias",
+      "clear operation handoff"
+    ],
+    "load_catalog_when": [
+      "bare Alatyr entry",
+      "ambiguity",
+      "operation or adapter repair"
+    ],
+    "automatic_when": "single enabled sufficient match",
+    "preview_policy": "risk-gated"
+  },
+  "intent_overlays": {},
+  "migration_routing": {
+    "assessment_required_before_changes": true,
+    "descriptor": ".ai/assistant/context/migration-routing.json"
+  },
+  "task_scale_overlays": {},
+  "area_overlays": {
+    "src": {
+      "use_when": [
+        "changes under src/",
+        "Doctrine ORM runtime behavior"
+      ],
+      "required_context": [
+        "composer.json",
+        "docs/en/reference/architecture.rst",
+        ".ai/project/source-of-truth-registry.md"
+      ],
+      "expand_when": [
+        "mapping, UnitOfWork, query, persister, hydrator, or cache behavior is affected"
+      ]
+    },
+    "tests": {
+      "use_when": [
+        "changes under tests/",
+        "test strategy or fixtures"
+      ],
+      "required_context": [
+        "tests/README.markdown",
+        "phpunit.xml.dist",
+        "CONTRIBUTING.md"
+      ],
+      "expand_when": [
+        "database-specific configuration or CI matrix behavior is affected"
+      ]
+    },
+    "docs": {
+      "use_when": [
+        "changes under docs/",
+        "README or public documentation"
+      ],
+      "required_context": [
+        "docs/README.md",
+        "docs/en/index.rst",
+        "CONTRIBUTING.md"
+      ],
+      "expand_when": [
+        "public behavior, security, mapping, or architecture facts change"
+      ]
+    },
+    "business-logic": {
+      "use_when": [
+        "changes to .ai/project/business-logic.md",
+        "business-rule routing",
+        "accepted ORM behavior rule family changes"
+      ],
+      "required_context": [
+        ".ai/project/business-logic.md",
+        ".ai/project/blueprint.md",
+        ".ai/project/source-of-truth-registry.md",
+        ".ai/assistant/context/profiles/business-change.json"
+      ],
+      "expand_when": [
+        "canonical Doctrine docs, source, tests, or validation ownership changes"
+      ]
+    },
+    "ci": {
+      "use_when": [
+        "changes under .github/workflows/",
+        "validation command or CI behavior"
+      ],
+      "required_context": [
+        ".github/workflows/continuous-integration.yml",
+        ".github/workflows/static-analysis.yml",
+        ".github/workflows/coding-standards.yml"
+      ],
+      "expand_when": [
+        "Composer, PHPUnit, PHPStan, PHPCS, database matrix, or merge gate behavior changes"
+      ]
+    },
+    "commits": {
+      "use_when": [
+        "creating a git commit",
+        "reviewing staged changes",
+        "writing or amending a commit message"
+      ],
+      "required_context": [
+        ".ai/project/commit-policy.md",
+        ".ai/project/source-of-truth-registry.md"
+      ],
+      "expand_when": [
+        "staged diff spans independent logical scopes or commit policy changes"
+      ]
+    }
+  },
+  "cost_scenarios": {
+    "descriptor": ".ai/assistant/context/cost-scenarios.json"
+  },
+  "routing_order": [
+    "docs-local",
+    "code-local",
+    "business-change",
+    "architecture-change",
+    "data-change",
+    "security-sensitive",
+    "framework-upgrade"
+  ],
+  "profile_index": {
+    "docs-local": {
+      "use_when": [
+        "local wording",
+        "README or documentation text",
+        "non-semantic documentation change"
+      ],
+      "descriptor": ".ai/assistant/context/profiles/docs-local.json"
+    },
+    "code-local": {
+      "use_when": [
+        "implementation change",
+        "test change",
+        "no accepted behavior change",
+        "review comments or defect fixes"
+      ],
+      "descriptor": ".ai/assistant/context/profiles/code-local.json"
+    },
+    "business-change": {
+      "use_when": [
+        "accepted behavior change",
+        "domain rule change",
+        "product policy change",
+        "workflow or public contract change"
+      ],
+      "descriptor": ".ai/assistant/context/profiles/business-change.json"
+    },
+    "architecture-change": {
+      "use_when": [
+        "module boundary change",
+        "dependency direction change",
+        "runtime topology change",
+        "public API or cross-component contract change"
+      ],
+      "descriptor": ".ai/assistant/context/profiles/architecture-change.json"
+    },
+    "data-change": {
+      "use_when": [
+        "schema change",
+        "persistence change",
+        "migration or backfill",
+        "data ownership or retention change"
+      ],
+      "descriptor": ".ai/assistant/context/profiles/data-change.json"
+    },
+    "security-sensitive": {
+      "use_when": [
+        "secrets or credentials",
+        "permissions or authentication",
+        "network or external services",
+        "destructive actions",
+        "production or spend boundary"
+      ],
+      "descriptor": ".ai/assistant/context/profiles/security-sensitive.json"
+    },
+    "framework-upgrade": {
+      "use_when": [
+        "installing Alatyr",
+        "updating Alatyr Core",
+        "adapter recheck",
+        "adapter maturity review",
+        "framework drift repair"
+      ],
+      "descriptor": ".ai/assistant/context/profiles/framework-upgrade.json"
+    }
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "descriptor_kind": "target-context-profile",
+  "profile": "architecture-change",
+  "use_when": [
+    "module boundary change",
+    "dependency direction change",
+    "runtime topology change",
+    "public API or cross-component contract change"
+  ],
+  "operation_candidates": [
+    "product-change",
+    "create-project-blueprint",
+    "logical-integrity-review"
+  ],
+  "required_context": [
+    ".ai/framework/context-discovery.md",
+    ".ai/framework/change-risk-model.md",
+    ".ai/framework/source-of-truth-registry.md",
+    ".ai/framework/logical-integrity.md",
+    ".ai/assistant/gates/core.md",
+    ".ai/assistant/gates/semantic-integrity.md",
+    ".ai/assistant/gates/final-evidence.md",
+    ".ai/project/blueprint.md",
+    "docs/en/reference/architecture.rst"
+  ],
+  "conditional_context": [
+    {
+      "path": ".ai/framework/blueprint-driven-change.md",
+      "when": "an accepted architecture decision enters change planning"
+    },
+    {
+      "path": ".ai/framework/approval-records.md",
+      "when": "the proposed change crosses a protected architecture or dependency boundary"
+    },
+    {
+      "path": ".ai/framework/security-safety-guidance.md",
+      "when": "security privacy external service production or permission boundaries are affected"
+    },
+    {
+      "path": ".ai/framework/testing-guidance.md",
+      "when": "the accepted decision enters implementation planning or validation"
+    },
+    {
+      "path": ".ai/assistant/flows/blueprint-driven-change.flow.md",
+      "when": "the accepted decision is implemented through the blueprint workflow"
+    },
+    {
+      "path": ".ai/assistant/gates/security-approval.md",
+      "when": "the change reaches a protected approval or security boundary"
+    },
+    {
+      "path": ".ai/assistant/gates/checklist.md",
+      "when": "adapter ambiguity or a full acceptance audit requires the complete checklist"
+    }
+  ],
+  "expand_when": [
+    "data_ownership_changes",
+    "external_boundary_changes",
+    "security_boundary_changes",
+    "new_dependency_or_service",
+    "diagram_changes",
+    "bridge_or_gate_changes"
+  ],
+  "approval_gates": [
+    "architecture_change",
+    "new_production_dependency_or_service"
+  ],
+  "validation": [
+    "manual architecture review plus /usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpstan analyse -c phpstan.neon --memory-limit=1G when implementation changes"
+  ],
+  "final_evidence": [
+    "architecture_owner_update",
+    "re_derived_invariants",
+    "review_item_reconciliation",
+    "affected_areas",
+    "validation",
+    "diagram_result",
+    "residual_risk"
+  ]
+}

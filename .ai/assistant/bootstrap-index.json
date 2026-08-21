@@ -1,0 +1,159 @@
+{
+  "schema_version": 1,
+  "index_kind": "target-bootstrap-index",
+  "derived_from": {
+    "manifest": {
+      "path": ".ai/alatyr.yaml",
+      "sha256": "0849e774d8a59009de67ed8aff3e39f95603ac420152f450ca0f30d3d3212633"
+    },
+    "project_map": {
+      "path": ".ai/README.md",
+      "sha256": "0f4388e0bc2d93162dcca048f0be322eb3b29085faff43be0567b3b4d11b7713"
+    },
+    "context_router": {
+      "path": ".ai/assistant/context-router.json",
+      "sha256": "75fa0c7dcf595e1cfef8f1750cd29610988512d59f16f7de25dc2285643d2426"
+    }
+  },
+  "installation": {
+    "framework_version": "0.1.0-alpha.15",
+    "adapter_schema_version": "14",
+    "template_version": "15",
+    "support_profile": "standard",
+    "framework_pack": "standard"
+  },
+  "project_map": ".ai/README.md",
+  "context_router": ".ai/assistant/context-router.json",
+  "routing_order": [
+    "docs-local",
+    "code-local",
+    "business-change",
+    "architecture-change",
+    "data-change",
+    "security-sensitive",
+    "framework-upgrade"
+  ],
+  "profiles": {
+    "docs-local": {
+      "signals": [
+        "local wording",
+        "README or documentation text",
+        "non-semantic documentation change"
+      ],
+      "descriptor": ".ai/assistant/context/profiles/docs-local.json"
+    },
+    "code-local": {
+      "signals": [
+        "implementation change",
+        "test change",
+        "no accepted behavior change",
+        "review comments or defect fixes"
+      ],
+      "descriptor": ".ai/assistant/context/profiles/code-local.json"
+    },
+    "business-change": {
+      "signals": [
+        "accepted behavior change",
+        "domain rule change",
+        "product policy change",
+        "workflow or public contract change"
+      ],
+      "descriptor": ".ai/assistant/context/profiles/business-change.json"
+    },
+    "architecture-change": {
+      "signals": [
+        "module boundary change",
+        "dependency direction change",
+        "runtime topology change",
+        "public API or cross-component contract change"
+      ],
+      "descriptor": ".ai/assistant/context/profiles/architecture-change.json"
+    },
+    "data-change": {
+      "signals": [
+        "schema change",
+        "persistence change",
+        "migration or backfill",
+        "data ownership or retention change"
+      ],
+      "descriptor": ".ai/assistant/context/profiles/data-change.json"
+    },
+    "security-sensitive": {
+      "signals": [
+        "secrets or credentials",
+        "permissions or authentication",
+        "network or external services",
+        "destructive actions",
+        "production or spend boundary"
+      ],
+      "descriptor": ".ai/assistant/context/profiles/security-sensitive.json"
+    },
+    "framework-upgrade": {
+      "signals": [
+        "installing Alatyr",
+        "updating Alatyr Core",
+        "adapter recheck",
+        "adapter maturity review",
+        "framework drift repair"
+      ],
+      "descriptor": ".ai/assistant/context/profiles/framework-upgrade.json"
+    }
+  },
+  "intent_overlays": {},
+  "task_scale_overlays": {},
+  "area_overlays": {
+    "src": {
+      "signals": [
+        "changes under src/",
+        "Doctrine ORM runtime behavior"
+      ]
+    },
+    "tests": {
+      "signals": [
+        "changes under tests/",
+        "test strategy or fixtures"
+      ]
+    },
+    "docs": {
+      "signals": [
+        "changes under docs/",
+        "README or public documentation"
+      ]
+    },
+    "business-logic": {
+      "signals": [
+        "changes to .ai/project/business-logic.md",
+        "business-rule routing",
+        "accepted ORM behavior rule family changes"
+      ]
+    },
+    "ci": {
+      "signals": [
+        "changes under .github/workflows/",
+        "validation command or CI behavior"
+      ]
+    },
+    "commits": {
+      "signals": [
+        "creating a git commit",
+        "reviewing staged changes",
+        "writing or amending a commit message"
+      ]
+    }
+  },
+  "operation_index": ".ai/assistant/operation-index.json",
+  "operation_catalog": ".ai/assistant/operation-catalog.json",
+  "gate_index": ".ai/assistant/gates/index.json",
+  "enabled_modules": [
+    "blueprint-change"
+  ],
+  "known_gaps": [
+    "No separate backup owner was found in target evidence; @atvardovsky is the only recorded adapter owner.",
+    "No existing CODEOWNERS file was found before installation; this install creates CODEOWNERS for adapter files only.",
+    "No target-local Alatyr checker is committed; validation currently uses the AlatyrCore source validator from the installation source checkout.",
+    "Non-blueprint optional Alatyr modules are deferred until target owners and policies are accepted.",
+    "Default php and composer binaries are not suitable for this branch in this workspace; use /usr/local/bin/php8 and /usr/local/bin/composer8.",
+    "Local SQLite lacks the SQRT SQL function; the full PHPUnit suite currently stops at Doctrine\\Tests\\ORM\\Functional\\QueryDqlFunctionTest::testFunctionSqrt in this environment."
+  ],
+  "expansion_policy": "load required safety and owner evidence, record expansion reason, measured context, and intentionally omitted context"
+}

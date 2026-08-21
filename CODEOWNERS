@@ -1,0 +1,6 @@
+# Alatyr target adapter ownership for the atvardovsky Doctrine ORM fork.
+
+/.ai/ @atvardovsky
+/AGENTS.md @atvardovsky
+/AI_ASSISTANTS.md @atvardovsky
+/CODEOWNERS @atvardovsky

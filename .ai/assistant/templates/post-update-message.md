@@ -1,0 +1,106 @@
+# Post-Update Assistant Chat Message
+
+Use this template for the assistant's chat response after Alatyr Core is
+updated in `Doctrine ORM`.
+
+Replace placeholders with target facts before sending the message.
+
+```text
+Alatyr Core has been updated for `Doctrine ORM`.
+
+Framework baseline:
+`https://github.com/atvardovsky/AlatyrCore`
+
+Framework version/schema:
+`0.1.0-alpha.15`, adapter schema `14`, template `15`
+
+Updated adapter surfaces:
+`none; use only during future updates`
+
+Future assistant bootstrap:
+- Do not rely on this chat message alone.
+- Treat `AGENTS.md` as preloaded; start from `.ai/assistant/bootstrap-index.json`.
+- Repair a stale generated index from `.ai/alatyr.yaml`, `.ai/README.md`, and `.ai/assistant/context-router.json`; otherwise load profiles, module state, registries, blueprint, gate fragments, and the installation note only when routing or unclear adapter state requires them.
+- Send `Alatyr` for compact actions or `Alatyr status` for a read-only adapter health check.
+- If migration impact is unclear, run `recheck-after-framework-update` before editing files.
+
+Recommended follow-up:
+Use the installed Alatyr adapter in this repository.
+Operation type: recheck-after-framework-update
+Goal: compare the installed adapter against the updated Alatyr Core baseline and report required migrations.
+Non-goals: do not change project behavior without approval.
+Allowed actions: read-only
+
+Migration assessment:
+`.ai/assistant/templates/migration-note.md or manual review`
+
+Upgrade impact router:
+`manual review unless a future upgrade report is generated`
+
+Load only canonical sources and target surfaces selected by the migration
+assessment. Record candidate context intentionally omitted.
+
+Operation help:
+- Send `Alatyr` for compact relevant operations; use `Alatyr status` or
+  `Alatyr doctor` for read-only health evidence.
+- Exact IDs and aliases route through `.ai/assistant/operation-index.json`;
+  bounded natural-language requests route automatically and operation IDs are
+  optional. Load the full catalog only for ambiguity or repair.
+- Risky or cross-boundary changes show a pre-change preview before edits.
+- Use `.ai/assistant/help.md`, `.ai/assistant/help-reference.md`, and `.ai/assistant/templates/operation-request.md` for structured requests.
+- Use `large-task` only for cross-boundary or resumable work, and resume an existing packet when one is named.
+- Recheck change-package records, semantic approval fields, provenance grades,
+  and validator support when the optional module or schema changed. Preserve
+  historical target records.
+- When code documentation is enabled, preserve target profiles and recheck
+  source-set matching, accepted state, canonical owners, generator/output
+  policy, adapted skill, and validation before generation.
+- When project vocabulary is enabled, preserve term IDs, definitions, states,
+  aliases, acronyms, owners, canonical sources, and data links; recheck lookup,
+  ambiguity, normalization, adapted skill, and validation before use.
+- When test-first development is enabled, preserve target policy ownership,
+  triggers, modes, commands, isolation, exceptions, adapted skill, and
+  historical evidence; recheck recommendation and RED/GREEN routing before use.
+- When extensions are enabled, preserve catalog/lock entries, immutable source
+  provenance, target bindings, permissions, approvals, file ownership, local
+  deviations, and lifecycle history; recheck compatibility and drift without
+  automatically updating, activating, or removing any extension.
+- When dependency knowledge is enabled, preserve target policy, reviewed
+  package instances, independent semantic state, deviations, retention
+  decisions, and permitted snapshots; recheck export API, artifact identity,
+  fingerprints, routing, and drift without running package managers,
+  activating nested adapters, or presenting stale claims as current.
+- When workspace modes are enabled, preserve user-accepted mode IDs,
+  per-mode directories, shared root context, relationships, ownership, and
+  decision evidence. Recheck them against the revised contract and present
+  migrations as proposals; never accept, replace, or activate a mode solely
+  because Alatyr was updated.
+- When team collaboration is enabled, recheck the structured policy, ignored
+  identity boundary, active index, registry/task schemas, backend contract,
+  optimistic concurrency, active task IDs, claims, handoffs, decisions,
+  external references, stale overlaps, and revision-bound reviews before
+  changing active records. Migrate schema-1 arrays atomically when applicable.
+- Use `Alatyr set actor <actor>` for local attribution, `Alatyr who am I` to
+  inspect it, `Alatyr team status` for coordination evidence, and the specific
+  team aliases for task, conflict, handoff, decision, review, or merge work.
+- Recheck AI infrastructure router entries and adaptation records when skills, prompts, gates, tools, or bridge contracts changed.
+- Recheck `diagram-discussion`, stable diagram lineage, security/privacy and
+  external-renderer policy, and each selected compact assistant capability's
+  enums, client version, verification time, and evidence when diagram or
+  bridge contracts changed.
+- Recheck the architecture catalog owner, decision authority, item states,
+  selected evidence paths, validation, and evidence revision when
+  `architecture-knowledge` or project architecture contracts changed. Use
+  `Alatyr architecture` for a bounded inventory, explanation, comparison, or
+  review.
+- Use `alatyr-suggest-ai <scope>` or `alatyr-improve-ai <item-id>` for a read-only recommendation when project needs or existing item outcomes changed.
+
+Validation run:
+`adapter structural validation run; Doctrine runtime tests not run for adapter-only install`
+
+Known adapter gaps or migrations:
+`initial install gaps recorded in installation note`
+
+Migration note:
+`.ai/assistant/templates/migration-note.md` or `not needed for initial installation`
+```

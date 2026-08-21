@@ -1,0 +1,141 @@
+schema_version: 14
+framework:
+  name: "Alatyr Core"
+  version: "0.1.0-alpha.15"
+  source: "https://github.com/atvardovsky/AlatyrCore"
+  template_version: 15
+  pack: "standard"
+  rule_registry: ".ai/framework/rule-registry.json"
+installation:
+  id: "ALATYR-20260821-doctrine-orm"
+  date: "2026-08-21"
+  mode: "new-install"
+  support_profile: "standard"
+owner:
+  responsible_team: "atvardovsky fork owner"
+  technical_owner: "@atvardovsky"
+  backup_owner: "missing: no separate backup owner found in target evidence"
+  last_review_date: "2026-08-21"
+  review_cadence: "quarterly or after Alatyr framework/template updates"
+  codeowners: "CODEOWNERS"
+  review_triggers:
+    - "Alatyr framework, adapter schema, or template version changes"
+    - "Doctrine ORM validation, security, CI, or source-of-truth files change materially"
+    - "new assistant bridge, prompt, skill, tool, or approval policy is added"
+supported_assistants:
+  - "Codex"
+contours:
+  framework: ".ai/framework"
+  project: ".ai/project"
+  assistant: ".ai/assistant"
+source_of_truth:
+  project_contour: ".ai/project/contour.md"
+  registry: ".ai/project/source-of-truth-registry.md"
+  assistant_contour: ".ai/assistant/contour.md"
+  context_router: ".ai/assistant/context-router.json"
+  bootstrap_index: ".ai/assistant/bootstrap-index.json"
+  context_profiles: ".ai/assistant/context-profiles.md"
+  module_profile: ".ai/assistant/module-profile.md"
+  project_sources:
+    - ".ai/project/blueprint.md"
+    - ".ai/project/business-logic.md"
+    - ".ai/project/commit-policy.md"
+    - "README.md"
+    - "CONTRIBUTING.md"
+    - "SECURITY.md"
+    - "composer.json"
+    - "docs/en/reference/architecture.rst"
+    - "docs/en/reference/security.rst"
+    - "docs/en/reference/basic-mapping.rst"
+    - "docs/en/reference/unitofwork.rst"
+    - "tests/README.markdown"
+    - ".github/workflows/continuous-integration.yml"
+    - ".github/workflows/static-analysis.yml"
+    - ".github/workflows/coding-standards.yml"
+context_routing:
+  router_schema_version: 6
+  preloaded_context:
+    - "AGENTS.md"
+  compact_bootstrap:
+    - ".ai/assistant/bootstrap-index.json"
+  bootstrap_max_files: 2
+  bootstrap_max_words: 1400
+  profile_default_max_files: 12
+  profile_default_max_total_words: 8000
+  profile_default_max_portable_words: 5600
+  profile_default_reserved_target_words: 2400
+  budget_behavior: "load required safety and owner evidence, then record measured expansion"
+modules:
+  core_profile: "complete-with-known-gaps"
+  enabled:
+    - "blueprint-change"
+  deferred:
+    - "architecture-knowledge: existing architecture docs found, but no Alatyr architecture catalog owner is accepted yet"
+    - "test-first-development: tests exist, but no target-owned test-first policy is accepted yet"
+    - "diagrams: no target-owned diagram source or render policy found"
+    - "team-collaboration: no team policy, actors, or coordination backend recorded"
+    - "ai-infrastructure: no existing target AI infrastructure inventory beyond this adapter"
+  blocked:
+    - "backup-owner: no separate backup owner found in target evidence"
+    - "target-local-checker: Alatyr source validator is available from the source checkout, but no target-local checker is committed"
+validation:
+  commands:
+    - name: "install-dependencies"
+      command: "/usr/local/bin/composer8 install"
+      required_for:
+        - "code-local"
+        - "business-change"
+        - "architecture-change"
+        - "data-change"
+    - name: "unit-tests"
+      command: "/usr/local/bin/php8 vendor/bin/phpunit"
+      required_for:
+        - "code-local"
+        - "business-change"
+        - "data-change"
+    - name: "static-analysis-default-dbal"
+      command: "/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpstan analyse -c phpstan.neon --memory-limit=1G"
+      required_for:
+        - "code-local"
+        - "architecture-change"
+    - name: "static-analysis-dbal3"
+      command: "/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpstan analyse -c phpstan-dbal3.neon --memory-limit=1G"
+      required_for:
+        - "code-local"
+        - "architecture-change"
+    - name: "coding-standards"
+      command: "/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpcs -d memory_limit=1G"
+      required_for:
+        - "code-local"
+    - name: "documentation"
+      command: "/usr/local/bin/composer8 docs after ensuring the nested docs script resolves a PHP 8-compatible composer command"
+      required_for:
+        - "docs-local"
+operations:
+  gate_index: ".ai/assistant/gates/index.json"
+  index: ".ai/assistant/operation-index.json"
+  catalog: ".ai/assistant/operation-catalog.json"
+  routing: ".ai/assistant/flows/operation-routing.flow.md"
+  health: ".ai/assistant/flows/adapter-health.flow.md"
+  pre_change_preview: ".ai/assistant/templates/pre-change-preview.md"
+  documentation_sync: ".ai/assistant/flows/documentation-sync.flow.md"
+  help: ".ai/assistant/help.md"
+  help_reference: ".ai/assistant/help-reference.md"
+  operation_request: ".ai/assistant/templates/operation-request.md"
+  installation_note: ".ai/assistant/templates/installation-note.md"
+  output_contracts: ".ai/assistant/templates/adapter-output-contracts.md"
+  migration_note: ".ai/assistant/templates/migration-note.md"
+maturity:
+  profile: ".ai/assistant/maturity-profile.md"
+known_gaps:
+  - "No separate backup owner was found in target evidence; @atvardovsky is the only recorded adapter owner."
+  - "No existing CODEOWNERS file was found before installation; this install creates CODEOWNERS for adapter files only."
+  - "No target-local Alatyr checker is committed; validation currently uses the AlatyrCore source validator from the installation source checkout."
+  - "Non-blueprint optional Alatyr modules are deferred until target owners and policies are accepted."
+  - "Default php and composer binaries are not suitable for this branch in this workspace; use /usr/local/bin/php8 and /usr/local/bin/composer8."
+  - "Local SQLite lacks the SQRT SQL function; the full PHPUnit suite currently stops at Doctrine\\Tests\\ORM\\Functional\\QueryDqlFunctionTest::testFunctionSqrt in this environment."
+local_deviations:
+  - "Installed standard framework pack without assistant-specific bridge files beyond AGENTS.md and AI_ASSISTANTS.md."
+  - "CODEOWNERS is scoped to Alatyr adapter files and root assistant entry points."
+  - "Accepted .ai/project/blueprint.md as the Doctrine ORM blueprint index for installed blueprint operations."
+  - "Accepted .ai/project/commit-policy.md as the Doctrine ORM project commit policy for logical commit scope and detailed English commit messages."

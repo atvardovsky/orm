@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "descriptor_kind": "target-context-profile",
+  "profile": "data-change",
+  "use_when": [
+    "schema change",
+    "persistence change",
+    "migration or backfill",
+    "data ownership or retention change"
+  ],
+  "operation_candidates": [
+    "product-change",
+    "logical-integrity-review",
+    "drift-review"
+  ],
+  "required_context": [
+    ".ai/framework/context-discovery.md",
+    ".ai/framework/change-risk-model.md",
+    ".ai/framework/source-of-truth-registry.md",
+    ".ai/framework/logical-integrity.md",
+    ".ai/assistant/gates/core.md",
+    ".ai/assistant/gates/semantic-integrity.md",
+    ".ai/assistant/gates/code-and-tests.md",
+    ".ai/assistant/gates/final-evidence.md",
+    ".ai/project/blueprint.md",
+    "docs/en/reference/basic-mapping.rst"
+  ],
+  "conditional_context": [
+    {
+      "path": ".ai/framework/security-safety-guidance.md",
+      "when": "privacy credentials destructive live-service or retention boundaries are affected"
+    },
+    {
+      "path": ".ai/framework/testing-guidance.md",
+      "when": "a migration implementation rollback or validation plan is prepared"
+    },
+    {
+      "path": ".ai/assistant/gates/security-approval.md",
+      "when": "the data change reaches a protected destructive privacy live or approval boundary"
+    },
+    {
+      "path": ".ai/assistant/gates/checklist.md",
+      "when": "adapter ambiguity or a full acceptance audit requires the complete checklist"
+    }
+  ],
+  "expand_when": [
+    "destructive_or_data_loss_risk",
+    "privacy_or_security_changes",
+    "migration_rollback_needed",
+    "external_data_contract_changes",
+    "diagram_changes"
+  ],
+  "approval_gates": [
+    "destructive_data_change",
+    "privacy_change",
+    "migration_risk_change",
+    "live_service_data_change"
+  ],
+  "validation": [
+    "/usr/local/bin/php8 vendor/bin/phpunit with relevant database configuration and manual persistence review"
+  ],
+  "final_evidence": [
+    "canonical_data_owner",
+    "re_derived_invariants",
+    "external_failure_distinction",
+    "derived_surfaces",
+    "migration_or_rollback_notes",
+    "validation",
+    "unresolved_risk"
+  ]
+}

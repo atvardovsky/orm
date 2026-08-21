@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "descriptor_kind": "target-context-profile",
+  "profile": "docs-local",
+  "use_when": [
+    "local wording",
+    "README or documentation text",
+    "non-semantic documentation change"
+  ],
+  "operation_candidates": [
+    "documentation-sync",
+    "drift-review",
+    "logical-integrity-review"
+  ],
+  "required_context": [
+    ".ai/framework/context-discovery.md",
+    ".ai/assistant/gates/core.md",
+    ".ai/assistant/gates/documentation.md",
+    ".ai/assistant/gates/final-evidence.md",
+    "README.md"
+  ],
+  "expand_when": [
+    "semantic_fact_changes",
+    "source_of_truth_conflict",
+    "approval_scope_unclear",
+    "diagram_or_public_contract_changes"
+  ],
+  "approval_gates": [
+    "accepted_behavior_change",
+    "security_posture_change",
+    "public_contract_change",
+    "approval_rule_change"
+  ],
+  "validation": [
+    "docs validation after the docs script resolves a PHP 8-compatible composer command, or manual documentation review when docs dependencies are unavailable"
+  ],
+  "final_evidence": [
+    "changed_docs",
+    "source_of_truth",
+    "skipped_checks",
+    "why_no_logical_integrity_expansion"
+  ]
+}

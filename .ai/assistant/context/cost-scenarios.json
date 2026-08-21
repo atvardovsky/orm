@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "descriptor_kind": "target-context-cost-scenarios",
+  "scenarios": {
+    "docs-local-edit": {
+      "profile": "docs-local",
+      "intent_overlays": [],
+      "task_scale_overlays": [],
+      "expected_budget_state": "compact"
+    },
+    "code-local-change": {
+      "profile": "code-local",
+      "intent_overlays": [],
+      "task_scale_overlays": [],
+      "expected_budget_state": "expansion-receipt-required"
+    },
+    "blueprint-product-change": {
+      "profile": "business-change",
+      "intent_overlays": [],
+      "task_scale_overlays": [],
+      "expected_budget_state": "expansion-receipt-required"
+    },
+    "architecture-change": {
+      "profile": "architecture-change",
+      "intent_overlays": [],
+      "task_scale_overlays": [],
+      "expected_budget_state": "expansion-receipt-required"
+    },
+    "framework-upgrade": {
+      "profile": "framework-upgrade",
+      "intent_overlays": [],
+      "task_scale_overlays": [],
+      "expected_budget_state": "compact"
+    }
+  }
+}
