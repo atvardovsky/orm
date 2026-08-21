@@ -1,0 +1,372 @@
+{
+  "schema_version": 1,
+  "record_kind": "alatyr-debug-session",
+  "evidence_classification": "non-canonical-observability",
+  "debug_id": "DEBUG-20260822-GH11827-001",
+  "status": "active",
+  "authority": "non-canonical",
+  "owner": "@atvardovsky",
+  "task": {
+    "summary": "Investigate Doctrine ORM issue #11827 on collection clear scheduling a repeated DELETE during postFlush-triggered flush work.",
+    "references": [
+      "doctrine/orm#11827"
+    ],
+    "scope_kind": "task",
+    "scope_id": "bugfix/gh-11827-collection-clear-postflush-delete",
+    "operation_ids": [
+      "debug-mode"
+    ],
+    "task_class": "Doctrine ORM bug investigation"
+  },
+  "activation": {
+    "enabled_by": "explicit-user-request",
+    "request_reference": "User requested: turn on Alatyr debug mode",
+    "enabled_at": {
+      "value": "2026-08-22T00:57:27+02:00",
+      "evidence_kind": "observed"
+    },
+    "initial_revision": "7e4f5853d2c436f0ecda1f6b901c954583e174f8",
+    "expires_on": "task-completion",
+    "ended_by": "active"
+  },
+  "timing": {
+    "started_at": {
+      "value": "2026-08-22T00:57:27+02:00",
+      "evidence_kind": "observed"
+    },
+    "completed_at": {
+      "value": null,
+      "evidence_kind": "unknown"
+    },
+    "elapsed_seconds": {
+      "value": null,
+      "evidence_kind": "unknown"
+    },
+    "active_work_seconds": {
+      "value": null,
+      "evidence_kind": "unknown"
+    }
+  },
+  "capture_quality": {
+    "event_coverage": "unknown",
+    "missing_intervals": [],
+    "observer_effect": "unknown",
+    "estimated_overhead_seconds": {
+      "value": null,
+      "evidence_kind": "unknown"
+    }
+  },
+  "events": [
+    {
+      "event_id": "evt-001",
+      "sequence": 1,
+      "occurred_at": {
+        "value": "2026-08-22T01:02:29+02:00",
+        "evidence_kind": "observed"
+      },
+      "origin": "alatyr-initiated",
+      "category": "execution-path",
+      "summary": "Traced GH-11827 to stale UnitOfWork collection deletion state during a postFlush-triggered reentrant flush.",
+      "material_effect": "Identified the exact scheduling, execution, and late-cleanup locations that allow a complete collection DELETE to run twice.",
+      "evidence": [
+        "src/PersistentCollection.php:478-483 schedules a complete collection deletion on owning-side clear().",
+        "src/UnitOfWork.php:391-399 executes scheduled complete collection deletions.",
+        "src/UnitOfWork.php:476-489 dispatches postFlush before clearing collectionDeletions.",
+        "src/Persisters/Collection/ManyToManyPersister.php:36-53 performs the owner-wide join-table DELETE."
+      ],
+      "caused_by_event_ids": [],
+      "architectural_supervision": false,
+      "dependency_expansion": false,
+      "validation_expansion": false,
+      "post_review_rework": false,
+      "hypothesis_outcome": "not-applicable"
+    },
+    {
+      "event_id": "evt-002",
+      "sequence": 2,
+      "occurred_at": {
+        "value": "2026-08-22T01:03:39+02:00",
+        "evidence_kind": "observed"
+      },
+      "origin": "alatyr-initiated",
+      "category": "validation",
+      "summary": "Ran focused existing many-to-many clear tests on PHP 8.2.",
+      "material_effect": "Confirmed ordinary clear and clear-then-add behavior is covered and passing outside the reentrant postFlush scenario.",
+      "evidence": [
+        "php8 vendor/bin/phpunit --filter '/::testManyToManyCollection(Clearing|ClearAndAdd)$/' tests/Tests/ORM/Functional/ManyToManyBasicAssociationTest.php passed with 2 tests and 9 assertions.",
+        "The same command with the default php binary cannot start because /usr/bin/php is PHP 7.4 while this PHPUnit version requires PHP >= 8.2."
+      ],
+      "caused_by_event_ids": [
+        "evt-001"
+      ],
+      "architectural_supervision": false,
+      "dependency_expansion": false,
+      "validation_expansion": false,
+      "post_review_rework": false,
+      "hypothesis_outcome": "not-applicable"
+    },
+    {
+      "event_id": "evt-003",
+      "sequence": 3,
+      "occurred_at": {
+        "value": "2026-08-22T01:07:01+02:00",
+        "evidence_kind": "observed"
+      },
+      "origin": "alatyr-initiated",
+      "category": "regression-scenario",
+      "summary": "Added a GH-11827 regression test covering clear, re-add, and a nested flush from postFlush.",
+      "material_effect": "The focused test fails on current code with zero persisted groups instead of two, demonstrating the data-loss path.",
+      "evidence": [
+        "tests/Tests/ORM/Functional/Ticket/GH11827Test.php adds testNestedFlushInPostFlushDoesNotRepeatClearedCollectionDeletion().",
+        "php8 vendor/bin/phpunit tests/Tests/ORM/Functional/Ticket/GH11827Test.php fails because actual collection size is 0 while expected size is 2."
+      ],
+      "caused_by_event_ids": [
+        "evt-001",
+        "evt-002"
+      ],
+      "architectural_supervision": false,
+      "dependency_expansion": false,
+      "validation_expansion": false,
+      "post_review_rework": false,
+      "hypothesis_outcome": "not-applicable"
+    },
+    {
+      "event_id": "evt-004",
+      "sequence": 4,
+      "occurred_at": {
+        "value": "2026-08-22T01:27:51+02:00",
+        "evidence_kind": "observed"
+      },
+      "origin": "alatyr-initiated",
+      "category": "implementation-revision",
+      "summary": "Moved completed collection queue cleanup before postFlush dispatch.",
+      "material_effect": "Prevents a postFlush-triggered nested flush from replaying already-executed collection deletes or updates.",
+      "evidence": [
+        "src/UnitOfWork.php resets collectionUpdates, collectionDeletions, pendingCollectionElementRemovals, and visitedCollections after collection snapshots and before dispatchPostFlushEvent().",
+        "The change leaves onFlush visibility unchanged because the queues are still populated until after collection SQL execution and snapshot refresh."
+      ],
+      "caused_by_event_ids": [
+        "evt-001",
+        "evt-003"
+      ],
+      "architectural_supervision": false,
+      "dependency_expansion": false,
+      "validation_expansion": false,
+      "post_review_rework": false,
+      "hypothesis_outcome": "not-applicable"
+    },
+    {
+      "event_id": "evt-005",
+      "sequence": 5,
+      "occurred_at": {
+        "value": "2026-08-22T01:27:51+02:00",
+        "evidence_kind": "observed"
+      },
+      "origin": "alatyr-initiated",
+      "category": "validation",
+      "summary": "Validated GH-11827 fix across focused and broad functional surfaces.",
+      "material_effect": "Confirmed the regression now passes and no focused collection or flush-event regression was detected.",
+      "evidence": [
+        "php8 vendor/bin/phpunit tests/Tests/ORM/Functional/Ticket/GH11827Test.php passed with 1 test and 3 assertions.",
+        "Focused impact batch passed with 127 tests and 384 assertions.",
+        "Functional suite passed with SQRT environment failures filtered out: 1592 tests, 6549 assertions, 39 skipped.",
+        "Full unfiltered functional suite only failed two SQLite SQRT tests unrelated to UnitOfWork collection cleanup.",
+        "php8 vendor/bin/phpcs src/UnitOfWork.php tests/Tests/ORM/Functional/Ticket/GH11827Test.php passed.",
+        "php8 vendor/bin/phpstan analyse tests/Tests/ORM/Functional/Ticket/GH11827Test.php --configuration=phpstan.neon --memory-limit=1G passed."
+      ],
+      "caused_by_event_ids": [
+        "evt-004"
+      ],
+      "architectural_supervision": false,
+      "dependency_expansion": false,
+      "validation_expansion": true,
+      "post_review_rework": false,
+      "hypothesis_outcome": "not-applicable"
+    },
+    {
+      "event_id": "evt-006",
+      "sequence": 6,
+      "occurred_at": {
+        "value": "2026-08-22T01:38:46+02:00",
+        "evidence_kind": "observed"
+      },
+      "origin": "alatyr-initiated",
+      "category": "regression-scenario",
+      "summary": "Expanded GH-11827 coverage across adjacent collection queue paths.",
+      "material_effect": "Added tests for onFlush/postFlush queue visibility, dereferenced collection replacement, pending collection element removals, single join-table DELETE execution, and many-to-many orphan-removal clear/re-add behavior.",
+      "evidence": [
+        "tests/Tests/ORM/Functional/Ticket/GH11827Test.php now contains 6 tests and passed with 25 assertions.",
+        "Focused impact batch passed with 132 tests and 406 assertions.",
+        "Functional suite passed with SQRT environment failures filtered out: 1597 tests, 6571 assertions, 39 skipped.",
+        "php8 vendor/bin/phpcs src/UnitOfWork.php tests/Tests/ORM/Functional/Ticket/GH11827Test.php passed.",
+        "php8 vendor/bin/phpstan analyse tests/Tests/ORM/Functional/Ticket/GH11827Test.php --configuration=phpstan.neon --memory-limit=1G passed."
+      ],
+      "caused_by_event_ids": [
+        "evt-004",
+        "evt-005"
+      ],
+      "architectural_supervision": false,
+      "dependency_expansion": false,
+      "validation_expansion": true,
+      "post_review_rework": false,
+      "hypothesis_outcome": "not-applicable"
+    }
+  ],
+  "metrics": {
+    "human_interventions": {
+      "value": null,
+      "evidence_kind": "unavailable",
+      "event_ids": []
+    },
+    "human_architectural_interventions": {
+      "value": null,
+      "evidence_kind": "unavailable",
+      "event_ids": []
+    },
+    "alatyr_independent_findings": {
+      "value": 6,
+      "evidence_kind": "event-derived",
+      "event_ids": [
+        "evt-001",
+        "evt-002",
+        "evt-003",
+        "evt-004",
+        "evt-005",
+        "evt-006"
+      ]
+    },
+    "derived_findings_after_human": {
+      "value": null,
+      "evidence_kind": "unavailable",
+      "event_ids": []
+    },
+    "alatyr_independent_dependency_checks": {
+      "value": null,
+      "evidence_kind": "unavailable",
+      "event_ids": []
+    },
+    "human_requested_dependency_checks": {
+      "value": null,
+      "evidence_kind": "unavailable",
+      "event_ids": []
+    },
+    "derived_dependency_expansions_after_human": {
+      "value": null,
+      "evidence_kind": "unavailable",
+      "event_ids": []
+    },
+    "hypotheses_tested": {
+      "value": null,
+      "evidence_kind": "unavailable",
+      "event_ids": []
+    },
+    "hypotheses_rejected": {
+      "value": null,
+      "evidence_kind": "unavailable",
+      "event_ids": []
+    },
+    "implementation_revisions": {
+      "value": 1,
+      "evidence_kind": "event-derived",
+      "event_ids": [
+        "evt-004"
+      ]
+    },
+    "implementation_corrections_after_human": {
+      "value": null,
+      "evidence_kind": "unavailable",
+      "event_ids": []
+    },
+    "validation_expansions": {
+      "value": 2,
+      "evidence_kind": "event-derived",
+      "event_ids": [
+        "evt-005",
+        "evt-006"
+      ]
+    },
+    "regression_scenarios_added": {
+      "value": 2,
+      "evidence_kind": "event-derived",
+      "event_ids": [
+        "evt-003",
+        "evt-006"
+      ]
+    },
+    "maintainer_corrections": {
+      "value": null,
+      "evidence_kind": "unavailable",
+      "event_ids": []
+    },
+    "post_review_rework": {
+      "value": null,
+      "evidence_kind": "unavailable",
+      "event_ids": []
+    }
+  },
+  "final_result": {
+    "summary": "Debug Mode is active; GH-11827 is covered by regression and adjacent collection-queue tests, and the implemented queue cleanup fix passes focused and broad validation.",
+    "repository_binding": {
+      "kind": "unverified",
+      "base_revision": "7e4f5853d2c436f0ecda1f6b901c954583e174f8",
+      "result_revision": "unavailable-active",
+      "review_reference": "not-applicable",
+      "selected_paths": [],
+      "snapshot_sha256": "not-applicable"
+    },
+    "implementation_surfaces": [
+      "src/UnitOfWork.php",
+      "tests/Tests/ORM/Functional/Ticket/GH11827Test.php"
+    ],
+    "validation": {
+      "results": [
+        "php8 vendor/bin/phpunit tests/Tests/ORM/Functional/Ticket/GH11827Test.php passed with 6 tests and 25 assertions.",
+        "Focused impact batch passed with 132 tests and 406 assertions.",
+        "php8 vendor/bin/phpunit --filter '/^(?!.*(testFunctionSqrt|typesShouldBeConvertedForDQLFunctions)).*$/' tests/Tests/ORM/Functional passed with 1597 tests and 6571 assertions.",
+        "php8 vendor/bin/phpcs src/UnitOfWork.php tests/Tests/ORM/Functional/Ticket/GH11827Test.php passed.",
+        "php8 vendor/bin/phpstan analyse tests/Tests/ORM/Functional/Ticket/GH11827Test.php --configuration=phpstan.neon --memory-limit=1G passed."
+      ],
+      "skipped": [
+        "Unfiltered functional suite has two local SQLite SQRT function errors unrelated to UnitOfWork collection cleanup."
+      ]
+    },
+    "engineering_evidence_ids": [
+      "evt-003",
+      "evt-004",
+      "evt-005",
+      "evt-006"
+    ],
+    "upstream_projection": {
+      "kind": "unknown",
+      "included_debug_files": false,
+      "projected_paths": [],
+      "evidence": []
+    }
+  },
+  "publication": {
+    "storage_mode": "repository-internal",
+    "visibility": "repository-local",
+    "included_in_external_patch": false,
+    "policy_evidence": ".ai/project/debug/README.md"
+  },
+  "privacy": {
+    "raw_ai_conversation_stored": false,
+    "raw_human_conversation_stored": false,
+    "chain_of_thought_stored": false,
+    "prompts_stored": false,
+    "secrets_stored": false,
+    "credentials_stored": false,
+    "unrelated_personal_data_stored": false,
+    "unrelated_session_history_stored": false,
+    "unused_speculation_stored": false,
+    "complete_diffs_stored": false,
+    "verbose_logs_stored": false,
+    "redactions": []
+  },
+  "residual_uncertainty": [
+    "Full unfiltered functional suite is blocked by local SQLite SQRT function availability for two unrelated tests."
+  ],
+  "limitations": [
+    "Debug evidence cannot prove event completeness attribution correctness or engineering quality."
+  ]
+}

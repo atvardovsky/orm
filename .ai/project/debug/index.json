@@ -7,6 +7,44 @@
   "visibility": "repository-local",
   "retention_policy": "retain compact reviewed records while relevant to branch history",
   "external_patch_policy": "exclude raw private chat secrets credentials and external-only logs",
-  "records": [],
+  "records": [
+    {
+      "debug_id": "DEBUG-20260822-GH11827-001",
+      "status": "active",
+      "record": ".ai/project/debug/records/DEBUG-20260822-GH11827-001.json",
+      "task_references": [
+        "doctrine/orm#11827"
+      ],
+      "scope_kind": "task",
+      "scope_id": "bugfix/gh-11827-collection-clear-postflush-delete",
+      "task_class": "Doctrine ORM bug investigation",
+      "repository_binding_kind": "unverified",
+      "result_revision": "unavailable-active",
+      "event_coverage": "unknown",
+      "observer_effect": "unknown",
+      "elapsed_seconds": null,
+      "elapsed_evidence_kind": "unknown",
+      "metrics": {
+        "human_interventions": null,
+        "human_architectural_interventions": null,
+        "alatyr_independent_findings": 6,
+        "derived_findings_after_human": null,
+        "alatyr_independent_dependency_checks": null,
+        "human_requested_dependency_checks": null,
+        "derived_dependency_expansions_after_human": null,
+        "hypotheses_tested": null,
+        "hypotheses_rejected": null,
+        "implementation_revisions": 1,
+        "implementation_corrections_after_human": null,
+        "validation_expansions": 2,
+        "regression_scenarios_added": 2,
+        "maintainer_corrections": null,
+        "post_review_rework": null
+      },
+      "residual_uncertainty": [
+        "Full unfiltered functional suite is blocked by local SQLite SQRT function availability for two unrelated tests."
+      ]
+    }
+  ],
   "redaction_policy": "exclude raw private chat, chain-of-thought, prompts, secrets, credentials, unrelated personal data, complete diffs, and verbose logs"
 }

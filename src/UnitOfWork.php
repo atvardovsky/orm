@@ -473,6 +473,11 @@ class UnitOfWork implements PropertyChangedListener
             $coll->takeSnapshot();
         }
 
+        $this->collectionUpdates                =
+        $this->collectionDeletions              =
+        $this->pendingCollectionElementRemovals =
+        $this->visitedCollections               = [];
+
         $this->dispatchPostFlushEvent();
 
         $this->postCommitCleanup();
