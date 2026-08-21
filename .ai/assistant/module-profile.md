@@ -440,6 +440,26 @@ Approval needs: explicit approval before protected, external, dependency, permis
 Residual risk: assistant/client runtime features are evidence-bound; unverified bridge capabilities must be reported before use
 Next action: record only summarized metrics without private raw conversation data
 
+Module: `debug-mode`
+State: enabled
+Owner or file: .ai/project/debug/README.md
+Dependencies: effectiveness-metrics, installed-operations
+Required files:
+- `.ai/framework/debug-mode.md`
+- `.ai/project/debug/README.md`
+- `.ai/project/debug/index.json`
+- `.ai/project/debug/records/README.md`
+- `.ai/assistant/context/task-scales/debug-mode.json`
+- `.ai/assistant/flows/debug-mode.flow.md`
+- `.ai/assistant/gates/debug-mode.md`
+- `.ai/assistant/templates/debug-session-record.json`
+- `.ai/assistant/templates/debug-summary.md`
+Reason: optional non-canonical observability records are enabled for explicitly selected Doctrine ORM Alatyr tasks
+Validation or review: adapter validator, module-specific checker when available, JSON/YAML parse, local path/placeholder scan, and manual review
+Approval needs: explicit current-scope adapter-only authorization before creating or updating debug records; approval required before changing privacy, retention, or external patch inclusion policy
+Residual risk: debug capture is inactive unless explicitly enabled per task or session, and record quality depends on honest event attribution
+Next action: keep Debug Mode inactive by default and create records only after explicit per-scope activation
+
 Module: `scaffolding`
 State: enabled
 Owner or file: .ai/framework/scaffolding.md

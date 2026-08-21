@@ -1,6 +1,6 @@
 # Durable Engineering Evidence Capture Flow
 
-Use this lazy finalization flow in `{PROJECT_NAME}` after normal engineering,
+Use this lazy finalization flow in Doctrine ORM after normal engineering,
 logical integrity, and validation work. It does not authorize edits, commits,
 publication, or live external actions.
 

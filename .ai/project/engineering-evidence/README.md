@@ -1,21 +1,22 @@
 # Durable Engineering Evidence
 
 This directory is the compact historical engineering-evidence surface for
-`{PROJECT_NAME}`. Canonical project facts remain owned by the project sources
+Doctrine ORM. Canonical project facts remain owned by the project sources
 referenced from each record.
 
 Index: `.ai/project/engineering-evidence/index.json`
 
 Records: `.ai/project/engineering-evidence/records/`
 
-Owner: `{TARGET_ENGINEERING_EVIDENCE_OWNER}`
+Owner: `@atvardovsky`
 
-Storage mode: `{REPOSITORY_INTERNAL_BRANCH_IGNORED_LOCAL_OR_APPROVED_EXTERNAL}`
+Storage mode: `repository-internal`
 
-External contribution policy:
-`{EXCLUDE_FROM_EXTERNAL_PATCH_OR_TARGET_APPROVED_INCLUSION}`
+External patch policy: `exclude raw private chat secrets credentials and external-only logs`
 
-Retention and redaction policy: `{TARGET_ENGINEERING_EVIDENCE_POLICY}`
+Retention policy: `retain compact reviewed records while relevant to branch history`
+
+Redaction policy: `redact raw private chat, chain-of-thought, prompts, secrets, credentials, personal data, unrelated session history, complete diffs, and verbose validation logs`
 
 Ignored local storage is not durable team memory unless an approved retained
 store also preserves the record. Do not store raw chats, chain-of-thought,

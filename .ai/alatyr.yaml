@@ -1,9 +1,9 @@
-schema_version: 18
+schema_version: 19
 framework:
   name: Alatyr Core
-  version: 0.1.0-alpha.19
+  version: 0.1.0-alpha.20
   source: https://github.com/atvardovsky/AlatyrCore
-  template_version: 19
+  template_version: 20
   pack: complete
   rule_registry: .ai/framework/rule-registry.json
 installation:
@@ -15,7 +15,7 @@ owner:
   responsible_team: atvardovsky fork owner
   technical_owner: '@atvardovsky'
   backup_owner: 'missing: no separate backup owner found in target evidence'
-  last_review_date: '2026-08-21'
+  last_review_date: '2026-08-22'
   review_cadence: quarterly or after Alatyr framework/template updates
   codeowners: CODEOWNERS
   review_triggers:
@@ -325,6 +325,7 @@ engineering_evidence:
   storage_mode: repository-internal
   external_patch_policy: exclude raw private chat secrets credentials and external-only logs
   retention_policy: retain compact reviewed records while relevant to branch history
+  redaction_policy: redact raw private chat, chain-of-thought, prompts, secrets, credentials, personal data, unrelated session history, complete diffs, and verbose validation logs
 debug_mode:
   index: .ai/project/debug/index.json
   records: .ai/project/debug/records

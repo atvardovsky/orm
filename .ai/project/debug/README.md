@@ -1,14 +1,14 @@
 # Alatyr Debug Evidence
 
 This directory stores optional, non-canonical observability evidence for
-explicitly selected Alatyr-assisted tasks in `{PROJECT_NAME}`.
+explicitly selected Alatyr-assisted tasks in Doctrine ORM.
 
-Owner: `{DEBUG_EVIDENCE_OWNER}`
-Storage mode: `{REPOSITORY_INTERNAL_BRANCH_IGNORED_LOCAL_OR_APPROVED_EXTERNAL}`
-Visibility: `{DEBUG_EVIDENCE_VISIBILITY}`
-Retention policy: `{DEBUG_EVIDENCE_RETENTION_POLICY}`
-Redaction policy: `{DEBUG_EVIDENCE_REDACTION_POLICY}`
-External patch policy: `{EXCLUDE_FROM_EXTERNAL_PATCH_OR_TARGET_APPROVED_INCLUSION}`
+Owner: `@atvardovsky`
+Storage mode: `repository-internal`
+Visibility: `repository-local`
+Retention policy: `retain compact reviewed records while relevant to branch history`
+Redaction policy: `exclude raw private chat, chain-of-thought, prompts, secrets, credentials, unrelated personal data, complete diffs, and verbose logs`
+External patch policy: `exclude raw private chat secrets credentials and external-only logs`
 
 Debug records answer how Alatyr and human supervision contributed to a task.
 They do not own architecture, business rules, code contracts, approvals, or
