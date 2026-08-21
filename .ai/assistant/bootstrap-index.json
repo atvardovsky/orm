@@ -4,7 +4,7 @@
   "derived_from": {
     "manifest": {
       "path": ".ai/alatyr.yaml",
-      "sha256": "fdd517d32910ab430089a2a25fde611c232c8ac243273233890f9ca274d91bf3"
+      "sha256": "1414b0d2691fe14b9cd006dc5fc053b9aba7288f7fcfcb9ba1830266461224f3"
     },
     "project_map": {
       "path": ".ai/README.md",
@@ -12,13 +12,13 @@
     },
     "context_router": {
       "path": ".ai/assistant/context-router.json",
-      "sha256": "d0d3d64fa04e19b8f6842902188acf56a6acbd4929ac942a7ab1e5a9a2fd60ed"
+      "sha256": "151ca9d5db1f602ff263ebed6669694dc75b40bcd5945ea3654e54d18347d004"
     }
   },
   "installation": {
-    "framework_version": "0.1.0-alpha.15",
-    "adapter_schema_version": "14",
-    "template_version": "15",
+    "framework_version": "0.1.0-alpha.19",
+    "adapter_schema_version": "18",
+    "template_version": "19",
     "support_profile": "full",
     "framework_pack": "complete"
   },
@@ -224,6 +224,19 @@
       ],
       "descriptor": ".ai/assistant/context/task-scales/change-package.json"
     },
+    "engineering-evidence": {
+      "signals": [
+        "material task finalization or explicit engineering-evidence request"
+      ],
+      "descriptor": ".ai/assistant/context/task-scales/engineering-evidence.json"
+    },
+    "debug-mode": {
+      "signals": [
+        "explicit current-task or current-session Debug Mode activation",
+        "status checkpoint finalization disablement or comparison for selected debug evidence"
+      ],
+      "descriptor": ".ai/assistant/context/task-scales/debug-mode.json"
+    },
     "team-active": {
       "signals": [
         "team identity or coordination request",
@@ -338,6 +351,7 @@
     "durable-approvals",
     "migration-diff",
     "effectiveness-metrics",
+    "debug-mode",
     "scaffolding"
   ],
   "known_gaps": [

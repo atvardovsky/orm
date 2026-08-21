@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "map_kind": "target-consistency-map",
   "human_registry": ".ai/project/source-of-truth-registry.md",
   "levels": [
@@ -787,5 +787,11 @@
         }
       ]
     }
-  ]
+  ],
+  "registry_sync_policy": {
+    "coverage": "every-live-registry-fact-type",
+    "node_reference": "registry-consistency-map-node-id",
+    "fact_type_match": "exact",
+    "extra_nodes": "allowed-for-derived-contract-area-system-and-adapter-surfaces"
+  }
 }

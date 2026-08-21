@@ -70,6 +70,13 @@ Before upgrading framework files in a target project:
    backend contract, lazy overlay, operation routes, and operating model.
    When `change-packages` is enabled, compare its record schema, semantic
    approval fields, provenance policy, lazy route, and validator support.
+   For required durable engineering evidence, compare its policy, compact
+   index, record schema, lazy route, capture gate, repository binding, privacy,
+   publication boundary, and validator support.
+   When `debug-mode` is enabled, compare its explicit activation/expiry rule,
+   non-canonical storage policy, index/record schema, lazy overlay, operation,
+   flow, gate, summary, event attribution, timing/capture quality, metric
+   derivation, clean-upstream boundary, and validator support.
    When `code-documentation` is enabled, compare its catalog/profile schemas,
    source-set selectors, accepted states, canonical-owner boundaries,
    generators, output/publication policies, adapted skill, lazy route, and
@@ -99,14 +106,26 @@ Before upgrading framework files in a target project:
 12. Recheck the installed adapter for framework references, bridge files, gates,
    prompts, skills, lifecycle notes, and maturity gaps.
 13. Recheck adapter owners, review cadence, CODEOWNERS or equivalent owner
-   map, operation catalog, help, routing/health/preview flows, and post-update
-   chat message
-   templates.
+    map, operation catalog, help, routing/health/preview flows, and post-update
+    chat message
+    templates.
+    Recheck the action-authorization policy, phase list, scope invalidation,
+    operation request, preview, core/final gates, bridge routing, and intent
+    conformance scenarios. Preserve stricter target authorization rules, but
+    never preserve reusable cross-scope commit or publication permission.
     Preserve active team task IDs, actor references, claims, checkpoints,
     handoffs, decisions, and external references. Never replace current team
     state with the source placeholder registry.
     Preserve target change-package records. Never replace historical package
     evidence with the source placeholder templates.
+    Preserve target durable engineering-evidence IDs, records, task/revision
+    bindings, and storage/publication policy. Never replace historical records
+    with source placeholders or move them into an external contribution patch
+    contrary to target policy.
+    Preserve target Debug Mode IDs, completed records, active-scope state,
+    event attribution, timing evidence, publication policy, and compact index.
+    Never replace records with source placeholders, silently reactivate a
+    closed scope, or move debug files into a clean external contribution.
     Preserve target code-documentation profiles and decisions. Never replace
     accepted frontend, backend, shared, or infrastructure conventions with
     source placeholders or a universal style.
@@ -170,12 +189,21 @@ Framework lifecycle notes should record:
 - migration-assessment evidence and intentionally omitted context
 - adapter recheck results for installed framework updates
 - help/routing and post-update chat-message migration needs
+- current-scope action-authorization rule, target policy, phase gates,
+  conformance scenarios, bridge routing, and final-evidence migration needs
 - team-collaboration rule, policy, identity boundary, registry/task schemas,
   active-work route, backend contract, optimistic-concurrency behavior,
   schema-1 record migration, active-record preservation, and post-update stale-
   state review when that module is enabled
 - change-package rule, record schema, lazy route, target retention policy,
   provenance grades, and validator migration when that module is enabled
+- durable engineering-evidence rule, policy, index/record schema, lazy route,
+  capture gate, task/revision binding, privacy/publication boundary, existing-
+  record preservation, and validator migration
+- Debug Mode rule, module dependencies, explicit activation/expiry, non-
+  canonical index/record schema, event attribution, timing/capture quality,
+  supervision metrics, clean-upstream boundary, record preservation, operation,
+  lazy route, and validator migration when that module is enabled
 - code-documentation rule, catalog/profile schemas, source-set selection,
   accepted style decisions, generator/output policy, adapted skill, lazy
   route, and validator migration when that module is enabled

@@ -566,6 +566,83 @@
       ]
     },
     {
+      "id": "engineering-evidence",
+      "title": "Durable engineering evidence",
+      "summary": "Capture or inspect compact project-owned invariant, root-cause, solution, regression, validation, and repository-binding evidence.",
+      "use_when": [
+        "material task reaches finalization",
+        "reusable engineering knowledge would be lost",
+        "inspect or explain a prior engineering decision"
+      ],
+      "context_profiles": [
+        "code-local",
+        "business-change",
+        "architecture-change",
+        "data-change",
+        "security-sensitive"
+      ],
+      "required_module": "core-profile",
+      "flow": ".ai/assistant/flows/engineering-evidence-capture.flow.md",
+      "minimum_inputs": [
+        "current task or evidence ID",
+        "capture inspect or repair intent"
+      ],
+      "allowed_actions": [
+        "read-only",
+        "docs-only",
+        "adapter-only",
+        "code-and-tests",
+        "full-with-approval"
+      ],
+      "preview": "never",
+      "aliases": [
+        "Alatyr evidence",
+        "Alatyr capture evidence",
+        "Alatyr explain decision"
+      ],
+      "final_evidence": [
+        "capture status and trigger or skip reason",
+        "task and repository binding",
+        "record validation privacy publication and residual uncertainty"
+      ]
+    },
+    {
+      "id": "debug-mode",
+      "title": "Alatyr Debug Mode",
+      "summary": "Explicitly enable, inspect, checkpoint, finalize, disable, or compare non-canonical task observability evidence.",
+      "use_when": [
+        "explicit Debug Mode activation for the current task or session",
+        "debug status checkpoint finalization disablement or comparison"
+      ],
+      "context_profiles": [],
+      "required_module": "debug-mode",
+      "flow": ".ai/assistant/flows/debug-mode.flow.md",
+      "minimum_inputs": [
+        "debug action",
+        "current task or session scope for enablement",
+        "explicit current user activation for enablement"
+      ],
+      "allowed_actions": [
+        "read-only",
+        "adapter-only"
+      ],
+      "preview": "never",
+      "aliases": [
+        "Enable Alatyr Debug Mode",
+        "Alatyr debug",
+        "Alatyr debug status",
+        "Alatyr debug checkpoint",
+        "Alatyr debug summary",
+        "Disable Alatyr Debug Mode",
+        "Alatyr compare debug"
+      ],
+      "final_evidence": [
+        "activation status scope and expiry",
+        "record ID capture quality and event-derived metrics",
+        "result binding external projection privacy validation and residual uncertainty"
+      ]
+    },
+    {
       "id": "logical-integrity-review",
       "title": "Logical integrity review",
       "summary": "Check changed facts, invariants, owners, and companion surfaces for consistency.",
@@ -575,9 +652,10 @@
         "review item cluster"
       ],
       "context_profiles": [
-        "code-local",
-        "business-change",
+        "ai-infrastructure",
         "architecture-change",
+        "business-change",
+        "code-local",
         "data-change",
         "security-sensitive"
       ],
@@ -922,8 +1000,9 @@
         "companion assistant artifact sync"
       ],
       "context_profiles": [
-        "docs-local",
-        "code-local"
+        "ai-infrastructure",
+        "code-local",
+        "docs-local"
       ],
       "required_module": "core-profile",
       "flow": ".ai/assistant/flows/documentation-sync.flow.md",
@@ -1113,5 +1192,17 @@
         "next repair operations"
       ]
     }
+  ],
+  "action_authorization_policy": ".ai/assistant/policies/action-authorization.json",
+  "authorization_phases": [
+    "inspect",
+    "modify",
+    "commit",
+    "publish",
+    "live-external"
+  ],
+  "required_final_evidence": [
+    "current_user_authorization",
+    "durable_engineering_evidence"
   ]
 }

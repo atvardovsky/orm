@@ -20,7 +20,9 @@
       "framework_files": ["logical-integrity.md", "source-of-truth-registry.md"],
       "target_files": [
         ".ai/project/source-of-truth-registry.md",
-        ".ai/project/consistency-map.json"
+        ".ai/project/consistency-map.json",
+        ".ai/assistant/context/consistency-routing.json",
+        ".ai/assistant/context/cost-scenarios.json"
       ],
       "check_ids": ["consistency-map", "source-of-truth-registry"]
     },
@@ -195,8 +197,8 @@
     "installed-operations": {
       "min_framework_pack": "core",
       "requires": [],
-      "rule_ids": ["ALATYR-OPERATION-001"],
-      "framework_files": ["installed-operations.md", "operation-help.md"],
+      "rule_ids": ["ALATYR-OPERATION-001", "ALATYR-AUTHORIZATION-001"],
+      "framework_files": ["installed-operations.md", "operation-help.md", "action-authorization.md"],
       "target_files": [
         ".ai/assistant/operation-index.json",
         ".ai/assistant/operation-catalog.json",
@@ -204,9 +206,10 @@
         ".ai/assistant/help-reference.md",
         ".ai/assistant/flows/operation-routing.flow.md",
         ".ai/assistant/flows/adapter-health.flow.md",
-        ".ai/assistant/templates/pre-change-preview.md"
+        ".ai/assistant/templates/pre-change-preview.md",
+        ".ai/assistant/policies/action-authorization.json"
       ],
-      "check_ids": ["operation-catalog", "operation-index", "operation-help"]
+      "check_ids": ["action-authorization", "operation-catalog", "operation-index", "operation-help"]
     },
     "large-task-orchestration": {
       "min_framework_pack": "standard",
@@ -300,6 +303,23 @@
       "framework_files": ["effectiveness-metrics.md"],
       "target_files": [".ai/assistant/templates/effectiveness-report.md"],
       "check_ids": ["effectiveness-benchmark", "captured-effectiveness-results"]
+    },
+    "debug-mode": {
+      "min_framework_pack": "complete",
+      "requires": ["effectiveness-metrics", "installed-operations"],
+      "rule_ids": ["ALATYR-DEBUG-001", "ALATYR-AUTHORIZATION-001", "ALATYR-EVIDENCE-001"],
+      "framework_files": ["debug-mode.md", "effectiveness-metrics.md", "operation-help.md"],
+      "target_files": [
+        ".ai/project/debug/README.md",
+        ".ai/project/debug/index.json",
+        ".ai/project/debug/records/README.md",
+        ".ai/assistant/context/task-scales/debug-mode.json",
+        ".ai/assistant/flows/debug-mode.flow.md",
+        ".ai/assistant/gates/debug-mode.md",
+        ".ai/assistant/templates/debug-session-record.json",
+        ".ai/assistant/templates/debug-summary.md"
+      ],
+      "check_ids": ["debug-mode", "target-adapter-validator"]
     },
     "scaffolding": {
       "min_framework_pack": "complete",

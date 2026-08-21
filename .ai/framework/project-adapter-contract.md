@@ -47,7 +47,9 @@ Every project using this framework must define:
   surfaces can describe the same fact, including invariant and dependency
   constraints used when relationship mapping is unavailable
 - machine-readable consistency map when the target needs bounded fact-to-
-  contract, area, system, and adapter impact traversal
+  contract, area, system, and adapter impact traversal; an enabled map covers
+  every live registry Fact Type through an exact, unique node reference and is
+  routed together with the human registry
 - project architecture index and compact catalog when the target enables
   architecture inventory, explanation, pattern discussion, comparison,
   review, or supporting-documentation maintenance; entries distinguish
@@ -98,6 +100,9 @@ Every project using this framework must define:
 - compact target development evidence index, owner, retention policy, and lazy
   capture flow when recommendations should learn from repeated requests,
   corrections, review findings, rework, or context-expansion patterns
+- compact durable engineering-evidence index, owner, retention and external-
+  patch policy, lazy capture gate, record template, and validator so material
+  task knowledge survives sessions without retaining raw assistant reasoning
 - durable adaptation records for imported or materially changed AI
   infrastructure
 - optional extension catalog, immutable source and installed-file lock,
@@ -125,6 +130,10 @@ Every project using this framework must define:
 - migration-diff process when comparing framework baselines
 - effectiveness measurement process when the target wants to evaluate AI work
   quality over time
+- optional Debug Mode policy when the target wants task-level Alatyr
+  observability: explicit activation/expiry, owner, non-canonical storage,
+  privacy/redaction/retention, compact index, normalized causal events, timing
+  evidence, supervision metrics, clean-upstream projection, and validation
 - approval-record location or policy when protected-change approvals require
   durable evidence, plus a machine-readable record and strict complete-diff
   scope check when path-bounded approval must be enforced
@@ -146,9 +155,13 @@ Every project using this framework must define:
   contract, synchronization, privacy, retention, conflict, handoff, review, and
   merge-readiness evidence when the optional team module is enabled
 - allowed-action meanings for installed-operation requests
+- current-scope action-authorization policy that separates inspect, modify,
+  commit, publish, and live-external phases and invalidates prior authorization
+  after completion, redirection, or material scope expansion
 - operation catalog and checked compact index, single entry, automatic routing, read-only health,
-  risk-gated preview, help, and post-install/update chat-message templates when
-  the repository wants discoverable assistant requests
+  risk-gated preview, current-scope action authorization, help, and
+  post-install/update chat-message templates when the repository wants
+  discoverable assistant requests
 - final evidence format for that project
 
 ## Adapter May Provide
@@ -162,6 +175,8 @@ An adapter may provide:
   statements, duplicate context profile references, missing context-router
   bootstrap references, unresolved owner placeholders, and target-local
   checker coverage
+- enabled-module drift checks that reject live support surfaces which still
+  claim an enabled capability is deferred, disabled, blocked, or not installed
 - security/dependency/license scanners or manual review checklists
 - project-specific test-generation prompts or skills
 - skill import or normalization notes
@@ -194,6 +209,8 @@ An adapter may provide:
 - CODEOWNERS or equivalent file-owner metadata for `.ai/*`, root assistant
   entry points, and supported bridge files
 - effectiveness reports for comparable task runs
+- non-canonical Debug Mode records and compact cross-task supervision summaries
+  when the optional module is explicitly enabled for selected scopes
 - installed-operation request templates or adapter audit reports
 - large-task operation packets stored, ignored, redacted, or retained under a
   target-owned policy

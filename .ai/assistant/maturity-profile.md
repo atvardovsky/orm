@@ -11,8 +11,15 @@ Blocking gaps:
 - no separate backup owner recorded
 - target-local Alatyr checker wrapper committed at tools/check_alatyr.py
 - full optional module graph enabled with target-owned policies and records
+- current-scope authorization policy recorded at `.ai/assistant/policies/action-authorization.json`
 - default `php` and `composer` binaries are not suitable for this branch in this workspace
 - local SQLite lacks the SQL `SQRT()` function required by two full-suite PHPUnit tests
+
+State-changing work is blocked unless the newest request authorizes the
+current logical scope and phase through `.ai/assistant/policies/action-authorization.json`.
+Prior authorization, allowed-action mode, approval, assignment, routing, tool
+availability, delegation, or successful validation does not fill a missing
+phase.
 
 ## Documentation Work
 

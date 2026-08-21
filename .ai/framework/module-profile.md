@@ -45,9 +45,14 @@ Every accepted installation should provide:
 - source-of-truth registry or explicit missing owner records for important
   fact types
 - change-risk classification and approval triggers
+- current-scope action authorization that separates inspection, working-tree
+  modification, local Git mutation, publication, and live external effects;
+  expires prior-scope authorization; and does not infer one phase from another
 - logical integrity review for changed semantic or logical facts
 - validation or manual-review evidence, including unresolved checks
 - final evidence format
+- durable engineering-evidence capture decision, compact index, target storage
+  policy, and record validation for material tasks
 
 If any required core item is missing, the adapter can still exist, but it must
 report the missing item as a gap before claiming maturity.
@@ -121,6 +126,10 @@ maintain them:
   a machine-readable delta-first upgrade impact router.
 - `effectiveness-metrics`: comparable task reporting for measuring framework
   usefulness.
+- `debug-mode`: explicitly activated task/session observability with compact
+  origin-attributed events, timing and capture-quality evidence, event-derived
+  human-supervision metrics, clean-upstream projection, and non-canonical
+  storage. It depends on `effectiveness-metrics` and `installed-operations`.
 - `scaffolding`: optional source-repository scaffolding helpers used only to
   create placeholder structure.
 
@@ -201,6 +210,9 @@ Reject module-profile work that:
 - enables subagent delegation without a target policy, current per-surface
   capability evidence, bounded role/model bindings, write isolation,
   validation, fallback, and primary-agent convergence
+- enables Debug Mode without explicit per-scope activation, target-owned
+  privacy/retention/publication policy, non-canonical authority, causal event
+  attribution, event-derived metric validation, bounded context, and expiry
 - enables a consistency map without target-owned fact IDs, relationship
   coverage, or staleness handling
 - enables architecture knowledge without a project owner, compact catalog,

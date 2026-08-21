@@ -157,10 +157,17 @@ changed facts.
 ## Consistency Relationship Routing
 
 Targets with many project areas or competing surfaces may enable a compact
-consistency map. Load it after a semantic change or suspected drift, resolve
-changed fact IDs, and follow only applicable relationship edges. Expand to
-dependent contracts for propagation, conflicts, failed validation, or approval
+consistency map. After a semantic change or suspected drift, load the target
+source-of-truth registry and consistency map together, resolve changed fact
+IDs, and follow only applicable relationship edges. Keep the portable
+consistency-model explanation conditional unless relationship semantics,
+adapter repair, or conflicting evidence requires it. Expand to dependent
+contracts for propagation, conflicts, failed validation, or approval
 boundaries. The human source-of-truth registry remains the owner explanation.
+
+Measure this composed semantic route as a target context-cost scenario. Do not
+remove either target-owned surface to recover budget; move redundant portable
+explanation to conditional context or record a justified expansion receipt.
 
 ## AI Infrastructure Item Routing
 
@@ -199,6 +206,37 @@ Load the compact package index and active package identity first. Load the
 machine template, discussion summary, companion decisions, corrections, plan,
 or validation evidence only when the current phase needs them. Do not create
 or load a package for an ordinary local task.
+
+## Durable Engineering-Evidence Tasks
+
+Apply the `engineering-evidence` overlay lazily at finalization when a material
+semantic, architectural, or non-obvious repair may leave reusable knowledge
+only in the current session, or when a user explicitly asks to capture or
+inspect a record.
+
+Load the compact target index, capture gate, and portable owner first. Load
+only the selected record for lookup, and load the capture flow/template only
+for an authorized write or repair. Small self-explanatory changes may skip
+with a specific reason. Do not load the full evidence history, raw session
+content, or a change package solely because this overlay applies.
+
+## Debug Mode Tasks
+
+Use the optional `debug-mode` task-scale overlay only after explicit activation
+for the current task or session, or for status, finalization, repair, or
+comparison of selected existing debug evidence. It composes with the ordinary
+task profile; it does not replace that profile or grant engineering actions.
+
+Load the compact debug index, gate, and portable owner first. Load only the
+active or explicitly selected record. Load the flow and templates for an
+authorized checkpoint, finalization, repair, or summary. Do not load unrelated
+records, raw conversations, or session history. Checkpoint only material events
+so observation does not materially distort the task.
+
+Expire the overlay when the logical scope completes, changes, is abandoned, or
+is explicitly disabled. Cross-task comparison should read compact index
+metrics first and expand only to selected records when task class, capture
+quality, timing evidence, or quality evidence requires it.
 
 ## Team-Active Tasks
 

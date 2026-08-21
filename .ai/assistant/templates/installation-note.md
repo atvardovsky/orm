@@ -24,6 +24,8 @@ Installation id: `ALATYR-20260821-doctrine-orm`
 - Operation help reference: `.ai/assistant/help-reference.md`
 - Compact operation index: `.ai/assistant/operation-index.json`
 - Operation catalog: `.ai/assistant/operation-catalog.json`
+- Current-scope action authorization policy: `.ai/assistant/policies/action-authorization.json`
+- Durable engineering-evidence index: `.ai/project/engineering-evidence/index.json`
 - Context router: `.ai/assistant/context-router.json`
 - Generated bootstrap index: `.ai/assistant/bootstrap-index.json`
 - Routed gate index: `.ai/assistant/gates/index.json`
@@ -65,3 +67,8 @@ or when adapter state is unclear.
 Use `Alatyr` as the single conversational entry, `Alatyr status` for read-only
 health, automatic routing for clear requests, and the risk-gated pre-change
 preview before applicable edits.
+
+Apply the current-scope action policy before `modify`, `commit`, `publish`, or
+`live-external`. A previous task's authorization expires when that task is
+complete or the subject changes. Backlog/issue returns, status, discussion,
+analysis, reports, plans, and ambiguous continuation default to `inspect`.

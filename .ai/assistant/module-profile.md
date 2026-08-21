@@ -81,6 +81,16 @@ Validation or review: adapter validator plus manual owner-evidence review
 Approval needs: approval required before weakening gates, protected approvals, validation, or source-of-truth ownership
 Residual risk: backup owner is still unresolved; full runtime tests remain subject to local SQLite SQRT blocker
 
+Core item: `current-scope-action-authorization`
+State: required-enabled
+Owner or file: .ai/assistant/policies/action-authorization.json
+Required files:
+- `.ai/assistant/policies/action-authorization.json`
+Evidence: current-scope phase policy separates inspect, modify, commit, publish, and live-external authorization
+Validation or review: adapter validator plus manual owner-evidence review
+Approval needs: approval required before changing authorization phases, weakening gates, or broadening protected action scope
+Residual risk: human requests can remain ambiguous; unresolved phase authorization defaults to inspect only
+
 Core item: `validation-and-final-evidence`
 State: required-enabled-with-gap
 Owner or file: .ai/alatyr.yaml, .ai/assistant/gates/final-evidence.md, target validation files
@@ -91,6 +101,21 @@ Evidence: Composer, PHPUnit, PHPStan, PHPCS, docs, adapter validation, and known
 Validation or review: adapter validator plus manual owner-evidence review
 Approval needs: approval required before weakening gates, protected approvals, validation, or source-of-truth ownership
 Residual risk: backup owner is still unresolved; full runtime tests remain subject to local SQLite SQRT blocker
+
+Core item: `durable-engineering-evidence`
+State: required-enabled
+Owner or file: .ai/project/engineering-evidence/README.md
+Required files:
+- `.ai/project/engineering-evidence/README.md`
+- `.ai/project/engineering-evidence/index.json`
+- `.ai/assistant/context/task-scales/engineering-evidence.json`
+- `.ai/assistant/flows/engineering-evidence-capture.flow.md`
+- `.ai/assistant/gates/engineering-evidence.md`
+- `.ai/assistant/templates/engineering-evidence-record.json`
+Evidence: compact reviewed evidence records are repository-internal and exclude raw private chat, secrets, credentials, and external-only logs
+Validation or review: adapter validator plus manual evidence-policy review
+Approval needs: approval required before changing retention, privacy, or external patch inclusion policy
+Residual risk: capture quality still depends on explicit finalization and human review
 
 ## Optional Modules
 

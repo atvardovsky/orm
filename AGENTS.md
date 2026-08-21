@@ -42,9 +42,14 @@ and `.ai/README.md` as recovery references.
 
 Use installed owners for `ALATYR-CONTEXT-001`, `ALATYR-SOURCE-001`,
 `ALATYR-RISK-001`, `ALATYR-APPROVAL-001`, `ALATYR-SAFETY-001`,
-`ALATYR-SAFETY-002`, `ALATYR-INTEGRITY-001`, `ALATYR-CHANGE-001`,
+`ALATYR-AUTHORIZATION-001`, `ALATYR-SAFETY-002`, `ALATYR-INTEGRITY-001`, `ALATYR-CHANGE-001`,
 `ALATYR-ADAPTER-001`, `ALATYR-MODULE-001`, `ALATYR-OPERATION-001`,
-`ALATYR-BRIDGE-001`, `ALATYR-LIFECYCLE-001`, and `ALATYR-EVIDENCE-001`.
+`ALATYR-BRIDGE-001`, `ALATYR-LIFECYCLE-001`, `ALATYR-PACKAGE-001`,
+`ALATYR-ENGINEERING-EVIDENCE-001`, `ALATYR-DEBUG-001`,
+`ALATYR-CODEDOC-001`, `ALATYR-VOCABULARY-001`, `ALATYR-TDD-001`,
+`ALATYR-EXTENSION-001`, `ALATYR-DEPENDENCY-001`, `ALATYR-MODE-001`,
+`ALATYR-DIAGRAM-001`, `ALATYR-TEAM-001`, `ALATYR-DELEGATION-001`, and
+`ALATYR-EVIDENCE-001`.
 Project facts belong to project contour; local assistant mechanics belong to
 assistant contour. Do not invent facts or copy policy into bridges.
 
@@ -61,6 +66,13 @@ adapter repair, ambiguity, or a full acceptance audit.
 Routing selects a flow; it does not grant approval or broaden allowed actions.
 A preview is not approval and becomes stale when material risk or scope
 changes.
+
+Before state changes, apply `.ai/assistant/policies/action-authorization.json`
+to the newest request and current scope. Issue/backlog returns and ambiguous
+informational requests are `inspect` only. Implementation does not imply
+commit; commit does not imply push. Prior-scope authorization and other gates
+cannot grant a missing phase.
+Implementation does not imply commit; commit does not imply push.
 
 ## Protected Changes
 

@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "index_kind": "target-alatyr-debug-index",
+  "project": "Doctrine ORM",
+  "owner": "@atvardovsky",
+  "storage_mode": "repository-internal",
+  "visibility": "repository-local",
+  "retention_policy": "retain compact reviewed records while relevant to branch history",
+  "external_patch_policy": "exclude raw private chat secrets credentials and external-only logs",
+  "records": []
+}

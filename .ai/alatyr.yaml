@@ -1,9 +1,9 @@
-schema_version: 14
+schema_version: 18
 framework:
   name: Alatyr Core
-  version: 0.1.0-alpha.15
+  version: 0.1.0-alpha.19
   source: https://github.com/atvardovsky/AlatyrCore
-  template_version: 15
+  template_version: 19
   pack: complete
   rule_registry: .ai/framework/rule-registry.json
 installation:
@@ -31,6 +31,7 @@ contours:
 source_of_truth:
   project_contour: .ai/project/contour.md
   registry: .ai/project/source-of-truth-registry.md
+  engineering_evidence_index: .ai/project/engineering-evidence/index.json
   assistant_contour: .ai/assistant/contour.md
   context_router: .ai/assistant/context-router.json
   bootstrap_index: .ai/assistant/bootstrap-index.json
@@ -74,6 +75,8 @@ source_of_truth:
   - .ai/project/team-policy.json
   - .ai/project/team-operating-model.md
   - .ai/project/development-evidence.json
+  - .ai/project/engineering-evidence/index.json
+  - .ai/project/debug/index.json
   development_evidence: .ai/project/development-evidence.json
   consistency_map: .ai/project/consistency-map.json
   architecture_index: .ai/project/architecture/README.md
@@ -97,10 +100,10 @@ context_routing:
   - .ai/assistant/bootstrap-index.json
   bootstrap_max_files: 2
   bootstrap_max_words: 5000
-  profile_default_max_files: 12
-  profile_default_max_total_words: 8000
-  profile_default_max_portable_words: 5600
-  profile_default_reserved_target_words: 2400
+  profile_default_max_files: 20
+  profile_default_max_total_words: 12000
+  profile_default_max_portable_words: 3500
+  profile_default_reserved_target_words: 8500
   budget_behavior: load required safety and owner evidence, then record measured expansion
 modules:
   core_profile: complete-with-known-gaps
@@ -125,6 +128,7 @@ modules:
   - durable-approvals
   - migration-diff
   - effectiveness-metrics
+  - debug-mode
   - scaffolding
   deferred: []
   blocked:
@@ -178,6 +182,7 @@ operations:
   routing: .ai/assistant/flows/operation-routing.flow.md
   health: .ai/assistant/flows/adapter-health.flow.md
   pre_change_preview: .ai/assistant/templates/pre-change-preview.md
+  action_authorization_policy: .ai/assistant/policies/action-authorization.json
   documentation_sync: .ai/assistant/flows/documentation-sync.flow.md
   help: .ai/assistant/help.md
   help_reference: .ai/assistant/help-reference.md
@@ -200,6 +205,9 @@ operations:
   change_package_index: .ai/assistant/change-packages/index.json
   change_package_record: .ai/assistant/templates/change-package-record.json
   change_package_report: .ai/assistant/templates/change-package-report.md
+  engineering_evidence_capture: .ai/assistant/flows/engineering-evidence-capture.flow.md
+  engineering_evidence_record: .ai/assistant/templates/engineering-evidence-record.json
+  debug_mode: .ai/assistant/flows/debug-mode.flow.md
   ai_infrastructure_inventory: .ai/assistant/templates/ai-infrastructure-inventory.md
   ai_infrastructure_recommendation: .ai/assistant/templates/ai-infrastructure-recommendation.md
   extension_management: .ai/assistant/flows/extension-lifecycle.flow.md
@@ -308,6 +316,23 @@ change_packages:
   human_report_template: .ai/assistant/templates/change-package-report.md
   retention_policy: commit compact reviewed records only; do not include secrets or
     raw private chat
+engineering_evidence:
+  index: .ai/project/engineering-evidence/index.json
+  records: .ai/project/engineering-evidence/records
+  flow: .ai/assistant/flows/engineering-evidence-capture.flow.md
+  gate: .ai/assistant/gates/engineering-evidence.md
+  machine_template: .ai/assistant/templates/engineering-evidence-record.json
+  storage_mode: repository-internal
+  external_patch_policy: exclude raw private chat secrets credentials and external-only logs
+  retention_policy: retain compact reviewed records while relevant to branch history
+debug_mode:
+  index: .ai/project/debug/index.json
+  records: .ai/project/debug/records
+  overlay: .ai/assistant/context/task-scales/debug-mode.json
+  flow: .ai/assistant/flows/debug-mode.flow.md
+  gate: .ai/assistant/gates/debug-mode.md
+  record_template: .ai/assistant/templates/debug-session-record.json
+  summary_template: .ai/assistant/templates/debug-summary.md
 code_documentation:
   catalog: .ai/project/documentation/catalog.json
   profiles: .ai/project/documentation/profiles.json

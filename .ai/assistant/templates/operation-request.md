@@ -11,6 +11,11 @@ template.
 - Date: `<date>`
 - Goal: `<goal>`
 - Non-goals: `<non-goals>`
+- Current logical scope: `<current-logical-scope-or-operation-id>`
+- Current user authorization:
+  `<inspect-modify-commit-publish-live-external-phases>`
+- Authorization source/message: `<current-user-message-or-reference>`
+- Prior authorization invalidated: `<yes-no-and-reason>`
 - Known context: `<known-context-or-none>`
 - Review comments or defect reports: `<review-items-or-none>`
 - Allowed actions: `<read-only-docs-only-adapter-only-code-and-tests-or-full-with-approval>`
@@ -45,6 +50,11 @@ Resolve exact IDs and aliases through `.ai/assistant/operation-index.json`.
 Use `.ai/assistant/operation-catalog.json` as the canonical operation list.
 
 ## Allowed Actions
+
+Allowed actions are a maximum surface, not current user authorization. Apply
+`.ai/assistant/policies/action-authorization.json` separately. Implementation
+does not imply commit, commit does not imply push, and prior task authorization
+does not carry into a completed or redirected scope.
 
 - `read-only`: inspect files and report; do not edit.
 - `docs-only`: update documentation or blueprint-equivalent docs only.

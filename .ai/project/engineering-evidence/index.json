@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "index_kind": "target-engineering-evidence-index",
+  "project": "Doctrine ORM",
+  "owner": "@atvardovsky",
+  "storage_mode": "repository-internal",
+  "external_patch_policy": "exclude raw private chat secrets credentials and external-only logs",
+  "retention_policy": "retain compact reviewed records while relevant to branch history",
+  "records": []
+}
