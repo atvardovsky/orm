@@ -2519,9 +2519,14 @@ class UnitOfWork implements PropertyChangedListener
 
                     // Foreign key is set
                     // Check identity map first
-                    // FIXME: Can break easily with composite keys if join column values are in
-                    //        wrong order. The correct order is the one in ClassMetadata#identifier.
-                    $relatedIdHash = self::getIdHashByIdentifier($associatedId);
+                    $relatedId = [];
+                    foreach ($targetClass->identifier as $identifier) {
+                        if (array_key_exists($identifier, $associatedId)) {
+                            $relatedId[$identifier] = $associatedId[$identifier];
+                        }
+                    }
+
+                    $relatedIdHash = self::getIdHashByIdentifier($relatedId);
 
                     switch (true) {
                         case isset($this->identityMap[$targetClass->rootEntityName][$relatedIdHash]):
@@ -2536,7 +2541,7 @@ class UnitOfWork implements PropertyChangedListener
                                 ! $targetClass->isIdentifierComposite &&
                                 $this->isUninitializedObject($newValue)
                             ) {
-                                $this->eagerLoadingEntities[$targetClass->rootEntityName][$relatedIdHash] = current($associatedId);
+                                $this->eagerLoadingEntities[$targetClass->rootEntityName][$relatedIdHash] = current($relatedId);
                             }
 
                             break;
@@ -2551,11 +2556,18 @@ class UnitOfWork implements PropertyChangedListener
                         default:
                             $normalizedAssociatedId = $this->normalizeIdentifier($targetClass, $associatedId);
 
+                            // Normalizing association identifiers can load the target through inherited inverse sides.
+                            if (isset($this->identityMap[$targetClass->rootEntityName][$relatedIdHash])) {
+                                $newValue = $this->identityMap[$targetClass->rootEntityName][$relatedIdHash];
+
+                                break;
+                            }
+
                             switch (true) {
                                 // We are negating the condition here. Other cases will assume it is valid!
                                 case $hints['fetchMode'][$class->name][$field] !== ClassMetadata::FETCH_EAGER:
                                     $newValue = $this->em->getProxyFactory()->getProxy($assoc->targetEntity, $normalizedAssociatedId);
-                                    $this->registerManaged($newValue, $associatedId, []);
+                                    $this->registerManaged($newValue, $relatedId, []);
                                     break;
 
                                 // Deferred eager load only works for single identifier classes
@@ -2563,10 +2575,10 @@ class UnitOfWork implements PropertyChangedListener
                                     $hints[self::HINT_DEFEREAGERLOAD] &&
                                     ! $targetClass->isIdentifierComposite:
                                     // TODO: Is there a faster approach?
-                                    $this->eagerLoadingEntities[$targetClass->rootEntityName][$relatedIdHash] = current($normalizedAssociatedId);
+                                    $this->eagerLoadingEntities[$targetClass->rootEntityName][$relatedIdHash] = current($relatedId);
 
                                     $newValue = $this->em->getProxyFactory()->getProxy($assoc->targetEntity, $normalizedAssociatedId);
-                                    $this->registerManaged($newValue, $associatedId, []);
+                                    $this->registerManaged($newValue, $relatedId, []);
                                     break;
 
                                 default:
