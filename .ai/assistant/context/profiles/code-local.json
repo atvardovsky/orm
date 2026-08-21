@@ -20,7 +20,8 @@
     ".ai/assistant/gates/core.md",
     ".ai/assistant/gates/code-and-tests.md",
     ".ai/assistant/gates/final-evidence.md",
-    "composer.json"
+    "composer.json",
+    ".ai/project/code-authoring.md"
   ],
   "conditional_context": [
     {
@@ -53,6 +54,7 @@
   ],
   "final_evidence": [
     "changed_files",
+    "code_authoring_rules_applied",
     "re_derived_invariants",
     "review_item_reconciliation",
     "validation",

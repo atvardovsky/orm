@@ -29,7 +29,8 @@
       "status": "usable",
       "evidence": [
         "src/",
-        "CONTRIBUTING.md"
+        "CONTRIBUTING.md",
+        ".ai/project/code-authoring.md"
       ]
     },
     {
@@ -50,7 +51,8 @@
       "status": "usable",
       "evidence": [
         "tests/README.markdown",
-        "phpunit.xml.dist"
+        "phpunit.xml.dist",
+        ".ai/project/code-authoring.md"
       ]
     },
     {
@@ -72,6 +74,33 @@
       "evidence": [
         "docs/README.md",
         "docs/en/index.rst"
+      ]
+    },
+    {
+      "id": "code-authoring",
+      "name": "Code authoring rules",
+      "owner": "@atvardovsky",
+      "source_scope": [
+        ".ai/project/code-authoring.md"
+      ],
+      "profile_ids": [
+        "php-runtime-comments",
+        "php-test-comments"
+      ],
+      "audiences": [
+        "assistant agents and Doctrine ORM contributors"
+      ],
+      "public_boundary": "adapter-owned-authoring-guidance",
+      "generated_outputs": [],
+      "status": "usable",
+      "evidence": [
+        "composer.json",
+        "phpcs.xml.dist",
+        "phpstan.neon",
+        "phpunit.xml.dist",
+        "CONTRIBUTING.md",
+        "src/",
+        "tests/Tests/ORM/"
       ]
     }
   ],

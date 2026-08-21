@@ -22,7 +22,6 @@
     ".ai/project/blueprint.md",
     ".ai/project/source-of-truth-registry.md",
     ".ai/project/consistency-map.json",
-    "docs/en/reference/architecture.rst",
     ".ai/project/architecture/catalog.json"
   ],
   "conditional_context": [
@@ -61,6 +60,14 @@
     {
       "path": ".ai/framework/source-of-truth-registry.md",
       "when": "portable source-of-truth registry behavior is disputed or framework rules are under repair"
+    },
+    {
+      "path": "docs/en/reference/architecture.rst",
+      "when": "accepted architecture owner detail is needed for the selected changed fact"
+    },
+    {
+      "path": ".ai/project/code-authoring.md",
+      "when": "implementation or test code will be changed"
     }
   ],
   "expand_when": [

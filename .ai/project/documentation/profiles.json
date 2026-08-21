@@ -45,7 +45,8 @@
           "src/ contains existing PHPDoc and inline comments"
         ],
         "existing_tooling": [
-          "PHPStan, PHPCS, PHPUnit"
+          "PHPStan, PHPCS, PHPUnit",
+          ".ai/project/code-authoring.md"
         ],
         "decision_source": ".ai/project/documentation/README.md",
         "last_verified_revision": "454db525ccce95aff1057cb57726900560374970"
@@ -68,18 +69,21 @@
           "mapping metadata",
           "UnitOfWork state transitions",
           "query/hydration behavior",
-          "DBAL platform assumptions"
+          "DBAL platform assumptions",
+          "project code authoring rules"
         ],
         "avoid": [
           "repeating identifiers or types",
           "narrating obvious implementation",
-          "duplicating canonical policy"
+          "duplicating canonical policy",
+          "creating public behavior promises that belong in docs/en/reference/*.rst"
         ],
         "canonical_fact_owners": [
           ".ai/project/source-of-truth-registry.md",
           "docs/en/reference/*.rst",
           "src/",
-          "tests/"
+          "tests/",
+          ".ai/project/code-authoring.md"
         ],
         "uncertainty_policy": "record observed behavior and unresolved intent; do not invent accepted facts"
       },
@@ -135,7 +139,8 @@
         ],
         "existing_tooling": [
           "phpunit.xml.dist",
-          "tests/README.markdown"
+          "tests/README.markdown",
+          ".ai/project/code-authoring.md"
         ],
         "decision_source": ".ai/project/documentation/README.md",
         "last_verified_revision": "454db525ccce95aff1057cb57726900560374970"
@@ -155,16 +160,19 @@
         "content_focus": [
           "regression behavior",
           "platform constraints",
-          "identity/persistence state"
+          "identity/persistence state",
+          "regression and ticket authoring rules"
         ],
         "avoid": [
           "repeating assertions",
-          "documenting implementation instead of behavior"
+          "documenting implementation instead of behavior",
+          "creating public behavior promises that belong in docs/en/reference/*.rst"
         ],
         "canonical_fact_owners": [
           "tests/README.markdown",
           "tests/",
-          "docs/en/reference/*.rst"
+          "docs/en/reference/*.rst",
+          ".ai/project/code-authoring.md"
         ],
         "uncertainty_policy": "state observed test intent and unresolved gaps"
       },

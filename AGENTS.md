@@ -30,6 +30,7 @@ and `.ai/README.md` as recovery references.
 - Areas: `src/` runtime ORM code, `tests/` PHPUnit/static-analysis/performance tests, `docs/` public documentation, `ci/github/phpunit/` database test configs, `.github/workflows/` CI.
 - Blueprint index: `.ai/project/blueprint.md`.
 - Business logic layer: `.ai/project/business-logic.md`.
+- Code authoring rules: `.ai/project/code-authoring.md`.
 - Commit policy: `.ai/project/commit-policy.md`; every commit must have one
   logical scope and a detailed commit message written in English.
 - Fact registry: `.ai/project/source-of-truth-registry.md`.
@@ -47,9 +48,11 @@ Use installed owners for `ALATYR-CONTEXT-001`, `ALATYR-SOURCE-001`,
 Project facts belong to project contour; local assistant mechanics belong to
 assistant contour. Do not invent facts or copy policy into bridges.
 
-For semantic changes, re-derive invariants and reconcile reviews sharing a
-fact or contract. Use `.ai/project/source-of-truth-registry.md` for owners and
-selected target files for evidence. Run only validation that exists.
+For `src/` or `tests/` changes, load `.ai/project/code-authoring.md` and follow
+the target architecture, PHP format, comment, test, and validation rules before
+editing. For semantic changes, re-derive invariants and reconcile reviews
+sharing a fact or contract. Use `.ai/project/source-of-truth-registry.md` for
+owners and selected target files for evidence. Run only validation that exists.
 
 Select routine acceptance gates through `.ai/assistant/gates/index.json` and
 load only the routed fragments. Load the complete gate checklist only for

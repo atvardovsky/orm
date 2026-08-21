@@ -311,6 +311,75 @@
       ]
     },
     {
+      "id": "code-authoring-rules",
+      "fact_type": "code authoring rule",
+      "level": "adapter",
+      "project_area": "src/tests/docs/validation",
+      "canonical_owner": ".ai/project/code-authoring.md",
+      "relationships": [
+        {
+          "id": "code-authoring-source",
+          "type": "constrains",
+          "target": "src/",
+          "target_level": "system",
+          "target_area": "src",
+          "direction": "outbound",
+          "required_when": [
+            "implementation code changes"
+          ],
+          "validation": [
+            "Doctrine coding standard, PHPStan, focused PHPUnit, and manual subsystem-owner review as applicable"
+          ],
+          "approval_trigger": "weakening public API, subsystem boundary, or validation requirements"
+        },
+        {
+          "id": "code-authoring-tests",
+          "type": "constrains",
+          "target": "tests/Tests/ORM/",
+          "target_level": "system",
+          "target_area": "tests",
+          "direction": "outbound",
+          "required_when": [
+            "test code, regression fixture, or behavior proof changes"
+          ],
+          "validation": [
+            "focused PHPUnit and test-first policy review as applicable"
+          ],
+          "approval_trigger": "weakened coverage or changed test strategy"
+        },
+        {
+          "id": "code-authoring-documentation-profiles",
+          "type": "documents",
+          "target": ".ai/project/documentation/profiles.json",
+          "target_level": "adapter",
+          "target_area": "documentation",
+          "direction": "outbound",
+          "required_when": [
+            "code comment or generated documentation rules change"
+          ],
+          "validation": [
+            "JSON parse and documentation profile review"
+          ],
+          "approval_trigger": "weakened comment policy or public documentation boundary"
+        },
+        {
+          "id": "code-authoring-code-gate",
+          "type": "routes",
+          "target": ".ai/assistant/gates/code-and-tests.md",
+          "target_level": "adapter",
+          "target_area": "assistant-adapter",
+          "direction": "outbound",
+          "required_when": [
+            "code-local profile or code/test gate behavior changes"
+          ],
+          "validation": [
+            "adapter validator and gate review"
+          ],
+          "approval_trigger": "weakened code/test authoring gate"
+        }
+      ]
+    },
+    {
       "id": "validation-commands",
       "fact_type": "validation command",
       "level": "adapter",
@@ -700,6 +769,21 @@
             "JSON parse and gate index review"
           ],
           "approval_trigger": "weakening capability gates or protected approvals"
+        },
+        {
+          "id": "alatyr-full-capability-code-authoring",
+          "type": "routes",
+          "target": ".ai/project/code-authoring.md",
+          "target_level": "adapter",
+          "target_area": "project",
+          "direction": "outbound",
+          "required_when": [
+            "source, test, documentation, validation, or authoring-rule surfaces change"
+          ],
+          "validation": [
+            "adapter validator and authoring-rule sync review"
+          ],
+          "approval_trigger": "weakening assistant-facing code authoring rules"
         }
       ]
     }

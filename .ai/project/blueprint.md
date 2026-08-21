@@ -33,6 +33,10 @@ Public behavior: `docs/en/reference/*.rst`, with implementation evidence in
 Business logic routing: `.ai/project/business-logic.md` maps accepted ORM
 behavior-rule families to their canonical Doctrine docs, source, and tests.
 
+Code authoring rules: `.ai/project/code-authoring.md` records target-backed
+architecture, PHP format, comment, test, and validation rules for assistant
+code changes.
+
 Architecture boundaries: `docs/en/reference/architecture.rst` and
 `composer.json`.
 

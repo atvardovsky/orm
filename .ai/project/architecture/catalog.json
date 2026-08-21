@@ -13,7 +13,8 @@
     "docs/en/reference/basic-mapping.rst",
     "docs/en/reference/unitofwork.rst",
     ".ai/project/blueprint.md",
-    ".ai/project/business-logic.md"
+    ".ai/project/business-logic.md",
+    ".ai/project/code-authoring.md"
   ],
   "decision_sources": [
     ".ai/project/source-of-truth-registry.md",
@@ -94,6 +95,25 @@
       ],
       "pattern_ids": [
         "matrix-backed-validation"
+      ]
+    },
+    {
+      "id": "code-authoring",
+      "name": "Code authoring and subsystem boundaries",
+      "status": "accepted",
+      "owner": ".ai/project/code-authoring.md",
+      "detail": ".ai/project/code-authoring.md",
+      "evidence": [
+        "composer.json",
+        "phpcs.xml.dist",
+        "phpstan.neon",
+        "phpstan-dbal3.neon",
+        "phpunit.xml.dist",
+        "src/",
+        "tests/Tests/ORM/"
+      ],
+      "pattern_ids": [
+        "doctrine-library-authoring"
       ]
     }
   ],
@@ -223,6 +243,37 @@
         "platform-backed-persistence"
       ],
       "last_verified_revision": "454db525ccce95aff1057cb57726900560374970"
+    },
+    {
+      "id": "doctrine-library-authoring",
+      "name": "Doctrine ORM library code authoring",
+      "kind": "operational",
+      "status": "accepted",
+      "scope": [
+        "code-authoring",
+        "validation"
+      ],
+      "problem": "Ensure assistant-written PHP code follows Doctrine ORM subsystem boundaries, coding standard, comments policy, tests, and validation commands.",
+      "decision_owner": "@atvardovsky",
+      "decision_record": ".ai/project/code-authoring.md",
+      "detail": ".ai/project/code-authoring.md",
+      "evidence": [
+        "composer.json",
+        "CONTRIBUTING.md",
+        "phpcs.xml.dist",
+        "phpstan.neon",
+        "phpstan-dbal3.neon",
+        "phpunit.xml.dist",
+        "src/",
+        "tests/Tests/ORM/"
+      ],
+      "validation": [
+        "adapter validator, JSON/YAML parse, git diff --check, and applicable PHPUnit/PHPStan/PHPCS checks"
+      ],
+      "related_pattern_ids": [
+        "matrix-backed-validation"
+      ],
+      "last_verified_revision": "8a0328f5b5f7560adc075018860f1a9a0dc363da"
     }
   ],
   "known_gaps": [

@@ -13,6 +13,7 @@
     ".ai/framework/code-documentation.md",
     ".ai/project/documentation/catalog.json",
     ".ai/project/documentation/profiles.json",
+    ".ai/project/code-authoring.md",
     ".ai/assistant/flows/documentation-sync.flow.md"
   ],
   "conditional_context": [

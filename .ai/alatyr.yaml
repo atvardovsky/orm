@@ -39,6 +39,7 @@ source_of_truth:
   project_sources:
   - .ai/project/blueprint.md
   - .ai/project/business-logic.md
+  - .ai/project/code-authoring.md
   - .ai/project/commit-policy.md
   - README.md
   - CONTRIBUTING.md

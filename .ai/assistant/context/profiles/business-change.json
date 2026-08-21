@@ -14,7 +14,6 @@
     "logical-integrity-review"
   ],
   "required_context": [
-    ".ai/framework/context-discovery.md",
     ".ai/framework/change-risk-model.md",
     ".ai/framework/logical-integrity.md",
     ".ai/assistant/gates/core.md",
@@ -54,6 +53,14 @@
     {
       "path": ".ai/framework/source-of-truth-registry.md",
       "when": "portable source-of-truth registry behavior is disputed or framework rules are under repair"
+    },
+    {
+      "path": ".ai/framework/context-discovery.md",
+      "when": "context budget or owner selection is disputed"
+    },
+    {
+      "path": ".ai/project/code-authoring.md",
+      "when": "implementation or test code will be changed"
     }
   ],
   "expand_when": [

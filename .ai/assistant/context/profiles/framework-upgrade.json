@@ -17,7 +17,6 @@
   ],
   "required_context": [
     ".ai/assistant/context/migration-routing.json",
-    ".ai/assistant/templates/migration-note.md",
     ".ai/alatyr.yaml",
     ".ai/assistant/module-profile.md",
     ".ai/project/source-of-truth-registry.md",

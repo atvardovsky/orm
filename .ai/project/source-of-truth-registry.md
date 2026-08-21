@@ -133,6 +133,35 @@ Conflict resolver: repository owner or upstream Doctrine maintainer review when 
 Approval trigger: persistence behavior, schema, identity, query, or data-loss risk change
 Final evidence: affected data facts, selected map edges, validation, rollback or residual risk
 
+### Fact Type: `code authoring rule`
+
+Fact type: `code authoring rule`
+Canonical owner: .ai/project/code-authoring.md
+Consistency level: project-owned accepted rule with target evidence review
+Project area: `src, tests, docs, validation, assistant-adapter`
+Consistency map node: `code-authoring-rules`
+Relationship coverage: enabled through `.ai/project/consistency-map.json` node `code-authoring-rules` for source, tests, documentation profiles, code/test gates, context routing, and validation sync
+Invariant and dependency constraints: assistant-authored code must preserve Doctrine ORM subsystem ownership, public API compatibility, PHP 8.1 package constraints, Doctrine coding standard, PHPStan compatibility, focused regression coverage, and comment policy
+Derived surfaces:
+
+- `.ai/project/code-authoring.md`
+- `.ai/project/architecture/catalog.json`
+- `.ai/project/documentation/catalog.json`
+- `.ai/project/documentation/profiles.json`
+- `.ai/project/testing/test-first-policy.json`
+- `.ai/assistant/context/profiles/code-local.json`
+- `.ai/assistant/context/intents/code-documentation.json`
+- `.ai/assistant/gates/code-and-tests.md`
+- `AGENTS.md`
+- `src/`
+- `tests/`
+
+Sync direction: code-authoring rule changes must update context routing, code/test gates, documentation profiles, architecture catalog, registry/map coverage, and agent entry points together
+Validation or manual review: adapter validator, JSON/YAML parse, git diff check, composer validate, and applicable PHPUnit/PHPStan/PHPCS checks when source or tests change
+Conflict resolver: `composer.json`, `phpcs.xml.dist`, `phpstan*.neon`, `phpunit.xml.dist`, `CONTRIBUTING.md`, public docs, source, and tests win over adapter summaries; `.ai/project/code-authoring.md` owns assistant-facing synthesis
+Approval trigger: weakening coding standard, static analysis, tests, public API compatibility, dependency compatibility, comment policy, or validation requirements
+Final evidence: owning subsystem, authoring rules applied, tests/docs sync, validation, selected map edges, residual risk
+
 ### Fact Type: `validation command`
 
 Fact type: `validation command`
@@ -303,6 +332,7 @@ Derived surfaces:
 - `.ai/project/dependencies/catalog.json`
 - `.ai/project/documentation/catalog.json`
 - `.ai/project/testing/test-first-policy.json`
+- `.ai/project/code-authoring.md`
 - `.ai/project/team-policy.json`
 - `.ai/project/vocabulary/catalog.json`
 - `.ai/project/workspace-modes/catalog.json`

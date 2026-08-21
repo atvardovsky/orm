@@ -5,8 +5,13 @@ strategy. Load full testing guidance only when selecting unfamiliar test
 levels, isolation, or cross-boundary validation.
 
 - State the observable contract and re-derived invariant before implementation.
+- Load `.ai/project/code-authoring.md` before editing `src/` or `tests/` and
+  identify the owning subsystem.
 - Prefer the smallest deterministic test level that proves that contract.
 - Cover relevant failure, boundary, ownership, idempotency, persistence, or
   external-error behavior; expand only for applicable risks.
 - Use target-owned commands, fixtures, isolation, and CI evidence.
 - Do not weaken assertions or delete useful coverage to make a change pass.
+- Preserve Doctrine coding standard, PHPStan compatibility, public API
+  compatibility, and existing extension points unless the requested change
+  explicitly crosses those boundaries and has approval.

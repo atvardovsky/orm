@@ -192,6 +192,7 @@
       ],
       "required_context": [
         "composer.json",
+        ".ai/project/code-authoring.md",
         "docs/en/reference/architecture.rst",
         ".ai/project/source-of-truth-registry.md"
       ],
@@ -207,6 +208,7 @@
       "required_context": [
         "tests/README.markdown",
         "phpunit.xml.dist",
+        ".ai/project/code-authoring.md",
         "CONTRIBUTING.md"
       ],
       "expand_when": [
