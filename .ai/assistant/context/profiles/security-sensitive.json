@@ -17,12 +17,14 @@
     ".ai/framework/change-risk-model.md",
     ".ai/framework/security-safety-guidance.md",
     ".ai/framework/logical-integrity.md",
-    ".ai/framework/approval-records.md",
     ".ai/assistant/gates/core.md",
     ".ai/assistant/gates/semantic-integrity.md",
     ".ai/assistant/gates/security-approval.md",
     ".ai/assistant/gates/final-evidence.md",
-    "SECURITY.md"
+    "SECURITY.md",
+    "docs/en/reference/security.rst",
+    ".ai/project/source-of-truth-registry.md",
+    ".ai/project/consistency-map.json"
   ],
   "expand_when": [
     "live_external_action_possible",
@@ -41,9 +43,16 @@
   ],
   "final_evidence": [
     "security_owner_evidence",
+    "consistency_map_edges",
     "actions_avoided",
     "approvals",
     "validation",
     "residual_risk"
+  ],
+  "conditional_context": [
+    {
+      "path": ".ai/framework/approval-records.md",
+      "when": "durable approval record behavior is needed or disputed"
+    }
   ]
 }

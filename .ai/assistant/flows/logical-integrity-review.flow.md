@@ -17,10 +17,10 @@ This flow adapts `.ai/framework/logical-integrity.md` to `Doctrine ORM`.
    dependency, caller, and external-boundary invariants from target evidence.
    If the task starts from multiple review comments or defects, cluster them
    by fact and contract before choosing local repairs.
-5. The consistency-map module is not installed. Build a compact manual closure
-   from the re-derived invariants and record unknown relationships. If a
-   future adapter expansion enables a project map, use it to select applicable
-   relationship edges.
+5. Load `.ai/project/consistency-map.json` and select applicable direct
+   relationship edges from the changed fact's registry node. Record skipped
+   edges, missing relationships, and any manual expansion needed for
+   cross-area or contradicted owner evidence.
 6. Map each changed fact to target contracts:
    - business/domain rules
    - use cases or workflows

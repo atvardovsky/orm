@@ -1,6 +1,6 @@
 # Development Evidence Capture Flow
 
-Use this lazy subflow in `<project-name>` only when current or historical
+Use this lazy subflow in `Doctrine ORM` only when current or historical
 target evidence indicates repeated development friction or one high-impact
 failure worth later AI infrastructure review.
 
@@ -16,7 +16,9 @@ files, product behavior, or permissions.
 - Source-of-truth registry: `.ai/project/source-of-truth-registry.md`
 - Development evidence index: `.ai/project/development-evidence.json`
 - Target retention, privacy, and evidence-reference policy:
-  `<target-development-evidence-policy>`
+  `.ai/project/development-evidence.json`,
+  `.ai/assistant/flows/development-evidence-capture.flow.md`, and
+  `.ai/assistant/policies/prompt-injection.md`
 
 For explicit historical backfill, inspect only target-permitted issue, review,
 commit, incident, operation, or effectiveness sources selected for the bounded

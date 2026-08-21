@@ -74,7 +74,12 @@ Reject or revise work that:
 
 ## Target Sources
 
-- `<target-project-source-of-truth>`
-- `<target-glossary-or-terminology-sources-or-none>`
-- `<target-data-dictionary-schema-api-or-model-sources>`
-- `<target-vocabulary-validation-or-manual-review>`
+- Project source of truth: `.ai/project/source-of-truth-registry.md`,
+  `.ai/project/blueprint.md`, and selected canonical Doctrine docs/source/tests
+- Vocabulary and terminology sources: `.ai/project/vocabulary/catalog.json`,
+  `.ai/project/vocabulary/terms.json`, and
+  `.ai/project/vocabulary/data-dictionary-links.json`
+- Data dictionary, schema, API, or model sources: selected
+  `docs/en/reference/*.rst`, `src/Mapping/`, `src/UnitOfWork.php`, and tests
+- Vocabulary validation or manual review: adapter validator, JSON parse,
+  selected owner review, and applicable documentation/code validation

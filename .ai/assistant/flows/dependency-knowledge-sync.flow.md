@@ -3,7 +3,7 @@
 ## Purpose
 
 Discover, inspect, compare, synchronize, explain, or assess the impact of
-passive dependency knowledge for `<project-name>` without executing package
+passive dependency knowledge for `Doctrine ORM` without executing package
 content, activating nested adapters, or changing software dependencies.
 
 ## Modes

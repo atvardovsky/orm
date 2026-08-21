@@ -61,10 +61,13 @@ this index and equivalent source-of-truth docs from target evidence.
 runtime, or public-contract changes. It must identify changed facts, canonical
 owners, affected docs/source/tests, approval needs, and validation.
 
-The optional consistency-map, diagram, test-first, team-collaboration,
-architecture-catalog, and AI-infrastructure modules are not enabled in this
-installation. Blueprint work therefore uses manual impact closure through the
-registry, target docs/source/tests, and validation output.
+The consistency-map, diagram, test-first, team-collaboration,
+architecture-knowledge, dependency-knowledge, code-documentation,
+workspace-mode, vocabulary, AI-infrastructure, operation, delegation,
+change-package, durable-approval, migration-diff, and effectiveness modules are
+enabled in this branch. Blueprint work must use the registry, consistency-map
+node coverage, target docs/source/tests, validation output, and selected module
+owners from `.ai/assistant/module-profile.md`.
 
 ## Local Validation Notes
 

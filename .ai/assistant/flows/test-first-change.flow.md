@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Apply the accepted `<project-name>` test-first policy to one bounded changed
+Apply the accepted `Doctrine ORM` test-first policy to one bounded changed
 fact, defect, invariant, contract, or refactor.
 
 ## Steps

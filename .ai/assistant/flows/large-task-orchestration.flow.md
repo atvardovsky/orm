@@ -1,10 +1,8 @@
 # Large-Task Orchestration Flow
 
-Use this flow in `<project-name>` for large, cross-boundary, multi-workstream,
+Use this flow in `Doctrine ORM` for large, cross-boundary, multi-workstream,
 or resumable work. Do not use it for a small task that fits one context profile
 and one coherent change.
-
-Replace placeholders with target facts before accepting installation.
 
 ## Target Sources
 
@@ -13,9 +11,14 @@ Replace placeholders with target facts before accepting installation.
   `.ai/assistant/templates/large-task-operation-packet.md`
 - Project source-of-truth registry:
   `.ai/project/source-of-truth-registry.md`
-- Approval policy and records: `<target-approval-policy-and-records>`
-- Target validation: `<target-validation-or-manual-review>`
-- Packet storage and retention policy: `<target-operation-packet-policy>`
+- Approval policy and records: `.ai/framework/approval-records.md`,
+  `.ai/assistant/approvals/`, and `.ai/assistant/gates/security-approval.md`
+- Target validation: adapter validator, JSON/YAML parse, git diff check, and
+  the applicable Doctrine command from `.ai/alatyr.yaml`
+- Packet storage and retention policy:
+  `.ai/assistant/templates/large-task-operation-packet.md`,
+  `.ai/assistant/change-packages/index.json`, and the development-evidence
+  privacy boundary in `.ai/project/development-evidence.json`
 
 ## Activation Gate
 

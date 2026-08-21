@@ -1,6 +1,6 @@
 # Team Task Coordination Flow
 
-Use this flow in `<project-name>` for team status, task start, claim, conflict
+Use this flow in `Doctrine ORM` for team status, task start, claim, conflict
 review, checkpoint, or release requests when the `team-collaboration` module is
 enabled.
 
@@ -24,8 +24,11 @@ approval, accepts project facts, or authorizes implementation.
 - Consistency map: `.ai/project/consistency-map.json` when enabled
 - Team gate: `.ai/assistant/gates/team-collaboration.md`
 - Context router: `.ai/assistant/context-router.json`
-- Target task backend: `<target-task-source-of-truth>`
-- Target validation or manual review: `<target-team-registry-validation>`
+- Target task backend: repository-local `.ai/assistant/team/work-registry.json`
+  and `.ai/assistant/team/active-work-index.json`; external backend is
+  unconfigured unless `.ai/assistant/team/backend-contract.json` says otherwise
+- Target validation or manual review: adapter validator, JSON parse, and manual
+  team-policy review
 
 ## Status
 

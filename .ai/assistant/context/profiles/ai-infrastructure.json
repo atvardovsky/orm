@@ -20,6 +20,9 @@
   "required_context": [
     ".ai/framework/ai-infrastructure-routing.md",
     ".ai/assistant/ai-infrastructure-router.json",
+    ".ai/project/development-evidence.json",
+    ".ai/project/source-of-truth-registry.md",
+    ".ai/project/consistency-map.json",
     ".ai/assistant/gates/core.md",
     ".ai/assistant/gates/security-approval.md",
     ".ai/assistant/gates/final-evidence.md"
@@ -39,7 +42,7 @@
     "weakened_gate_or_approval_rule"
   ],
   "validation": [
-    "<target-ai-infrastructure-validation-or-manual-review>"
+    "adapter validator, JSON/YAML parse, local path/placeholder scan, and manual AI-infrastructure policy review"
   ],
   "final_evidence": [
     "inventory",
@@ -48,6 +51,7 @@
     "license_status",
     "normalization",
     "compatibility_review",
+    "registry_and_consistency_map_sync",
     "approval_evidence"
   ]
 }

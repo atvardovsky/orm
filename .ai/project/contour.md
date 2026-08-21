@@ -45,7 +45,11 @@ Target source-of-truth files inspected during installation:
 The accepted Alatyr project blueprint index is `.ai/project/blueprint.md`.
 The accepted Alatyr business-logic layer is `.ai/project/business-logic.md`.
 The accepted Alatyr project commit policy is `.ai/project/commit-policy.md`.
-Other optional Alatyr project catalogs remain deferred.
+The accepted optional Alatyr project catalogs are recorded under
+`.ai/project/architecture/`, `.ai/project/dependencies/`,
+`.ai/project/documentation/`, `.ai/project/testing/`, `.ai/project/team-*`,
+`.ai/project/vocabulary/`, `.ai/project/workspace-modes/`, and
+`.ai/project/development-evidence.json`.
 
 ## AI Infrastructure Evidence Boundary
 

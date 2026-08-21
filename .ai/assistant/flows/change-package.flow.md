@@ -1,6 +1,6 @@
 # Change Package Flow
 
-Use this flow in `<project-name>` only when the optional `change-packages`
+Use this flow in `Doctrine ORM` only when the optional `change-packages`
 module is enabled and the package activation gate passes. Do not create a
 package for an ordinary local task.
 
@@ -12,8 +12,10 @@ package for an ordinary local task.
 - Human report template: `.ai/assistant/templates/change-package-report.md`
 - Approval records: `.ai/assistant/approvals/`
 - Source-of-truth registry: `.ai/project/source-of-truth-registry.md`
-- Target retention and redaction policy: `<target-change-package-policy>`
-- Target validation: `<target-validation-or-manual-review>`
+- Target retention and redaction policy: `.ai/assistant/change-packages/index.json`
+  plus the summarized-evidence boundary in `.ai/project/development-evidence.json`
+- Target validation: adapter validator, JSON/YAML parse, git diff check, and
+  applicable Doctrine validation from `.ai/alatyr.yaml`
 
 ## Activation Gate
 

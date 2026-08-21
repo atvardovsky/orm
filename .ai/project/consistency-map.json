@@ -26,10 +26,12 @@
       "cross-area contract changes",
       "owner or relationship evidence conflicts",
       "validation disproves the current boundary",
-      "approval trigger is reached"
+      "approval trigger is reached",
+      "registry derived surfaces are stale or missing"
     ],
     "required_evidence": [
       "changed fact ids and canonical owners",
+      "registry fact entry and consistency-map node id",
       "selected edges and reasons",
       "skipped edges and reasons",
       "levels and project areas reached",
@@ -42,9 +44,24 @@
       "id": "product-behavior",
       "fact_type": "product behavior",
       "level": "fact",
-      "project_area": "docs/src",
+      "project_area": "docs/src/tests",
       "canonical_owner": ".ai/project/business-logic.md",
       "relationships": [
+        {
+          "id": "product-behavior-blueprint-routing",
+          "type": "routes",
+          "target": ".ai/project/blueprint.md",
+          "target_level": "adapter",
+          "target_area": "project",
+          "direction": "outbound",
+          "required_when": [
+            "accepted public behavior source routing changes"
+          ],
+          "validation": [
+            "manual owner evidence review and adapter validator"
+          ],
+          "approval_trigger": "accepted public behavior source-of-truth routing change"
+        },
         {
           "id": "product-behavior-docs",
           "type": "documents",
@@ -59,6 +76,21 @@
             "manual docs review and relevant PHPUnit"
           ],
           "approval_trigger": "accepted public behavior change"
+        },
+        {
+          "id": "product-behavior-tests",
+          "type": "verifies",
+          "target": "tests/",
+          "target_level": "system",
+          "target_area": "tests",
+          "direction": "outbound",
+          "required_when": [
+            "accepted behavior or public contract changes"
+          ],
+          "validation": [
+            "/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpunit or relevant subset with skip reason"
+          ],
+          "approval_trigger": "weakened validation or changed public behavior"
         }
       ]
     },
@@ -83,6 +115,90 @@
             "adapter validator plus owner evidence review"
           ],
           "approval_trigger": "accepted behavior or validation routing change"
+        },
+        {
+          "id": "business-rule-to-profile",
+          "type": "routes",
+          "target": ".ai/assistant/context/profiles/business-change.json",
+          "target_level": "adapter",
+          "target_area": "assistant-adapter",
+          "direction": "outbound",
+          "required_when": [
+            "business-rule workflow routing changes"
+          ],
+          "validation": [
+            "JSON parse, context router review, and manual owner evidence review"
+          ],
+          "approval_trigger": "accepted behavior or public contract change"
+        },
+        {
+          "id": "business-rule-to-integrity-gate",
+          "type": "constrains",
+          "target": ".ai/assistant/gates/semantic-integrity.md",
+          "target_level": "adapter",
+          "target_area": "assistant-adapter",
+          "direction": "outbound",
+          "required_when": [
+            "business-rule invariants or approval triggers change"
+          ],
+          "validation": [
+            "manual semantic-integrity review"
+          ],
+          "approval_trigger": "weakened semantic integrity or approval requirement"
+        }
+      ]
+    },
+    {
+      "id": "business-logic-layer",
+      "fact_type": "business logic layer",
+      "level": "adapter",
+      "project_area": "business-logic/docs/src/tests",
+      "canonical_owner": ".ai/project/business-logic.md",
+      "relationships": [
+        {
+          "id": "business-logic-layer-blueprint",
+          "type": "routes",
+          "target": ".ai/project/blueprint.md",
+          "target_level": "adapter",
+          "target_area": "project",
+          "direction": "outbound",
+          "required_when": [
+            "business-logic layer ownership or rule-family routing changes"
+          ],
+          "validation": [
+            "adapter validator plus manual blueprint sync review"
+          ],
+          "approval_trigger": "accepted behavior, public contract, or source routing change"
+        },
+        {
+          "id": "business-logic-layer-registry",
+          "type": "documents",
+          "target": ".ai/project/source-of-truth-registry.md",
+          "target_level": "adapter",
+          "target_area": "project",
+          "direction": "outbound",
+          "required_when": [
+            "business-logic derived surfaces or canonical owner statements change"
+          ],
+          "validation": [
+            "registry and consistency-map sync review"
+          ],
+          "approval_trigger": "source-of-truth ownership or derived surface change"
+        },
+        {
+          "id": "business-logic-layer-context",
+          "type": "routes",
+          "target": ".ai/assistant/context/profiles/business-change.json",
+          "target_level": "adapter",
+          "target_area": "assistant-adapter",
+          "direction": "outbound",
+          "required_when": [
+            "business-change routing changes"
+          ],
+          "validation": [
+            "JSON parse and context-router review"
+          ],
+          "approval_trigger": "accepted behavior workflow routing change"
         }
       ]
     },
@@ -107,6 +223,36 @@
             "PHPStan and architecture manual review"
           ],
           "approval_trigger": "accepted architecture boundary change"
+        },
+        {
+          "id": "architecture-to-catalog",
+          "type": "documents",
+          "target": ".ai/project/architecture/catalog.json",
+          "target_level": "adapter",
+          "target_area": "architecture",
+          "direction": "outbound",
+          "required_when": [
+            "architecture catalog evidence or source routing changes"
+          ],
+          "validation": [
+            "JSON parse and architecture catalog manual review"
+          ],
+          "approval_trigger": "accepted architecture owner or catalog change"
+        },
+        {
+          "id": "architecture-to-composer",
+          "type": "depends-on",
+          "target": "composer.json",
+          "target_level": "system",
+          "target_area": "dependencies",
+          "direction": "outbound",
+          "required_when": [
+            "package boundary or dependency direction changes"
+          ],
+          "validation": [
+            "/usr/local/bin/composer8 validate --strict and dependency review"
+          ],
+          "approval_trigger": "new dependency or changed platform requirement"
         }
       ]
     },
@@ -117,6 +263,21 @@
       "project_area": "mapping/persistence",
       "canonical_owner": "docs/en/reference/basic-mapping.rst",
       "relationships": [
+        {
+          "id": "mapping-persistence-source",
+          "type": "implements",
+          "target": "src/Mapping/",
+          "target_level": "system",
+          "target_area": "mapping",
+          "direction": "outbound",
+          "required_when": [
+            "mapping metadata or persistence behavior changes"
+          ],
+          "validation": [
+            "manual source review and relevant PHPUnit"
+          ],
+          "approval_trigger": "persistence behavior, schema, identity, query, or data-loss risk change"
+        },
         {
           "id": "mapping-persistence-tests",
           "type": "verifies",
@@ -131,6 +292,21 @@
             "/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpunit with relevant tests"
           ],
           "approval_trigger": "persistence behavior schema identity query or data-loss risk change"
+        },
+        {
+          "id": "mapping-persistence-unitofwork-docs",
+          "type": "documents",
+          "target": "docs/en/reference/unitofwork.rst",
+          "target_level": "contract",
+          "target_area": "docs",
+          "direction": "outbound",
+          "required_when": [
+            "UnitOfWork identity lifecycle or persistence semantics change"
+          ],
+          "validation": [
+            "manual docs review and relevant PHPUnit"
+          ],
+          "approval_trigger": "persistence lifecycle or identity behavior change"
         }
       ]
     },
@@ -141,6 +317,21 @@
       "project_area": "validation",
       "canonical_owner": "composer.json",
       "relationships": [
+        {
+          "id": "validation-to-manifest",
+          "type": "routes",
+          "target": ".ai/alatyr.yaml",
+          "target_level": "adapter",
+          "target_area": "assistant-adapter",
+          "direction": "outbound",
+          "required_when": [
+            "local validation command or environment requirement changes"
+          ],
+          "validation": [
+            "YAML parse, adapter validator, and command evidence review"
+          ],
+          "approval_trigger": "weakened validation or changed required command"
+        },
         {
           "id": "validation-to-gates",
           "type": "constrains",
@@ -155,6 +346,21 @@
             "JSON/YAML parse, git diff --check, target command evidence"
           ],
           "approval_trigger": "weakened tests CI gates or validation requirements"
+        },
+        {
+          "id": "validation-to-wrapper",
+          "type": "verifies",
+          "target": "tools/check_alatyr.py",
+          "target_level": "adapter",
+          "target_area": "validation",
+          "direction": "outbound",
+          "required_when": [
+            "adapter validator invocation changes"
+          ],
+          "validation": [
+            "ALATYR_CORE_SOURCE=/path/to/AlatyrCore python3 tools/check_alatyr.py"
+          ],
+          "approval_trigger": "weakened adapter validation wrapper"
         }
       ]
     },
@@ -179,6 +385,321 @@
             "staged diff review and detailed English commit message review"
           ],
           "approval_trigger": "weakening commit policy"
+        },
+        {
+          "id": "commit-policy-agent-entry",
+          "type": "documents",
+          "target": "AGENTS.md",
+          "target_level": "adapter",
+          "target_area": "assistant-adapter",
+          "direction": "outbound",
+          "required_when": [
+            "commit instruction routing changes"
+          ],
+          "validation": [
+            "manual bootstrap and bridge pointer review"
+          ],
+          "approval_trigger": "weakening logical-scope or English-message requirements"
+        },
+        {
+          "id": "commit-policy-router",
+          "type": "routes",
+          "target": ".ai/assistant/context-router.json",
+          "target_level": "adapter",
+          "target_area": "assistant-adapter",
+          "direction": "outbound",
+          "required_when": [
+            "commit profile or staged-diff workflow changes"
+          ],
+          "validation": [
+            "JSON parse and context-router review"
+          ],
+          "approval_trigger": "changed commit policy routing"
+        }
+      ]
+    },
+    {
+      "id": "security-policy",
+      "fact_type": "security policy",
+      "level": "contract",
+      "project_area": "security",
+      "canonical_owner": "SECURITY.md",
+      "relationships": [
+        {
+          "id": "security-policy-docs",
+          "type": "documents",
+          "target": "docs/en/reference/security.rst",
+          "target_level": "contract",
+          "target_area": "docs",
+          "direction": "outbound",
+          "required_when": [
+            "security posture or vulnerability handling changes"
+          ],
+          "validation": [
+            "SECURITY.md and security reference manual review"
+          ],
+          "approval_trigger": "security posture or public vulnerability reporting change"
+        },
+        {
+          "id": "security-policy-gate",
+          "type": "constrains",
+          "target": ".ai/assistant/gates/security-approval.md",
+          "target_level": "adapter",
+          "target_area": "assistant-adapter",
+          "direction": "outbound",
+          "required_when": [
+            "security approval categories or handling rules change"
+          ],
+          "validation": [
+            "manual security gate review"
+          ],
+          "approval_trigger": "weakened security approval requirement"
+        },
+        {
+          "id": "security-policy-profile",
+          "type": "routes",
+          "target": ".ai/assistant/context/profiles/security-sensitive.json",
+          "target_level": "adapter",
+          "target_area": "assistant-adapter",
+          "direction": "outbound",
+          "required_when": [
+            "security-sensitive context routing changes"
+          ],
+          "validation": [
+            "JSON parse and security policy review"
+          ],
+          "approval_trigger": "security, credential, permission, privacy, dependency trust, live-service, or destructive change"
+        }
+      ]
+    },
+    {
+      "id": "assistant-operation",
+      "fact_type": "assistant operation",
+      "level": "adapter",
+      "project_area": "assistant-adapter",
+      "canonical_owner": ".ai/assistant/operation-catalog.json",
+      "relationships": [
+        {
+          "id": "assistant-operation-index",
+          "type": "generates",
+          "target": ".ai/assistant/operation-index.json",
+          "target_level": "adapter",
+          "target_area": "assistant-adapter",
+          "direction": "outbound",
+          "required_when": [
+            "operation catalog IDs aliases or modules change"
+          ],
+          "validation": [
+            "JSON parse, index/catalog sync review, and adapter validator"
+          ],
+          "approval_trigger": "weakened operation gate or routing rule"
+        },
+        {
+          "id": "assistant-operation-help",
+          "type": "documents",
+          "target": ".ai/assistant/help.md",
+          "target_level": "adapter",
+          "target_area": "assistant-adapter",
+          "direction": "outbound",
+          "required_when": [
+            "operation catalog user-facing help changes"
+          ],
+          "validation": [
+            "manual help and help-reference sync review"
+          ],
+          "approval_trigger": "operation availability or allowed-action claim changes"
+        },
+        {
+          "id": "assistant-operation-router",
+          "type": "routes",
+          "target": ".ai/assistant/context-router.json",
+          "target_level": "adapter",
+          "target_area": "assistant-adapter",
+          "direction": "outbound",
+          "required_when": [
+            "operation candidates, aliases, or profile routing changes"
+          ],
+          "validation": [
+            "JSON parse and operation-routing flow review"
+          ],
+          "approval_trigger": "weakened approval, profile, or module-state routing"
+        }
+      ]
+    },
+    {
+      "id": "project-blueprint-index",
+      "fact_type": "project blueprint index",
+      "level": "adapter",
+      "project_area": "project/assistant-adapter",
+      "canonical_owner": ".ai/project/blueprint.md",
+      "relationships": [
+        {
+          "id": "project-blueprint-registry",
+          "type": "routes",
+          "target": ".ai/project/source-of-truth-registry.md",
+          "target_level": "adapter",
+          "target_area": "project",
+          "direction": "outbound",
+          "required_when": [
+            "blueprint source-of-truth ownership or derived surfaces change"
+          ],
+          "validation": [
+            "registry and consistency-map sync review"
+          ],
+          "approval_trigger": "source-of-truth routing or ownership change"
+        },
+        {
+          "id": "project-blueprint-profile",
+          "type": "documents",
+          "target": ".ai/assistant/module-profile.md",
+          "target_level": "adapter",
+          "target_area": "assistant-adapter",
+          "direction": "outbound",
+          "required_when": [
+            "blueprint operation or module enablement statements change"
+          ],
+          "validation": [
+            "module profile and adapter validator review"
+          ],
+          "approval_trigger": "enabled module or blueprint workflow change"
+        },
+        {
+          "id": "project-blueprint-flow",
+          "type": "routes",
+          "target": ".ai/assistant/flows/blueprint-driven-change.flow.md",
+          "target_level": "adapter",
+          "target_area": "assistant-adapter",
+          "direction": "outbound",
+          "required_when": [
+            "blueprint-driven workflow changes"
+          ],
+          "validation": [
+            "manual flow and router sync review"
+          ],
+          "approval_trigger": "accepted behavior, architecture, data, or public-contract workflow change"
+        }
+      ]
+    },
+    {
+      "id": "development-process-pattern",
+      "fact_type": "development process pattern",
+      "level": "adapter",
+      "project_area": "process/assistant-adapter",
+      "canonical_owner": ".ai/project/development-evidence.json",
+      "relationships": [
+        {
+          "id": "development-process-flow",
+          "type": "routes",
+          "target": ".ai/assistant/flows/development-evidence-capture.flow.md",
+          "target_level": "adapter",
+          "target_area": "assistant-adapter",
+          "direction": "outbound",
+          "required_when": [
+            "development evidence capture or recommendation patterns change"
+          ],
+          "validation": [
+            "JSON parse, flow review, and privacy boundary review"
+          ],
+          "approval_trigger": "enabling or weakening development evidence capture"
+        },
+        {
+          "id": "development-process-effectiveness",
+          "type": "documents",
+          "target": ".ai/assistant/templates/effectiveness-report.md",
+          "target_level": "adapter",
+          "target_area": "assistant-adapter",
+          "direction": "outbound",
+          "required_when": [
+            "effectiveness metrics or summarized recommendation evidence changes"
+          ],
+          "validation": [
+            "manual template and development-evidence sync review"
+          ],
+          "approval_trigger": "persistent assistant recommendation or effectiveness record change"
+        },
+        {
+          "id": "development-process-change-packages",
+          "type": "generates",
+          "target": ".ai/assistant/change-packages/index.json",
+          "target_level": "adapter",
+          "target_area": "assistant-adapter",
+          "direction": "outbound",
+          "required_when": [
+            "multi-surface change package tracking is used"
+          ],
+          "validation": [
+            "JSON parse and change-package index review"
+          ],
+          "approval_trigger": "persistent change package evidence or approval scope changes"
+        }
+      ]
+    },
+    {
+      "id": "alatyr-full-capability",
+      "fact_type": "alatyr full capability",
+      "level": "adapter",
+      "project_area": "assistant-adapter/ai-infrastructure/full-profile",
+      "canonical_owner": ".ai/alatyr.yaml",
+      "relationships": [
+        {
+          "id": "alatyr-full-capability-profile",
+          "type": "routes",
+          "target": ".ai/assistant/module-profile.md",
+          "target_level": "adapter",
+          "target_area": "assistant-adapter",
+          "direction": "outbound",
+          "required_when": [
+            "enabled module graph or capability ownership changes"
+          ],
+          "validation": [
+            "adapter validator plus module closure audit"
+          ],
+          "approval_trigger": "weakening capability gates or enabling external permissions"
+        },
+        {
+          "id": "alatyr-full-capability-router",
+          "type": "routes",
+          "target": ".ai/assistant/context-router.json",
+          "target_level": "adapter",
+          "target_area": "assistant-adapter",
+          "direction": "outbound",
+          "required_when": [
+            "profile, area, intent, or task-scale routing changes"
+          ],
+          "validation": [
+            "JSON parse and router/profile sync review"
+          ],
+          "approval_trigger": "broadening protected action scope or changing required context"
+        },
+        {
+          "id": "alatyr-full-capability-bootstrap",
+          "type": "generates",
+          "target": ".ai/assistant/bootstrap-index.json",
+          "target_level": "adapter",
+          "target_area": "assistant-adapter",
+          "direction": "outbound",
+          "required_when": [
+            "manifest, module profile, operation catalog, gates, or router changes"
+          ],
+          "validation": [
+            "bootstrap regeneration and adapter validator"
+          ],
+          "approval_trigger": "stale bootstrap after capability surface change"
+        },
+        {
+          "id": "alatyr-full-capability-gates",
+          "type": "constrains",
+          "target": ".ai/assistant/gates/index.json",
+          "target_level": "adapter",
+          "target_area": "assistant-adapter",
+          "direction": "outbound",
+          "required_when": [
+            "gate catalog or approval boundary changes"
+          ],
+          "validation": [
+            "JSON parse and gate index review"
+          ],
+          "approval_trigger": "weakening capability gates or protected approvals"
         }
       ]
     }

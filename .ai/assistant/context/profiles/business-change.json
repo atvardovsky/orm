@@ -16,13 +16,14 @@
   "required_context": [
     ".ai/framework/context-discovery.md",
     ".ai/framework/change-risk-model.md",
-    ".ai/framework/source-of-truth-registry.md",
     ".ai/framework/logical-integrity.md",
     ".ai/assistant/gates/core.md",
     ".ai/assistant/gates/semantic-integrity.md",
     ".ai/assistant/gates/final-evidence.md",
     ".ai/project/blueprint.md",
     ".ai/project/business-logic.md",
+    ".ai/project/source-of-truth-registry.md",
+    ".ai/project/consistency-map.json",
     "README.md"
   ],
   "conditional_context": [
@@ -49,6 +50,10 @@
     {
       "path": ".ai/assistant/gates/checklist.md",
       "when": "adapter ambiguity or a full acceptance audit requires the complete checklist"
+    },
+    {
+      "path": ".ai/framework/source-of-truth-registry.md",
+      "when": "portable source-of-truth registry behavior is disputed or framework rules are under repair"
     }
   ],
   "expand_when": [
@@ -67,6 +72,8 @@
   "final_evidence": [
     "changed_fact",
     "business_logic_layer_sync",
+    "consistency_map_edges",
+    "derived_surface_sync",
     "re_derived_invariants",
     "review_item_reconciliation",
     "owning_blueprint_or_source_of_truth",

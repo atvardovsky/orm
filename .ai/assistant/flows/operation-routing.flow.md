@@ -13,8 +13,8 @@ These names are assistant request shortcuts, not shell commands.
 - Compact help: `.ai/assistant/help.md`
 - Full help reference: `.ai/assistant/help-reference.md`
 - Module profile: `.ai/assistant/module-profile.md`
-- Team-collaboration sources: deferred until the module is enabled and target
-  owners accept the operating model and work registry paths
+- Team-collaboration sources: `.ai/project/team-policy.json`,
+  `.ai/project/team-operating-model.md`, and `.ai/assistant/team/`
 - Pre-change preview: `.ai/assistant/templates/pre-change-preview.md`
 - Installed operations guidance: `.ai/framework/installed-operations.md`
 - Operation routing guidance: `.ai/framework/operation-help.md`
@@ -95,12 +95,10 @@ record that preview was skipped and why.
 ## Specialized Aliases
 
 Installed aliases are the aliases in `.ai/assistant/operation-index.json`.
-This repository currently installs help, adapter health, blueprint creation,
-installation/framework recheck, product change, logical-integrity review,
-drift review, documentation sync, and adapter maturity review. Optional
-upstream aliases must route to help unless the module is enabled, the operation
-is added to `.ai/assistant/operation-catalog.json`, and the referenced flow
-exists.
+This repository currently installs the full Alatyr operation catalog recorded
+in `.ai/assistant/operation-index.json` and `.ai/assistant/operation-catalog.json`.
+Optional-module aliases are available only when the module is enabled, the
+operation is cataloged and indexed, and the referenced flow exists.
 
 ## Final Evidence
 

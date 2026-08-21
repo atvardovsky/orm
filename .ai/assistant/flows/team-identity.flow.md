@@ -1,6 +1,6 @@
 # Team Identity Flow
 
-Use this flow in `<project-name>` to inspect, select, or clear the current
+Use this flow in `Doctrine ORM` to inspect, select, or clear the current
 local actor when `team-collaboration` is enabled.
 
 The local identity file is `.ai/local/team-identity.json`. It is ignored by
@@ -12,7 +12,8 @@ canonical actor registry.
 - Canonical team policy: `.ai/project/team-policy.json`
 - Local identity example:
   `.ai/assistant/templates/team-identity.example.json`
-- Target identity provider or mapping: `<target-identity-provider-or-none>`
+- Target identity provider or mapping: actor records in
+  `.ai/project/team-policy.json`; no external identity provider is configured
 - Team gate: `.ai/assistant/gates/team-collaboration.md`
 
 ## Who Am I

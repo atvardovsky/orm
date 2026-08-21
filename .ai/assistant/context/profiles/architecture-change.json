@@ -14,15 +14,16 @@
     "logical-integrity-review"
   ],
   "required_context": [
-    ".ai/framework/context-discovery.md",
     ".ai/framework/change-risk-model.md",
-    ".ai/framework/source-of-truth-registry.md",
     ".ai/framework/logical-integrity.md",
     ".ai/assistant/gates/core.md",
     ".ai/assistant/gates/semantic-integrity.md",
     ".ai/assistant/gates/final-evidence.md",
     ".ai/project/blueprint.md",
-    "docs/en/reference/architecture.rst"
+    ".ai/project/source-of-truth-registry.md",
+    ".ai/project/consistency-map.json",
+    "docs/en/reference/architecture.rst",
+    ".ai/project/architecture/catalog.json"
   ],
   "conditional_context": [
     {
@@ -52,6 +53,14 @@
     {
       "path": ".ai/assistant/gates/checklist.md",
       "when": "adapter ambiguity or a full acceptance audit requires the complete checklist"
+    },
+    {
+      "path": ".ai/framework/context-discovery.md",
+      "when": "context budget or owner selection is disputed"
+    },
+    {
+      "path": ".ai/framework/source-of-truth-registry.md",
+      "when": "portable source-of-truth registry behavior is disputed or framework rules are under repair"
     }
   ],
   "expand_when": [
@@ -74,6 +83,7 @@
     "re_derived_invariants",
     "review_item_reconciliation",
     "affected_areas",
+    "consistency_map_edges",
     "validation",
     "diagram_result",
     "residual_risk"

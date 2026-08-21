@@ -18,6 +18,10 @@
   "required_context": [
     ".ai/assistant/context/migration-routing.json",
     ".ai/assistant/templates/migration-note.md",
+    ".ai/alatyr.yaml",
+    ".ai/assistant/module-profile.md",
+    ".ai/project/source-of-truth-registry.md",
+    ".ai/project/consistency-map.json",
     ".ai/assistant/gates/core.md",
     ".ai/assistant/gates/final-evidence.md"
   ],
@@ -73,6 +77,7 @@
     "migration_assessment",
     "selected_and_omitted_canonical_sources",
     "affected_target_files",
+    "registry_and_consistency_map_sync",
     "gaps",
     "local_deviations",
     "validation",

@@ -7,12 +7,16 @@
   ],
   "required_context": [
     ".ai/framework/consistency-model.md",
-    ".ai/project/consistency-map.json"
+    ".ai/project/consistency-map.json",
+    ".ai/project/source-of-truth-registry.md"
   ],
   "lookup_order": [
     "changed fact ids",
+    "registry fact entry",
+    "consistency-map node id",
     "canonical owners",
     "applicable direct relationships",
+    "derived surfaces from registry and selected relationship edges",
     "dependent contracts when propagation is possible",
     "selected target surfaces and validation"
   ],
@@ -24,6 +28,8 @@
   ],
   "final_evidence": [
     "selected and skipped edges with reasons",
+    "registry fact entry and consistency-map node id",
+    "derived-surface sync result",
     "levels and project areas reached",
     "missing or stale relationships",
     "candidate and applied repair sets"

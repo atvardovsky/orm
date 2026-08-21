@@ -3,8 +3,6 @@
 Use this flow when a programmer asks to see, sketch, compare, explain, or
 iteratively revise a diagram during an assistant discussion.
 
-Replace placeholders with target facts before accepting installation.
-
 ## Required Context
 
 - Diagram rule: `.ai/framework/diagram-guidance.md`
@@ -13,8 +11,11 @@ Replace placeholders with target facts before accepting installation.
   evidence
 - Presentation contract: `.ai/assistant/templates/diagram-presentation.md`
 - Current assistant entry in `.ai/assistant/assistant-capabilities.json`
-- Diagram owner or policy: `<target-diagram-source-visual-and-render-policy>`
-- Relevant fact owners: `<target-fact-owners-for-diagram-scope>`
+- Diagram owner or policy: `.ai/assistant/flows/diagram-discussion.flow.md`,
+  `.ai/framework/diagram-guidance.md`, and manual documentation review for
+  persisted target-owned artifacts
+- Relevant fact owners: `.ai/project/source-of-truth-registry.md`,
+  `.ai/project/consistency-map.json`, and selected Doctrine docs/source/tests
 
 Load source-of-truth, risk, integrity, approval, security, privacy, or
 product-change context only when the requested view proposes or exposes a fact

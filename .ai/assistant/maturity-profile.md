@@ -46,11 +46,11 @@ Required context:
 - `.ai/assistant/flows/blueprint-driven-change.flow.md`
 - selected canonical Doctrine docs, source, tests, and validation files
 
-Required owners present: yes for blueprint routing; no consistency map
+Required owners present: yes for blueprint routing and consistency-map coverage
 Validation or manual review: adapter validator, logical-integrity review, relevant Doctrine validation, and manual owner-evidence review
 Approval needs: approval required for accepted behavior, architecture, public contract, security posture, dependency, CI, or weakened-gate changes
 Blocking criteria: accepted semantic change without canonical owner, approval, validation plan, or source/docs/tests sync
-Residual risks: cross-surface impact closure is manual until a consistency map is accepted
+Residual risks: consistency-map coverage is direct-edge based; transitive expansion still requires manual judgment
 Final evidence: changed facts, owners, synchronized surfaces, validation, skipped checks, residual risk
 
 ## Business Logic Work
@@ -69,7 +69,7 @@ Required owners present: yes for Alatyr business-rule routing; canonical behavio
 Validation or manual review: manual owner-evidence review plus relevant PHPUnit/PHPStan/PHPCS checks when implementation changes
 Approval needs: approval required for accepted behavior, public contract, persistence rule, query behavior, security posture, dependency, CI, or weakened-gate changes
 Blocking criteria: accepted business-rule change without canonical Doctrine owner evidence, business-logic layer sync, docs/source/tests sync, approval when required, or validation plan
-Residual risks: no consistency map, so cross-rule and cross-surface impact closure is manual
+Residual risks: consistency-map coverage is direct-edge based; cross-rule expansion still requires manual owner review
 Final evidence: business rule family, canonical owners, changed facts, synchronized surfaces, validation, skipped checks, residual risk
 
 ## Code Changes
@@ -85,11 +85,11 @@ Required context:
 - `.ai/project/blueprint.md`
 - `.ai/project/source-of-truth-registry.md`
 
-Required owners present: yes for code/test surfaces; manual impact closure required
+Required owners present: yes for code/test surfaces and selected consistency-map routing
 Validation or manual review: `/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpunit`, `/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpstan analyse -c phpstan.neon --memory-limit=1G`, `/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpstan analyse -c phpstan-dbal3.neon --memory-limit=1G`, `/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpcs -d memory_limit=1G` as applicable
 Approval needs: approval required for protected categories or weakened validation
 Blocking criteria: unavailable source-of-truth owner for semantic behavior changes
-Residual risks: no consistency map; database extension availability varies by test profile
+Residual risks: database extension availability varies by test profile
 Final evidence: changed files, invariant review, validation run/skipped, docs sync, residual risk
 
 ## Architecture Work
@@ -121,7 +121,7 @@ Required context:
 - `.ai/project/blueprint.md`
 - selected `src/Mapping/`, `src/UnitOfWork.php`, query, persister, and test files
 
-Required owners present: yes in docs/source/tests; no consistency map
+Required owners present: yes in docs/source/tests and consistency-map routing
 Validation or manual review: PHPUnit with relevant SQLite/database configuration; PHPStan as applicable
 Approval needs: approval required for persistence behavior, data-loss, destructive, migration, or external data-contract changes
 Blocking criteria: destructive or data-loss risk without explicit approval
@@ -166,15 +166,26 @@ Final evidence: validator findings, framework version/schema/template state, gap
 
 ## Team Collaboration
 
-Maturity: not-enabled
-Supported work: none beyond ordinary Git workflow
+Maturity: enabled-with-local-records
+Supported work: repository-local team identity, work registry, active-work
+overlap checks, handoff, decision, and review flows
 Required context:
 
-- no team policy installed
+- `.ai/project/team-policy.json`
+- `.ai/project/team-operating-model.md`
+- `.ai/assistant/team/work-registry.json`
+- `.ai/assistant/team/active-work-index.json`
+- `.ai/assistant/team/backend-contract.json`
+- `.ai/assistant/gates/team-collaboration.md`
 
-Required owners present: no
-Validation or manual review: manual review only
-Approval needs: separate user decision required before enabling
-Blocking criteria: attempts to record actor authority, claims, priorities, or team decisions without policy
-Residual risks: no team task registry or backend
-Final evidence: module deferred
+Required owners present: yes for repository-local team policy and registry
+Validation or manual review: adapter validator, JSON parse, and manual
+team-policy review
+Approval needs: approval required before external tracker writes, authority
+changes, protected decisions, or weakened overlap checks
+Blocking criteria: actor authority, active-work claims, or team decisions that
+contradict `.ai/project/team-policy.json`
+Residual risks: external backend integration remains approval-gated and
+runtime-dependent
+Final evidence: selected team records, overlap result, approvals, validation,
+residual risk

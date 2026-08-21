@@ -1,11 +1,9 @@
 # AI Infrastructure Inventory Flow
 
-Use this flow in `<project-name>` when the programmer asks what AI assistant
+Use this flow in `Doctrine ORM` when the programmer asks what AI assistant
 infrastructure already exists or uses `alatyr-ai-inventory`. Requests for
 evidence-based additions or existing-item improvements continue with the
 recommendation flow after inventory.
-
-Replace placeholders with target facts before accepting installation.
 
 ## Base Target Sources
 
@@ -16,7 +14,8 @@ Replace placeholders with target facts before accepting installation.
 - Target gates: `.ai/assistant/gates/checklist.md`
 - Inventory report template:
   `.ai/assistant/templates/ai-infrastructure-inventory.md`
-- Target validation: `<target-validation>`
+- Target validation: adapter validator, JSON/YAML parse, local
+  path/placeholder scan, and manual AI-infrastructure policy review
 
 ## Conditional Sources
 
@@ -32,8 +31,8 @@ Replace placeholders with target facts before accepting installation.
 - Prompt-injection policy: `.ai/assistant/policies/prompt-injection.md` only
   when an external source is inspected
 - Target AI infrastructure source/access policy:
-  `<target-ai-infrastructure-source-access-policy>` only when source access is
-  in scope
+  `.ai/assistant/policies/ai-infrastructure-source-access.md` only when source
+  access is in scope
 
 ## Items To Inspect
 
@@ -50,8 +49,8 @@ Replace placeholders with target facts before accepting installation.
 
 1. Load the compact adapter bootstrap, then
    `.ai/assistant/ai-infrastructure-router.json` and declared item paths.
-2. Inspect router-declared locations and known assistant surfaces for
-   `<supported-assistants>` before broader directory search.
+2. Inspect router-declared locations and assistant surfaces recorded in
+   `.ai/assistant/assistant-capabilities.json` before broader directory search.
 3. Read source-access or prompt-injection policy only when inventory touches an
    external, remote, package/plugin, pasted, or unknown source.
 4. Classify each found item as framework, project, repository adapter, bridge,

@@ -122,20 +122,16 @@ Known local test constraint: SQLite 3.31.1 here does not provide SQL `SQRT()`,
 so the full PHPUnit suite reports SQLite `SQRT()` errors in `Doctrine\Tests\ORM\Functional\QueryDqlFunctionTest::testFunctionSqrt` and `Doctrine\Tests\ORM\Functional\Ticket\GH7941Test::typesShouldBeConvertedForDQLFunctions` unless
 the SQLite runtime or test profile changes.
 
-## Deferred Modules
+## Enabled Modules
 
-`blueprint-change` is enabled. Non-blueprint optional modules are deferred and
-must not be routed as installed operations:
+This branch enables the complete Alatyr support profile recorded in
+`.ai/assistant/module-profile.md` and `.ai/alatyr.yaml`. Optional-module
+operations may be routed when the module is enabled, the operation appears in
+`.ai/assistant/operation-index.json` and `.ai/assistant/operation-catalog.json`,
+and the referenced flow exists.
 
-- `architecture-knowledge`
-- `test-first-development`
-- `diagrams`
-- `team-collaboration`
-- `ai-infrastructure`
-
-Other Alatyr Core optional capabilities are unavailable until a future adapter
-expansion records their owners, files, operation catalog entries, gates, and
-validation.
+Runtime assistant capabilities remain evidence-bound and must be checked from
+`.ai/assistant/assistant-capabilities.json` before use.
 
 ## Final Evidence
 

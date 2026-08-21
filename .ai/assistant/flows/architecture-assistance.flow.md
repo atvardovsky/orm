@@ -1,11 +1,10 @@
 # Architecture Assistance Flow
 
 Use this flow when a programmer asks to inventory, explain, discuss, compare,
-review, or document `<project-name>` architecture, patterns, boundaries,
+review, or document `Doctrine ORM` architecture, patterns, boundaries,
 constraints, technologies, or other architectural items.
 
-Replace placeholders from target evidence before enabling the
-`architecture-knowledge` module.
+The `architecture-knowledge` module is enabled for this branch.
 
 ## Required Context
 

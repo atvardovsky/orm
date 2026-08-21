@@ -1,6 +1,6 @@
 # AI Infrastructure Recommendation Flow
 
-Use this flow in `<project-name>` when the programmer asks what AI
+Use this flow in `Doctrine ORM` when the programmer asks what AI
 infrastructure should be added or how an existing skill, prompt, gate, checker,
 flow, tool/MCP configuration, bridge, wrapper, or template should change.
 
@@ -28,7 +28,8 @@ edit `.ai/framework`, AlatyrCore source, or portable rules from target evidence.
 - Target gates: `.ai/assistant/gates/checklist.md`
 - Recommendation report template:
   `.ai/assistant/templates/ai-infrastructure-recommendation.md`
-- Target validation or manual review: `<target-validation>`
+- Target validation or manual review: adapter validator, JSON/YAML parse,
+  local path/placeholder scan, and manual AI-infrastructure policy review
 
 ## Conditional Sources
 
@@ -37,11 +38,18 @@ edit `.ai/framework`, AlatyrCore source, or portable rules from target evidence.
   coverage is unknown
 - Evidence references for selected development pattern IDs; do not load
   unrelated historical sources or raw conversation history
-- Selected project-area source of truth: `<selected-project-area-owner>`
-- Selected existing item source: `<selected-ai-item-canonical-source>`
-- Existing adaptation record: `<selected-ai-item-adaptation-record>`
+- Selected project-area source of truth:
+  `.ai/project/source-of-truth-registry.md` and the chosen owner from the
+  matching consistency-map node
+- Selected existing item source:
+  `.ai/assistant/ai-infrastructure-router.json` and the item path or source it
+  records
+- Existing adaptation record: the selected item record or
+  `.ai/assistant/templates/ai-infrastructure-adaptation-record.md` when a new
+  record is being prepared
 - Existing item validation and output evidence:
-  `<selected-ai-item-effectiveness-evidence>`
+  `.ai/project/development-evidence.json` and selected effectiveness-report
+  evidence when present
 - Maturity, adapter-recheck, large-task, incident, rework, or effectiveness
   evidence only when it supports the observed problem
 - Framework adaptation guidance: `.ai/framework/skill-adaptation.md` only when

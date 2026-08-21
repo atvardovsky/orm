@@ -1,6 +1,6 @@
 # Team Handoff Flow
 
-Use this flow in `<project-name>` to hand a task between humans, assistants, or
+Use this flow in `Doctrine ORM` to hand a task between humans, assistants, or
 roles when the `team-collaboration` module is enabled.
 
 With `read-only`, return draft checkpoint and handoff evidence without
@@ -17,7 +17,9 @@ permission.
 - Checkpoint template: `.ai/assistant/templates/team-checkpoint.md`
 - Handoff template: `.ai/assistant/templates/team-handoff.md`
 - Team gate: `.ai/assistant/gates/team-collaboration.md`
-- Target handoff storage policy: `<target-team-record-storage-policy>`
+- Target handoff storage policy: repository-local records under
+  `.ai/assistant/team/`; store only summarized coordination evidence and never
+  raw conversations, secrets, credentials, or personal data
 
 ## Steps
 

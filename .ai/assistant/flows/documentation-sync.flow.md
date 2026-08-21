@@ -45,9 +45,9 @@ Route clear requests automatically. The user does not need to name a mode.
 3. Resolve changed fact IDs and canonical owners. When the optional
    `consistency-map` module is enabled, follow applicable `documents`,
    `visualizes`, `generates`, `verifies`, and dependent-contract edges.
-4. If code comments or generated reference documentation are in scope, note
-   that the code-documentation module is not installed. Use manual owner review
-   unless a future adapter expansion enables accepted documentation profiles.
+4. If code comments or generated reference documentation are in scope, load the
+   accepted code-documentation profiles from `.ai/project/documentation/` and
+   select the smallest matching profile before editing or generating output.
 5. Select accepted profile candidates by path/source-set, language, framework,
    specificity, and explicit priority. Stop automatic generation on an equal
    conflict. If no accepted profile applies, route to `propose` under
@@ -102,5 +102,6 @@ Reject or revise work that:
 - `.ai/project/blueprint.md` plus README and `docs/en/reference/*.rst` as equivalent source-of-truth docs
 - `CONTRIBUTING.md, tests/README.markdown, phpunit.xml.dist, and GitHub Actions`
 - `no target-owned diagram policy found; manual documentation review only`
-- Optional code-documentation profiles and consistency-map sources only after a
-  future adapter expansion enables them.
+- Code-documentation profiles under `.ai/project/documentation/`
+- Consistency-map and registry sources under `.ai/project/consistency-map.json`
+  and `.ai/project/source-of-truth-registry.md`

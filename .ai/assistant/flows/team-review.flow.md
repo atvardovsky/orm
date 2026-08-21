@@ -1,6 +1,6 @@
 # Team Review And Merge Check Flow
 
-Use this flow in `<project-name>` for team review or merge-readiness requests
+Use this flow in `Doctrine ORM` for team review or merge-readiness requests
 when the `team-collaboration` module is enabled.
 
 Review is read-only by default. Route requested fixes through the applicable
@@ -16,8 +16,10 @@ product-change, logical-integrity, documentation, or adapter operation.
 - Team gate: `.ai/assistant/gates/team-collaboration.md`
 - Source-of-truth registry: `.ai/project/source-of-truth-registry.md`
 - Approval records: `.ai/assistant/approvals`
-- Target review policy: `<target-review-policy>`
-- Target validation: `<target-review-and-merge-validation>`
+- Target review policy: `.ai/project/team-policy.json`, `CODEOWNERS`, and
+  `.ai/assistant/gates/team-collaboration.md`
+- Target validation: adapter validator plus applicable Doctrine validation
+  from `.ai/alatyr.yaml`
 
 ## Team Review
 

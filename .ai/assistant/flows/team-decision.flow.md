@@ -1,6 +1,6 @@
 # Team Decision Flow
 
-Use this flow in `<project-name>` for structured business, architecture, data,
+Use this flow in `Doctrine ORM` for structured business, architecture, data,
 security, adapter, or delivery-priority discussion when the
 `team-collaboration` module is enabled.
 
@@ -17,8 +17,11 @@ semantic fact requires the applicable project-change scope and approval.
 - Work registry: `.ai/assistant/team/work-registry.json`
 - Decision template: `.ai/assistant/templates/team-decision-record.md`
 - Source-of-truth registry: `.ai/project/source-of-truth-registry.md`
-- Target decision records: `<target-decision-record-directory>`
-- Approval policy: `<target-approval-policy>`
+- Target decision records: `.ai/assistant/templates/team-decision-record.md`
+  for drafts; accepted facts must be written to their canonical owner from
+  `.ai/project/source-of-truth-registry.md`
+- Approval policy: `.ai/assistant/gates/security-approval.md`,
+  `.ai/assistant/approvals/`, and `.ai/framework/approval-records.md`
 
 ## Steps
 

@@ -3,7 +3,7 @@
 ## Purpose
 
 Assess, enable, revise, disable, or review test-first development for
-`<project-name>` from target evidence. This flow configures project and adapter
+`Doctrine ORM` from target evidence. This flow configures project and adapter
 policy; it does not implement product behavior.
 
 ## Modes

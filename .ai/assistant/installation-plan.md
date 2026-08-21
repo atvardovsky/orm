@@ -79,6 +79,8 @@ validation behavior was changed.
 
 - No backup owner is recorded.
 - Target-local Alatyr checker wrapper is committed at `tools/check_alatyr.py` and delegates to `ALATYR_CORE_SOURCE`.
-- Non-blueprint optional modules are deferred.
+- Full optional-module support is enabled and recorded in
+  `.ai/assistant/module-profile.md`, `.ai/alatyr.yaml`, the operation catalog,
+  gates, context router, registry, and consistency map.
 - The default local `php` and `composer` binaries are not suitable for this branch; use `/usr/local/bin/php8` and `/usr/local/bin/composer8`.
 - Local SQLite lacks `SQRT()`, so the full PHPUnit suite reports errors in `Doctrine\Tests\ORM\Functional\QueryDqlFunctionTest::testFunctionSqrt` and `Doctrine\Tests\ORM\Functional\Ticket\GH7941Test::typesShouldBeConvertedForDQLFunctions` in this environment.

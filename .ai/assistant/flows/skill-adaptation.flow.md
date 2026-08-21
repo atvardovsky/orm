@@ -2,13 +2,11 @@
 
 Use this flow when adding, importing, changing, or reviewing assistant skills,
 prompts, wrappers, bridges, rules, MCP/tool configs, gates, checkers, flows,
-templates, or third-party assistant infrastructure for `<project-name>`.
+templates, or third-party assistant infrastructure for `Doctrine ORM`.
 
 The request may arrive as `skill-adaptation` or as the target alias
 `alatyr-adaptation <ai-infrastructure-source>` or
 `alatyr-add-ai <ai-infrastructure-source>`.
-
-Replace placeholders with target facts before accepting installation.
 
 ## Target Sources
 
@@ -35,10 +33,14 @@ Replace placeholders with target facts before accepting installation.
 - Prompt-injection policy: `.ai/assistant/policies/prompt-injection.md`
 - Approval record template:
   `.ai/assistant/approvals/approval-template.md`
-- Target validation: `<target-validation>`
-- Target security/live-service policy: `<target-security-policy>`
+- Target validation: adapter validator, JSON/YAML parse, local
+  path/placeholder scan, git diff check, and applicable Doctrine validation
+  from `.ai/alatyr.yaml`
+- Target security/live-service policy: `SECURITY.md`,
+  `docs/en/reference/security.rst`, and
+  `.ai/assistant/gates/security-approval.md`
 - Target AI infrastructure source/access policy:
-  `<target-ai-infrastructure-source-access-policy>`
+  `.ai/assistant/policies/ai-infrastructure-source-access.md`
 
 ## Steps
 

@@ -22,9 +22,10 @@ governance.
    profile and project-area overlays plus the target source-of-truth docs.
 3. Apply `.ai/assistant/flows/logical-integrity-review.flow.md`.
 4. List changed fact IDs and canonical owners, re-derive testable invariants,
-   and cluster related review items by shared fact or contract. The
-   consistency-map module is not installed, so use manual impact closure unless
-   a future adapter expansion enables a project map.
+   and cluster related review items by shared fact or contract. Resolve each
+   fact through `.ai/project/source-of-truth-registry.md` and
+   `.ai/project/consistency-map.json`, then select applicable relationship
+   edges and derived surfaces.
 5. Update target blueprint, business-logic layer, or equivalent
    source-of-truth docs when accepted facts change.
 6. Update project flow, use-case, data, runtime, architecture, or public docs
@@ -32,8 +33,8 @@ governance.
 7. Prepare an implementation plan that names affected boundaries, tests,
    approvals, machine-readable scope records when used, and validation.
 8. Evaluate whether tests should be added or updated from existing Doctrine
-   test and validation evidence. The optional test-first module is deferred, so
-   do not require test-first artifacts unless a future target policy enables it.
+   test and validation evidence plus `.ai/project/testing/test-first-policy.json`.
+   Record the advisory test-first trigger result for behavior-changing work.
 9. Change remaining code, tests, diagrams, prompts, skills, bridge files,
    gates, or checker rules as required by the accepted fact change.
 10. Run target validation that exists. Do not invent commands.

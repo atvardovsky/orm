@@ -1,6 +1,6 @@
 # Subagent Delegation Flow
 
-Use this optional overlay in `<project-name>` only when the
+Use this optional overlay in `Doctrine ORM` only when the
 `subagent-delegation` module is enabled and the selected operation has a
 bounded delegation candidate.
 
@@ -11,11 +11,15 @@ Selected task-scale overlay: `delegated-execution`
 - Portable rule: `.ai/framework/subagent-delegation.md`
 - Target policy: `.ai/assistant/delegation-policy.json`
 - Capability index: `.ai/assistant/assistant-capabilities.json`
-- Selected surface capability:
-  `.ai/assistant/assistant-capabilities/<selected-assistant-surface>.json`
+- Selected surface capability: the surface-specific record under
+  `.ai/assistant/assistant-capabilities/` chosen from
+  `.ai/assistant/assistant-capabilities.json`
 - Packet template: `.ai/assistant/templates/subagent-task-packet.md`
-- Parent operation or large-task packet: `<parent-operation-or-packet>`
-- Target validation: `<target-validation>`
+- Parent operation or large-task packet: current selected operation flow, or
+  `.ai/assistant/templates/large-task-operation-packet.md` when orchestration
+  is active
+- Target validation: adapter validator, focused workstream validation, and
+  applicable Doctrine validation from `.ai/alatyr.yaml`
 
 ## Activation Gate
 

@@ -3,7 +3,7 @@
 ## Purpose
 
 List, inspect, plan, install, update, disable, remove, or review an Alatyr
-extension for `<project-name>` without allowing external repository content to
+extension for `Doctrine ORM` without allowing external repository content to
 become active instruction automatically.
 
 ## Modes
