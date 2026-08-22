@@ -12,7 +12,7 @@ final class FlushDuringCommit extends LogicException implements ORMException
     {
         return new self(
             'A flush operation is already in progress. Doctrine ORM does not support calling ' .
-            'EntityManager::flush() from event listeners dispatched by EntityManager::flush().',
+            'EntityManager::flush() from event handlers dispatched by EntityManager::flush().',
         );
     }
 }

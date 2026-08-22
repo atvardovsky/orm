@@ -7,6 +7,7 @@ namespace Doctrine\Tests\ORM\Functional\Ticket;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Event\PreFlushEventArgs;
 use Doctrine\ORM\Events;
 use Doctrine\ORM\Exception\FlushDuringCommit;
 use Doctrine\ORM\Mapping as ORM;
@@ -15,6 +16,7 @@ use Doctrine\Tests\Models\CMS\CmsUser;
 use Doctrine\Tests\OrmFunctionalTestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Group;
+use RuntimeException;
 
 use function array_filter;
 use function array_values;
@@ -32,17 +34,23 @@ class GH11827Test extends OrmFunctionalTestCase
         parent::setUp();
 
         $this->setUpEntitySchema([
+            GH11827CascadeChild::class,
+            GH11827CascadeParent::class,
             GH11827OrphanRemovalComment::class,
             GH11827OrphanRemovalPost::class,
+            GH11827PreFlushCallbackEntity::class,
         ]);
     }
 
     protected function tearDown(): void
     {
         if (static::$sharedConn !== null) {
+            static::$sharedConn->executeStatement('DELETE FROM gh11827_cascade_parents');
+            static::$sharedConn->executeStatement('DELETE FROM gh11827_cascade_children');
             static::$sharedConn->executeStatement('DELETE FROM gh11827_orphan_post_comments');
             static::$sharedConn->executeStatement('DELETE FROM gh11827_orphan_comments');
             static::$sharedConn->executeStatement('DELETE FROM gh11827_orphan_posts');
+            static::$sharedConn->executeStatement('DELETE FROM gh11827_pre_flush_callback_entities');
         }
 
         parent::tearDown();
@@ -152,6 +160,67 @@ class GH11827Test extends OrmFunctionalTestCase
         $this->_em->flush();
     }
 
+    public function testFlushFromCascadePrePersistListenerDuringCommitIsRejected(): void
+    {
+        $parent = new GH11827CascadeParent();
+
+        $this->_em->persist($parent);
+        $this->_em->flush();
+
+        $this->_em->getEventManager()->addEventListener(Events::prePersist, new class ($this->_em) {
+            public function __construct(private readonly EntityManagerInterface $em)
+            {
+            }
+
+            public function prePersist(): void
+            {
+                $this->em->flush();
+            }
+        });
+
+        $parent->child = new GH11827CascadeChild();
+
+        $this->expectException(FlushDuringCommit::class);
+        $this->_em->flush();
+    }
+
+    public function testFlushFromOrphanRemovalPreRemoveListenerDuringCommitIsRejected(): void
+    {
+        $post    = new GH11827OrphanRemovalPost();
+        $comment = new GH11827OrphanRemovalComment();
+
+        $post->comments[] = $comment;
+
+        $this->_em->persist($post);
+        $this->_em->flush();
+
+        $this->_em->getEventManager()->addEventListener(Events::preRemove, new class ($this->_em) {
+            public function __construct(private readonly EntityManagerInterface $em)
+            {
+            }
+
+            public function preRemove(): void
+            {
+                $this->em->flush();
+            }
+        });
+
+        $post->comments->clear();
+
+        $this->expectException(FlushDuringCommit::class);
+        $this->_em->flush();
+    }
+
+    public function testFlushFromEntityPreFlushCallbackDuringCommitIsRejected(): void
+    {
+        $entity = new GH11827PreFlushCallbackEntity();
+
+        $this->_em->persist($entity);
+
+        $this->expectException(FlushDuringCommit::class);
+        $this->_em->flush();
+    }
+
     public function testFlushFromPostFlushListenerIsRejectedWhenNothingIsScheduled(): void
     {
         $listener = new class ($this->_em) {
@@ -199,6 +268,62 @@ class GH11827Test extends OrmFunctionalTestCase
         $queryLog->reset()->enable();
 
         $this->flushAndCatchReentrantFlush();
+
+        $joinTableDeletes = array_values(array_filter($queryLog->queries, static function (array $entry): bool {
+            return str_starts_with($entry['sql'], 'DELETE')
+                && str_contains($entry['sql'], 'cms_users_groups');
+        }));
+
+        self::assertCount(1, $joinTableDeletes);
+        self::assertSame([], $this->_em->getUnitOfWork()->getScheduledCollectionDeletions());
+        self::assertSame([], $this->_em->getUnitOfWork()->getScheduledCollectionUpdates());
+
+        $this->_em->flush();
+        $this->_em->clear();
+
+        $freshUser = $this->_em->find(CmsUser::class, $userId);
+        assert($freshUser instanceof CmsUser);
+
+        self::assertCount(2, $freshUser->groups);
+    }
+
+    public function testPostFlushExceptionCleansCompletedCollectionOperations(): void
+    {
+        $user   = $this->createUserWithGroups(2);
+        $userId = $user->getId();
+
+        $listener = new class {
+            private bool $exceptionThrown = false;
+
+            public function postFlush(): void
+            {
+                if ($this->exceptionThrown) {
+                    return;
+                }
+
+                $this->exceptionThrown = true;
+
+                throw new RuntimeException('Unexpected postFlush failure.');
+            }
+        };
+
+        $this->_em->getEventManager()->addEventListener(Events::postFlush, $listener);
+        $this->clearAndReAddGroups($user);
+
+        $queryLog = $this->getQueryLog();
+        $queryLog->reset()->enable();
+
+        $exceptionPropagated = false;
+
+        try {
+            $this->_em->flush();
+        } catch (RuntimeException $exception) {
+            $exceptionPropagated = true;
+
+            self::assertSame('Unexpected postFlush failure.', $exception->getMessage());
+        }
+
+        self::assertTrue($exceptionPropagated);
 
         $joinTableDeletes = array_values(array_filter($queryLog->queries, static function (array $entry): bool {
             return str_starts_with($entry['sql'], 'DELETE')
@@ -454,4 +579,47 @@ class GH11827OrphanRemovalComment
     #[ORM\Column(type: 'integer')]
     #[ORM\GeneratedValue]
     public int|null $id = null;
+}
+
+#[ORM\Entity]
+#[ORM\Table(name: 'gh11827_cascade_parents')]
+class GH11827CascadeParent
+{
+    #[ORM\Id]
+    #[ORM\Column(type: 'integer')]
+    #[ORM\GeneratedValue]
+    public int|null $id = null;
+
+    #[ORM\OneToOne(targetEntity: GH11827CascadeChild::class, cascade: ['persist'])]
+    public GH11827CascadeChild|null $child = null;
+}
+
+#[ORM\Entity]
+#[ORM\Table(name: 'gh11827_cascade_children')]
+class GH11827CascadeChild
+{
+    #[ORM\Id]
+    #[ORM\Column(type: 'integer')]
+    #[ORM\GeneratedValue]
+    public int|null $id = null;
+}
+
+#[ORM\Entity]
+#[ORM\Table(name: 'gh11827_pre_flush_callback_entities')]
+#[ORM\HasLifecycleCallbacks]
+class GH11827PreFlushCallbackEntity
+{
+    #[ORM\Id]
+    #[ORM\Column(type: 'integer')]
+    #[ORM\GeneratedValue]
+    public int|null $id = null;
+
+    #[ORM\Column(type: 'string')]
+    public string $name = 'Developers';
+
+    #[ORM\PreFlush]
+    public function preFlush(PreFlushEventArgs $event): void
+    {
+        $event->getObjectManager()->flush();
+    }
 }

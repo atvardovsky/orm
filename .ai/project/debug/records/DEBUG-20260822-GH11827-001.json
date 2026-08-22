@@ -343,15 +343,102 @@
       "validation_expansion": true,
       "post_review_rework": false,
       "hypothesis_outcome": "not-applicable"
+    },
+    {
+      "event_id": "evt-012",
+      "sequence": 12,
+      "occurred_at": {
+        "value": "2026-08-22T13:37:00+02:00",
+        "evidence_kind": "observed"
+      },
+      "origin": "human-initiated",
+      "category": "review-correction",
+      "summary": "Requested a Doctrine architecture and backward-compatibility re-evaluation of the reentrant flush rejection contract before upstream PR preparation.",
+      "material_effect": "Changed the active task from implementation completion to hardening review, additional regression coverage, and explicit suitability assessment for Doctrine ORM 3.6.x.",
+      "evidence": [
+        "User requested review of all UnitOfWork commit event paths including preFlush, onFlush, postFlush, postPersist, preUpdate, postUpdate, postRemove, and other callbacks/events that can execute during commit.",
+        "User requested a regression test for arbitrary postFlush exceptions proving cleanup and later flush behavior.",
+        "User requested GH-11827 reproducer coverage under the rejected nested-flush contract and asked not to prepare an upstream PR yet."
+      ],
+      "caused_by_event_ids": [
+        "evt-011"
+      ],
+      "architectural_supervision": false,
+      "dependency_expansion": false,
+      "validation_expansion": false,
+      "post_review_rework": false,
+      "hypothesis_outcome": "not-applicable"
+    },
+    {
+      "event_id": "evt-013",
+      "sequence": 13,
+      "occurred_at": {
+        "value": "2026-08-22T13:37:00+02:00",
+        "evidence_kind": "observed"
+      },
+      "origin": "derived-after-human-intervention",
+      "category": "regression-scenario",
+      "summary": "Added hardening coverage for cascade-triggered prePersist, orphan-removal preRemove, entity-level preFlush callbacks, and arbitrary postFlush exception cleanup.",
+      "material_effect": "Verified that the reentrant flush guard covers commit-time callback paths beyond EventManager listeners and that completed collection queues are cleaned after unrelated postFlush failures.",
+      "evidence": [
+        "tests/Tests/ORM/Functional/Ticket/GH11827Test.php added testFlushFromCascadePrePersistListenerDuringCommitIsRejected().",
+        "tests/Tests/ORM/Functional/Ticket/GH11827Test.php added testFlushFromOrphanRemovalPreRemoveListenerDuringCommitIsRejected().",
+        "tests/Tests/ORM/Functional/Ticket/GH11827Test.php added testFlushFromEntityPreFlushCallbackDuringCommitIsRejected().",
+        "tests/Tests/ORM/Functional/Ticket/GH11827Test.php added testPostFlushExceptionCleansCompletedCollectionOperations().",
+        "/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpunit tests/Tests/ORM/Functional/Ticket/GH11827Test.php passed with 17 tests and 33 assertions.",
+        "Adjacent impact PHPUnit batch including flush, postFlush, entity-listener, lifecycle-callback, prePersist, many-to-many, UnitOfWork, PersistentCollection, and second-level cache tests passed with 130 tests and 458 assertions.",
+        "/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpcs -d memory_limit=1G src/UnitOfWork.php src/EntityManager.php src/Exception/FlushDuringCommit.php tests/Tests/ORM/Functional/Ticket/GH11827Test.php passed.",
+        "/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpstan analyse src/EntityManager.php src/Exception/FlushDuringCommit.php tests/Tests/ORM/Functional/Ticket/GH11827Test.php --configuration=phpstan.neon --memory-limit=1G passed.",
+        "/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpstan analyse src/EntityManager.php src/Exception/FlushDuringCommit.php tests/Tests/ORM/Functional/Ticket/GH11827Test.php --configuration=phpstan-dbal3.neon --memory-limit=1G passed.",
+        "/usr/local/bin/composer8 validate --strict passed.",
+        "PHPStan including src/UnitOfWork.php still reports the pre-existing deepclone_hydrate symbol issue at lines 69 and 2437 plus the related stale baseline ignore at line 2440."
+      ],
+      "caused_by_event_ids": [
+        "evt-012"
+      ],
+      "architectural_supervision": false,
+      "dependency_expansion": false,
+      "validation_expansion": true,
+      "post_review_rework": false,
+      "hypothesis_outcome": "not-applicable"
+    },
+    {
+      "event_id": "evt-014",
+      "sequence": 14,
+      "occurred_at": {
+        "value": "2026-08-22T13:37:00+02:00",
+        "evidence_kind": "observed"
+      },
+      "origin": "derived-after-human-intervention",
+      "category": "implementation-revision",
+      "summary": "Adjusted the FlushDuringCommit exception message from event listeners to event handlers.",
+      "material_effect": "Aligned exception wording with the actual guarded surface, including lifecycle callbacks and entity listeners, not only EventManager listener objects.",
+      "evidence": [
+        "src/Exception/FlushDuringCommit.php now says EntityManager::flush() is unsupported from event handlers dispatched by EntityManager::flush().",
+        "/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpunit tests/Tests/ORM/Functional/Ticket/GH11827Test.php passed with 17 tests and 33 assertions.",
+        "/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpcs -d memory_limit=1G src/UnitOfWork.php src/EntityManager.php src/Exception/FlushDuringCommit.php tests/Tests/ORM/Functional/Ticket/GH11827Test.php passed.",
+        "/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpstan analyse src/EntityManager.php src/Exception/FlushDuringCommit.php tests/Tests/ORM/Functional/Ticket/GH11827Test.php --configuration=phpstan.neon --memory-limit=1G passed.",
+        "/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpstan analyse src/EntityManager.php src/Exception/FlushDuringCommit.php tests/Tests/ORM/Functional/Ticket/GH11827Test.php --configuration=phpstan-dbal3.neon --memory-limit=1G passed."
+      ],
+      "caused_by_event_ids": [
+        "evt-012",
+        "evt-013"
+      ],
+      "architectural_supervision": false,
+      "dependency_expansion": false,
+      "validation_expansion": false,
+      "post_review_rework": false,
+      "hypothesis_outcome": "not-applicable"
     }
   ],
   "metrics": {
     "human_interventions": {
-      "value": 2,
+      "value": 3,
       "evidence_kind": "event-derived",
       "event_ids": [
         "evt-007",
-        "evt-010"
+        "evt-010",
+        "evt-012"
       ]
     },
     "human_architectural_interventions": {
@@ -372,12 +459,14 @@
       ]
     },
     "derived_findings_after_human": {
-      "value": 3,
+      "value": 5,
       "evidence_kind": "event-derived",
       "event_ids": [
         "evt-008",
         "evt-009",
-        "evt-011"
+        "evt-011",
+        "evt-013",
+        "evt-014"
       ]
     },
     "alatyr_independent_dependency_checks": {
@@ -406,37 +495,41 @@
       "event_ids": []
     },
     "implementation_revisions": {
-      "value": 2,
+      "value": 3,
       "evidence_kind": "event-derived",
       "event_ids": [
         "evt-004",
-        "evt-008"
+        "evt-008",
+        "evt-014"
       ]
     },
     "implementation_corrections_after_human": {
-      "value": 1,
+      "value": 2,
       "evidence_kind": "event-derived",
       "event_ids": [
-        "evt-008"
+        "evt-008",
+        "evt-014"
       ]
     },
     "validation_expansions": {
-      "value": 4,
+      "value": 5,
       "evidence_kind": "event-derived",
       "event_ids": [
         "evt-005",
         "evt-006",
         "evt-009",
-        "evt-011"
+        "evt-011",
+        "evt-013"
       ]
     },
     "regression_scenarios_added": {
-      "value": 3,
+      "value": 4,
       "evidence_kind": "event-derived",
       "event_ids": [
         "evt-003",
         "evt-006",
-        "evt-011"
+        "evt-011",
+        "evt-013"
       ]
     },
     "maintainer_corrections": {
@@ -454,7 +547,7 @@
     }
   },
   "final_result": {
-    "summary": "Debug Mode is active; GH-11827 is now addressed by rejecting reentrant flush during flush-dispatched events and by guaranteeing post-commit UnitOfWork cleanup when postFlush raises that rejection; coverage now includes lifecycle event listeners, the no-work postFlush branch, and orphan-removal cleanup.",
+    "summary": "Debug Mode is active; GH-11827 is now addressed by rejecting reentrant flush during flush-dispatched events and by guaranteeing post-commit UnitOfWork cleanup when postFlush raises an exception; coverage now includes lifecycle event listeners, cascade-triggered prePersist, orphan-removal preRemove, entity-level preFlush callbacks, the no-work postFlush branch, arbitrary postFlush exceptions, and orphan-removal cleanup.",
     "repository_binding": {
       "kind": "unverified",
       "base_revision": "7e4f5853d2c436f0ecda1f6b901c954583e174f8",
@@ -472,10 +565,11 @@
     ],
     "validation": {
       "results": [
-        "/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpunit tests/Tests/ORM/Functional/Ticket/GH11827Test.php passed with 13 tests and 24 assertions.",
-        "Adjacent impact PHPUnit batch passed with 117 tests and 351 assertions.",
+        "/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpunit tests/Tests/ORM/Functional/Ticket/GH11827Test.php passed with 17 tests and 33 assertions.",
+        "Adjacent impact PHPUnit batch passed with 130 tests and 458 assertions.",
         "/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpcs -d memory_limit=1G src/UnitOfWork.php src/EntityManager.php src/Exception/FlushDuringCommit.php tests/Tests/ORM/Functional/Ticket/GH11827Test.php passed.",
         "/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpstan analyse src/EntityManager.php src/Exception/FlushDuringCommit.php tests/Tests/ORM/Functional/Ticket/GH11827Test.php --configuration=phpstan.neon --memory-limit=1G passed.",
+        "/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpstan analyse src/EntityManager.php src/Exception/FlushDuringCommit.php tests/Tests/ORM/Functional/Ticket/GH11827Test.php --configuration=phpstan-dbal3.neon --memory-limit=1G passed.",
         "/usr/local/bin/composer8 validate --strict passed."
       ],
       "skipped": [
@@ -492,7 +586,10 @@
       "evt-008",
       "evt-009",
       "evt-010",
-      "evt-011"
+      "evt-011",
+      "evt-012",
+      "evt-013",
+      "evt-014"
     ],
     "upstream_projection": {
       "kind": "unknown",
