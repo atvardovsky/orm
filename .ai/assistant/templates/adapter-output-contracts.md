@@ -14,9 +14,9 @@ Use after initial installation or a scoped adapter-only expansion.
 - Observed repository revision: `<repository-revision-or-not-available>`
 - Installation id: `ALATYR-20260821-doctrine-orm`
 - Framework source: `https://github.com/atvardovsky/AlatyrCore`
-- Framework version: `0.1.0-alpha.21`
-- Adapter schema version: `20`
-- Template version: `21`
+- Framework version: `0.1.0-alpha.22`
+- Adapter schema version: `21`
+- Template version: `22`
 - Manifest path: `.ai/alatyr.yaml`
 - Surfaces created or updated: `<surfaces-created-or-updated>`
 - Existing files preserved: `<existing-files-preserved>`
@@ -90,9 +90,9 @@ Use after read-only, adapter-only, or maturity-focused rechecks.
 - Allowed actions: `<read-only-docs-only-adapter-only-code-and-tests-or-full-with-approval>`
 - Manifest path: `.ai/alatyr.yaml`
 - Installation note status: `<installation-note-status>`
-- Framework version: `0.1.0-alpha.21`
-- Adapter schema version: `20`
-- Template version: `21`
+- Framework version: `0.1.0-alpha.22`
+- Adapter schema version: `21`
+- Template version: `22`
 - Approval records used: `<approval-records-used-or-not-required>`
 - Required core profile result: `<required-core-profile-result>`
 - Optional module profile result: `<optional-module-profile-result>`

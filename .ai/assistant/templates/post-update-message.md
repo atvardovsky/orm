@@ -12,13 +12,14 @@ Framework baseline:
 `https://github.com/atvardovsky/AlatyrCore`
 
 Framework version/schema:
-`0.1.0-alpha.21`, adapter schema `20`, template `21`
+`0.1.0-alpha.22`, adapter schema `21`, template `22`
 
 Updated adapter surfaces:
 `.ai/framework`, `.ai/alatyr.yaml`, `.ai/assistant/bootstrap-index.json`,
 `.ai/assistant/extensions/lock.json`, versioned recovery/output templates,
-Debug Mode routing/flow/gate/summary/debug README surfaces, adapter recheck
-flow, and post-update evidence guidance`
+delegation capability records, worker orchestration contracts, portable worker
+role catalog and prompts, adapter recheck/delegation flow surfaces, and
+post-update evidence guidance`
 
 Future assistant bootstrap:
 - Do not rely on this chat message alone.
@@ -38,7 +39,7 @@ Non-goals: do not change project behavior without approval.
 Allowed actions: read-only
 
 Migration assessment:
-`.ai/assistant/migration-notes/2026-08-22-alatyr-0.1.0-alpha.21.md`
+`.ai/assistant/migration-notes/2026-08-23-alatyr-0.1.0-alpha.22.md`
 
 Upgrade impact router:
 `temporary generated report summarized in the migration note`
@@ -134,5 +135,5 @@ Known adapter gaps or migrations:
 `{KNOWN_GAPS_OR_MIGRATIONS}`
 
 Migration note:
-`.ai/assistant/migration-notes/2026-08-22-alatyr-0.1.0-alpha.21.md`
+`.ai/assistant/migration-notes/2026-08-23-alatyr-0.1.0-alpha.22.md`
 ```

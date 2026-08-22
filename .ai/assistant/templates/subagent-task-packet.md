@@ -1,6 +1,8 @@
 # Subagent Task Packet
 
 Packet ID: `<packet-id>`
+Task ID: `<task-id>`
+Execution plan ID: `<plan-id>`
 Parent operation ID: `<operation-id>`
 Parent workstream ID: `<workstream-id-or-none>`
 Primary assistant/session reference: `<primary-assistant-reference>`
@@ -15,6 +17,7 @@ Changed fact IDs: `<changed-fact-ids-or-none>`
 Semantic fact owner: `<primary-owned-owner-or-none>`
 Local acceptance criteria: `<objective-acceptance-criteria>`
 Dependency state: `<ready-dependencies-or-blocker>`
+Base revision: `<base-revision>`
 
 ## Context Boundary
 
@@ -31,6 +34,9 @@ Context budget: `<target-packet-context-budget>`
 ## Authority Boundary
 
 Allowed actions: `<read-only-docs-only-adapter-only-or-code-and-tests>`
+Current logical scope: `<parent-current-logical-scope>`
+Inherited action phases: `<parent-authorized-phases>`
+Prohibited phase escalation: `commit, publish, and live-external unless already authorized for the parent and rechecked by the primary`
 Allowed files or surfaces:
 
 - `<allowed-path-or-surface>`
@@ -56,6 +62,7 @@ Assistant surface: `<assistant-surface>`
 Dispatch backend: `<native-external-suggestion-only-or-unsupported>`
 External dispatcher item: `<target-ai-infrastructure-item-id-none-or-unknown>`
 Role: `<target-delegation-role>`
+Role prompt: `<target-role-prompt-path>`
 Requested model or selection mode: `<model-id-inherit-or-client-default>`
 Capability evidence: `<capability-record-path-and-freshness>`
 Selection rationale: `<latency-context-or-parallelism-reason>`
@@ -69,15 +76,11 @@ Delegate validation:
 
 Return format:
 
-- summary and packet status
-- files or surfaces touched
-- commands or tools used and results
-- requested versus actual model, or `unverified`
-- acceptance-criteria result
-- unresolved findings and residual risk
+- `.ai/assistant/templates/worker-result.md`
 
 ## Returned Result
 
+Normalized result ID: `<worker-result-id>`
 Actual assistant surface: `<actual-surface-or-unverified>`
 Actual role/model: `<actual-role-and-model-or-unverified>`
 Files or surfaces touched: `<touched-surfaces-or-none>`

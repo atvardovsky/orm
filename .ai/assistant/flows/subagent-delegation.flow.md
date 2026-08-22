@@ -10,11 +10,15 @@ Selected task-scale overlay: `delegated-execution`
 
 - Portable rule: `.ai/framework/subagent-delegation.md`
 - Target policy: `.ai/assistant/delegation-policy.json`
+- Role catalog: `.ai/assistant/workers/role-catalog.json`
+- Orchestration prompt: `.ai/assistant/prompts/worker-orchestration.md`
 - Capability index: `.ai/assistant/assistant-capabilities.json`
-- Selected surface capability: the surface-specific record under
-  `.ai/assistant/assistant-capabilities/` chosen from
-  `.ai/assistant/assistant-capabilities.json`
+- Selected surface capability:
+  `.ai/assistant/assistant-capabilities/{selected-assistant-surface}.json`
 - Packet template: `.ai/assistant/templates/subagent-task-packet.md`
+- Execution-plan template:
+  `.ai/assistant/templates/worker-execution-plan.md`
+- Result template: `.ai/assistant/templates/worker-result.md`
 - Parent operation or large-task packet: current selected operation flow, or
   `.ai/assistant/templates/large-task-operation-packet.md` when orchestration
   is active
@@ -25,6 +29,8 @@ Selected task-scale overlay: `delegated-execution`
 
 1. Select the parent operation, task profile, changed facts, risk, source-of-
    truth owners, allowed actions, and primary critical-path next action first.
+   Record the parent's current logical scope and authorized phases. A delegated
+   packet can narrow but never broaden them.
 2. Respect request preference `auto`, `allow`, `forbid`, or
    `require-supported`. `require-supported` still does not bypass capability,
    permission, approval, or safety gates.
@@ -43,13 +49,26 @@ Selected task-scale overlay: `delegated-execution`
    `suggestion-only`, or `unsupported`. An external backend must reference an
    approved target AI-infrastructure dispatcher with provenance, permissions,
    privacy, approval, and failure behavior.
-3. Confirm worker routing, model override, parallelism, actual-model evidence,
-   client version, verification, expiry, permissions, and target role binding.
+3. Confirm exact client/runtime, explicit or automatic delegation, project
+   worker definitions, tool restrictions, write isolation, background/nested
+   behavior, model override, parallelism, actual-model evidence, client
+   version, verification, expiry, permissions, and target role binding.
 4. Select `fast-focused-worker` only for small, focused, reversible, context-
    bounded work with objective local validation.
 5. If the requested model is unavailable, unsupported, unknown, expired,
    rate-limited, or not selectable by the client, apply the recorded fallback.
    Never report a model as used without evidence.
+
+## Task Graph And Readiness
+
+1. Create or update
+   `.ai/assistant/templates/worker-execution-plan.md` before dispatch.
+2. Use `PLANNED`, `BLOCKED`, `READY`, `RUNNING`, `REVIEW_REQUIRED`, `DONE`,
+   `FAILED`, or `CANCELLED`. Only the primary assistant marks readiness.
+3. Reject dependency cycles and concurrent overlapping writes. Keep shared
+   semantic owners in a primary-owned convergence task.
+4. Mark a task `READY` only after dependencies, context, scope, role,
+   acceptance, validation, capability, and authorization are resolved.
 
 ## Packet And Dispatch
 
@@ -61,11 +80,16 @@ Selected task-scale overlay: `delegated-execution`
    independent sidecars or workstreams that materially reduce wall-clock time.
 4. Use parallel dispatch only for disjoint write scopes. Stop a packet when
    risk, ambiguity, permissions, dependencies, or scope expand.
+5. Provider-native worker definitions are thin target bindings. Generate or
+   update them only for a verified supported surface and record their paths in
+   that surface's capability record.
 
 ## Result Review And Convergence
 
-1. Record actual surface, role, model or unverified status, files touched,
-   tools used, validation, findings, and residual risk.
+1. Normalize the return through
+   `.ai/assistant/templates/worker-result.md`; record actual surface, role,
+   model or unverified status, base revision, files touched, tools used,
+   validation, findings, boundary evidence, and residual risk.
 2. Reject output outside packet scope or output that changed a prohibited
    fact, action, permission, or surface.
 3. Review the result against current repository state; do not assume the
@@ -74,7 +98,12 @@ Selected task-scale overlay: `delegated-execution`
 5. Reconcile changed facts, approvals, companion surfaces, and workstreams in
    the primary operation or large-task packet.
 6. The primary assistant performs final logical integrity review and reports
-   completion. Delegate-local success is not final success.
+   completion. Delegate-local success is not final success. The primary
+   rechecks the newest user instruction before integrating writes, committing,
+   publishing, or performing a live external action.
+7. Retry only target-declared transient or locally repairable failures. Reject
+   scope violations, return contradictions to the primary, and revalidate
+   stale results against current repository state.
 
 ## Final Evidence
 

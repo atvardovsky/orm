@@ -25,17 +25,39 @@
     "dispatch_backend": "native",
     "external_dispatcher": "none",
     "native_subagents": "supported",
-    "model_override": "unknown",
+    "model_override": "supported",
     "parallel_dispatch": "supported",
-    "actual_model_evidence": "unknown",
-    "verified_at": "2026-08-21",
-    "client_version": "Codex CLI session",
-    "evidence": "tool_search advertises multi-agent tools in this session; actual delegated model must be reported per task",
+    "actual_model_evidence": "supported",
+    "verified_at": "2026-08-23",
+    "client_version": "Codex desktop app session",
+    "evidence": "tool_search exposed multi_agent_v1 spawn_agent, wait_agent, send_input, resume_agent, and close_agent in this session; project policy remains suggest-only",
     "expires_at": "review-trigger: assistant client, model, or delegation tool changes",
     "review_triggers": [
       "client version or assistant bridge changed",
       "subagent or model-selection behavior changed",
       "tool availability changed"
+    ],
+    "client_product": "Codex",
+    "runtime_variant": "Codex desktop app session with multi_agent_v1 tools",
+    "automatic_delegation": "unsupported",
+    "explicit_delegation": "supported",
+    "project_worker_definitions": "unsupported",
+    "worker_definition_format": "none",
+    "worker_definition_paths": [],
+    "tool_restrictions": "unknown",
+    "write_isolation": "native-isolated",
+    "background_execution": "supported",
+    "nested_delegation": "unsupported",
+    "role_bindings": [
+      {
+        "role_id": "fast-focused-worker",
+        "selection_mode": "inherit",
+        "model": "inherit",
+        "reasoning": "client-default",
+        "availability": "supported",
+        "evidence": "multi_agent_v1 tools exposed in this Codex session through tool discovery on 2026-08-23; actual model must be reported per task",
+        "expires_at": "review-trigger: assistant client, model, or delegation tool changes"
+      }
     ]
   }
 }

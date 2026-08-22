@@ -3,12 +3,12 @@
 Installation id: `ALATYR-20260821-doctrine-orm`
 
 - Installed from: `https://github.com/atvardovsky/AlatyrCore`
-- Framework version: `0.1.0-alpha.21`
-- Adapter schema version: `20`
-- Template version: `21`
+- Framework version: `0.1.0-alpha.22`
+- Adapter schema version: `21`
+- Template version: `22`
 - Adapter manifest: `.ai/alatyr.yaml`
 - Installation date: `2026-08-21`
-- Last adapter update: `2026-08-22`
+- Last adapter update: `2026-08-23`
 - Adapter owner: `@atvardovsky`
 - Backup owner: missing; no separate backup owner found in target evidence
 - Review cadence: quarterly or after Alatyr framework/template updates

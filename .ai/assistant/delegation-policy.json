@@ -1,11 +1,15 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "policy_kind": "target-subagent-delegation-policy",
   "state": "suggest-only",
   "owner": "@atvardovsky",
   "decision_mode": "suggest-only",
   "default_preference": "require-supported",
   "max_parallel_delegates": 3,
+  "role_catalog": ".ai/assistant/workers/role-catalog.json",
+  "enabled_role_ids": [
+    "fast-focused-worker"
+  ],
   "requirements": {
     "primary_keeps_critical_path": true,
     "independent_local_acceptance": true,
@@ -66,7 +70,27 @@
     "accept_out_of_scope_changes": false,
     "accept_unvalidated_changes": false,
     "require_primary_review": true,
-    "require_actual_model_or_unverified_status": true
+    "require_actual_model_or_unverified_status": true,
+    "require_normalized_worker_result": true
+  },
+  "retry_policy": {
+    "max_attempts_per_task": 0,
+    "retry_only_when_scope_unchanged": true,
+    "retryable_outcomes": [
+      "transient dispatch failure",
+      "bounded validation failure with a known local repair"
+    ],
+    "non_retryable_outcomes": [
+      "authorization capability or approval failure",
+      "scope dependency semantic or architecture expansion",
+      "repeated identical failure"
+    ]
+  },
+  "conflict_policy": {
+    "overlapping_writes": "reject-concurrent-dispatch",
+    "contradictory_results": "return-to-primary",
+    "stale_baseline": "revalidate-before-integration",
+    "scope_violation": "reject-result"
   },
   "privacy_and_retention": "Store only task packet summaries; do not store raw private chat, secrets, or credentials.",
   "validation": [

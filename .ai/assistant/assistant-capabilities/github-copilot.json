@@ -35,6 +35,18 @@
       "client version or assistant bridge changed",
       "subagent or model-selection behavior changed",
       "tool availability changed"
-    ]
+    ],
+    "client_product": "github-copilot",
+    "runtime_variant": "unknown: runtime not verified in this workspace",
+    "automatic_delegation": "unknown",
+    "explicit_delegation": "unknown",
+    "project_worker_definitions": "unknown",
+    "worker_definition_format": "none",
+    "worker_definition_paths": [],
+    "tool_restrictions": "unknown",
+    "write_isolation": "unknown",
+    "background_execution": "unknown",
+    "nested_delegation": "unknown",
+    "role_bindings": []
   }
 }
