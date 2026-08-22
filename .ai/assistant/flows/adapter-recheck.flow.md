@@ -12,10 +12,12 @@ when the programmer asks whether the installed adapter is still coherent.
 - Business logic layer: `.ai/project/business-logic.md`
 - Project source of truth: `README.md, docs/en/reference/*.rst, SECURITY.md, CONTRIBUTING.md, composer.json, tests/README.markdown, and CI workflows`
 - Source-of-truth registry: `.ai/project/source-of-truth-registry.md`
+- Consistency map: `.ai/project/consistency-map.json`
 - Context router: `.ai/assistant/context-router.json`
 - Context profiles: `.ai/assistant/context-profiles.md`
 - Module profile: `.ai/assistant/module-profile.md`
 - Maturity profile: `.ai/assistant/maturity-profile.md`
+- Bridge capability matrix: `.ai/assistant/bridge-capability-matrix.md`
 - Target validation: `/usr/local/bin/composer8 install`; `/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpunit`; `/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpstan analyse -c phpstan.neon --memory-limit=1G`; `/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpstan analyse -c phpstan-dbal3.neon --memory-limit=1G`; `/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpcs -d memory_limit=1G`; docs validation only after the docs script resolves a PHP 8-compatible composer command
 - Supported assistants: `Codex`
 - Operation index, catalog, help, routing, health, and preview:
@@ -27,6 +29,12 @@ when the programmer asks whether the installed adapter is still coherent.
 - Chat-message templates: `.ai/assistant/templates/post-install-message.md`,
   `.ai/assistant/templates/post-update-message.md`
 - Migration note template: `.ai/assistant/templates/migration-note.md`
+- Durable engineering evidence: `.ai/project/engineering-evidence/README.md`,
+  compact index, selected records, task-scale overlay, capture flow, gate, and
+  machine template
+- Debug Mode when enabled: `.ai/project/debug/README.md`, compact index,
+  selected records, task-scale overlay, operation flow, gate, machine record,
+  summary template, and linked durable Engineering Evidence index
 - Optional module files: check only when the corresponding module is enabled
   in `.ai/assistant/module-profile.md` or `.ai/alatyr.yaml`; missing optional
   files for deferred modules are not health failures.
@@ -52,12 +60,17 @@ when the programmer asks whether the installed adapter is still coherent.
 6. Compare framework version, adapter schema version, template version, module
    states, known gaps, local deviations, and owner facts in `.ai/alatyr.yaml`.
 7. Check required core and optional module state in
-   `.ai/assistant/module-profile.md`.
+   `.ai/assistant/module-profile.md`. Require every manifest-enabled module to
+   have exactly one `enabled` or `required` profile block, and reject a profile
+   block in either state when the manifest does not enable it.
 8. Check target adapter references to installed framework files, operation
    help, routing flows, gates, checker rules, operation catalog/index, health
-   and preview contracts, root bridge files, chat-message templates, and
-   final-evidence expectations. Check optional-module paths only when the
-   module is enabled or the file is present.
+   and preview contracts, root bridge files, durable engineering-evidence
+   policy/index/overlay/flow/gate/schema, Debug Mode
+   policy/index/overlay/operation/flow/gate/schema/summary when enabled,
+   chat-message templates, and final-evidence expectations. Check
+   optional-module paths only when the module is enabled or the file is
+   present.
 9. Check adapter drift hazards: hard-coded local machine paths in `.ai/*`,
    root assistant entry points, bridge files, templates, and policies; stale
    statements about whether local Alatyr or adapter checkers exist; duplicate
@@ -67,8 +80,10 @@ when the programmer asks whether the installed adapter is still coherent.
    known gaps; and target-local adapter checker evidence that no longer matches
    repository files.
 10. Check project blueprint/source-of-truth ownership, registry entries,
-   consistency-map nodes and edges when enabled, missing facts, stale
-   relationships, and drift.
+   consistency-map nodes and edges when enabled, exact registry Fact Type to
+   node-ID and node-`fact_type` agreement, missing facts, stale relationships,
+   and drift. Treat registry, map, consistency routing, measured semantic
+   context, and generated bootstrap evidence as one adapter sync set.
     When architecture knowledge is enabled, check catalog ownership, decision
     authority, item states, selected evidence, revision freshness,
     documentation routes, contradictions, and accepted-decision handoff.
@@ -88,6 +103,18 @@ when the programmer asks whether the installed adapter is still coherent.
     When change packages are enabled, preserve historical target records and
     check semantic approval fields, companion decisions, correction impact,
     provenance quality, and target validator support.
+    Preserve durable engineering-evidence IDs and records, then recheck task
+    and repository bindings, index synchronization, canonical-owner links,
+    privacy flags, external-patch policy, and existing-record accessibility.
+    When Debug Mode is enabled, preserve IDs, records, active-scope evidence,
+    events, timing, metrics, and target policy; recheck explicit activation and
+    expiry, non-canonical authority, causal attribution, structured
+    architectural impacts, direction-change hypothesis/replacement chains,
+    privacy, observer effect, exact durable engineering-evidence reference
+    resolution, compact index sync, result binding, completed-record
+    comparison, clean-upstream projection, and validator support. Never
+    reactivate a closed scope during update. Preserve older unstructured events
+    as migration-limited evidence instead of inventing classifications.
     When test-first development is enabled, preserve target commands, trigger
     severity, modes, levels, isolation, exceptions, policy revision, and
     historical evidence; recheck recommendation and RED/GREEN routing without
@@ -98,12 +125,21 @@ when the programmer asks whether the installed adapter is still coherent.
     recheck compatibility and drift without automatic updates.
 15. Identify required migrations, approvals, unresolved facts, and skipped
    checks.
+   Recheck `.ai/assistant/policies/action-authorization.json`, root assistant
+   entry points, operation request, preview, core gate, final-evidence gate,
+   bridge matrix, and conformance scenarios. Confirm subject-only
+   issue/backlog transitions remain read-only and prior commit/publish
+   authorization is not reusable.
 16. Use `.ai/assistant/templates/migration-note.md` when a framework update
     requires target migration evidence.
-17. Report effectiveness inline when comparing adapter effectiveness across
-    comparable tasks or adapter states, unless a future adapter expansion
-    installs a dedicated effectiveness-report template.
+17. Use `.ai/assistant/templates/effectiveness-report.md` only when comparing
+    adapter effectiveness across comparable tasks or adapter states.
 18. Run target validation that exists. Do not invent commands.
+    Use `migration-staging` only while adapting unresolved target facts. It may
+    produce a non-blocking work inventory, but it must not produce `ready`,
+    accepted, or complete evidence. Before accepting an installation or update,
+    resolve active placeholders and rerun strict `acceptance` validation on the
+    checked-out branch/revision.
 19. Classify final evidence as `current-state`, `historical-record`, or `mixed`.
     Current files prove current structure only; name dated operation, approval,
     validation, or migration records before making historical claims.
@@ -120,8 +156,14 @@ Report:
 - framework version, adapter schema version, and template version
 - files inspected
 - evidence basis, observation time, and repository revision when available
+- checked-out branch, validation phase, active unresolved-placeholder count,
+  manifest/module-profile agreement, acceptance eligibility, and the final
+  strict rerun when staging was used
 - historical records used and historical claims that remain unverifiable
 - adapter references changed or still current
+- action-authorization policy and routed surfaces current, including phase
+  separation, scope invalidation, explicit publication intent, delegation
+  inheritance, and `current_user_authorization` evidence
 - adapter drift checks result, including local path leakage, stale checker
   statements, duplicate profile references, context-router references, owner
   placeholders, and target-local checker evidence
@@ -153,6 +195,13 @@ Report:
   revision-bound merge readiness
 - change-package index, record schema, target record preservation, semantic
   approval scope, provenance policy, and validator support
+- durable engineering-evidence index, selected-record preservation, task and
+  repository binding, canonical-owner links, privacy, publication boundary, and
+  validator support
+- Debug Mode record/index preservation, structured architectural-impact
+  classification, direction-replacement chain evidence, durable
+  engineering-evidence reference resolution, active-versus-finalized comparison
+  boundary, clean-upstream projection, and validator support
 - development-pattern index schema, owner, retention/privacy policy, evidence
   references, and target-only optimization boundary
 - bridge capability matrix status

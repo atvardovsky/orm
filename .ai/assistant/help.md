@@ -29,20 +29,38 @@ Default routing:
   allowed actions `read-only`.
 - If the request is unclear, show only the two or three closest operations and
   ask for the smallest missing decision.
+- If the request only returns to an issue, backlog item, report, or discussion,
+  or asks for status, analysis, a plan, or what comes next, keep the operation
+  read-only. Do not reuse implementation, commit, or push authorization from a
+  completed task.
 - Use `.ai/assistant/context-router.json` to choose task context before
   expanding the reading set, and use `.ai/assistant/context-profiles.md` when
   human rationale or conflict resolution is needed.
 - Use `.ai/assistant/module-profile.md` to avoid routing to blocked or
   disabled optional modules.
+- When `workspace-modes` is enabled, read its compact catalog before selecting
+  task profile or project area. Prefer an explicit accepted mode, select
+  automatically only on one unambiguous match, and ask before edits otherwise.
 - Load `.ai/assistant/operation-index.json` for an exact operation ID or alias.
   Load the full catalog only for the bare `Alatyr` entry, ambiguity, or
   operation/adapter repair.
 - Show `.ai/assistant/templates/pre-change-preview.md` before edits only when
   semantic or protected risk, boundary crossing, external effects, or unclear
   allowed-action scope triggers it.
-- Do not route to optional-module operations unless they are enabled in
-  `.ai/assistant/module-profile.md` and present in
-  `.ai/assistant/operation-catalog.json`.
+- Add the `large-or-resumable` task-scale overlay only for multi-workstream,
+  cross-boundary, budget-exceeding, or resumable work. Small tasks should not
+  create operation packets.
+- In an enabled team project, check the compact active-work index before a
+  state-changing operation. Expand `team-active` only for explicit team work,
+  a selected task/branch match, possible logical overlap, or unresolved index
+  evidence. Keep unrelated tasks and team history out of context.
+- Before completing material semantic, architectural, or non-obvious repair
+  work, apply the lazy durable engineering-evidence gate. Small local work may
+  skip with a specific reason; do not load unrelated evidence records.
+- When the optional `debug-mode` module is enabled, activate it only from an
+  explicit current-task or current-session request. Checkpoint material events,
+  classify architectural impacts and direction replacements structurally, and
+  expire activation with the scope. Resolve durable evidence links lazily.
 
 ## Quick Operations
 
@@ -63,6 +81,13 @@ Alatyr routing before syncing canonical Doctrine docs, source, and tests.
 Flow: `.ai/assistant/flows/blueprint-driven-change.flow.md`
 Minimum input: change intent, non-goals, and approval constraints.
 
+Operation: `workspace-mode`
+Use when: the user asks to list, suggest, inspect, select, define, accept,
+update, disable, deprecate, remove, or review workspace modes.
+Flow: `.ai/assistant/flows/workspace-mode.flow.md`
+Minimum input: mode action or workspace-role question; mode ID and explicit
+user decision for accepted-state changes.
+
 Operation: `create-project-blueprint`
 Use when: creating, repairing, or rechecking `.ai/project/blueprint.md` and
 equivalent source-of-truth docs from target evidence.
@@ -80,6 +105,25 @@ Detailed blueprint, integrity, update, documentation, and optional-module
 vocabulary is in `.ai/assistant/help-reference.md`. The canonical installed
 operation set remains `.ai/assistant/operation-catalog.json`.
 
+Use `Alatyr architecture` for project pattern and architecture discussion. Use
+`Alatyr diagram` for a capability-checked diagram view, `Alatyr team status`
+for the compact team view, and `Alatyr set actor <actor-id-or-name>` to select
+local attribution. These route to `architecture-assistance` and
+`diagram-discussion`.
+
+When `dependency-knowledge` is enabled, use `Alatyr dependencies` for compact
+state, `Alatyr sync dependencies` to compare and update only the reviewed
+project projection, `Alatyr explain dependency <package>` for selected current
+facts, or `Alatyr dependency impact <package-or-change>` for bounded impact.
+These requests never activate nested adapters or update software packages.
+
+When `debug-mode` is enabled, use `Enable Alatyr Debug Mode for this task` to
+start explicit task-local observation, `Alatyr debug status` for read-only
+state, `Alatyr debug checkpoint` for a material event checkpoint, `Alatyr debug
+summary` to finalize or summarize, and `Disable Alatyr Debug Mode` to stop.
+Debug records measure Alatyr and supervision; they are not architecture
+authority and never grant code, commit, publish, or live-action permission.
+
 ## Minimal Request Shape
 
 ```text
@@ -89,6 +133,7 @@ Operation type: `<operation-type>`
 Goal: `<goal>`
 Non-goals: `<non-goals>`
 Known context: `<known-context>`
+Current user authorization: `<inspect-modify-commit-publish-or-live-external>`
 Allowed actions: `<read-only-docs-only-adapter-only-code-and-tests-or-full-with-approval>`
 Expected final evidence: `<expected-final-evidence>`
 ```
@@ -99,6 +144,8 @@ Expected final evidence: `<expected-final-evidence>`
 2. Show the two or three closest options.
 3. Ask for the smallest missing decision.
 4. Avoid repository edits until the operation is selected.
+5. Ask before any `modify`, `commit`, `publish`, or `live-external` phase that
+   the newest current-scope request did not explicitly authorize.
 
 ## Full Capability Set
 

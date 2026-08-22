@@ -12,10 +12,13 @@ Framework baseline:
 `https://github.com/atvardovsky/AlatyrCore`
 
 Framework version/schema:
-`0.1.0-alpha.15`, adapter schema `14`, template `15`
+`0.1.0-alpha.21`, adapter schema `20`, template `21`
 
 Updated adapter surfaces:
-`none; use only during future updates`
+`.ai/framework`, `.ai/alatyr.yaml`, `.ai/assistant/bootstrap-index.json`,
+`.ai/assistant/extensions/lock.json`, versioned recovery/output templates,
+Debug Mode routing/flow/gate/summary/debug README surfaces, adapter recheck
+flow, and post-update evidence guidance`
 
 Future assistant bootstrap:
 - Do not rely on this chat message alone.
@@ -23,6 +26,9 @@ Future assistant bootstrap:
 - Repair a stale generated index from `.ai/alatyr.yaml`, `.ai/README.md`, and `.ai/assistant/context-router.json`; otherwise load profiles, module state, registries, blueprint, gate fragments, and the installation note only when routing or unclear adapter state requires them.
 - Send `Alatyr` for compact actions or `Alatyr status` for a read-only adapter health check.
 - If migration impact is unclear, run `recheck-after-framework-update` before editing files.
+- Re-evaluate `.ai/assistant/policies/action-authorization.json` at every
+  action-phase boundary. Never reuse edit, commit, push, or live-action intent
+  from a completed or superseded scope.
 
 Recommended follow-up:
 Use the installed Alatyr adapter in this repository.
@@ -32,10 +38,10 @@ Non-goals: do not change project behavior without approval.
 Allowed actions: read-only
 
 Migration assessment:
-`.ai/assistant/templates/migration-note.md or manual review`
+`.ai/assistant/migration-notes/2026-08-22-alatyr-0.1.0-alpha.21.md`
 
 Upgrade impact router:
-`manual review unless a future upgrade report is generated`
+`temporary generated report summarized in the migration note`
 
 Load only canonical sources and target surfaces selected by the migration
 assessment. Record candidate context intentionally omitted.
@@ -46,12 +52,28 @@ Operation help:
 - Exact IDs and aliases route through `.ai/assistant/operation-index.json`;
   bounded natural-language requests route automatically and operation IDs are
   optional. Load the full catalog only for ambiguity or repair.
+- Issue/backlog returns, status requests, discussion, analysis, plans, reports,
+  and ambiguous continuation remain read-only. Require current-scope intent for
+  modification, commit, publication, and live external action separately; a
+  clear request may authorize multiple named phases together.
 - Risky or cross-boundary changes show a pre-change preview before edits.
 - Use `.ai/assistant/help.md`, `.ai/assistant/help-reference.md`, and `.ai/assistant/templates/operation-request.md` for structured requests.
 - Use `large-task` only for cross-boundary or resumable work, and resume an existing packet when one is named.
 - Recheck change-package records, semantic approval fields, provenance grades,
   and validator support when the optional module or schema changed. Preserve
   historical target records.
+- Preserve durable engineering-evidence IDs and records. Recheck compact index
+  synchronization, task/revision binding, canonical-owner links, privacy,
+  external-patch policy, and record access; never replace existing records
+  with source placeholders.
+- Preserve Debug Mode IDs, records, active-scope evidence, normalized events,
+  timing, metrics, and publication policy when the module is enabled. Recheck
+  structured architectural impacts, direction-change hypothesis/replacement
+  chains, exact durable Engineering Evidence references, completed-record
+  comparison, dependency closure, schema, lazy route, operation, validator,
+  and activation expiry. Preserve older unstructured events as migration-
+  limited evidence; do not reactivate a closed scope or include debug files in
+  a clean external patch.
 - When code documentation is enabled, preserve target profiles and recheck
   source-set matching, accepted state, canonical owners, generator/output
   policy, adapted skill, and validation before generation.
@@ -96,11 +118,21 @@ Operation help:
 - Use `alatyr-suggest-ai <scope>` or `alatyr-improve-ai <item-id>` for a read-only recommendation when project needs or existing item outcomes changed.
 
 Validation run:
-`adapter structural validation run; Doctrine runtime tests not run for adapter-only install`
+`{VALIDATION_RUN_OR_UNRESOLVED}`
+
+Validation phase and branch/revision:
+`{ACCEPTANCE_OR_MIGRATION_STAGING_AND_TARGET_BRANCH_REVISION}`
+
+Acceptance status:
+`{ACCEPTED_OR_STAGED_WITH_ACTIVE_PLACEHOLDERS_AND_REQUIRED_STRICT_RERUN}`
+
+Do not describe the update as complete when validation used migration staging,
+active adapter placeholders remain, enabled manifest modules disagree with the
+module profile, or evidence belongs to another branch or revision.
 
 Known adapter gaps or migrations:
-`initial install gaps recorded in installation note`
+`{KNOWN_GAPS_OR_MIGRATIONS}`
 
 Migration note:
-`.ai/assistant/templates/migration-note.md` or `not needed for initial installation`
+`.ai/assistant/migration-notes/2026-08-22-alatyr-0.1.0-alpha.21.md`
 ```

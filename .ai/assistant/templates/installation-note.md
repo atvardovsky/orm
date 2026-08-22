@@ -3,11 +3,12 @@
 Installation id: `ALATYR-20260821-doctrine-orm`
 
 - Installed from: `https://github.com/atvardovsky/AlatyrCore`
-- Framework version: `0.1.0-alpha.15`
-- Adapter schema version: `14`
-- Template version: `15`
+- Framework version: `0.1.0-alpha.21`
+- Adapter schema version: `20`
+- Template version: `21`
 - Adapter manifest: `.ai/alatyr.yaml`
 - Installation date: `2026-08-21`
+- Last adapter update: `2026-08-22`
 - Adapter owner: `@atvardovsky`
 - Backup owner: missing; no separate backup owner found in target evidence
 - Review cadence: quarterly or after Alatyr framework/template updates
@@ -50,9 +51,9 @@ Installation id: `ALATYR-20260821-doctrine-orm`
 - Existing AI instructions before install: none found
 - Existing CODEOWNERS before install: none found
 - Scaffold helper used: `tools/scaffold_target_structure.py --profile standard --framework-pack standard --write`
-- Framework pack: standard
-- Enabled optional modules: blueprint-change
-- Deferred modules: architecture-knowledge, test-first-development, diagrams, team-collaboration, ai-infrastructure
+- Framework pack: complete
+- Enabled optional modules: full optional capability graph recorded in `.ai/assistant/module-profile.md`
+- Deferred modules: none
 - Protected target behavior changed: none; adapter-only files added
 - Approval required: no separate approval required because the programmer explicitly requested installation, no existing instructions were overwritten, and no runtime/security behavior was changed
 
