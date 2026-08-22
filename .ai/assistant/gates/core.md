@@ -7,6 +7,10 @@ repair, or a boundary named by another gate.
 - Select the smallest task profile, intent overlay, task-scale overlay, and
   project areas that cover the request.
 - Name the target source of truth and allowed actions before editing.
+- Before deciding/suggesting, read current Doctrine authority
+  (docs/`CONTRIBUTING.md`/source/tests/validation/CI/security/agreements).
+  Alatyr summaries never override it; stale/conflicting/gap support is
+  proposal-only.
 - Do not let routing grant approval or broaden the requested scope.
 - Before `modify`, `commit`, `publish`, or `live-external`, verify the newest
   request authorizes that phase for the current logical scope. Issue/backlog

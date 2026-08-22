@@ -267,7 +267,7 @@ Consistency level: adapter-owned current state with target evidence review
 Project area: `project, assistant-adapter`
 Consistency map node: `project-blueprint-index`
 Relationship coverage: enabled through `.ai/project/consistency-map.json` node `project-blueprint-index` for registry, module profile, blueprint flows, and context profile sync
-Invariant and dependency constraints: the blueprint index routes facts to canonical Doctrine owners and must not replace or contradict those owners
+Invariant and dependency constraints: blueprint routes current owners; never contradict them
 Derived surfaces:
 
 - `.ai/alatyr.yaml`

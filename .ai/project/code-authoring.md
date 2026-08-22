@@ -10,6 +10,10 @@ or code comments. These rules summarize target evidence; they do not replace
 `composer.json`, `phpcs.xml.dist`, `phpstan*.neon`, `phpunit.xml.dist`,
 `CONTRIBUTING.md`, public docs, source, or tests.
 
+Before deciding/suggesting, read current Doctrine authority: docs,
+`CONTRIBUTING.md`, source/tests, validation/security, or owner/maintainer
+agreement. Stale/conflicting/gap support is proposal-only.
+
 ## Source Evidence
 
 - PHP package and dependency boundaries: `composer.json`
@@ -144,6 +148,8 @@ broader checks that were run or skipped. Do not claim an unrun command passed.
 
 - Identify the owning fact family in `.ai/project/business-logic.md` and
   `.ai/project/source-of-truth-registry.md`.
+- Check Doctrine authority before deciding or suggesting; unresolved support is
+  a proposal or gap, not accepted direction.
 - Load this file for `src/` or `tests/` edits before writing code.
 - Name the subsystem owner: mapping, UnitOfWork, query/hydration, persister,
   cache, proxy, repository, tools, or validation.

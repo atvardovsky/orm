@@ -15,6 +15,9 @@ Owner: `@atvardovsky`
 - Treat canonical Doctrine docs, source, tests, and validation files as
   stronger than this index when they conflict.
 - Mark unknown or missing facts explicitly instead of filling gaps by guess.
+- Bind decisions/suggestions to current Doctrine authority: docs,
+  `CONTRIBUTING.md`, source/tests, validation/CI/security, or
+  owner/maintainer agreement. Stale/conflicting/gap support is proposal-only.
 - Require explicit approval before changing accepted public behavior,
   architecture boundaries, security posture, dependencies, CI gates, or
   destructive/live-service behavior.
