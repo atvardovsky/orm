@@ -25,6 +25,7 @@ use Doctrine\ORM\Event\PrePersistEventArgs;
 use Doctrine\ORM\Event\PreRemoveEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Exception\EntityIdentityCollisionException;
+use Doctrine\ORM\Exception\FlushDuringCommit;
 use Doctrine\ORM\Exception\ORMException;
 use Doctrine\ORM\Exception\UnexpectedAssociationValue;
 use Doctrine\ORM\Id\AssignedGenerator;
@@ -307,6 +308,11 @@ class UnitOfWork implements PropertyChangedListener
     protected bool $hasCache = false;
 
     /**
+     * Whether a commit operation is currently executing.
+     */
+    private bool $commitInProgress = false;
+
+    /**
      * Helper for handling completion of hydration
      */
     private readonly HydrationCompleteHandler $hydrationCompleteHandler;
@@ -339,9 +345,25 @@ class UnitOfWork implements PropertyChangedListener
      * 4) All collection updates
      * 5) All entity deletions
      *
+     * @throws FlushDuringCommit
      * @throws Exception
      */
     public function commit(): void
+    {
+        if ($this->commitInProgress) {
+            throw FlushDuringCommit::create();
+        }
+
+        $this->commitInProgress = true;
+
+        try {
+            $this->doCommit();
+        } finally {
+            $this->commitInProgress = false;
+        }
+    }
+
+    private function doCommit(): void
     {
         $connection = $this->em->getConnection();
 
@@ -366,9 +388,7 @@ class UnitOfWork implements PropertyChangedListener
                 $this->orphanRemovals)
         ) {
             $this->dispatchOnFlushEvent();
-            $this->dispatchPostFlushEvent();
-
-            $this->postCommitCleanup();
+            $this->dispatchPostFlushEventAndPostCommitCleanup();
 
             return; // Nothing to do.
         }
@@ -473,14 +493,16 @@ class UnitOfWork implements PropertyChangedListener
             $coll->takeSnapshot();
         }
 
-        $this->collectionUpdates                =
-        $this->collectionDeletions              =
-        $this->pendingCollectionElementRemovals =
-        $this->visitedCollections               = [];
+        $this->dispatchPostFlushEventAndPostCommitCleanup();
+    }
 
-        $this->dispatchPostFlushEvent();
-
-        $this->postCommitCleanup();
+    private function dispatchPostFlushEventAndPostCommitCleanup(): void
+    {
+        try {
+            $this->dispatchPostFlushEvent();
+        } finally {
+            $this->postCommitCleanup();
+        }
     }
 
     private function postCommitCleanup(): void

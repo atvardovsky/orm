@@ -7,13 +7,13 @@ namespace Doctrine\Tests\ORM\Functional\Ticket;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Event\OnFlushEventArgs;
 use Doctrine\ORM\Events;
+use Doctrine\ORM\Exception\FlushDuringCommit;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Tests\Models\CMS\CmsGroup;
 use Doctrine\Tests\Models\CMS\CmsUser;
 use Doctrine\Tests\OrmFunctionalTestCase;
-use PHPUnit\Framework\Assert;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Group;
 
 use function array_filter;
@@ -48,13 +48,166 @@ class GH11827Test extends OrmFunctionalTestCase
         parent::tearDown();
     }
 
-    public function testNestedFlushInPostFlushDoesNotRepeatClearedCollectionDeletion(): void
+    /** @phpstan-return array<string, array{string}> */
+    public static function reentrantFlushEvents(): array
+    {
+        return [
+            'preFlush'  => [Events::preFlush],
+            'onFlush'  => [Events::onFlush],
+            'postFlush' => [Events::postFlush],
+        ];
+    }
+
+    /** @phpstan-return array<string, array{string, string}> */
+    public static function reentrantFlushEntityEvents(): array
+    {
+        return [
+            'postPersist' => [Events::postPersist, 'insert'],
+            'preUpdate'   => [Events::preUpdate, 'update'],
+            'postUpdate'  => [Events::postUpdate, 'update'],
+            'postRemove'  => [Events::postRemove, 'remove'],
+        ];
+    }
+
+    #[DataProvider('reentrantFlushEvents')]
+    public function testFlushFromFlushEventListenerIsRejected(string $eventName): void
+    {
+        $this->_em->getEventManager()->addEventListener($eventName, new class ($this->_em) {
+            public function __construct(private readonly EntityManagerInterface $em)
+            {
+            }
+
+            public function preFlush(): void
+            {
+                $this->em->flush();
+            }
+
+            public function onFlush(): void
+            {
+                $this->em->flush();
+            }
+
+            public function postFlush(): void
+            {
+                $this->em->flush();
+            }
+        });
+
+        $this->_em->persist($this->createGroup('Developers'));
+
+        $this->expectException(FlushDuringCommit::class);
+        $this->_em->flush();
+    }
+
+    #[DataProvider('reentrantFlushEntityEvents')]
+    public function testFlushFromEntityLifecycleEventListenerIsRejected(string $eventName, string $operation): void
+    {
+        $this->_em->getEventManager()->addEventListener($eventName, new class ($this->_em) {
+            public function __construct(private readonly EntityManagerInterface $em)
+            {
+            }
+
+            public function prePersist(): void
+            {
+                $this->em->flush();
+            }
+
+            public function postPersist(): void
+            {
+                $this->em->flush();
+            }
+
+            public function preUpdate(): void
+            {
+                $this->em->flush();
+            }
+
+            public function postUpdate(): void
+            {
+                $this->em->flush();
+            }
+
+            public function postRemove(): void
+            {
+                $this->em->flush();
+            }
+        });
+
+        $group = $this->createGroup('Developers');
+
+        if ($operation !== 'insert') {
+            $this->_em->persist($group);
+            $this->_em->flush();
+        }
+
+        if ($operation === 'insert') {
+            $this->_em->persist($group);
+        } elseif ($operation === 'update') {
+            $group->name = 'Core Developers';
+        } else {
+            $this->_em->remove($group);
+        }
+
+        $this->expectException(FlushDuringCommit::class);
+        $this->_em->flush();
+    }
+
+    public function testFlushFromPostFlushListenerIsRejectedWhenNothingIsScheduled(): void
+    {
+        $listener = new class ($this->_em) {
+            public bool $nestedFlushRejected = false;
+
+            private bool $nestedFlushDone = false;
+
+            public function __construct(private readonly EntityManagerInterface $em)
+            {
+            }
+
+            public function postFlush(): void
+            {
+                if ($this->nestedFlushDone) {
+                    return;
+                }
+
+                $this->nestedFlushDone = true;
+
+                try {
+                    $this->em->flush();
+                } catch (FlushDuringCommit) {
+                    $this->nestedFlushRejected = true;
+                }
+            }
+        };
+
+        $this->_em->getEventManager()->addEventListener(Events::postFlush, $listener);
+
+        $this->_em->flush();
+        $this->_em->flush();
+
+        self::assertTrue($listener->nestedFlushRejected);
+    }
+
+    public function testRejectedPostFlushFlushDoesNotRepeatClearedCollectionDeletionOnNextFlush(): void
     {
         $user   = $this->createUserWithGroups(2);
         $userId = $user->getId();
 
         $this->addNestedFlushPostFlushListener();
         $this->clearAndReAddGroups($user);
+
+        $queryLog = $this->getQueryLog();
+        $queryLog->reset()->enable();
+
+        $this->flushAndCatchReentrantFlush();
+
+        $joinTableDeletes = array_values(array_filter($queryLog->queries, static function (array $entry): bool {
+            return str_starts_with($entry['sql'], 'DELETE')
+                && str_contains($entry['sql'], 'cms_users_groups');
+        }));
+
+        self::assertCount(1, $joinTableDeletes);
+        self::assertSame([], $this->_em->getUnitOfWork()->getScheduledCollectionDeletions());
+        self::assertSame([], $this->_em->getUnitOfWork()->getScheduledCollectionUpdates());
 
         $this->_em->flush();
         $this->_em->clear();
@@ -65,44 +218,61 @@ class GH11827Test extends OrmFunctionalTestCase
         self::assertCount(2, $freshUser->groups);
     }
 
-    public function testCollectionQueuesRemainVisibleOnFlushAndAreClearedBeforePostFlush(): void
+    public function testCaughtPostFlushFlushRejectionAllowsOuterFlushToComplete(): void
     {
-        $user     = $this->createUserWithGroups(2);
-        $listener = new class {
-            public bool $onFlushCalled = false;
+        $user   = $this->createUserWithGroups(2);
+        $userId = $user->getId();
 
-            public bool $postFlushCalled = false;
+        $listener = new class ($this->_em) {
+            public bool $nestedFlushRejected = false;
 
-            public function onFlush(OnFlushEventArgs $args): void
+            private bool $nestedFlushDone = false;
+
+            public function __construct(private readonly EntityManagerInterface $em)
             {
-                $this->onFlushCalled = true;
-
-                $uow = $args->getObjectManager()->getUnitOfWork();
-
-                Assert::assertCount(1, $uow->getScheduledCollectionDeletions());
-                Assert::assertCount(1, $uow->getScheduledCollectionUpdates());
             }
 
             public function postFlush(): void
             {
-                $this->postFlushCalled = true;
+                if ($this->nestedFlushDone) {
+                    return;
+                }
+
+                $this->nestedFlushDone = true;
+
+                try {
+                    $this->em->flush();
+                } catch (FlushDuringCommit) {
+                    $this->nestedFlushRejected = true;
+                }
             }
         };
 
-        $this->_em->getEventManager()->addEventListener(Events::onFlush, $listener);
         $this->_em->getEventManager()->addEventListener(Events::postFlush, $listener);
-
         $this->clearAndReAddGroups($user);
+
+        $queryLog = $this->getQueryLog();
+        $queryLog->reset()->enable();
 
         $this->_em->flush();
 
-        self::assertTrue($listener->onFlushCalled);
-        self::assertTrue($listener->postFlushCalled);
-        self::assertSame([], $this->_em->getUnitOfWork()->getScheduledCollectionDeletions());
-        self::assertSame([], $this->_em->getUnitOfWork()->getScheduledCollectionUpdates());
+        $joinTableDeletes = array_values(array_filter($queryLog->queries, static function (array $entry): bool {
+            return str_starts_with($entry['sql'], 'DELETE')
+                && str_contains($entry['sql'], 'cms_users_groups');
+        }));
+
+        self::assertTrue($listener->nestedFlushRejected);
+        self::assertCount(1, $joinTableDeletes);
+
+        $this->_em->clear();
+
+        $freshUser = $this->_em->find(CmsUser::class, $userId);
+        assert($freshUser instanceof CmsUser);
+
+        self::assertCount(2, $freshUser->groups);
     }
 
-    public function testNestedFlushInPostFlushDoesNotRepeatDereferencedCollectionDeletion(): void
+    public function testRejectedPostFlushFlushDoesNotRepeatDereferencedCollectionDeletionOnNextFlush(): void
     {
         $user      = $this->createUserWithGroups(2);
         $userId    = $user->getId();
@@ -117,6 +287,7 @@ class GH11827Test extends OrmFunctionalTestCase
 
         $user->groups = new ArrayCollection([$newGroupA, $newGroupB]);
 
+        $this->flushAndCatchReentrantFlush();
         $this->_em->flush();
         $this->_em->clear();
 
@@ -128,7 +299,7 @@ class GH11827Test extends OrmFunctionalTestCase
         self::assertSame('New group B', $freshUser->groups[1]->name);
     }
 
-    public function testNestedFlushInPostFlushKeepsPendingCollectionElementRemovalsApplied(): void
+    public function testRejectedPostFlushFlushDoesNotLeavePendingCollectionElementRemovalsOnNextFlush(): void
     {
         $user          = $this->createUserWithGroups(2);
         $userId        = $user->getId();
@@ -140,11 +311,13 @@ class GH11827Test extends OrmFunctionalTestCase
         $this->addNestedFlushPostFlushListener();
 
         $this->_em->remove($removedGroup);
-        $this->_em->flush();
+
+        $this->flushAndCatchReentrantFlush();
 
         self::assertCount(1, $user->groups);
         self::assertSame($remainingName, $user->groups[1]->name);
 
+        $this->_em->flush();
         $this->_em->clear();
 
         $freshUser = $this->_em->find(CmsUser::class, $userId);
@@ -154,27 +327,7 @@ class GH11827Test extends OrmFunctionalTestCase
         self::assertSame($remainingName, $freshUser->groups[0]->name);
     }
 
-    public function testNestedFlushInPostFlushExecutesJoinTableCollectionDeleteOnlyOnce(): void
-    {
-        $user = $this->createUserWithGroups(2);
-
-        $this->addNestedFlushPostFlushListener(false);
-        $this->clearAndReAddGroups($user);
-
-        $queryLog = $this->getQueryLog();
-        $queryLog->reset()->enable();
-
-        $this->_em->flush();
-
-        $joinTableDeletes = array_values(array_filter($queryLog->queries, static function (array $entry): bool {
-            return str_starts_with($entry['sql'], 'DELETE')
-                && str_contains($entry['sql'], 'cms_users_groups');
-        }));
-
-        self::assertCount(1, $joinTableDeletes);
-    }
-
-    public function testNestedFlushInPostFlushDoesNotRepeatClearDeletionForOrphanRemovalCollection(): void
+    public function testRejectedPostFlushFlushDoesNotLeaveOrphanRemovalsOnNextFlush(): void
     {
         $post             = new GH11827OrphanRemovalPost();
         $commentA         = new GH11827OrphanRemovalComment();
@@ -192,6 +345,7 @@ class GH11827Test extends OrmFunctionalTestCase
         $post->comments->clear();
         $post->comments->add($commentA);
 
+        $this->flushAndCatchReentrantFlush();
         $this->_em->flush();
         $this->_em->clear();
 
@@ -238,15 +392,24 @@ class GH11827Test extends OrmFunctionalTestCase
         }
     }
 
-    private function addNestedFlushPostFlushListener(bool $assertCollectionQueuesAreEmpty = true): void
+    private function flushAndCatchReentrantFlush(): void
     {
-        $this->_em->getEventManager()->addEventListener(Events::postFlush, new class ($this->_em, $assertCollectionQueuesAreEmpty) {
+        try {
+            $this->_em->flush();
+        } catch (FlushDuringCommit) {
+            return;
+        }
+
+        self::fail('Expected reentrant flush to be rejected.');
+    }
+
+    private function addNestedFlushPostFlushListener(): void
+    {
+        $this->_em->getEventManager()->addEventListener(Events::postFlush, new class ($this->_em) {
             private bool $nestedFlushDone = false;
 
-            public function __construct(
-                private readonly EntityManagerInterface $em,
-                private readonly bool $assertCollectionQueuesAreEmpty,
-            ) {
+            public function __construct(private readonly EntityManagerInterface $em)
+            {
             }
 
             public function postFlush(): void
@@ -256,11 +419,6 @@ class GH11827Test extends OrmFunctionalTestCase
                 }
 
                 $this->nestedFlushDone = true;
-
-                if ($this->assertCollectionQueuesAreEmpty) {
-                    Assert::assertSame([], $this->em->getUnitOfWork()->getScheduledCollectionDeletions());
-                    Assert::assertSame([], $this->em->getUnitOfWork()->getScheduledCollectionUpdates());
-                }
 
                 $this->em->flush();
             }

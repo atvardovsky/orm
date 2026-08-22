@@ -177,11 +177,12 @@ Events Overview
 
     Making changes to entities and calling ``EntityManager::flush()`` from within
     event handlers dispatched by ``EntityManager::flush()`` itself is strongly
-    discouraged, and might be deprecated and eventually prevented in the future.
+    discouraged, and Doctrine ORM prevents it by throwing
+    ``Doctrine\ORM\Exception\FlushDuringCommit``.
 
     The reason is that it causes re-entrance into ``UnitOfWork::commit()`` while a commit
     is currently being processed. The ``UnitOfWork`` was never designed to support this,
-    and its behavior in this situation is not covered by any tests.
+    and application behavior that relies on this re-entrance is not supported.
 
     This may lead to entity or collection updates being missed, applied only in parts and
     changes being lost at the end of the commit phase.
@@ -470,7 +471,7 @@ preFlush
 ``preFlush`` is called inside ``EntityManager::flush()`` before
 anything else. ``EntityManager::flush()`` must not be called inside
 its listeners, since it would fire the ``preFlush`` event again, which would
-result in an infinite loop.
+result in an infinite loop. Doctrine ORM rejects this re-entrant flush.
 
 .. code-block:: php
 
@@ -554,7 +555,7 @@ postFlush
 ~~~~~~~~~
 
 ``postFlush`` is called at the end of ``EntityManager::flush()``.
-``EntityManager::flush()`` can **NOT** be called safely inside its listeners.
+``EntityManager::flush()`` can **NOT** be called inside its listeners.
 This event is not a lifecycle callback.
 
 .. code-block:: php

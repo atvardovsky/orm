@@ -10,6 +10,7 @@ use Doctrine\Common\EventManager;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\LockMode;
 use Doctrine\ORM\Exception\EntityManagerClosed;
+use Doctrine\ORM\Exception\FlushDuringCommit;
 use Doctrine\ORM\Exception\InvalidHydrationMode;
 use Doctrine\ORM\Exception\MissingIdentifierField;
 use Doctrine\ORM\Exception\MissingMappingDriverImplementation;
@@ -258,6 +259,7 @@ class EntityManager implements EntityManagerInterface
      * If an entity is explicitly passed to this method only this entity and
      * the cascade-persist semantics + scheduled inserts/removals are synchronized.
      *
+     * @throws FlushDuringCommit If a flush operation is already in progress.
      * @throws OptimisticLockException If a version check on an entity that
      * makes use of optimistic locking fails.
      * @throws ORMException

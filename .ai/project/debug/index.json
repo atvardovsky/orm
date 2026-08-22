@@ -25,23 +25,24 @@
       "elapsed_seconds": null,
       "elapsed_evidence_kind": "unknown",
       "metrics": {
-        "human_interventions": null,
+        "human_interventions": 2,
         "human_architectural_interventions": null,
         "alatyr_independent_findings": 6,
-        "derived_findings_after_human": null,
+        "derived_findings_after_human": 3,
         "alatyr_independent_dependency_checks": null,
         "human_requested_dependency_checks": null,
         "derived_dependency_expansions_after_human": null,
         "hypotheses_tested": null,
         "hypotheses_rejected": null,
-        "implementation_revisions": 1,
-        "implementation_corrections_after_human": null,
-        "validation_expansions": 2,
-        "regression_scenarios_added": 2,
+        "implementation_revisions": 2,
+        "implementation_corrections_after_human": 1,
+        "validation_expansions": 4,
+        "regression_scenarios_added": 3,
         "maintainer_corrections": null,
-        "post_review_rework": null
+        "post_review_rework": 2
       },
       "residual_uncertainty": [
+        "PHPStan over src/UnitOfWork.php remains blocked by the pre-existing deepclone_hydrate symbol discovery problem and related stale baseline ignore.",
         "Full unfiltered functional suite is blocked by local SQLite SQRT function availability for two unrelated tests."
       ]
     }
