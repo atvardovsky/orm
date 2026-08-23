@@ -31,8 +31,13 @@ class PaginatorTest extends OrmTestCase
     protected function setUp(): void
     {
         $platform = $this->getMockBuilder(AbstractPlatform::class)
-            ->setConstructorArgs(enum_exists(UnquotedIdentifierFolding::class) ? [UnquotedIdentifierFolding::UPPER] : [])
+            ->setConstructorArgs(enum_exists(UnquotedIdentifierFolding::class) ? [UnquotedIdentifierFolding::NONE] : [])
             ->getMock();
+        if (enum_exists(UnquotedIdentifierFolding::class)) {
+            $platform->method('getUnquotedIdentifierFolding')
+                ->willReturn(UnquotedIdentifierFolding::NONE);
+        }
+
         $platform->method('supportsIdentityColumns')
             ->willReturn(true);
 

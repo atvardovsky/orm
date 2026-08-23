@@ -9,6 +9,7 @@ use Doctrine\Common\EventManager;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Result;
+use Doctrine\DBAL\Schema\Name\UnquotedIdentifierFolding;
 use Doctrine\ORM\PersistentCollection;
 use Doctrine\ORM\UnitOfWork;
 use Doctrine\Tests\Mocks\EntityManagerMock;
@@ -21,6 +22,7 @@ use stdClass;
 
 use function array_keys;
 use function assert;
+use function enum_exists;
 use function method_exists;
 use function serialize;
 use function unserialize;
@@ -40,6 +42,11 @@ class PersistentCollectionTest extends OrmTestCase
         parent::setUp();
 
         $platform = $this->createStub(AbstractPlatform::class);
+        if (enum_exists(UnquotedIdentifierFolding::class)) {
+            $platform->method('getUnquotedIdentifierFolding')
+                ->willReturn(UnquotedIdentifierFolding::NONE);
+        }
+
         $platform->method('supportsIdentityColumns')
             ->willReturn(true);
 
