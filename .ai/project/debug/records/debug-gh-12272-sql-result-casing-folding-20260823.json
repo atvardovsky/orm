@@ -1,0 +1,381 @@
+{
+  "schema_version": 2,
+  "record_kind": "alatyr-debug-session",
+  "evidence_classification": "non-canonical-observability",
+  "debug_id": "debug-gh-12272-sql-result-casing-folding-20260823",
+  "status": "completed",
+  "authority": "non-canonical",
+  "owner": "@atvardovsky",
+  "task": {
+    "summary": "Analyze Doctrine ORM issue #12272 SQL result alias casing and DBAL portability hydration mismatch",
+    "references": ["https://github.com/doctrine/orm/issues/12272"],
+    "scope_kind": "task",
+    "scope_id": "gh-12272",
+    "operation_ids": ["debug-mode"],
+    "task_class": "issue-implementation"
+  },
+  "activation": {
+    "enabled_by": "explicit-user-request",
+    "request_reference": "User requested a branch for Doctrine ORM issue #12272, Alatyr Debug Mode activation, problem analysis, and Doctrine-compliant solution proposals.",
+    "enabled_at": {"value": "2026-08-23T17:06:10+02:00", "evidence_kind": "observed"},
+    "initial_revision": "2d60ecaf17366bed467d3e92d8737088218b78f1",
+    "expires_on": "task-completion",
+    "ended_by": "task-completion"
+  },
+  "timing": {
+    "started_at": {"value": "2026-08-23T17:06:10+02:00", "evidence_kind": "observed"},
+    "completed_at": {"value": "2026-08-23T17:12:56+02:00", "evidence_kind": "observed"},
+    "elapsed_seconds": {"value": 406, "evidence_kind": "observed"},
+    "active_work_seconds": {"value": null, "evidence_kind": "unknown"}
+  },
+  "capture_quality": {
+    "event_coverage": "partial",
+    "missing_intervals": ["Branch creation occurred before the debug record was written and is represented by Git branch state rather than a timed debug event."],
+    "observer_effect": "possible",
+    "estimated_overhead_seconds": {"value": null, "evidence_kind": "unknown"}
+  },
+  "events": [
+    {
+      "event_id": "evt-gh12272-001",
+      "sequence": 1,
+      "occurred_at": {"value": "2026-08-23T17:12:56+02:00", "evidence_kind": "observed"},
+      "actor": "alatyr",
+      "causal_class": "independent-within-scope",
+      "intervention_kind": "not-applicable",
+      "contribution_kind": "finding",
+      "category": "dependency",
+      "summary": "DBAL 4 distinguishes platform unquoted identifier folding from portability result-key case conversion.",
+      "material_effect": "Constrained proposals to avoid treating DBAL portability middleware as automatically discoverable ORM platform state.",
+      "evidence": [
+        "Context7 /doctrine/dbal docs query for object-names and portability",
+        "vendor/doctrine/dbal/src/Schema/Name/UnquotedIdentifierFolding.php",
+        "vendor/doctrine/dbal/src/Portability/Result.php",
+        "vendor/doctrine/dbal/src/Portability/Converter.php",
+        "composer.json"
+      ],
+      "caused_by_event_ids": [],
+      "architectural_supervision": false,
+      "architectural_impacts": ["compatibility-strategy"],
+      "decision_effect": "none",
+      "dependency_expansion": true,
+      "validation_expansion": false,
+      "post_review_rework": false,
+      "hypothesis_outcome": "not-applicable"
+    },
+    {
+      "event_id": "evt-gh12272-002",
+      "sequence": 2,
+      "occurred_at": {"value": "2026-08-23T17:12:56+02:00", "evidence_kind": "observed"},
+      "actor": "alatyr",
+      "causal_class": "independent-within-scope",
+      "intervention_kind": "not-applicable",
+      "contribution_kind": "finding",
+      "category": "execution-path",
+      "summary": "ORM SQLResultCasing is the shared casing helper for generated aliases, ResultSetMappingBuilder, inheritance persisters, and SimpleObjectHydrator discriminator lookup.",
+      "material_effect": "Identified SQLResultCasing as the smallest common implementation surface if a code change is approved.",
+      "evidence": [
+        "src/Internal/SQLResultCasing.php",
+        "src/Mapping/DefaultQuoteStrategy.php",
+        "src/Mapping/AnsiQuoteStrategy.php",
+        "src/Query/ResultSetMappingBuilder.php",
+        "src/Persisters/Entity/SingleTablePersister.php",
+        "src/Persisters/Entity/JoinedSubclassPersister.php",
+        "src/Internal/Hydration/SimpleObjectHydrator.php"
+      ],
+      "caused_by_event_ids": [],
+      "architectural_supervision": false,
+      "architectural_impacts": ["subsystem-responsibility"],
+      "decision_effect": "none",
+      "dependency_expansion": false,
+      "validation_expansion": false,
+      "post_review_rework": false,
+      "hypothesis_outcome": "not-applicable"
+    },
+    {
+      "event_id": "evt-gh12272-003",
+      "sequence": 3,
+      "occurred_at": {"value": "2026-08-23T17:12:56+02:00", "evidence_kind": "observed"},
+      "actor": "alatyr",
+      "causal_class": "independent-within-scope",
+      "intervention_kind": "not-applicable",
+      "contribution_kind": "finding",
+      "category": "invariant",
+      "summary": "Hydration maps rows by exact ResultSetMapping keys and ignores unknown result columns.",
+      "material_effect": "Confirmed that lowercased DBAL result keys miss uppercased Oracle RSM aliases and can silently skip mapped fields.",
+      "evidence": [
+        "src/Internal/Hydration/AbstractHydrator.php",
+        "src/Query/ResultSetMapping.php",
+        "docs/en/reference/native-sql.rst",
+        "https://github.com/doctrine/orm/issues/12272"
+      ],
+      "caused_by_event_ids": [],
+      "architectural_supervision": false,
+      "architectural_impacts": ["accepted-invariant", "public-contract"],
+      "decision_effect": "none",
+      "dependency_expansion": false,
+      "validation_expansion": false,
+      "post_review_rework": false,
+      "hypothesis_outcome": "not-applicable"
+    },
+    {
+      "event_id": "evt-gh12272-004",
+      "sequence": 4,
+      "occurred_at": {"value": "2026-08-23T17:12:56+02:00", "evidence_kind": "observed"},
+      "actor": "alatyr",
+      "causal_class": "independent-within-scope",
+      "intervention_kind": "not-applicable",
+      "contribution_kind": "finding",
+      "category": "risk",
+      "summary": "Case-insensitive hydrator fallback would conflict with documented case-sensitive ResultSetMapping behavior.",
+      "material_effect": "Classified hydrator-side permissive lookup as a higher-BC-risk option needing maintainer design approval.",
+      "evidence": [
+        "docs/en/reference/native-sql.rst",
+        "src/Internal/Hydration/AbstractHydrator.php",
+        "src/Query/ResultSetMapping.php"
+      ],
+      "caused_by_event_ids": [],
+      "architectural_supervision": false,
+      "architectural_impacts": ["public-contract", "compatibility-strategy"],
+      "decision_effect": "none",
+      "dependency_expansion": false,
+      "validation_expansion": false,
+      "post_review_rework": false,
+      "hypothesis_outcome": "not-applicable"
+    },
+    {
+      "event_id": "evt-gh12272-005",
+      "sequence": 5,
+      "occurred_at": {"value": "2026-08-23T17:12:56+02:00", "evidence_kind": "observed"},
+      "actor": "alatyr",
+      "causal_class": "independent-within-scope",
+      "intervention_kind": "not-applicable",
+      "contribution_kind": "decision",
+      "category": "invariant",
+      "summary": "Recommended proposal is narrow SQLResultCasing alignment with DBAL 4 platform folding plus current DBAL 3 fallback, not automatic portability detection.",
+      "material_effect": "Kept the solution within internal ORM alias-casing ownership and preserved current default Oracle, DB2, PostgreSQL, SQLite, and MySQL behavior.",
+      "evidence": [
+        "src/Internal/SQLResultCasing.php",
+        "composer.json",
+        "phpstan-dbal3.neon",
+        "CONTRIBUTING.md",
+        "Context7 /doctrine/dbal docs query for UnquotedIdentifierFolding"
+      ],
+      "caused_by_event_ids": [],
+      "architectural_supervision": false,
+      "architectural_impacts": ["subsystem-responsibility", "compatibility-strategy", "authority-boundary"],
+      "decision_effect": "confirms-direction",
+      "dependency_expansion": false,
+      "validation_expansion": false,
+      "post_review_rework": false,
+      "hypothesis_outcome": "not-applicable"
+    },
+    {
+      "event_id": "evt-gh12272-006",
+      "sequence": 6,
+      "occurred_at": {"value": "2026-08-23T17:12:56+02:00", "evidence_kind": "observed"},
+      "actor": "alatyr",
+      "causal_class": "independent-within-scope",
+      "intervention_kind": "not-applicable",
+      "contribution_kind": "validation",
+      "category": "validation",
+      "summary": "Validated debug activation structurally before implementation was requested.",
+      "material_effect": "Confirmed adapter health during analysis; implementation validation was expanded after the fix was requested and completed.",
+      "evidence": [
+        "jq empty .ai/project/debug/index.json .ai/project/debug/records/debug-gh-12272-sql-result-casing-folding-20260823.json",
+        "ALATYR_CORE_SOURCE=<framework-source> /usr/bin/python3 tools/check_alatyr.py --framework-source <framework-source> --validation-phase acceptance"
+      ],
+      "caused_by_event_ids": [],
+      "architectural_supervision": false,
+      "architectural_impacts": [],
+      "decision_effect": "none",
+      "dependency_expansion": false,
+      "validation_expansion": false,
+      "post_review_rework": false,
+      "hypothesis_outcome": "not-applicable"
+    },
+    {
+      "event_id": "evt-gh12272-007",
+      "sequence": 7,
+      "occurred_at": {"value": "2026-08-23T18:44:00+02:00", "evidence_kind": "observed"},
+      "actor": "alatyr",
+      "causal_class": "independent-within-scope",
+      "intervention_kind": "not-applicable",
+      "contribution_kind": "implementation",
+      "category": "implementation-revision",
+      "summary": "Implemented SQLResultCasing alignment with DBAL 4 platform unquoted identifier folding while preserving the DBAL 3 fallback.",
+      "material_effect": "Generated SQL result aliases now follow the platform folding contract exposed by DBAL 4 without changing Doctrine's case-sensitive ResultSetMapping lookup.",
+      "evidence": [
+        "src/Internal/SQLResultCasing.php",
+        "commit 93caa4327045df35476b345b1c09f1ba4acb0d6a"
+      ],
+      "caused_by_event_ids": ["evt-gh12272-005"],
+      "architectural_supervision": false,
+      "architectural_impacts": ["subsystem-responsibility", "compatibility-strategy", "public-contract"],
+      "decision_effect": "confirms-direction",
+      "dependency_expansion": false,
+      "validation_expansion": false,
+      "post_review_rework": false,
+      "hypothesis_outcome": "not-applicable"
+    },
+    {
+      "event_id": "evt-gh12272-008",
+      "sequence": 8,
+      "occurred_at": {"value": "2026-08-23T18:44:00+02:00", "evidence_kind": "observed"},
+      "actor": "alatyr",
+      "causal_class": "independent-within-scope",
+      "intervention_kind": "not-applicable",
+      "contribution_kind": "validation",
+      "category": "validation",
+      "summary": "Expanded validation across focused ticket tests, affected PHPUnit subsets, PHPCS, PHPStan normal and DBAL 3 profiles, Composer validation, and Alatyr acceptance.",
+      "material_effect": "Confirmed the fix and related test fixtures are clean in focused validation; remaining full-suite failures are limited to unrelated SQLite SQRT environment errors.",
+      "evidence": [
+        "GH12272Test passed with 14 tests and 24 assertions",
+        "affected PHPUnit subset passed with 97 tests and 241 assertions",
+        "focused PHPStan normal and DBAL 3 profiles passed",
+        "full PHPCS passed",
+        "composer validate --strict passed",
+        "Alatyr acceptance check passed"
+      ],
+      "caused_by_event_ids": ["evt-gh12272-007"],
+      "architectural_supervision": false,
+      "architectural_impacts": [],
+      "decision_effect": "none",
+      "dependency_expansion": false,
+      "validation_expansion": true,
+      "post_review_rework": false,
+      "hypothesis_outcome": "not-applicable"
+    },
+    {
+      "event_id": "evt-gh12272-009",
+      "sequence": 9,
+      "occurred_at": {"value": "2026-08-23T18:44:00+02:00", "evidence_kind": "observed"},
+      "actor": "alatyr",
+      "causal_class": "independent-within-scope",
+      "intervention_kind": "not-applicable",
+      "contribution_kind": "validation",
+      "category": "regression-scenario",
+      "summary": "Added focused GH-12272 regression coverage for every direct SQLResultCasing consumer.",
+      "material_effect": "Covered quote strategies, ResultSetMappingBuilder, scalar hydration, case-sensitive negative hydration, paginator count aliases, SimpleObjectHydrator discriminator lookup, and inheritance persister discriminator aliases.",
+      "evidence": [
+        "tests/Tests/ORM/Functional/Ticket/GH12272Test.php",
+        "tests/Tests/ORM/PersistentCollectionTest.php",
+        "tests/Tests/ORM/Persisters/BasicEntityPersisterTypeValueSqlTest.php",
+        "tests/Tests/ORM/Query/QueryTest.php",
+        "tests/Tests/ORM/Tools/Pagination/PaginatorTest.php",
+        "tests/Tests/ORM/UnitOfWorkTest.php"
+      ],
+      "caused_by_event_ids": ["evt-gh12272-007"],
+      "architectural_supervision": false,
+      "architectural_impacts": ["public-contract"],
+      "decision_effect": "none",
+      "dependency_expansion": false,
+      "validation_expansion": false,
+      "post_review_rework": false,
+      "hypothesis_outcome": "not-applicable"
+    }
+  ],
+  "metrics": {
+    "human_interventions": {"value": 0, "evidence_kind": "event-derived", "event_ids": []},
+    "human_architectural_interventions": {"value": 0, "evidence_kind": "event-derived", "event_ids": []},
+    "alatyr_independent_findings": {"value": 4, "evidence_kind": "event-derived", "event_ids": ["evt-gh12272-001", "evt-gh12272-002", "evt-gh12272-003", "evt-gh12272-004"]},
+    "derived_findings_after_human": {"value": 0, "evidence_kind": "event-derived", "event_ids": []},
+    "alatyr_independent_dependency_checks": {"value": 1, "evidence_kind": "event-derived", "event_ids": ["evt-gh12272-001"]},
+    "human_requested_dependency_checks": {"value": 0, "evidence_kind": "event-derived", "event_ids": []},
+    "derived_dependency_expansions_after_human": {"value": 0, "evidence_kind": "event-derived", "event_ids": []},
+    "hypotheses_tested": {"value": 0, "evidence_kind": "event-derived", "event_ids": []},
+    "hypotheses_rejected": {"value": 0, "evidence_kind": "event-derived", "event_ids": []},
+    "implementation_revisions": {"value": 1, "evidence_kind": "event-derived", "event_ids": ["evt-gh12272-007"]},
+    "implementation_corrections_after_human": {"value": 0, "evidence_kind": "event-derived", "event_ids": []},
+    "validation_expansions": {"value": 1, "evidence_kind": "event-derived", "event_ids": ["evt-gh12272-008"]},
+    "regression_scenarios_added": {"value": 1, "evidence_kind": "event-derived", "event_ids": ["evt-gh12272-009"]},
+    "maintainer_corrections": {"value": 0, "evidence_kind": "event-derived", "event_ids": []},
+    "post_review_rework": {"value": 0, "evidence_kind": "event-derived", "event_ids": []}
+  },
+  "final_result": {
+    "summary": "Implementation completed. SQLResultCasing now honors DBAL 4 platform folding when available, with the current platform-class fallback for DBAL 3. Regression coverage was added for every direct SQLResultCasing consumer. Automatic support for DBAL portability ColumnCase remains a maintainer design decision because portability result-key rewriting is not the same contract as platform unquoted identifier folding.",
+    "repository_binding": {
+      "kind": "commit",
+      "binding_state": "final",
+      "base_revision": "2d60ecaf17366bed467d3e92d8737088218b78f1",
+      "result_revision": "93caa4327045df35476b345b1c09f1ba4acb0d6a",
+      "review_reference": "not-applicable",
+      "selected_paths": [],
+      "snapshot_sha256": "not-applicable",
+      "prior_bindings": [
+        {
+          "kind": "unverified",
+          "base_revision": "2d60ecaf17366bed467d3e92d8737088218b78f1",
+          "result_revision": "not-finalized-active-analysis",
+          "review_reference": "not-applicable",
+          "selected_paths": [],
+          "snapshot_sha256": "not-applicable",
+          "replaced_at": "2026-08-23T17:12:56+02:00",
+          "reason": "Debug session was first finalized as proposal-only analysis, then updated after implementation was explicitly requested."
+        }
+      ]
+    },
+    "implementation_surfaces": [
+      "src/Internal/SQLResultCasing.php",
+      "tests/Tests/ORM/Functional/Ticket/GH12272Test.php",
+      "tests/Tests/ORM/PersistentCollectionTest.php",
+      "tests/Tests/ORM/Persisters/BasicEntityPersisterTypeValueSqlTest.php",
+      "tests/Tests/ORM/Query/QueryTest.php",
+      "tests/Tests/ORM/Tools/Pagination/PaginatorTest.php",
+      "tests/Tests/ORM/UnitOfWorkTest.php"
+    ],
+    "validation": {
+      "results": [
+        "Initial RED run of tests/Tests/ORM/Functional/Ticket/GH12272Test.php failed 4 expected alias/hydration assertions before implementation",
+        "GH12272Test passed with 14 tests and 24 assertions after implementation",
+        "Affected PHPUnit subset passed with 97 tests and 241 assertions",
+        "Focused PHPStan passed for normal and DBAL 3 profiles",
+        "Full PHPCS passed",
+        "Composer validation passed",
+        "Alatyr acceptance check passed"
+      ],
+      "skipped": ["Full PHPUnit still reports two unrelated SQLite SQRT environment errors in QueryDqlFunctionTest::testFunctionSqrt and GH7941Test::typesShouldBeConvertedForDQLFunctions."]
+    },
+    "engineering_evidence_ids": [],
+    "engineering_evidence_decision": {
+      "status": "skipped",
+      "trigger_event_ids": ["evt-gh12272-005", "evt-gh12272-006"],
+      "trigger_kinds": ["implementation", "validation"],
+      "knowledge_preserved_by": ["debug-session-record", "commit-message"],
+      "reason": "The branch implementation and test strategy are preserved by the issue-specific regression test and detailed commit message.",
+      "next_safe_action": "Use the committed regression coverage and validation results when preparing any upstream review or pull request."
+    },
+    "upstream_projection": {
+      "kind": "same-repository",
+      "included_debug_files": false,
+      "projected_paths": [],
+      "evidence": ["No upstream pull request was prepared in this scope."]
+    }
+  },
+  "publication": {
+    "storage_mode": "repository-internal",
+    "visibility": "repository-local",
+    "included_in_external_patch": false,
+    "policy_evidence": ".ai/project/debug/README.md"
+  },
+  "privacy": {
+    "raw_ai_conversation_stored": false,
+    "raw_human_conversation_stored": false,
+    "chain_of_thought_stored": false,
+    "prompts_stored": false,
+    "secrets_stored": false,
+    "credentials_stored": false,
+    "unrelated_personal_data_stored": false,
+    "unrelated_session_history_stored": false,
+    "unused_speculation_stored": false,
+    "complete_diffs_stored": false,
+    "verbose_logs_stored": false,
+    "redactions": []
+  },
+  "residual_uncertainty": [
+    "Doctrine maintainers should decide whether DBAL portability result-key case conversion is an ORM-supported integration contract or documentation-only configuration risk.",
+    "Full PHPUnit in this workspace still reports two unrelated SQLite SQRT environment errors."
+  ],
+  "limitations": [
+    "Debug evidence cannot prove event completeness attribution correctness or engineering quality."
+  ]
+}

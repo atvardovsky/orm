@@ -8,5 +8,45 @@
   "retention_policy": "retain compact reviewed records while relevant to branch history",
   "redaction_policy": "exclude raw private chat, chain-of-thought, prompts, secrets, credentials, unrelated personal data, complete diffs, and verbose logs",
   "external_patch_policy": "exclude raw private chat secrets credentials and external-only logs",
-  "records": []
+  "records": [
+    {
+      "debug_id": "debug-gh-12272-sql-result-casing-folding-20260823",
+      "status": "completed",
+      "record": ".ai/project/debug/records/debug-gh-12272-sql-result-casing-folding-20260823.json",
+      "task_references": ["https://github.com/doctrine/orm/issues/12272"],
+      "scope_kind": "task",
+      "scope_id": "gh-12272",
+      "task_class": "issue-implementation",
+      "repository_binding_kind": "commit",
+      "repository_binding_state": "final",
+      "result_revision": "93caa4327045df35476b345b1c09f1ba4acb0d6a",
+      "event_coverage": "partial",
+      "observer_effect": "possible",
+      "elapsed_seconds": 406,
+      "elapsed_evidence_kind": "observed",
+      "record_schema_version": 2,
+      "engineering_evidence_status": "skipped",
+      "metrics": {
+        "human_interventions": 0,
+        "human_architectural_interventions": 0,
+        "alatyr_independent_findings": 4,
+        "derived_findings_after_human": 0,
+        "alatyr_independent_dependency_checks": 1,
+        "human_requested_dependency_checks": 0,
+        "derived_dependency_expansions_after_human": 0,
+        "hypotheses_tested": 0,
+        "hypotheses_rejected": 0,
+        "implementation_revisions": 1,
+        "implementation_corrections_after_human": 0,
+        "validation_expansions": 1,
+        "regression_scenarios_added": 1,
+        "maintainer_corrections": 0,
+        "post_review_rework": 0
+      },
+      "residual_uncertainty": [
+        "Doctrine maintainers should decide whether DBAL portability result-key case conversion is an ORM-supported integration contract or documentation-only configuration risk.",
+        "Full PHPUnit in this workspace still reports two unrelated SQLite SQRT environment errors."
+      ]
+    }
+  ]
 }
