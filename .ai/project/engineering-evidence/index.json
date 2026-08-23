@@ -1,11 +1,11 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "index_kind": "target-engineering-evidence-index",
   "project": "Doctrine ORM",
   "owner": "@atvardovsky",
   "storage_mode": "repository-internal",
   "external_patch_policy": "exclude raw private chat secrets credentials and external-only logs",
   "retention_policy": "retain compact reviewed records while relevant to branch history",
-  "records": [],
-  "redaction_policy": "redact raw private chat, chain-of-thought, prompts, secrets, credentials, personal data, unrelated session history, complete diffs, and verbose validation logs"
+  "redaction_policy": "redact raw private chat, chain-of-thought, prompts, secrets, credentials, personal data, unrelated session history, complete diffs, and verbose validation logs",
+  "records": []
 }

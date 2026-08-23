@@ -4,7 +4,7 @@
   "derived_from": {
     "manifest": {
       "path": ".ai/alatyr.yaml",
-      "sha256": "d9c0c0c9eee5bad95cc048273de6e8ff651f6bcdeea95b4dd7ba87c2f634c893"
+      "sha256": "36cde064de139587528d15a40bf77f8949b45e856969aea74ebb06a78761ba21"
     },
     "project_map": {
       "path": ".ai/README.md",
@@ -16,9 +16,9 @@
     }
   },
   "installation": {
-    "framework_version": "0.1.0-alpha.22",
-    "adapter_schema_version": "21",
-    "template_version": "22",
+    "framework_version": "0.1.0-alpha.23",
+    "adapter_schema_version": "22",
+    "template_version": "23",
     "support_profile": "full",
     "framework_pack": "complete"
   },

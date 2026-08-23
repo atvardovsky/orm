@@ -1,138 +1,218 @@
 # Alatyr Adapter Output Contracts
 
-Use this file in Doctrine ORM to define minimum final evidence for installed
-Alatyr adapter work. Replace angle-bracket placeholders with task-specific
-target facts before using a contract.
+Use this file in `Doctrine ORM` to define the minimum evidence an assistant
+must report after installation, framework update, or adapter recheck work.
+
+Replace placeholders with target facts before accepting installation.
 
 ## Contract: `installation-output`
 
-Use after initial installation or a scoped adapter-only expansion.
+Use after the initial Alatyr Core installation or a scoped adapter expansion.
 
-- Operation id: `<operation-id>`
-- Evidence basis: `<current-state-historical-record-or-mixed>`
-- Observed at: `<observation-date-time>`
-- Observed repository revision: `<repository-revision-or-not-available>`
-- Installation id: `ALATYR-20260821-doctrine-orm`
-- Framework source: `https://github.com/atvardovsky/AlatyrCore`
-- Framework version: `0.1.0-alpha.22`
-- Adapter schema version: `21`
-- Template version: `22`
+- Operation id: `{OPERATION_ID}`
+- Operation type: `{INSTALLATION_OR_ADAPTER_EXPANSION}`
+- Current user authorization: `{CURRENT_SCOPE_SOURCE_AUTHORIZED_PHASES_INVALIDATION_AND_ACTIONS_PERFORMED}`
+- Evidence basis: `{CURRENT_STATE_HISTORICAL_RECORD_OR_MIXED}`
+- Observed at: `{OBSERVATION_DATE_TIME}`
+- Observed repository branch: `{REPOSITORY_BRANCH_OR_DETACHED_HEAD_OR_NOT_AVAILABLE}`
+- Observed repository revision: `{REPOSITORY_REVISION_OR_NOT_AVAILABLE}`
+- Historical records used: `{DATED_OPERATION_APPROVAL_OR_MIGRATION_RECORDS_OR_NONE}`
+- Unverifiable historical claims: `{UNVERIFIABLE_HISTORICAL_CLAIMS_OR_NONE}`
+- Installation id: `{INSTALLATION_ID}`
+- Requested by: `{REQUESTER_OR_ROLE}`
+- Framework source or baseline: `{ALATYR_CORE_SOURCE_OR_BASELINE}`
+- Framework version: `{ALATYR_CORE_VERSION}`
+- Adapter schema version: `{ALATYR_ADAPTER_SCHEMA_VERSION}`
+- Template version: `{ALATYR_TEMPLATE_VERSION}`
 - Manifest path: `.ai/alatyr.yaml`
-- Surfaces created or updated: `<surfaces-created-or-updated>`
-- Existing files preserved: `<existing-files-preserved>`
-- Approval records used: `<approval-records-used-or-not-required>`
-- Required core profile result: `<required-core-profile-result>`
-- Optional module profile result: `<optional-module-profile-result>`
-- Blueprint index result: `<blueprint-index-result>`
-- Business logic layer result for `.ai/project/business-logic.md`:
-  `<business-logic-layer-result>`
-- Context router/profile result: `<context-router-profile-result>`
-- Operation catalog/index result: `<operation-catalog-index-result>`
-- Gate index result: `<gate-index-result>`
-- Source-of-truth registry result: `<source-of-truth-registry-result>`
-- Bootstrap index result: `<bootstrap-index-result>`
-- Root entry points checked: `AGENTS.md and AI_ASSISTANTS.md`
-- Adapter drift checks result: `<adapter-drift-checks-result>`
-- Local path leakage result: `<local-path-leakage-result>`
-- Target-local checker status: `<target-local-checker-status-or-unresolved>`
-- Validation run: `<target-validation-run-or-manual-review>`
-- Validation skipped or unresolved: `<validation-skipped-or-unresolved>`
-- Final evidence: `<final-evidence>`
-- Residual risk: `<residual-risk>`
+- Installation plan path or summary: `{INSTALLATION_PLAN_PATH_OR_SUMMARY}`
+- Approval records used: `{APPROVAL_RECORDS_USED_OR_NOT_REQUIRED}`
+- Approval scope enforcement: `{DIFF_BASE_RECORDS_CHANGED_PATHS_AND_RESULT_OR_NOT_REQUIRED}`
+- Surfaces created: `{SURFACES_CREATED}`
+- Surfaces updated: `{SURFACES_UPDATED}`
+- Surfaces skipped: `{SURFACES_SKIPPED_AND_REASON}`
+- Existing files preserved: `{EXISTING_FILES_PRESERVED}`
+- Existing files overwritten with approval:
+  `{EXISTING_FILES_OVERWRITTEN_WITH_APPROVAL_OR_NONE}`
+- Required core profile result: `{REQUIRED_CORE_PROFILE_RESULT}`
+- Optional module profile result: `{OPTIONAL_MODULE_PROFILE_RESULT}`
+- Workspace-mode result: `{MODULE_STATE_WORKSPACE_IDENTITY_PROPOSED_ACCEPTED_OR_REJECTED_MODES_USER_DECISIONS_ROOT_AND_PER_MODE_CONTEXT_VALIDATION_AND_GAPS}`
+- Context profiles result: `{CONTEXT_PROFILES_RESULT}`
+- Operation catalog and automatic routing result: `{OPERATION_CATALOG_ROUTING_RESULT}`
+- Adapter health and evidence freshness: `{HEALTH_STATE_TIME_REVISION_OR_UNVERIFIED}`
+- Pre-change preview result: `{SHOWN_SKIPPED_OR_NOT_APPLICABLE_WITH_REASON}`
+- Context receipt and cost evidence: `{LOADED_FILES_VOLUME_EXPANSIONS_OR_NOT_REQUIRED}`
+- Large-task orchestration result: `{LARGE_TASK_ORCHESTRATION_RESULT_OR_SKIPPED}`
+- Operation packet template result: `{OPERATION_PACKET_TEMPLATE_RESULT_OR_SKIPPED}`
+- Change-package module result: `{INDEX_FLOW_SCHEMA_RETENTION_VALIDATOR_AND_GAPS_OR_SKIPPED}`
+- Durable engineering-evidence result: `{CAPTURED_SKIPPED_OR_BLOCKED_RECORD_ID_TASK_REVISION_BINDING_PRIVACY_PUBLICATION_VALIDATION_AND_REASON}`
+- Debug Mode result: `{MODULE_STATE_DEPENDENCIES_OWNER_POLICY_INDEX_OPERATION_VALIDATOR_AND_INACTIVE_OR_EXPLICIT_CURRENT_SCOPE_RECORD_RESULT}`
+- Team-collaboration result: `{MODULE_OWNER_BACKEND_REGISTRY_OVERLAP_HANDOFF_REVIEW_AND_GAPS_OR_SKIPPED}`
+- Source-of-truth registry result: `{SOURCE_OF_TRUTH_REGISTRY_RESULT}`
+- Consistency-map result: `{CONSISTENCY_MAP_RESULT_OR_SKIPPED}`
+- Logical integrity evidence: `{CHANGED_FACTS_RELATIONSHIPS_COMPANION_SURFACES_AND_GAPS}`
+- Task-specific maturity result: `{TASK_SPECIFIC_MATURITY_RESULT}`
+- Bridge capability matrix result: `{BRIDGE_CAPABILITY_MATRIX_RESULT}`
+- Root entry points checked: `{ROOT_ENTRY_POINTS_CHECKED}`
+- Supported bridge files checked: `{SUPPORTED_BRIDGE_FILES_CHECKED}`
+- Adapter drift checks result: `{ADAPTER_DRIFT_CHECKS_RESULT}`
+- Local path leakage result: `{LOCAL_PATH_LEAKAGE_RESULT}`
+- Target-local checker status: `{TARGET_LOCAL_CHECKER_STATUS_OR_UNRESOLVED}`
+- AI infrastructure inventory result:
+  `{AI_INFRASTRUCTURE_INVENTORY_RESULT_OR_SKIPPED}`
+- AI infrastructure recommendation result: `{PROJECT_EVIDENCE_EXISTING_ITEM_COMPARISON_COST_QUALITY_ACCEPTANCE_AND_NEXT_ROUTE_OR_SKIPPED}`
+- Development-pattern evidence result: `{INDEX_OWNER_RETENTION_CAPTURE_AND_FRAMEWORK_BOUNDARY_OR_SKIPPED}`
+- AI infrastructure router result: `{AI_INFRASTRUCTURE_ROUTER_RESULT_OR_SKIPPED}`
+- AI infrastructure adaptation-record result: `{AI_INFRASTRUCTURE_ADAPTATION_RECORD_RESULT_OR_SKIPPED}`
+- Validation run: `{TARGET_VALIDATION_RUN_OR_MANUAL_REVIEW}`
+- Validation phase: `{ACCEPTANCE_OR_MIGRATION_STAGING}`
+- Active unresolved placeholders: `{COUNT_AND_PATHS_OR_NONE}`
+- Manifest/module-profile agreement: `{MATCH_OR_DRIFT_DETAILS}`
+- Acceptance eligible: `{YES_OR_NO_WITH_REASON}`
+- Required final strict rerun: `{COMMAND_OR_NOT_REQUIRED}`
+- Validation skipped or unresolved: `{VALIDATION_SKIPPED_OR_UNRESOLVED}`
+- Post-install message result: `{POST_INSTALL_MESSAGE_SENT_OR_SKIPPED}`
+- Final evidence: `{FINAL_EVIDENCE}`
+- Residual risk: `{RESIDUAL_RISK}`
 
 ## Contract: `framework-update-output`
 
-Use after comparing the installed adapter against a newer Alatyr Core baseline.
+Use after updating or comparing an installed adapter against a newer Alatyr
+Core baseline.
 
-- Operation id: `<operation-id>`
-- Evidence basis: `<current-state-historical-record-or-mixed>`
-- Observed at: `<observation-date-time>`
-- Observed repository revision: `<repository-revision-or-not-available>`
-- Update source or baseline: `<alatyr-update-source-or-baseline>`
-- Previous framework version: `<previous-alatyr-core-version>`
-- New framework version: `<new-alatyr-core-version>`
-- Previous adapter schema version: `<previous-adapter-schema-version>`
-- New adapter schema version: `<new-adapter-schema-version>`
-- Previous template version: `<previous-template-version>`
-- New template version: `<new-template-version>`
+- Operation id: `{OPERATION_ID}`
+- Operation type: `{FRAMEWORK_UPDATE_OR_IMPACT_REVIEW}`
+- Current user authorization: `{CURRENT_SCOPE_SOURCE_AUTHORIZED_PHASES_INVALIDATION_AND_ACTIONS_PERFORMED}`
+- Evidence basis: `{CURRENT_STATE_HISTORICAL_RECORD_OR_MIXED}`
+- Observed at: `{OBSERVATION_DATE_TIME}`
+- Observed repository branch: `{REPOSITORY_BRANCH_OR_DETACHED_HEAD_OR_NOT_AVAILABLE}`
+- Observed repository revision: `{REPOSITORY_REVISION_OR_NOT_AVAILABLE}`
+- Historical records used: `{DATED_OPERATION_APPROVAL_OR_MIGRATION_RECORDS_OR_NONE}`
+- Unverifiable historical claims: `{UNVERIFIABLE_HISTORICAL_CLAIMS_OR_NONE}`
+- Update source or baseline: `{ALATYR_UPDATE_SOURCE_OR_BASELINE}`
+- Previous framework version: `{PREVIOUS_ALATYR_CORE_VERSION}`
+- New framework version: `{NEW_ALATYR_CORE_VERSION}`
+- Framework version: `{NEW_ALATYR_CORE_VERSION}`
+- Previous adapter schema version: `{PREVIOUS_ADAPTER_SCHEMA_VERSION}`
+- New adapter schema version: `{NEW_ADAPTER_SCHEMA_VERSION}`
+- Adapter schema version: `{NEW_ADAPTER_SCHEMA_VERSION}`
+- Previous template version: `{PREVIOUS_TEMPLATE_VERSION}`
+- New template version: `{NEW_TEMPLATE_VERSION}`
+- Template version: `{NEW_TEMPLATE_VERSION}`
 - Manifest path: `.ai/alatyr.yaml`
 - Migration note path: `.ai/assistant/templates/migration-note.md`
-- Migration assessment result: `<migration-assessment-result>`
-- Changed rule ids: `<changed-rule-ids-or-none>`
-- Added or removed framework files: `<added-or-removed-framework-files>`
-- Target adapter actions required: `<target-adapter-actions-required>`
-- Target adapter actions optional: `<target-adapter-actions-optional>`
-- Approval records used: `<approval-records-used-or-not-required>`
-- Context router/profile result: `<context-router-profile-result>`
-- Operation catalog/index result: `<operation-catalog-index-result>`
-- Gate index result: `<gate-index-result>`
-- Source-of-truth registry result: `<source-of-truth-registry-result>`
-- Blueprint index result: `<blueprint-index-result>`
-- Business logic layer result for `.ai/project/business-logic.md`:
-  `<business-logic-layer-result>`
-- Bootstrap index result: `<bootstrap-index-result>`
-- Adapter drift checks result: `<adapter-drift-checks-result>`
-- Target-local checker status: `<target-local-checker-status-or-unresolved>`
-- Validation run: `<target-validation-run-or-manual-review>`
-- Validation skipped or unresolved: `<validation-skipped-or-unresolved>`
-- Final evidence: `<final-evidence>`
-- Residual risk: `<residual-risk>`
+- Migration assessment result/path: `{MIGRATION_ASSESSMENT_RESULT_OR_PATH}`
+- Migration diff result: `{MIGRATION_DIFF_RESULT}`
+- Changed rule ids: `{CHANGED_RULE_IDS_OR_NONE}`
+- Added or removed framework files: `{ADDED_OR_REMOVED_FRAMEWORK_FILES}`
+- Target adapter actions required: `{TARGET_ADAPTER_ACTIONS_REQUIRED}`
+- Target adapter actions optional: `{TARGET_ADAPTER_ACTIONS_OPTIONAL}`
+- Surfaces created: `{SURFACES_CREATED}`
+- Surfaces updated: `{SURFACES_UPDATED}`
+- Surfaces skipped: `{SURFACES_SKIPPED_AND_REASON}`
+- Existing files preserved: `{EXISTING_FILES_PRESERVED}`
+- Approval records used: `{APPROVAL_RECORDS_USED_OR_NOT_REQUIRED}`
+- Approval scope enforcement: `{DIFF_BASE_RECORDS_CHANGED_PATHS_AND_RESULT_OR_NOT_REQUIRED}`
+- Required core profile result: `{REQUIRED_CORE_PROFILE_RESULT}`
+- Optional module profile result: `{OPTIONAL_MODULE_PROFILE_RESULT}`
+- Workspace-mode migration result: `{PRESERVED_ACCEPTED_MODES_PROPOSED_MIGRATIONS_USER_DECISIONS_ROUTING_VALIDATION_AND_GAPS}`
+- Context profiles result: `{CONTEXT_PROFILES_RESULT}`
+- Context receipt and cost evidence: `{LOADED_FILES_VOLUME_EXPANSIONS_OR_NOT_REQUIRED}`
+- Large-task orchestration result: `{LARGE_TASK_ORCHESTRATION_RESULT_OR_SKIPPED}`
+- Operation packet template result: `{OPERATION_PACKET_TEMPLATE_RESULT_OR_SKIPPED}`
+- Change-package migration result: `{RULE_SCHEMA_RECORD_PRESERVATION_PROVENANCE_VALIDATOR_AND_GAPS_OR_SKIPPED}`
+- Durable engineering-evidence migration result: `{POLICY_INDEX_RECORD_SCHEMA_AND_EXISTING_RECORD_PRESERVATION_RESULT}`
+- Debug Mode migration result: `{RULE_MODULE_SCHEMA_RECORD_PRESERVATION_ACTIVE_SCOPE_EXPIRY_ROUTING_VALIDATION_AND_GAPS_OR_SKIPPED}`
+- Team-collaboration migration result: `{SCHEMA_ACTIVE_RECORD_PRESERVATION_STALE_CLAIMS_ROUTES_AND_GAPS_OR_SKIPPED}`
+- Source-of-truth registry result: `{SOURCE_OF_TRUTH_REGISTRY_RESULT}`
+- Consistency-map result: `{CONSISTENCY_MAP_RESULT_OR_SKIPPED}`
+- Logical integrity evidence: `{CHANGED_FACTS_RELATIONSHIPS_COMPANION_SURFACES_AND_GAPS}`
+- Task-specific maturity result: `{TASK_SPECIFIC_MATURITY_RESULT}`
+- Operation catalog, health, preview, help, and routing result:
+  `{OPERATION_CONTROL_SURFACE_RESULT}`
+- Bridge capability matrix result: `{BRIDGE_CAPABILITY_MATRIX_RESULT}`
+- Adapter drift checks result: `{ADAPTER_DRIFT_CHECKS_RESULT}`
+- Local path leakage result: `{LOCAL_PATH_LEAKAGE_RESULT}`
+- Target-local checker status: `{TARGET_LOCAL_CHECKER_STATUS_OR_UNRESOLVED}`
+- AI infrastructure router result: `{AI_INFRASTRUCTURE_ROUTER_RESULT_OR_SKIPPED}`
+- AI infrastructure recommendation result: `{PROJECT_EVIDENCE_EXISTING_ITEM_COMPARISON_COST_QUALITY_ACCEPTANCE_AND_NEXT_ROUTE_OR_SKIPPED}`
+- Development-pattern evidence result: `{INDEX_OWNER_RETENTION_CAPTURE_AND_FRAMEWORK_BOUNDARY_OR_SKIPPED}`
+- AI infrastructure adaptation-record result: `{AI_INFRASTRUCTURE_ADAPTATION_RECORD_RESULT_OR_SKIPPED}`
+- Validation run: `{TARGET_VALIDATION_RUN_OR_MANUAL_REVIEW}`
+- Validation phase: `{ACCEPTANCE_OR_MIGRATION_STAGING}`
+- Active unresolved placeholders: `{COUNT_AND_PATHS_OR_NONE}`
+- Manifest/module-profile agreement: `{MATCH_OR_DRIFT_DETAILS}`
+- Acceptance eligible: `{YES_OR_NO_WITH_REASON}`
+- Required final strict rerun: `{COMMAND_OR_NOT_REQUIRED}`
+- Validation skipped or unresolved: `{VALIDATION_SKIPPED_OR_UNRESOLVED}`
+- Post-update message result: `{POST_UPDATE_MESSAGE_SENT_OR_SKIPPED}`
+- Final evidence: `{FINAL_EVIDENCE}`
+- Residual risk: `{RESIDUAL_RISK}`
 
 ## Contract: `adapter-recheck-output`
 
-Use after read-only, adapter-only, or maturity-focused rechecks.
+Use after read-only, adapter-only, or maturity-focused rechecks of an installed
+adapter.
 
-- Operation id: `<operation-id>`
-- Evidence basis: `<current-state-historical-record-or-mixed>`
-- Observed at: `<observation-date-time>`
-- Observed repository revision: `<repository-revision-or-not-available>`
-- Recheck trigger: `<recheck-trigger>`
-- Allowed actions: `<read-only-docs-only-adapter-only-code-and-tests-or-full-with-approval>`
+- Operation id: `{OPERATION_ID}`
+- Operation type: `{ADAPTER_RECHECK_OR_MATURITY_REVIEW}`
+- Current user authorization: `{CURRENT_SCOPE_SOURCE_AUTHORIZED_PHASES_INVALIDATION_AND_ACTIONS_PERFORMED}`
+- Evidence basis: `{CURRENT_STATE_HISTORICAL_RECORD_OR_MIXED}`
+- Observed at: `{OBSERVATION_DATE_TIME}`
+- Observed repository branch: `{REPOSITORY_BRANCH_OR_DETACHED_HEAD_OR_NOT_AVAILABLE}`
+- Observed repository revision: `{REPOSITORY_REVISION_OR_NOT_AVAILABLE}`
+- Historical records used: `{DATED_OPERATION_APPROVAL_OR_MIGRATION_RECORDS_OR_NONE}`
+- Unverifiable historical claims: `{UNVERIFIABLE_HISTORICAL_CLAIMS_OR_NONE}`
+- Recheck trigger: `{RECHECK_TRIGGER}`
+- Allowed actions: `{READ_ONLY_DOCS_ONLY_ADAPTER_ONLY_CODE_AND_TESTS_OR_FULL_WITH_APPROVAL}`
 - Manifest path: `.ai/alatyr.yaml`
-- Installation note status: `<installation-note-status>`
-- Framework version: `0.1.0-alpha.22`
-- Adapter schema version: `21`
-- Template version: `22`
-- Approval records used: `<approval-records-used-or-not-required>`
-- Required core profile result: `<required-core-profile-result>`
-- Optional module profile result: `<optional-module-profile-result>`
-- Context router/profile result: `<context-router-profile-result>`
-- Operation catalog/index result: `<operation-catalog-index-result>`
-- Gate index result: `<gate-index-result>`
-- Source-of-truth registry result: `<source-of-truth-registry-result>`
-- Blueprint index result: `<blueprint-index-result>`
-- Business logic layer result for `.ai/project/business-logic.md`:
-  `<business-logic-layer-result>`
-- Bootstrap index result: `<bootstrap-index-result>`
-- Task-specific maturity result: `<task-specific-maturity-result>`
-- Root entry points checked: `AGENTS.md and AI_ASSISTANTS.md`
-- Adapter drift checks result: `<adapter-drift-checks-result>`
-- Local path leakage result: `<local-path-leakage-result>`
-- Target-local checker status: `<target-local-checker-status-or-unresolved>`
-- Validation run: `<target-validation-run-or-manual-review>`
-- Validation skipped or unresolved: `<validation-skipped-or-unresolved>`
-- Recommended next operation: `<recommended-next-operation-or-none>`
-- Final evidence: `<final-evidence>`
-- Residual risk: `<residual-risk>`
-
-## Contract: `blueprint-or-product-change-output`
-
-Use after `create-project-blueprint` or `product-change`.
-
-- Operation id: `<operation-id>`
-- Selected profile and project areas: `<selected-profile-and-areas>`
-- Changed facts: `<changed-facts-or-none>`
-- Canonical owners: `<canonical-owners>`
-- Blueprint index result: `<blueprint-index-result>`
-- Business logic layer result for `.ai/project/business-logic.md`:
-  `<business-logic-layer-result>`
-- Source-of-truth registry result: `<source-of-truth-registry-result>`
-- Synchronized docs/source/tests/adapter surfaces:
-  `<synchronized-surfaces-or-none>`
-- Re-derived invariants: `<re-derived-invariants>`
-- Logical integrity result: `<logical-integrity-result>`
-- Approval records used: `<approval-records-used-or-not-required>`
-- Validation run: `<target-validation-run-or-manual-review>`
-- Validation skipped or unresolved: `<validation-skipped-or-unresolved>`
-- Final evidence: `<final-evidence>`
-- Residual risk: `<residual-risk>`
+- Installation note status: `{INSTALLATION_NOTE_STATUS}`
+- Migration assessment result/path: `{MIGRATION_ASSESSMENT_RESULT_PATH_OR_NOT_APPLICABLE}`
+- Framework version: `{ALATYR_CORE_VERSION}`
+- Adapter schema version: `{ALATYR_ADAPTER_SCHEMA_VERSION}`
+- Template version: `{ALATYR_TEMPLATE_VERSION}`
+- Approval records used: `{APPROVAL_RECORDS_USED_OR_NOT_REQUIRED}`
+- Approval scope enforcement: `{DIFF_BASE_RECORDS_CHANGED_PATHS_AND_RESULT_OR_NOT_REQUIRED}`
+- Surfaces created: `{SURFACES_CREATED_OR_NONE}`
+- Surfaces updated: `{SURFACES_UPDATED_OR_NONE}`
+- Surfaces skipped: `{SURFACES_SKIPPED_AND_REASON}`
+- Existing files preserved: `{EXISTING_FILES_PRESERVED}`
+- Required core profile result: `{REQUIRED_CORE_PROFILE_RESULT}`
+- Optional module profile result: `{OPTIONAL_MODULE_PROFILE_RESULT}`
+- Workspace-mode recheck result: `{WORKSPACE_IDENTITY_ACCEPTED_PROPOSED_STALE_OR_AMBIGUOUS_MODES_ROUTING_VALIDATION_AND_GAPS}`
+- Context profiles result: `{CONTEXT_PROFILES_RESULT}`
+- Context receipt and cost evidence: `{LOADED_FILES_VOLUME_EXPANSIONS_OR_NOT_REQUIRED}`
+- Large-task orchestration result: `{LARGE_TASK_ORCHESTRATION_RESULT_OR_SKIPPED}`
+- Operation packet template result: `{OPERATION_PACKET_TEMPLATE_RESULT_OR_SKIPPED}`
+- Change-package recheck result: `{MODULE_INDEX_RECORD_SCHEMA_PROVENANCE_VALIDATOR_AND_GAPS_OR_SKIPPED}`
+- Durable engineering-evidence recheck result: `{POLICY_INDEX_RECORD_SCHEMA_ROUTING_VALIDATION_AND_GAPS}`
+- Debug Mode recheck result: `{MODULE_DEPENDENCY_ACTIVATION_INDEX_RECORD_ROUTING_PRIVACY_METRIC_VALIDATION_AND_GAPS_OR_SKIPPED}`
+- Team-collaboration recheck result: `{MODULE_BACKEND_REGISTRY_ACTIVE_OVERLAPS_STALE_CLAIMS_HANDOFFS_REVIEWS_AND_GAPS_OR_SKIPPED}`
+- Source-of-truth registry result: `{SOURCE_OF_TRUTH_REGISTRY_RESULT}`
+- Consistency-map result: `{CONSISTENCY_MAP_RESULT_OR_SKIPPED}`
+- Logical integrity evidence: `{CHANGED_FACTS_RELATIONSHIPS_COMPANION_SURFACES_AND_GAPS}`
+- Task-specific maturity result: `{TASK_SPECIFIC_MATURITY_RESULT}`
+- Bridge capability matrix result: `{BRIDGE_CAPABILITY_MATRIX_RESULT}`
+- Operation catalog, health, preview, help, and routing result:
+  `{OPERATION_CONTROL_SURFACE_RESULT}`
+- Approval-record policy result: `{APPROVAL_RECORD_POLICY_RESULT}`
+- Adapter drift checks result: `{ADAPTER_DRIFT_CHECKS_RESULT}`
+- Local path leakage result: `{LOCAL_PATH_LEAKAGE_RESULT}`
+- Target-local checker status: `{TARGET_LOCAL_CHECKER_STATUS_OR_UNRESOLVED}`
+- AI infrastructure inventory result:
+  `{AI_INFRASTRUCTURE_INVENTORY_RESULT_OR_SKIPPED}`
+- AI infrastructure recommendation result: `{PROJECT_EVIDENCE_EXISTING_ITEM_COMPARISON_COST_QUALITY_ACCEPTANCE_AND_NEXT_ROUTE_OR_SKIPPED}`
+- Development-pattern evidence result: `{INDEX_OWNER_RETENTION_CAPTURE_AND_FRAMEWORK_BOUNDARY_OR_SKIPPED}`
+- AI infrastructure router result: `{AI_INFRASTRUCTURE_ROUTER_RESULT_OR_SKIPPED}`
+- AI infrastructure adaptation-record result: `{AI_INFRASTRUCTURE_ADAPTATION_RECORD_RESULT_OR_SKIPPED}`
+- Prompt-injection policy result: `{PROMPT_INJECTION_POLICY_RESULT}`
+- Validation run: `{TARGET_VALIDATION_RUN_OR_MANUAL_REVIEW}`
+- Validation phase: `{ACCEPTANCE_OR_MIGRATION_STAGING}`
+- Active unresolved placeholders: `{COUNT_AND_PATHS_OR_NONE}`
+- Manifest/module-profile agreement: `{MATCH_OR_DRIFT_DETAILS}`
+- Acceptance eligible: `{YES_OR_NO_WITH_REASON}`
+- Required final strict rerun: `{COMMAND_OR_NOT_REQUIRED}`
+- Validation skipped or unresolved: `{VALIDATION_SKIPPED_OR_UNRESOLVED}`
+- Recommended next operation: `{RECOMMENDED_NEXT_OPERATION}`
+- Final evidence: `{FINAL_EVIDENCE}`
+- Residual risk: `{RESIDUAL_RISK}`

@@ -9,17 +9,13 @@ Replace placeholders with target facts before sending the message.
 Alatyr Core has been updated for `Doctrine ORM`.
 
 Framework baseline:
-`https://github.com/atvardovsky/AlatyrCore`
+`{ALATYR_CORE_SOURCE_OR_BASELINE}`
 
 Framework version/schema:
-`0.1.0-alpha.22`, adapter schema `21`, template `22`
+`{ALATYR_CORE_VERSION}`, adapter schema `{ALATYR_ADAPTER_SCHEMA_VERSION}`, template `{ALATYR_TEMPLATE_VERSION}`
 
 Updated adapter surfaces:
-`.ai/framework`, `.ai/alatyr.yaml`, `.ai/assistant/bootstrap-index.json`,
-`.ai/assistant/extensions/lock.json`, versioned recovery/output templates,
-delegation capability records, worker orchestration contracts, portable worker
-role catalog and prompts, adapter recheck/delegation flow surfaces, and
-post-update evidence guidance`
+`{UPDATED_ADAPTER_SURFACES}`
 
 Future assistant bootstrap:
 - Do not rely on this chat message alone.
@@ -39,10 +35,10 @@ Non-goals: do not change project behavior without approval.
 Allowed actions: read-only
 
 Migration assessment:
-`.ai/assistant/migration-notes/2026-08-23-alatyr-0.1.0-alpha.22.md`
+`{MIGRATION_ASSESSMENT_PATH_OR_MANUAL_REVIEW}`
 
 Upgrade impact router:
-`temporary generated report summarized in the migration note`
+`{UPGRADE_IMPACT_JSON_PATH_OR_MANUAL_REVIEW}`
 
 Load only canonical sources and target surfaces selected by the migration
 assessment. Record candidate context intentionally omitted.
@@ -64,17 +60,20 @@ Operation help:
   and validator support when the optional module or schema changed. Preserve
   historical target records.
 - Preserve durable engineering-evidence IDs and records. Recheck compact index
-  synchronization, task/revision binding, canonical-owner links, privacy,
+  synchronization, contract/template versions, task/revision binding state,
+  Git object type/ancestry, prior-binding lineage, canonical-owner links, privacy,
   external-patch policy, and record access; never replace existing records
   with source placeholders.
 - Preserve Debug Mode IDs, records, active-scope evidence, normalized events,
   timing, metrics, and publication policy when the module is enabled. Recheck
-  structured architectural impacts, direction-change hypothesis/replacement
-  chains, exact durable Engineering Evidence references, completed-record
+  versioned actor/causality/intervention/contribution attribution, structured
+  architectural impacts, direction-change hypothesis/replacement chains,
+  durable Engineering Evidence decisions/references, binding lineage, completed-record
   comparison, dependency closure, schema, lazy route, operation, validator,
   and activation expiry. Preserve older unstructured events as migration-
   limited evidence; do not reactivate a closed scope or include debug files in
-  a clean external patch.
+  a clean external patch. Use schema version 2 only for new records; do not
+  silently rewrite historical version-1 attribution.
 - When code documentation is enabled, preserve target profiles and recheck
   source-set matching, accepted state, canonical owners, generator/output
   policy, adapted skill, and validation before generation.
@@ -106,6 +105,13 @@ Operation help:
 - Use `Alatyr set actor <actor>` for local attribution, `Alatyr who am I` to
   inspect it, `Alatyr team status` for coordination evidence, and the specific
   team aliases for task, conflict, handoff, decision, review, or merge work.
+- When subagent delegation is enabled, preserve the target policy, role
+  catalog/prompts, execution plans, packet/result evidence, privacy, and
+  retry/conflict rules. Recheck each surface's exact client/runtime, native
+  definition format and paths, invocation mode, tools, isolation, background/
+  nested behavior, role/model bindings, and freshness. Remove or migrate stale
+  thin native bindings only from target evidence; never infer support from the
+  updated framework templates.
 - Recheck AI infrastructure router entries and adaptation records when skills, prompts, gates, tools, or bridge contracts changed.
 - Recheck `diagram-discussion`, stable diagram lineage, security/privacy and
   external-renderer policy, and each selected compact assistant capability's
@@ -135,5 +141,5 @@ Known adapter gaps or migrations:
 `{KNOWN_GAPS_OR_MIGRATIONS}`
 
 Migration note:
-`.ai/assistant/migration-notes/2026-08-23-alatyr-0.1.0-alpha.22.md`
+`.ai/assistant/templates/migration-note.md` or `{MIGRATION_NOTE_RESULT}`
 ```

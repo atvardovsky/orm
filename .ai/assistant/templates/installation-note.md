@@ -3,9 +3,9 @@
 Installation id: `ALATYR-20260821-doctrine-orm`
 
 - Installed from: `https://github.com/atvardovsky/AlatyrCore`
-- Framework version: `0.1.0-alpha.22`
-- Adapter schema version: `21`
-- Template version: `22`
+- Framework version: `0.1.0-alpha.23`
+- Adapter schema version: `22`
+- Template version: `23`
 - Adapter manifest: `.ai/alatyr.yaml`
 - Installation date: `2026-08-21`
 - Last adapter update: `2026-08-23`
