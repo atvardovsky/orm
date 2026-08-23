@@ -70,6 +70,7 @@ use function extension_loaded;
 use function get_debug_type;
 use function implode;
 use function in_array;
+use function is_a;
 use function is_array;
 use function is_object;
 use function reset;
@@ -2862,7 +2863,21 @@ class UnitOfWork implements PropertyChangedListener
             ? $this->getEntityIdentifier($entity)
             : $class->getIdentifierValues($entity);
 
-        return $values[$class->identifier[0]] ?? null;
+        $idField = $class->identifier[0];
+        $value   = $values[$idField] ?? null;
+
+        // Chained single association identifiers must be reduced to the terminal
+        // identifier value before they can be used in identity hashes or SQL.
+        if (
+            $value !== null
+            && isset($class->associationMappings[$idField])
+            && is_object($value)
+            && is_a($value, $class->associationMappings[$idField]->targetEntity)
+        ) {
+            return $this->getSingleIdentifierValue($value);
+        }
+
+        return $value;
     }
 
     /**

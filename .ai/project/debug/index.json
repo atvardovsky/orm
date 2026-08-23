@@ -7,6 +7,40 @@
   "visibility": "repository-local",
   "retention_policy": "retain compact reviewed records while relevant to branch history",
   "external_patch_policy": "exclude raw private chat secrets credentials and external-only logs",
-  "records": [],
+  "records": [
+    {
+      "debug_id": "debug-gh-12417-chained-identifying-associations-20260823",
+      "status": "completed",
+      "record": ".ai/project/debug/records/debug-gh-12417-chained-identifying-associations-20260823.json",
+      "task_references": ["https://github.com/doctrine/orm/issues/12417"],
+      "scope_kind": "task",
+      "scope_id": "gh-12417",
+      "task_class": "issue-analysis",
+      "repository_binding_kind": "selected-file-snapshot",
+      "result_revision": "selected-file-snapshot:14e90ecf0e85795658d57e0b753a65d9a40ba3e53a768e53d7da67a1192c6232",
+      "event_coverage": "partial",
+      "observer_effect": "possible",
+      "elapsed_seconds": 45156,
+      "elapsed_evidence_kind": "estimated",
+      "metrics": {
+        "human_interventions": 2,
+        "human_architectural_interventions": 0,
+        "alatyr_independent_findings": 0,
+        "derived_findings_after_human": 14,
+        "alatyr_independent_dependency_checks": 0,
+        "human_requested_dependency_checks": 0,
+        "derived_dependency_expansions_after_human": 0,
+        "hypotheses_tested": 2,
+        "hypotheses_rejected": 1,
+        "implementation_revisions": 1,
+        "implementation_corrections_after_human": 1,
+        "validation_expansions": 7,
+        "regression_scenarios_added": 2,
+        "maintainer_corrections": 0,
+        "post_review_rework": 0
+      },
+      "residual_uncertainty": ["SchemaValidator still reports chained identifying associations as invalid; maintainers should decide separately whether that validation policy or documentation should change.", "The implementation preserves historical runtime behavior rather than treating the validator warning as a runtime ban."]
+    }
+  ],
   "redaction_policy": "exclude raw private chat, chain-of-thought, prompts, secrets, credentials, unrelated personal data, complete diffs, and verbose logs"
 }

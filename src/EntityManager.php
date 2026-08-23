@@ -288,16 +288,7 @@ class EntityManager implements EntityManagerInterface
         }
 
         foreach ($id as $i => $value) {
-            if (is_object($value)) {
-                $className = DefaultProxyClassNameResolver::getClass($value);
-                if ($this->metadataFactory->hasMetadataFor($className)) {
-                    $id[$i] = $this->unitOfWork->getSingleIdentifierValue($value);
-
-                    if ($id[$i] === null) {
-                        throw ORMInvalidArgumentException::invalidIdentifierBindingEntity($className);
-                    }
-                }
-            }
+            $id[$i] = $this->normalizeIdentifierBindingValue($value);
         }
 
         $sortedId = [];
@@ -376,6 +367,7 @@ class EntityManager implements EntityManagerInterface
         }
 
         $sortedId = [];
+        $flatId   = [];
 
         foreach ($class->identifier as $identifier) {
             if (! isset($id[$identifier])) {
@@ -383,6 +375,7 @@ class EntityManager implements EntityManagerInterface
             }
 
             $sortedId[$identifier] = $id[$identifier];
+            $flatId[$identifier]   = $this->normalizeIdentifierBindingValue($id[$identifier]);
             unset($id[$identifier]);
         }
 
@@ -390,7 +383,9 @@ class EntityManager implements EntityManagerInterface
             throw UnrecognizedIdentifierFields::fromClassAndFieldNames($class->name, array_keys($id));
         }
 
-        $entity = $this->unitOfWork->tryGetById($sortedId, $class->rootEntityName);
+        // Identity map keys must be flat values, but association-id proxy properties
+        // still need reference objects that match their mapped types.
+        $entity = $this->unitOfWork->tryGetById($flatId, $class->rootEntityName);
 
         // Check identity map first, if its already in there just return it.
         if ($entity !== false) {
@@ -398,14 +393,72 @@ class EntityManager implements EntityManagerInterface
         }
 
         if ($class->subClasses) {
-            return $this->find($entityName, $sortedId);
+            return $this->find($entityName, $flatId);
         }
 
-        $entity = $this->proxyFactory->getProxy($class->name, $sortedId);
+        $entity = $this->proxyFactory->getProxy($class->name, $this->normalizeIdentifierForReference($class, $sortedId));
 
-        $this->unitOfWork->registerManaged($entity, $sortedId, []);
+        $this->unitOfWork->registerManaged($entity, $flatId, []);
 
         return $entity;
+    }
+
+    private function normalizeIdentifierBindingValue(mixed $value): mixed
+    {
+        while (is_object($value)) {
+            if ($value instanceof BackedEnum) {
+                return $value->value;
+            }
+
+            $className = DefaultProxyClassNameResolver::getClass($value);
+
+            if (! $this->metadataFactory->hasMetadataFor($className)) {
+                return $value;
+            }
+
+            $value = $this->unitOfWork->getSingleIdentifierValue($value);
+
+            if ($value === null) {
+                throw ORMInvalidArgumentException::invalidIdentifierBindingEntity($className);
+            }
+        }
+
+        return $value;
+    }
+
+    /**
+     * @param ClassMetadata<object> $class
+     * @param array<string, mixed>  $id
+     *
+     * @return array<string, mixed>
+     */
+    private function normalizeIdentifierForReference(ClassMetadata $class, array $id): array
+    {
+        foreach ($class->identifier as $identifier) {
+            if (! isset($class->associationMappings[$identifier], $id[$identifier])) {
+                continue;
+            }
+
+            $value = $id[$identifier];
+
+            if (is_object($value)) {
+                $valueClass = DefaultProxyClassNameResolver::getClass($value);
+
+                if ($this->metadataFactory->hasMetadataFor($valueClass)) {
+                    continue;
+                }
+            }
+
+            $targetClass      = $this->metadataFactory->getMetadataFor($class->associationMappings[$identifier]->targetEntity);
+            $targetIdentifier = $targetClass->identifier[0];
+
+            $id[$identifier] = $this->getReference(
+                $targetClass->name,
+                $this->normalizeIdentifierForReference($targetClass, [$targetIdentifier => $value]),
+            );
+        }
+
+        return $id;
     }
 
     /**
