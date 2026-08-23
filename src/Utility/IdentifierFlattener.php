@@ -72,8 +72,6 @@ final class IdentifierFlattener
                 }
 
                 $flatId[$field] = implode(' ', $associatedId);
-            } elseif (! array_key_exists($field, $id)) {
-                continue;
             } else {
                 if ($id[$field] instanceof BackedEnum) {
                     $flatId[$field] = $id[$field]->value;

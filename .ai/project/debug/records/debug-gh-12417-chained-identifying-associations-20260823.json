@@ -24,8 +24,8 @@
   },
   "timing": {
     "started_at": {"value": "2026-08-23T00:28:40+02:00", "evidence_kind": "observed"},
-    "completed_at": {"value": "2026-08-23T13:57:29+02:00", "evidence_kind": "observed"},
-    "elapsed_seconds": {"value": 48529, "evidence_kind": "estimated"},
+    "completed_at": {"value": "2026-08-23T15:32:05+02:00", "evidence_kind": "observed"},
+    "elapsed_seconds": {"value": 54205, "evidence_kind": "estimated"},
     "active_work_seconds": {"value": null, "evidence_kind": "unknown"}
   },
   "capture_quality": {
@@ -376,37 +376,73 @@
       "validation_expansion": true,
       "post_review_rework": true,
       "hypothesis_outcome": "not-applicable"
+    },
+    {
+      "event_id": "evt-20260823-020",
+      "sequence": 20,
+      "occurred_at": {"value": "2026-08-23T15:20:00+02:00", "evidence_kind": "observed"},
+      "origin": "human-initiated",
+      "category": "invariant",
+      "summary": "User challenged whether IdentifierFlattener should silently ignore absent identifier values.",
+      "material_effect": "Reopened the optional hardening contract and narrowed the accepted invariant to flat association-id support only, excluding broad missing-identifier acceptance.",
+      "evidence": ["Current user request in this session", "src/Utility/IdentifierFlattener.php", "src/Cache/EntityCacheKey.php", "src/UnitOfWork.php", "src/Proxy/ProxyFactory.php"],
+      "caused_by_event_ids": ["evt-20260823-018"],
+      "architectural_supervision": false,
+      "architectural_impacts": [],
+      "decision_effect": "none",
+      "dependency_expansion": false,
+      "validation_expansion": true,
+      "post_review_rework": true,
+      "hypothesis_outcome": "confirmed"
+    },
+    {
+      "event_id": "evt-20260823-021",
+      "sequence": 21,
+      "occurred_at": {"value": "2026-08-23T15:32:05+02:00", "evidence_kind": "observed"},
+      "origin": "derived-after-human-intervention",
+      "category": "implementation-revision",
+      "summary": "Removed the broad missing-identifier skip from IdentifierFlattener and removed the test asserting that behavior.",
+      "material_effect": "IdentifierFlattener still accepts already-flat association identifier values, but complete-identity callers are no longer taught that absent simple identifiers are valid flattened identity data.",
+      "evidence": ["src/Utility/IdentifierFlattener.php", "tests/Tests/ORM/Utility/IdentifierFlattenerTest.php", "Focused PHPUnit, PHPCS, PHPStan, DBAL3 PHPStan, and git diff whitespace checks"],
+      "caused_by_event_ids": ["evt-20260823-020"],
+      "architectural_supervision": false,
+      "architectural_impacts": ["compatibility-strategy", "subsystem-responsibility"],
+      "decision_effect": "confirms-direction",
+      "dependency_expansion": false,
+      "validation_expansion": true,
+      "post_review_rework": true,
+      "hypothesis_outcome": "confirmed"
     }
   ],
   "metrics": {
-    "human_interventions": {"value": 3, "evidence_kind": "event-derived", "event_ids": ["evt-20260823-001", "evt-20260823-014", "evt-20260823-017"]},
+    "human_interventions": {"value": 4, "evidence_kind": "event-derived", "event_ids": ["evt-20260823-001", "evt-20260823-014", "evt-20260823-017", "evt-20260823-020"]},
     "human_architectural_interventions": {"value": 0, "evidence_kind": "event-derived", "event_ids": []},
     "alatyr_independent_findings": {"value": 0, "evidence_kind": "event-derived", "event_ids": []},
-    "derived_findings_after_human": {"value": 16, "evidence_kind": "event-derived", "event_ids": ["evt-20260823-002", "evt-20260823-003", "evt-20260823-004", "evt-20260823-005", "evt-20260823-006", "evt-20260823-007", "evt-20260823-008", "evt-20260823-009", "evt-20260823-010", "evt-20260823-011", "evt-20260823-012", "evt-20260823-013", "evt-20260823-015", "evt-20260823-016", "evt-20260823-018", "evt-20260823-019"]},
+    "derived_findings_after_human": {"value": 17, "evidence_kind": "event-derived", "event_ids": ["evt-20260823-002", "evt-20260823-003", "evt-20260823-004", "evt-20260823-005", "evt-20260823-006", "evt-20260823-007", "evt-20260823-008", "evt-20260823-009", "evt-20260823-010", "evt-20260823-011", "evt-20260823-012", "evt-20260823-013", "evt-20260823-015", "evt-20260823-016", "evt-20260823-018", "evt-20260823-019", "evt-20260823-021"]},
     "alatyr_independent_dependency_checks": {"value": 0, "evidence_kind": "event-derived", "event_ids": []},
     "human_requested_dependency_checks": {"value": 0, "evidence_kind": "event-derived", "event_ids": []},
     "derived_dependency_expansions_after_human": {"value": 0, "evidence_kind": "event-derived", "event_ids": []},
     "hypotheses_tested": {"value": 2, "evidence_kind": "event-derived", "event_ids": ["evt-20260823-006", "evt-20260823-009"]},
     "hypotheses_rejected": {"value": 1, "evidence_kind": "event-derived", "event_ids": ["evt-20260823-009"]},
-    "implementation_revisions": {"value": 2, "evidence_kind": "event-derived", "event_ids": ["evt-20260823-011", "evt-20260823-018"]},
-    "implementation_corrections_after_human": {"value": 2, "evidence_kind": "event-derived", "event_ids": ["evt-20260823-011", "evt-20260823-018"]},
-    "validation_expansions": {"value": 10, "evidence_kind": "event-derived", "event_ids": ["evt-20260823-004", "evt-20260823-008", "evt-20260823-009", "evt-20260823-012", "evt-20260823-013", "evt-20260823-015", "evt-20260823-016", "evt-20260823-017", "evt-20260823-018", "evt-20260823-019"]},
+    "implementation_revisions": {"value": 3, "evidence_kind": "event-derived", "event_ids": ["evt-20260823-011", "evt-20260823-018", "evt-20260823-021"]},
+    "implementation_corrections_after_human": {"value": 3, "evidence_kind": "event-derived", "event_ids": ["evt-20260823-011", "evt-20260823-018", "evt-20260823-021"]},
+    "validation_expansions": {"value": 12, "evidence_kind": "event-derived", "event_ids": ["evt-20260823-004", "evt-20260823-008", "evt-20260823-009", "evt-20260823-012", "evt-20260823-013", "evt-20260823-015", "evt-20260823-016", "evt-20260823-017", "evt-20260823-018", "evt-20260823-019", "evt-20260823-020", "evt-20260823-021"]},
     "regression_scenarios_added": {"value": 2, "evidence_kind": "event-derived", "event_ids": ["evt-20260823-008", "evt-20260823-015"]},
     "maintainer_corrections": {"value": 0, "evidence_kind": "event-derived", "event_ids": []},
-    "post_review_rework": {"value": 3, "evidence_kind": "event-derived", "event_ids": ["evt-20260823-017", "evt-20260823-018", "evt-20260823-019"]}
+    "post_review_rework": {"value": 5, "evidence_kind": "event-derived", "event_ids": ["evt-20260823-017", "evt-20260823-018", "evt-20260823-019", "evt-20260823-020", "evt-20260823-021"]}
   },
   "final_result": {
-    "summary": "Implemented and hardened a compatibility-preserving fix for GH12417 by flattening chained single association identifiers before identity-map/cache-key hashing while keeping proxy identifier properties reference-shaped.",
+    "summary": "Implemented and corrected a compatibility-preserving fix for GH12417 by flattening chained single association identifiers before identity-map/cache-key hashing while keeping proxy identifier properties reference-shaped and avoiding silent acceptance of missing identifiers.",
     "repository_binding": {
       "kind": "selected-file-snapshot",
       "base_revision": "f9db39bed567b0c54abccabf13aa815d813e6339",
-      "result_revision": "selected-file-snapshot:adbaaf6c3f676ed4db10a2836cbb7c73fec92b71e8997e2e5f8f32dd4e4614e7",
+      "result_revision": "selected-file-snapshot:455f95e33a5f4fe0edb604eb33f56e9d633c3053729dcc84c265a2814b7176b9",
       "review_reference": "not-applicable",
       "selected_paths": ["src/EntityManager.php", "src/UnitOfWork.php", "src/Utility/IdentifierFlattener.php", "src/Cache/Persister/Entity/AbstractEntityPersister.php", "tests/Tests/ORM/Functional/Ticket/GH12417Test.php", "tests/Tests/ORM/Functional/Ticket/DDC2579Test.php", "tests/Tests/ORM/Utility/IdentifierFlattenerTest.php"],
-      "snapshot_sha256": "adbaaf6c3f676ed4db10a2836cbb7c73fec92b71e8997e2e5f8f32dd4e4614e7"
+      "snapshot_sha256": "455f95e33a5f4fe0edb604eb33f56e9d633c3053729dcc84c265a2814b7176b9"
     },
     "implementation_surfaces": ["src/EntityManager.php", "src/UnitOfWork.php", "src/Utility/IdentifierFlattener.php", "src/Cache/Persister/Entity/AbstractEntityPersister.php", "tests/Tests/ORM/Functional/Ticket/GH12417Test.php", "tests/Tests/ORM/Functional/Ticket/DDC2579Test.php", "tests/Tests/ORM/Utility/IdentifierFlattenerTest.php", ".ai/project/debug/index.json", ".ai/project/debug/records/debug-gh-12417-chained-identifying-associations-20260823.json"],
-    "validation": {"results": ["GH12417 plus DDC2579 focused PHPUnit passed: 18 tests, 43 assertions.", "IdentifierFlattener focused PHPUnit passed: 4 tests, 19 assertions.", "Adjacent identifier/cache validation passed: 191 tests, 527 assertions, 1 skip.", "Cache exists warning repro subset passed: 4 tests, 15 assertions.", "Full PHPUnit ran 3505 tests and 12005 assertions; only the known SQLite SQRT environment errors remained in QueryDqlFunctionTest and GH7941Test.", "Changed-surface PHPCS passed for 6 files.", "Full PHPCS passed for 1477 files.", "Changed-surface PHPStan passed for EntityManager, IdentifierFlattener, cached entity persister, and changed tests.", "Changed-surface DBAL3 PHPStan passed for the same changed files.", "Full PHPStan and DBAL3 PHPStan reported existing baseline issues in ProxyFactory, console compatibility, SchemaTool, and UnitOfWork deepclone_hydrate/DBAL-version paths.", "Composer validate --strict passed.", "git diff --check passed."], "skipped": ["No commit or push was performed; the latest user request authorized implementation and tests only."]},
+    "validation": {"results": ["Latest corrective IdentifierFlattener focused PHPUnit passed: 3 tests, 18 assertions.", "Latest corrective GH12417 plus DDC2579 focused PHPUnit passed: 18 tests, 43 assertions.", "Latest corrective changed-surface PHPCS passed for IdentifierFlattener and IdentifierFlattenerTest.", "Latest corrective changed-surface PHPStan passed for IdentifierFlattener and IdentifierFlattenerTest.", "Latest corrective changed-surface DBAL3 PHPStan passed for IdentifierFlattener and IdentifierFlattenerTest.", "Latest corrective git diff --check passed.", "Earlier branch validation before the final missing-identifier correction included adjacent identifier/cache PHPUnit passing with 191 tests, 527 assertions, and 1 skip; cache warning repro subset passing with 4 tests and 15 assertions; full PHPCS passing for 1477 files; composer validate --strict passing; and full PHPUnit reporting only known SQLite SQRT environment errors."], "skipped": ["No commit or push was performed; the latest user request authorized implementation and tests only.", "Full PHPUnit and full PHPStan/DBAL3 PHPStan were not rerun after the final missing-identifier correction."]},
     "engineering_evidence_ids": [],
     "upstream_projection": {
       "kind": "unknown",

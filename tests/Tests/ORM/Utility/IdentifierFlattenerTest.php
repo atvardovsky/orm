@@ -144,12 +144,4 @@ class IdentifierFlattenerTest extends OrmFunctionalTestCase
         self::assertSame($leeds->getId(), $flatIds['leavingFrom']);
         self::assertSame($london->getId(), $flatIds['goingTo']);
     }
-
-    #[Group('utilities')]
-    public function testFlattenIdentifierIgnoresMissingIdentifierValues(): void
-    {
-        $class = $this->_em->getClassMetadata(City::class);
-
-        self::assertSame([], $this->identifierFlattener->flattenIdentifier($class, []));
-    }
 }
