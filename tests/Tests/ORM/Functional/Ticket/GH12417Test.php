@@ -6,8 +6,12 @@ namespace Doctrine\Tests\ORM\Functional\Ticket;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Exception\UnrecognizedIdentifierFields;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\MappingException;
+use Doctrine\ORM\ORMInvalidArgumentException;
 use Doctrine\ORM\Tools\SchemaValidator;
+use Doctrine\Tests\Models\Enums\Suit;
 use Doctrine\Tests\OrmFunctionalTestCase;
 use PHPUnit\Framework\Attributes\Group;
 
@@ -16,6 +20,8 @@ class GH12417Test extends OrmFunctionalTestCase
 {
     protected function setUp(): void
     {
+        $this->enableSecondLevelCache();
+
         parent::setUp();
 
         $this->createSchemaForModels(
@@ -24,6 +30,9 @@ class GH12417Test extends OrmFunctionalTestCase
             GH12417Level2::class,
             GH12417Item::class,
             GH12417Tag::class,
+            GH12417EnumLevel0::class,
+            GH12417EnumLevel1::class,
+            GH12417EnumLevel2::class,
         );
     }
 
@@ -200,10 +209,95 @@ class GH12417Test extends OrmFunctionalTestCase
         self::assertCount(1, $tags);
         self::assertInstanceOf(GH12417Tag::class, $tags->first());
     }
+
+    public function testFindRejectsUnrecognizedIdentifierFieldBeforeNormalizingItsValue(): void
+    {
+        $this->_em->getConnection()->insert('gh12417_level0', ['id' => 901]);
+        $this->_em->getConnection()->insert('gh12417_level1', ['level1_id' => 901]);
+        $this->_em->getConnection()->insert('gh12417_level2', ['level2_id' => 901]);
+
+        $level1 = $this->_em->getReference(GH12417Level1::class, 901);
+
+        $this->expectException(UnrecognizedIdentifierFields::class);
+
+        $this->_em->find(GH12417Level2::class, [
+            'level1'     => $level1,
+            'unexpected' => new GH12417Level1(new GH12417Level0()),
+        ]);
+    }
+
+    public function testFindRejectsChainedIdentifierEntityWithoutTerminalIdentifier(): void
+    {
+        $this->expectException(ORMInvalidArgumentException::class);
+        $this->expectExceptionMessage('Binding entities to query parameters only allowed for entities');
+
+        $this->_em->find(GH12417Level2::class, new GH12417Level1(new GH12417Level0()));
+    }
+
+    public function testReferenceCannotExpandScalarIdentifierForAssociationTargetingCompositeIdentifier(): void
+    {
+        $this->expectException(MappingException::class);
+        $this->expectExceptionMessage(
+            'It is not possible to map entity ' .
+            "'Doctrine\\Tests\\ORM\\Functional\\Ticket\\GH12417CompositeTarget' with a composite primary key " .
+            'as part of the primary key of another entity',
+        );
+
+        $this->_em->getReference(GH12417CompositeReference::class, 1);
+    }
+
+    public function testFindWithChainedIdentifyingAssociationCanUseBackedEnumTerminalIdentifier(): void
+    {
+        $level0 = new GH12417EnumLevel0(Suit::Clubs);
+        $level1 = new GH12417EnumLevel1($level0);
+        $level2 = new GH12417EnumLevel2($level1);
+
+        $this->_em->persist($level0);
+        $this->_em->persist($level1);
+        $this->_em->persist($level2);
+        $this->_em->flush();
+        $this->_em->clear();
+
+        $level2 = $this->_em->find(GH12417EnumLevel2::class, Suit::Clubs);
+
+        self::assertInstanceOf(GH12417EnumLevel2::class, $level2);
+        self::assertSame(Suit::Clubs, $level2->getLevel1()->getLevel0()->getId());
+    }
+
+    public function testSecondLevelCacheUsesFlatIdentifierForChainedIdentifyingAssociation(): void
+    {
+        $level0 = new GH12417Level0();
+        $level1 = new GH12417Level1($level0);
+        $level2 = new GH12417Level2($level1);
+
+        $this->_em->persist($level0);
+        $this->_em->persist($level1);
+        $this->_em->persist($level2);
+        $this->_em->flush();
+
+        $level0Id = $level0->getId();
+        self::assertNotNull($level0Id);
+
+        $this->_em->clear();
+        $this->_em->getCache()->evictEntityRegion(GH12417Level2::class);
+
+        $level2 = $this->_em->find(GH12417Level2::class, $level0Id);
+        self::assertInstanceOf(GH12417Level2::class, $level2);
+        self::assertTrue($this->_em->getCache()->containsEntity(GH12417Level2::class, $level0Id));
+
+        $this->_em->clear();
+        $this->getQueryLog()->reset()->enable();
+
+        $cachedLevel2 = $this->_em->find(GH12417Level2::class, $level0Id);
+
+        $this->assertQueryCount(0);
+        self::assertInstanceOf(GH12417Level2::class, $cachedLevel2);
+    }
 }
 
 #[ORM\Entity]
 #[ORM\Table(name: 'gh12417_level0')]
+#[ORM\Cache]
 class GH12417Level0
 {
     #[ORM\Id]
@@ -219,12 +313,14 @@ class GH12417Level0
 
 #[ORM\Entity]
 #[ORM\Table(name: 'gh12417_level1')]
+#[ORM\Cache]
 class GH12417Level1
 {
     public function __construct(
         #[ORM\Id]
         #[ORM\OneToOne(targetEntity: GH12417Level0::class)]
         #[ORM\JoinColumn(name: 'level1_id', referencedColumnName: 'id')]
+        #[ORM\Cache]
         public GH12417Level0 $level0,
     ) {
     }
@@ -237,10 +333,12 @@ class GH12417Level1
 
 #[ORM\Entity]
 #[ORM\Table(name: 'gh12417_level2')]
+#[ORM\Cache]
 class GH12417Level2
 {
     /** @var Collection<int, GH12417Item> */
     #[ORM\OneToMany(targetEntity: GH12417Item::class, mappedBy: 'level2')]
+    #[ORM\Cache]
     public Collection $items;
 
     /** @var Collection<int, GH12417Tag> */
@@ -248,12 +346,14 @@ class GH12417Level2
     #[ORM\JoinTable(name: 'gh12417_level2_tags')]
     #[ORM\JoinColumn(name: 'level2_id', referencedColumnName: 'level2_id')]
     #[ORM\InverseJoinColumn(name: 'tag_id', referencedColumnName: 'id')]
+    #[ORM\Cache]
     public Collection $tags;
 
     public function __construct(
         #[ORM\Id]
         #[ORM\OneToOne(targetEntity: GH12417Level1::class)]
         #[ORM\JoinColumn(name: 'level2_id', referencedColumnName: 'level1_id')]
+        #[ORM\Cache]
         public GH12417Level1 $level1,
     ) {
         $this->items = new ArrayCollection();
@@ -312,6 +412,86 @@ class GH12417Tag
         public int $id,
         #[ORM\Column(type: 'string')]
         public string $name,
+    ) {
+    }
+}
+
+#[ORM\Entity]
+#[ORM\Table(name: 'gh12417_enum_level0')]
+class GH12417EnumLevel0
+{
+    public function __construct(
+        #[ORM\Id]
+        #[ORM\Column(type: 'string', enumType: Suit::class)]
+        public Suit $id,
+    ) {
+    }
+
+    public function getId(): Suit
+    {
+        return $this->id;
+    }
+}
+
+#[ORM\Entity]
+#[ORM\Table(name: 'gh12417_enum_level1')]
+class GH12417EnumLevel1
+{
+    public function __construct(
+        #[ORM\Id]
+        #[ORM\OneToOne(targetEntity: GH12417EnumLevel0::class)]
+        #[ORM\JoinColumn(name: 'level1_id', referencedColumnName: 'id')]
+        public GH12417EnumLevel0 $level0,
+    ) {
+    }
+
+    public function getLevel0(): GH12417EnumLevel0
+    {
+        return $this->level0;
+    }
+}
+
+#[ORM\Entity]
+#[ORM\Table(name: 'gh12417_enum_level2')]
+class GH12417EnumLevel2
+{
+    public function __construct(
+        #[ORM\Id]
+        #[ORM\OneToOne(targetEntity: GH12417EnumLevel1::class)]
+        #[ORM\JoinColumn(name: 'level2_id', referencedColumnName: 'level1_id')]
+        public GH12417EnumLevel1 $level1,
+    ) {
+    }
+
+    public function getLevel1(): GH12417EnumLevel1
+    {
+        return $this->level1;
+    }
+}
+
+#[ORM\Entity]
+class GH12417CompositeTarget
+{
+    public function __construct(
+        #[ORM\Id]
+        #[ORM\Column(type: 'integer')]
+        public int $first,
+        #[ORM\Id]
+        #[ORM\Column(type: 'integer')]
+        public int $second,
+    ) {
+    }
+}
+
+#[ORM\Entity]
+class GH12417CompositeReference
+{
+    public function __construct(
+        #[ORM\Id]
+        #[ORM\OneToOne(targetEntity: GH12417CompositeTarget::class)]
+        #[ORM\JoinColumn(name: 'target_first', referencedColumnName: 'first')]
+        #[ORM\JoinColumn(name: 'target_second', referencedColumnName: 'second')]
+        public GH12417CompositeTarget $target,
     ) {
     }
 }

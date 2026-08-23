@@ -287,10 +287,6 @@ class EntityManager implements EntityManagerInterface
             $id = [$class->identifier[0] => $id];
         }
 
-        foreach ($id as $i => $value) {
-            $id[$i] = $this->normalizeIdentifierBindingValue($value);
-        }
-
         $sortedId = [];
 
         foreach ($class->identifier as $identifier) {
@@ -298,10 +294,12 @@ class EntityManager implements EntityManagerInterface
                 throw MissingIdentifierField::fromFieldAndClass($identifier, $class->name);
             }
 
-            if ($id[$identifier] instanceof BackedEnum) {
-                $sortedId[$identifier] = $id[$identifier]->value;
+            $value = $this->normalizeIdentifierBindingValue($id[$identifier]);
+
+            if ($value instanceof BackedEnum) {
+                $sortedId[$identifier] = $value->value;
             } else {
-                $sortedId[$identifier] = $id[$identifier];
+                $sortedId[$identifier] = $value;
             }
 
             unset($id[$identifier]);

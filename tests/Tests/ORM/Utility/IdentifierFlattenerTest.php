@@ -6,7 +6,9 @@ namespace Doctrine\Tests\ORM\Utility;
 
 use Doctrine\ORM\Utility\IdentifierFlattener;
 use Doctrine\Tests\Models\Cache\City;
+use Doctrine\Tests\Models\Cache\Country;
 use Doctrine\Tests\Models\Cache\Flight;
+use Doctrine\Tests\Models\Cache\State;
 use Doctrine\Tests\Models\VersionedOneToOne\FirstRelatedEntity;
 use Doctrine\Tests\Models\VersionedOneToOne\SecondRelatedEntity;
 use Doctrine\Tests\OrmFunctionalTestCase;
@@ -38,6 +40,8 @@ class IdentifierFlattenerTest extends OrmFunctionalTestCase
             SecondRelatedEntity::class,
             Flight::class,
             City::class,
+            Country::class,
+            State::class,
         );
     }
 
@@ -118,5 +122,34 @@ class IdentifierFlattenerTest extends OrmFunctionalTestCase
 
         self::assertEquals($id['leavingFrom']->getId(), $flatIds['leavingFrom']);
         self::assertEquals($id['goingTo']->getId(), $flatIds['goingTo']);
+    }
+
+    #[Group('utilities')]
+    public function testFlattenIdentifierWithAlreadyFlatAssociationIds(): void
+    {
+        $leeds  = new City('York');
+        $london = new City('Paris');
+
+        $this->_em->persist($leeds);
+        $this->_em->persist($london);
+        $this->_em->flush();
+
+        $class = $this->_em->getClassMetadata(Flight::class);
+
+        $flatIds = $this->identifierFlattener->flattenIdentifier($class, [
+            'leavingFrom' => $leeds->getId(),
+            'goingTo'    => $london->getId(),
+        ]);
+
+        self::assertSame($leeds->getId(), $flatIds['leavingFrom']);
+        self::assertSame($london->getId(), $flatIds['goingTo']);
+    }
+
+    #[Group('utilities')]
+    public function testFlattenIdentifierIgnoresMissingIdentifierValues(): void
+    {
+        $class = $this->_em->getClassMetadata(City::class);
+
+        self::assertSame([], $this->identifierFlattener->flattenIdentifier($class, []));
     }
 }

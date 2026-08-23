@@ -27,6 +27,7 @@ use Doctrine\ORM\Proxy\DefaultProxyClassNameResolver;
 use Doctrine\ORM\Query\FilterCollection;
 use Doctrine\ORM\Query\ResultSetMapping;
 use Doctrine\ORM\UnitOfWork;
+use Doctrine\ORM\Utility\IdentifierFlattener;
 
 use function array_merge;
 use function func_get_args;
@@ -44,6 +45,7 @@ abstract class AbstractEntityPersister implements CachedEntityPersister
     protected TimestampRegion $timestampRegion;
     protected TimestampCacheKey $timestampKey;
     protected EntityHydrator $hydrator;
+    protected IdentifierFlattener $identifierFlattener;
     protected Cache $cache;
     protected FilterCollection $filters;
     protected CacheLogger|null $cacheLogger = null;
@@ -66,15 +68,16 @@ abstract class AbstractEntityPersister implements CachedEntityPersister
         $cacheConfig   = $configuration->getSecondLevelCacheConfiguration();
         $cacheFactory  = $cacheConfig->getCacheFactory();
 
-        $this->cache           = $em->getCache();
-        $this->filters         = $em->getFilters();
-        $this->regionName      = $region->getName();
-        $this->uow             = $em->getUnitOfWork();
-        $this->metadataFactory = $em->getMetadataFactory();
-        $this->cacheLogger     = $cacheConfig->getCacheLogger();
-        $this->timestampRegion = $cacheFactory->getTimestampRegion();
-        $this->hydrator        = $cacheFactory->buildEntityHydrator($em, $class);
-        $this->timestampKey    = new TimestampCacheKey($this->class->rootEntityName);
+        $this->cache               = $em->getCache();
+        $this->filters             = $em->getFilters();
+        $this->regionName          = $region->getName();
+        $this->uow                 = $em->getUnitOfWork();
+        $this->metadataFactory     = $em->getMetadataFactory();
+        $this->cacheLogger         = $cacheConfig->getCacheLogger();
+        $this->timestampRegion     = $cacheFactory->getTimestampRegion();
+        $this->hydrator            = $cacheFactory->buildEntityHydrator($em, $class);
+        $this->identifierFlattener = new IdentifierFlattener($this->uow, $this->metadataFactory);
+        $this->timestampKey        = new TimestampCacheKey($this->class->rootEntityName);
     }
 
     public function addInsert(object $entity): void
@@ -128,7 +131,7 @@ abstract class AbstractEntityPersister implements CachedEntityPersister
     public function exists(object $entity, Criteria|null $extraConditions = null): bool
     {
         if ($extraConditions === null) {
-            $key = new EntityCacheKey($this->class->rootEntityName, $this->class->getIdentifierValues($entity));
+            $key = $this->buildEntityCacheKey($this->class, $this->class->getIdentifierValues($entity));
 
             if ($this->region->contains($key)) {
                 return true;
@@ -195,7 +198,7 @@ abstract class AbstractEntityPersister implements CachedEntityPersister
 
             $assocId        = $this->uow->getEntityIdentifier($assocEntity);
             $assocMetadata  = $this->metadataFactory->getMetadataFor($assoc->targetEntity);
-            $assocKey       = new EntityCacheKey($assocMetadata->rootEntityName, $assocId);
+            $assocKey       = $this->buildEntityCacheKey($assocMetadata, $assocId);
             $assocPersister = $this->uow->getEntityPersister($assoc->targetEntity);
 
             $assocPersister->storeEntityCache($assocEntity, $assocKey);
@@ -373,7 +376,7 @@ abstract class AbstractEntityPersister implements CachedEntityPersister
      */
     public function loadById(array $identifier, object|null $entity = null): object|null
     {
-        $cacheKey   = new EntityCacheKey($this->class->rootEntityName, $identifier);
+        $cacheKey   = $this->buildEntityCacheKey($this->class, $identifier);
         $cacheEntry = $this->region->get($cacheKey);
         $class      = $this->class;
 
@@ -418,6 +421,18 @@ abstract class AbstractEntityPersister implements CachedEntityPersister
         $this->cacheLogger?->entityCacheMiss($this->regionName, $cacheKey);
 
         return $entity;
+    }
+
+    /**
+     * @param ClassMetadata<object> $class
+     * @param array<string, mixed>  $identifier
+     */
+    private function buildEntityCacheKey(ClassMetadata $class, array $identifier): EntityCacheKey
+    {
+        return new EntityCacheKey(
+            $class->rootEntityName,
+            $this->identifierFlattener->flattenIdentifier($class, $identifier),
+        );
     }
 
     public function count(array|Criteria $criteria = []): int

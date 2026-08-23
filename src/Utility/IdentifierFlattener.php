@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\UnitOfWork;
 use Doctrine\Persistence\Mapping\ClassMetadataFactory;
 
+use function array_key_exists;
 use function assert;
 use function implode;
 use function is_a;
@@ -60,6 +61,8 @@ final class IdentifierFlattener
                 }
 
                 $flatId[$field] = implode(' ', $associatedId);
+            } elseif (isset($class->associationMappings[$field]) && array_key_exists($field, $id)) {
+                $flatId[$field] = $id[$field] instanceof BackedEnum ? $id[$field]->value : $id[$field];
             } elseif (isset($class->associationMappings[$field])) {
                 assert($class->associationMappings[$field]->isToOneOwningSide());
                 $associatedId = [];
@@ -69,6 +72,8 @@ final class IdentifierFlattener
                 }
 
                 $flatId[$field] = implode(' ', $associatedId);
+            } elseif (! array_key_exists($field, $id)) {
+                continue;
             } else {
                 if ($id[$field] instanceof BackedEnum) {
                     $flatId[$field] = $id[$field]->value;

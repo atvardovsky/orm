@@ -23,7 +23,9 @@ class DDC2579Test extends OrmFunctionalTestCase
     {
         parent::setUp();
 
-        Type::addType(DDC2579Type::NAME, DDC2579Type::class);
+        if (! Type::hasType(DDC2579Type::NAME)) {
+            Type::addType(DDC2579Type::NAME, DDC2579Type::class);
+        }
 
         $this->createSchemaForModels(
             DDC2579Entity::class,
@@ -66,6 +68,29 @@ class DDC2579Test extends OrmFunctionalTestCase
         self::assertNull($repository->findOneBy($criteria));
         self::assertCount(0, $repository->findAll());
     }
+
+    public function testFindCanUseDetachedAssociationIdentifierWithCustomDbalTerminalId(): void
+    {
+        $id         = new DDC2579Id('bar');
+        $assoc      = new DDC2579AssocAssoc($id);
+        $assocAssoc = new DDC2579EntityAssoc($assoc);
+        $entity     = new DDC2579Entity($assocAssoc);
+
+        $this->_em->persist($assoc);
+        $this->_em->persist($assocAssoc);
+        $this->_em->persist($entity);
+        $this->_em->flush();
+        $this->_em->clear();
+
+        $detachedAssoc = new DDC2579EntityAssoc(new DDC2579AssocAssoc(new DDC2579Id('bar')));
+        $found         = $this->_em->find(DDC2579Entity::class, [
+            'id'    => new DDC2579Id('bar'),
+            'assoc' => $detachedAssoc,
+        ]);
+
+        self::assertInstanceOf(DDC2579Entity::class, $found);
+        self::assertSame(0, $found->value);
+    }
 }
 
 #[Entity]
@@ -78,7 +103,7 @@ class DDC2579Entity
 
     /** @var DDC2579EntityAssoc */
     #[Id]
-    #[ManyToOne(targetEntity: 'DDC2579EntityAssoc')]
+    #[ManyToOne(targetEntity: DDC2579EntityAssoc::class)]
     #[JoinColumn(name: 'relation_id', referencedColumnName: 'association_id')]
     public $assoc;
 
@@ -98,7 +123,7 @@ class DDC2579EntityAssoc
     public function __construct(
         /** @var DDC2579AssocAssoc */
         #[Id]
-        #[ManyToOne(targetEntity: 'DDC2579AssocAssoc')]
+        #[ManyToOne(targetEntity: DDC2579AssocAssoc::class)]
         #[JoinColumn(name: 'association_id', referencedColumnName: 'associationId')]
         public $assocAssoc,
     ) {
