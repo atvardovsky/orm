@@ -35,6 +35,7 @@ use Doctrine\ORM\Internal\UnitOfWork\InsertBatch;
 use Doctrine\ORM\Mapping\AssociationMapping;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Mapping\MappingException;
+use Doctrine\ORM\Mapping\PropertyAccessors\PropertyAccessor;
 use Doctrine\ORM\Mapping\PropertyAccessors\ReadonlyAccessor;
 use Doctrine\ORM\Mapping\ToManyInverseSideMapping;
 use Doctrine\ORM\Persisters\Collection\CollectionPersister;
@@ -1186,17 +1187,12 @@ class UnitOfWork implements PropertyChangedListener
             // Entity with this $oid after deletion treated as NEW, even if the $oid
             // is obtained by a new entity because the old one went out of scope.
             //$this->entityStates[$oid] = self::STATE_NEW;
-            $idAccessor           = $class->propertyAccessors[$class->identifier[0]];
-            $idReflectionProperty = $idAccessor->getUnderlyingReflector();
-            // @phpstan-ignore function.alreadyNarrowedType (ReflectionProperty::getHooks() exists only in runtimes with property hooks)
-            $hasPropertyHooks = method_exists($idReflectionProperty, 'getHooks') && count($idReflectionProperty->getHooks()) > 0;
+            if (! $class->isIdentifierNatural()) {
+                $idAccessor = $class->propertyAccessors[$class->identifier[0]];
 
-            if (
-                ! $class->isIdentifierNatural() &&
-                ! $idAccessor instanceof ReadonlyAccessor &&
-                ! $hasPropertyHooks
-            ) {
-                $idAccessor->setValue($entity, null);
+                if ($this->canClearGeneratedIdentifier($idAccessor)) {
+                    $idAccessor->setValue($entity, null);
+                }
             }
 
             if ($invoke !== ListenersInvoker::INVOKE_NONE) {
@@ -1214,6 +1210,26 @@ class UnitOfWork implements PropertyChangedListener
                 $event['invoke'],
             );
         }
+    }
+
+    private function canClearGeneratedIdentifier(PropertyAccessor $idAccessor): bool
+    {
+        if ($idAccessor instanceof ReadonlyAccessor) {
+            return false;
+        }
+
+        $idReflectionProperty = $idAccessor->getUnderlyingReflector();
+        // @phpstan-ignore function.alreadyNarrowedType (ReflectionProperty::getHooks() exists only in runtimes with property hooks)
+        $hasPropertyHooks = method_exists($idReflectionProperty, 'getHooks') && count($idReflectionProperty->getHooks()) > 0;
+
+        if (! $hasPropertyHooks) {
+            return true;
+        }
+
+        $idType = $idReflectionProperty->getType();
+
+        // Hooked nullable properties can receive raw null; non-nullable cleanup falls back to unset().
+        return $idType === null || $idType->allowsNull();
     }
 
     /** @return list<object> */

@@ -38,3 +38,30 @@ class HookedPostInsertGeneratedIdentifierEntity
         set => $this->id = $value;
     }
 }
+
+#[Entity]
+#[Table(name: 'gh12077_nullable_hooked_generated_identifier')]
+class NullableHookedGeneratedIdentifierEntity
+{
+    #[Id]
+    #[GeneratedValue(strategy: 'CUSTOM')]
+    #[CustomIdGenerator(class: GeneratedIdentifier::class)]
+    #[Column(type: 'integer')]
+    public ?int $id = null {
+        get => $this->id;
+        set => $this->id = $value;
+    }
+}
+
+#[Entity]
+#[Table(name: 'gh12077_nullable_hooked_post_insert_generated_identifier')]
+class NullableHookedPostInsertGeneratedIdentifierEntity
+{
+    #[Id]
+    #[GeneratedValue(strategy: 'IDENTITY')]
+    #[Column(type: 'integer')]
+    public ?int $id = null {
+        get => $this->id;
+        set => $this->id = $value;
+    }
+}

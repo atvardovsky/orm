@@ -305,8 +305,9 @@ If you attempt to map a virtual property with ``#[Column]`` an exception will be
 Some caveats apply to the use of property hooks, as they behave differently when accessing the property through
 the entity or directly through DQL/EntityRepository. Because the property hook can modify the value of the property in a way
 that value and raw value are different, you have to use the raw value representation when querying for the property.
-Generated identifier properties with hooks are also subject to PHP's
-own property rules during removal. See :ref:`removing-entities`.
+Non-nullable generated identifier properties with hooks are also
+subject to PHP's own property rules during removal. See
+:ref:`removing-entities`.
 
 .. code-block:: php
 

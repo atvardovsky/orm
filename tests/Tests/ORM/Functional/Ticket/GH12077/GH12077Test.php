@@ -57,6 +57,56 @@ final class GH12077Test extends OrmFunctionalTestCase
         self::assertNull($this->_em->find(HookedPostInsertGeneratedIdentifierEntity::class, $id));
     }
 
+    public function testCanRemoveEntityWithNullableHookedGeneratedIdentifier(): void
+    {
+        $this->skipIfPropertyHooksAreUnavailable();
+
+        $this->createSchemaForModels(NullableHookedGeneratedIdentifierEntity::class);
+
+        $entity = new NullableHookedGeneratedIdentifierEntity();
+
+        $this->_em->persist($entity);
+        $this->_em->flush();
+
+        $id = $entity->id;
+
+        self::assertNotNull($id);
+
+        $this->_em->remove($entity);
+        $this->_em->flush();
+
+        self::assertNull($entity->id);
+        self::assertFalse($this->_em->contains($entity));
+        self::assertSame([], $this->_em->getClassMetadata($entity::class)->getIdentifierValues($entity));
+        self::assertSame(UnitOfWork::STATE_NEW, $this->_em->getUnitOfWork()->getEntityState($entity));
+        self::assertNull($this->_em->find(NullableHookedGeneratedIdentifierEntity::class, $id));
+    }
+
+    public function testCanRemoveEntityWithNullableHookedPostInsertGeneratedIdentifier(): void
+    {
+        $this->skipIfPropertyHooksAreUnavailable();
+
+        $this->createSchemaForModels(NullableHookedPostInsertGeneratedIdentifierEntity::class);
+
+        $entity = new NullableHookedPostInsertGeneratedIdentifierEntity();
+
+        $this->_em->persist($entity);
+        $this->_em->flush();
+
+        $id = $entity->id;
+
+        self::assertNotNull($id);
+
+        $this->_em->remove($entity);
+        $this->_em->flush();
+
+        self::assertNull($entity->id);
+        self::assertFalse($this->_em->contains($entity));
+        self::assertSame([], $this->_em->getClassMetadata($entity::class)->getIdentifierValues($entity));
+        self::assertSame(UnitOfWork::STATE_NEW, $this->_em->getUnitOfWork()->getEntityState($entity));
+        self::assertNull($this->_em->find(NullableHookedPostInsertGeneratedIdentifierEntity::class, $id));
+    }
+
     public function testGeneratedIdentifierWithoutHooksIsStillClearedAfterRemoval(): void
     {
         $this->createSchemaForModels(PlainGeneratedIdentifierEntity::class);

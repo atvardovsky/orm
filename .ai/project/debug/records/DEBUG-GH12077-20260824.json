@@ -272,6 +272,135 @@
       "validation_expansion": true,
       "post_review_rework": false,
       "hypothesis_outcome": "not-applicable"
+    },
+    {
+      "event_id": "DBG12077-E010",
+      "sequence": 10,
+      "occurred_at": {"value": "2026-08-24T19:00:00Z", "evidence_kind": "observed"},
+      "actor": "human",
+      "causal_class": "intervention",
+      "intervention_kind": "correction",
+      "contribution_kind": "finding",
+      "category": "risk",
+      "summary": "Review identified that the hook-based generated-identifier cleanup guard was too broad.",
+      "material_effect": "Required distinguishing nullable hooked identifiers, which can still be cleared through raw-value writes, from non-nullable hooked identifiers whose null cleanup requires PHP's forbidden unset path.",
+      "evidence": [
+        "Pasted review report for bugfix/gh-12077-hooked-identifier-delete",
+        "src/Mapping/PropertyAccessors/PropertyAccessorFactory.php wraps TypedNoDefaultPropertyAccessor only for typed non-nullable properties",
+        "src/Mapping/PropertyAccessors/RawValuePropertyAccessor.php can write raw values without routing through hooks"
+      ],
+      "caused_by_event_ids": ["DBG12077-E009"],
+      "architectural_supervision": true,
+      "architectural_impacts": ["compatibility-strategy", "lifecycle-semantics", "public-contract"],
+      "decision_effect": "changes-direction",
+      "dependency_expansion": true,
+      "validation_expansion": true,
+      "post_review_rework": false,
+      "hypothesis_outcome": "not-applicable"
+    },
+    {
+      "event_id": "DBG12077-E011",
+      "sequence": 11,
+      "occurred_at": {"value": "2026-08-24T19:04:00Z", "evidence_kind": "observed"},
+      "actor": "alatyr",
+      "causal_class": "derived-from-human",
+      "intervention_kind": "not-applicable",
+      "contribution_kind": "finding",
+      "category": "hypothesis",
+      "summary": "Rejected the hypothesis that any hooked generated identifier cannot be cleared after deletion.",
+      "material_effect": "The failure condition is narrowed to the accessor path that would call unset on a hooked property, not property-hook metadata alone.",
+      "evidence": [
+        "src/Mapping/PropertyAccessors/TypedNoDefaultPropertyAccessor.php uses unset when setValue receives null",
+        "src/Mapping/PropertyAccessors/PropertyAccessorFactory.php does not wrap nullable typed properties in TypedNoDefaultPropertyAccessor",
+        "docs/en/reference/basic-mapping.rst property-hook raw-value caveat"
+      ],
+      "caused_by_event_ids": ["DBG12077-E010"],
+      "architectural_supervision": false,
+      "architectural_impacts": ["solution-class", "compatibility-strategy", "lifecycle-semantics"],
+      "decision_effect": "confirms-direction",
+      "dependency_expansion": false,
+      "validation_expansion": true,
+      "post_review_rework": true,
+      "hypothesis_outcome": "rejected"
+    },
+    {
+      "event_id": "DBG12077-E012",
+      "sequence": 12,
+      "occurred_at": {"value": "2026-08-24T19:07:00Z", "evidence_kind": "observed"},
+      "actor": "alatyr",
+      "causal_class": "derived-from-human",
+      "intervention_kind": "not-applicable",
+      "contribution_kind": "decision",
+      "category": "invariant",
+      "summary": "Adopted the narrower generated-identifier cleanup invariant.",
+      "material_effect": "Doctrine should clear generated identifiers after removal unless the identifier is readonly or is a hooked non-nullable property whose cleanup would require unset.",
+      "evidence": [
+        "src/UnitOfWork.php now routes generated-id cleanup through canClearGeneratedIdentifier",
+        "docs/en/reference/working-with-objects.rst narrows the removal rule to readonly and non-nullable hooked unset cases",
+        "GH12077Test includes nullable hooked generated identifier regressions"
+      ],
+      "caused_by_event_ids": ["DBG12077-E011"],
+      "architectural_supervision": false,
+      "architectural_impacts": ["solution-class", "compatibility-strategy", "public-contract"],
+      "decision_effect": "confirms-direction",
+      "dependency_expansion": false,
+      "validation_expansion": true,
+      "post_review_rework": true,
+      "hypothesis_outcome": "confirmed"
+    },
+    {
+      "event_id": "DBG12077-E013",
+      "sequence": 13,
+      "occurred_at": {"value": "2026-08-24T19:12:00Z", "evidence_kind": "observed"},
+      "actor": "alatyr",
+      "causal_class": "derived-from-human",
+      "intervention_kind": "not-applicable",
+      "contribution_kind": "implementation",
+      "category": "implementation-revision",
+      "summary": "Implemented the narrowed generated-identifier cleanup guard and nullable hook regression cases.",
+      "material_effect": "UnitOfWork now preserves normal generated-id clearing for nullable hooked properties while still avoiding PHP-forbidden unset for non-nullable hooked identifiers.",
+      "evidence": [
+        "src/UnitOfWork.php: canClearGeneratedIdentifier returns false for readonly accessors and hooked non-nullable reflected properties",
+        "tests/Tests/ORM/Functional/Ticket/GH12077/GH12077Test.php covers nullable hooked custom and identity generated identifiers",
+        "docs/en/reference/basic-mapping.rst and docs/en/reference/working-with-objects.rst were narrowed to the non-nullable hooked unset case"
+      ],
+      "caused_by_event_ids": ["DBG12077-E012"],
+      "architectural_supervision": false,
+      "architectural_impacts": ["solution-class", "compatibility-strategy", "lifecycle-semantics"],
+      "decision_effect": "confirms-direction",
+      "dependency_expansion": false,
+      "validation_expansion": true,
+      "post_review_rework": true,
+      "hypothesis_outcome": "not-applicable"
+    },
+    {
+      "event_id": "DBG12077-E014",
+      "sequence": 14,
+      "occurred_at": {"value": "2026-08-24T19:15:07Z", "evidence_kind": "observed"},
+      "actor": "alatyr",
+      "causal_class": "derived-from-human",
+      "intervention_kind": "not-applicable",
+      "contribution_kind": "validation",
+      "category": "validation",
+      "summary": "Ran focused local validation for the narrowed cleanup implementation.",
+      "material_effect": "Local PHP 8.2-accessible behavior remains green; exact hooked-property execution remains pending a PHP 8.4+ runtime with hook metadata.",
+      "evidence": [
+        "phpunit tests/Tests/ORM/Functional/Ticket/GH12077/GH12077Test.php => 6 tests, 9 assertions, 4 hook-metadata capability skips",
+        "phpunit GH9538Test plus BasicFunctionalTest --filter testRemove => passed",
+        "phpunit GH6123Test, DDC2790Test, and DDC2775Test => passed",
+        "property accessor PHPUnit subset => passed with PHP 8.4-only skips",
+        "phpcs changed PHP files => passed",
+        "composer validate --strict => passed",
+        "targeted phpstan UnitOfWork check still reports known deepclone_hydrate baseline findings unrelated to this change"
+      ],
+      "caused_by_event_ids": ["DBG12077-E013"],
+      "architectural_supervision": false,
+      "architectural_impacts": [],
+      "decision_effect": "confirms-direction",
+      "dependency_expansion": false,
+      "validation_expansion": true,
+      "post_review_rework": true,
+      "hypothesis_outcome": "not-applicable"
     }
   ],
   "metrics": {
@@ -292,7 +421,7 @@
     "post_review_rework": {"value": null, "evidence_kind": "unavailable", "event_ids": []}
   },
   "final_result": {
-    "summary": "Implemented a narrow GH-12077 fix: UnitOfWork deletion skips only impossible physical generated-id clearing for properties with ReflectionProperty hook metadata, while docs clarify the generated-identifier removal rule.",
+    "summary": "Implemented a narrowed GH-12077 fix: UnitOfWork deletion skips physical generated-id clearing only for readonly identifiers or hooked non-nullable identifiers whose cleanup would require unset, while nullable hooked identifiers remain clearable.",
     "repository_binding": {
       "kind": "unverified",
       "binding_state": "provisional",
@@ -320,7 +449,7 @@
     ],
     "validation": {
       "results": [
-        "phpunit tests/Tests/ORM/Functional/Ticket/GH12077/GH12077Test.php passed executable local coverage with 4 tests, 9 assertions, and 2 hook-metadata capability skips",
+        "phpunit tests/Tests/ORM/Functional/Ticket/GH12077/GH12077Test.php passed executable local coverage with 6 tests, 9 assertions, and 4 hook-metadata capability skips",
         "phpunit tests/Tests/ORM/Functional/Ticket/GH9538Test.php passed",
         "phpunit tests/Tests/ORM/Functional/BasicFunctionalTest.php --filter testRemove passed",
         "phpunit tests/Tests/ORM/Functional/Ticket/GH6123Test.php passed",
@@ -339,7 +468,7 @@
     "claim_validation": {
       "fidelity": "partial",
       "claims": [
-        "The implementation preserves local runtime-accessible deletion/state behavior and adds hook-metadata-gated exact regression coverage for GH-12077."
+        "The implementation preserves local runtime-accessible deletion/state behavior and adds hook-metadata-gated exact regression coverage for non-nullable and nullable hooked generated identifiers."
       ],
       "evidence": [
         "Focused PHPUnit and PHPCS results recorded in validation.results",
@@ -350,16 +479,24 @@
     "engineering_evidence_ids": [],
     "engineering_evidence_decision": {
       "status": "pending",
-      "event_links": [],
+      "event_links": [
+        {"event_id": "DBG12077-E010", "role": "correction"},
+        {"event_id": "DBG12077-E010", "role": "direction-change"},
+        {"event_id": "DBG12077-E011", "role": "finding"},
+        {"event_id": "DBG12077-E011", "role": "rejected-hypothesis"},
+        {"event_id": "DBG12077-E012", "role": "decision"},
+        {"event_id": "DBG12077-E013", "role": "implementation"},
+        {"event_id": "DBG12077-E014", "role": "validation"}
+      ],
       "materiality_evaluations": [
         {"kind": "undocumented-invariant", "outcome": "unknown", "event_ids": [], "evidence": [], "reason": "Assess before completion."},
-        {"kind": "rejected-hypothesis", "outcome": "unknown", "event_ids": [], "evidence": [], "reason": "Assess before completion."},
+        {"kind": "rejected-hypothesis", "outcome": "applicable", "event_ids": ["DBG12077-E011"], "evidence": ["The broad hook-metadata cleanup hypothesis was rejected after review."], "reason": "The review correction invalidated the prior assumption that every hooked generated identifier must retain its value after deletion."},
         {"kind": "non-obvious-dependency", "outcome": "unknown", "event_ids": [], "evidence": [], "reason": "Assess before completion."},
         {"kind": "cross-area-impact", "outcome": "unknown", "event_ids": [], "evidence": [], "reason": "Assess before completion."},
         {"kind": "broad-regression-matrix", "outcome": "unknown", "event_ids": [], "evidence": [], "reason": "Assess before completion."},
         {"kind": "compatibility-or-public-contract", "outcome": "unknown", "event_ids": [], "evidence": [], "reason": "Assess before completion."},
-        {"kind": "reviewer-correction", "outcome": "unknown", "event_ids": [], "evidence": [], "reason": "Assess before completion."},
-        {"kind": "direction-change", "outcome": "unknown", "event_ids": [], "evidence": [], "reason": "Assess before completion."},
+        {"kind": "reviewer-correction", "outcome": "applicable", "event_ids": ["DBG12077-E010"], "evidence": ["The pasted review report corrected the generated-identifier hook boundary."], "reason": "The correction changed implementation and test scope."},
+        {"kind": "direction-change", "outcome": "applicable", "event_ids": ["DBG12077-E010"], "evidence": ["Direction changed from all hooked generated identifiers retaining values to only readonly and non-nullable hooked unset cases retaining values."], "reason": "The accepted cleanup invariant changed after review."},
         {"kind": "expensive-to-reconstruct", "outcome": "unknown", "event_ids": [], "evidence": [], "reason": "Assess before completion."},
         {"kind": "unresolved-authority-or-contract", "outcome": "unknown", "event_ids": [], "evidence": [], "reason": "Assess before completion."}
       ],
