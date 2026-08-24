@@ -11,7 +11,6 @@ use Doctrine\DBAL\Types\Type;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Events;
 use Doctrine\ORM\Mapping\ClassMetadata;
-use Doctrine\ORM\Query;
 use Doctrine\ORM\Query\ResultSetMapping;
 use Doctrine\ORM\Tools\Pagination\LimitSubqueryWalker;
 use Doctrine\ORM\UnitOfWork;
@@ -96,6 +95,8 @@ abstract class AbstractHydrator
      * @var array<string, string>
      */
     private array $resultColumnNames = [];
+
+    private static bool|null $supportsResultColumnNames = null;
 
     /**
      * Initializes a new instance of a class derived from <tt>AbstractHydrator</tt>.
@@ -578,7 +579,7 @@ abstract class AbstractHydrator
 
     private function initializeResultColumnNames(): void
     {
-        if (! isset($this->hints[Query::HINT_INTERNAL_GENERATED_RESULT_SET_MAPPING])) {
+        if (! $this->resultSetMapping()->isInternalGenerated || ! self::supportsResultColumnNames()) {
             return;
         }
 
@@ -595,7 +596,7 @@ abstract class AbstractHydrator
 
         for ($index = 0; $index < $columnCount; ++$index) {
             try {
-                $resultColumnName = $this->statement()->getColumnName($index);
+                $resultColumnName = $this->getStatementColumnName($index);
             } catch (Throwable) {
                 $this->mappedColumnNames = [];
                 $this->resultColumnNames = [];
@@ -611,6 +612,21 @@ abstract class AbstractHydrator
             $this->mappedColumnNames[$resultColumnName] = $mappedColumnName;
             $this->resultColumnNames[$mappedColumnName] = $resultColumnName;
         }
+    }
+
+    private static function supportsResultColumnNames(): bool
+    {
+        self::$supportsResultColumnNames ??= (new ReflectionClass(Result::class))->hasMethod('getColumnName');
+
+        return self::$supportsResultColumnNames;
+    }
+
+    private function getStatementColumnName(int $index): string
+    {
+        /** @var callable(int): string $getColumnName */
+        $getColumnName = [$this->statement(), 'getColumnName'];
+
+        return $getColumnName($index);
     }
 
     /** @return array<string, string|null> */

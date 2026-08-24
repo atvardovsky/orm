@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Doctrine\Tests\ORM\Functional;
 
 use Doctrine\DBAL\Cache\QueryCacheProfile;
-use Doctrine\Tests\Models\Cms\CmsUser;
+use Doctrine\Tests\Models\CMS\CmsUser;
 use Doctrine\Tests\OrmFunctionalTestCase;
 use PHPUnit\Framework\Attributes\Group;
 use Symfony\Component\Cache\Adapter\ArrayAdapter;
@@ -70,6 +70,7 @@ class HydrationCacheTest extends OrmFunctionalTestCase
         $this->assertQueryCount(2, 'Hydration now cached');
     }
 
+    #[Group('GH-12272')]
     public function testHydrationParametersSerialization(): void
     {
         $cache = new ArrayAdapter();

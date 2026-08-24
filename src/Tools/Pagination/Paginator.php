@@ -226,7 +226,8 @@ class Paginator implements Countable, IteratorAggregate
         if ($this->useOutputWalker($countQuery)) {
             $platform = $countQuery->getEntityManager()->getConnection()->getDatabasePlatform(); // law of demeter win
 
-            $rsm = new ResultSetMapping();
+            $rsm                      = new ResultSetMapping();
+            $rsm->isInternalGenerated = true;
             $rsm->addScalarResult($this->getSQLResultCasing($platform, 'dctrn_count'), 'count');
 
             $countQuery->setHint(Query::HINT_CUSTOM_OUTPUT_WALKER, CountOutputWalker::class);

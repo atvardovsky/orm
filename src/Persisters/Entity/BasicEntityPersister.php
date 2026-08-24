@@ -177,18 +177,24 @@ class BasicEntityPersister implements EntityPersister
         protected EntityManagerInterface $em,
         protected ClassMetadata $class,
     ) {
-        $this->conn                  = $em->getConnection();
-        $this->platform              = $this->conn->getDatabasePlatform();
-        $this->quoteStrategy         = $em->getConfiguration()->getQuoteStrategy();
-        $this->identifierFlattener   = new IdentifierFlattener($em->getUnitOfWork(), $em->getMetadataFactory());
+        $this->conn                       = $em->getConnection();
+        $this->platform                   = $this->conn->getDatabasePlatform();
+        $this->quoteStrategy              = $em->getConfiguration()->getQuoteStrategy();
+        $this->identifierFlattener        = new IdentifierFlattener($em->getUnitOfWork(), $em->getMetadataFactory());
+        $noLimitsRsm                      = new Query\ResultSetMapping();
+        $noLimitsRsm->isInternalGenerated = true;
+
+        $limitsHandlingRsm                      = new Query\ResultSetMapping();
+        $limitsHandlingRsm->isInternalGenerated = true;
+
         $this->noLimitsContext       = $this->currentPersisterContext = new CachedPersisterContext(
             $class,
-            new Query\ResultSetMapping(),
+            $noLimitsRsm,
             false,
         );
         $this->limitsHandlingContext = new CachedPersisterContext(
             $class,
-            new Query\ResultSetMapping(),
+            $limitsHandlingRsm,
             true,
         );
     }
@@ -743,7 +749,7 @@ class BasicEntityPersister implements EntityPersister
         }
 
         $hydrator = $this->em->newHydrator($this->currentPersisterContext->selectJoinSql ? Query::HYDRATE_OBJECT : Query::HYDRATE_SIMPLEOBJECT);
-        $entities = $hydrator->hydrateAll($stmt, $this->currentPersisterContext->rsm, $this->generatedResultSetMappingHints($hints));
+        $entities = $hydrator->hydrateAll($stmt, $this->currentPersisterContext->rsm, $hints);
 
         return $entities ? $entities[0] : null;
     }
@@ -853,7 +859,7 @@ class BasicEntityPersister implements EntityPersister
         $stmt             = $this->conn->executeQuery($sql, $params, $types);
 
         $hydrator = $this->em->newHydrator(Query::HYDRATE_OBJECT);
-        $hydrator->hydrateAll($stmt, $this->currentPersisterContext->rsm, $this->generatedResultSetMappingHints([Query::HINT_REFRESH => true]));
+        $hydrator->hydrateAll($stmt, $this->currentPersisterContext->rsm, [Query::HINT_REFRESH => true]);
     }
 
     public function count(array|Criteria $criteria = []): int
@@ -888,7 +894,7 @@ class BasicEntityPersister implements EntityPersister
         $stmt     = $this->conn->executeQuery($query, $params, $types);
         $hydrator = $this->em->newHydrator($this->currentPersisterContext->selectJoinSql ? Query::HYDRATE_OBJECT : Query::HYDRATE_SIMPLEOBJECT);
 
-        return $hydrator->hydrateAll($stmt, $this->currentPersisterContext->rsm, $this->generatedResultSetMappingHints([UnitOfWork::HINT_DEFEREAGERLOAD => true]));
+        return $hydrator->hydrateAll($stmt, $this->currentPersisterContext->rsm, [UnitOfWork::HINT_DEFEREAGERLOAD => true]);
     }
 
     /**
@@ -964,7 +970,7 @@ class BasicEntityPersister implements EntityPersister
 
         $hydrator = $this->em->newHydrator($this->currentPersisterContext->selectJoinSql ? Query::HYDRATE_OBJECT : Query::HYDRATE_SIMPLEOBJECT);
 
-        return $hydrator->hydrateAll($stmt, $this->currentPersisterContext->rsm, $this->generatedResultSetMappingHints([UnitOfWork::HINT_DEFEREAGERLOAD => true]));
+        return $hydrator->hydrateAll($stmt, $this->currentPersisterContext->rsm, [UnitOfWork::HINT_DEFEREAGERLOAD => true]);
     }
 
     /**
@@ -999,7 +1005,7 @@ class BasicEntityPersister implements EntityPersister
             $rsm->addIndexBy('r', $assoc->indexBy());
         }
 
-        return $this->em->newHydrator(Query::HYDRATE_OBJECT)->hydrateAll($stmt, $rsm, $this->generatedResultSetMappingHints($hints));
+        return $this->em->newHydrator(Query::HYDRATE_OBJECT)->hydrateAll($stmt, $rsm, $hints);
     }
 
     /**
@@ -1023,19 +1029,7 @@ class BasicEntityPersister implements EntityPersister
             $rsm->addIndexBy('r', $assoc->indexBy());
         }
 
-        return $this->em->newHydrator(Query::HYDRATE_OBJECT)->hydrateAll($stmt, $rsm, $this->generatedResultSetMappingHints($hints));
-    }
-
-    /**
-     * @param array<string, mixed> $hints
-     *
-     * @return array<string, mixed>
-     */
-    private function generatedResultSetMappingHints(array $hints = []): array
-    {
-        $hints[Query::HINT_INTERNAL_GENERATED_RESULT_SET_MAPPING] = true;
-
-        return $hints;
+        return $this->em->newHydrator(Query::HYDRATE_OBJECT)->hydrateAll($stmt, $rsm, $hints);
     }
 
     /**

@@ -265,7 +265,8 @@ class ManyToManyPersister extends AbstractCollectionPersister
         $tableName = $this->quoteStrategy->getTableName($targetClass, $this->platform);
         $joinTable = $this->quoteStrategy->getJoinTableName($mapping, $associationSourceClass, $this->platform);
 
-        $rsm = new Query\ResultSetMappingBuilder($this->em);
+        $rsm                      = new Query\ResultSetMappingBuilder($this->em);
+        $rsm->isInternalGenerated = true;
         $rsm->addRootEntityFromClassMetadata($targetClass->name, 'te');
 
         $sql = 'SELECT ' . $rsm->generateSelectClause()
@@ -283,7 +284,7 @@ class ManyToManyPersister extends AbstractCollectionPersister
         return $this
             ->em
             ->newHydrator(Query::HYDRATE_OBJECT)
-            ->hydrateAll($stmt, $rsm, [Query::HINT_INTERNAL_GENERATED_RESULT_SET_MAPPING => true]);
+            ->hydrateAll($stmt, $rsm);
     }
 
     /**

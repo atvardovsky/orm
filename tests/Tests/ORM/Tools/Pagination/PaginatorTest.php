@@ -14,9 +14,9 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Internal\Hydration\AbstractHydrator;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\Query\QueryException;
+use Doctrine\ORM\Query\ResultSetMapping;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Tests\OrmTestCase;
-use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub;
 
@@ -26,7 +26,7 @@ class PaginatorTest extends OrmTestCase
 {
     private Connection&MockObject $connection;
     private EntityManagerInterface&Stub $em;
-    private AbstractHydrator&Stub $hydrator;
+    private AbstractHydrator&MockObject $hydrator;
 
     protected function setUp(): void
     {
@@ -50,11 +50,10 @@ class PaginatorTest extends OrmTestCase
             ->setConstructorArgs([$this->createTestEntityManagerWithConnection($this->connection)])
             ->getMock();
 
-        $this->hydrator = $this->createStub(AbstractHydrator::class);
+        $this->hydrator = $this->createMock(AbstractHydrator::class);
         $this->em->method('newHydrator')->willReturn($this->hydrator);
     }
 
-    #[AllowMockObjectsWithoutExpectations]
     public function testExtraParametersAreStrippedWhenWalkerRemovingOriginalSelectElementsIsUsed(): void
     {
         $paramInWhere     = 1;
@@ -118,7 +117,33 @@ class PaginatorTest extends OrmTestCase
         $this->createPaginatorWithExtraParametersWithoutOutputWalkers([[10]])->getIterator();
     }
 
-    /** @param int[][] $willReturnRows */
+    public function testCountQueryWithOutputWalkerMarksGeneratedResultSetMapping(): void
+    {
+        $result = $this->getMockBuilder(Result::class)->disableOriginalConstructor()->getMock();
+
+        $this->connection->expects(self::once())->method('executeQuery')->willReturn($result);
+        $this->hydrator
+            ->expects(self::once())
+            ->method('hydrateAll')
+            ->willReturnCallback(
+                static function (Result $stmt, ResultSetMapping $rsm): array {
+                    self::assertTrue($rsm->isInternalGenerated);
+
+                    return [['count' => 1]];
+                },
+            );
+
+        $query = new Query($this->em);
+        $query->setDQL('SELECT u FROM Doctrine\\Tests\\Models\\CMS\\CmsUser u');
+
+        self::assertSame(1, (new Paginator($query))->setUseOutputWalkers(true)->count());
+    }
+
+    /**
+     * @param int[][] $willReturnRows
+     *
+     * @return Paginator<mixed>
+     */
     private function createPaginatorWithExtraParametersWithoutOutputWalkers(array $willReturnRows): Paginator
     {
         $this->hydrator->method('hydrateAll')->willReturn($willReturnRows);

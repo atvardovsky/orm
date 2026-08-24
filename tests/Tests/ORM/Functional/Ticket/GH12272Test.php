@@ -19,7 +19,6 @@ use Doctrine\ORM\Internal\Hydration\ScalarHydrator;
 use Doctrine\ORM\Internal\Hydration\SimpleObjectHydrator;
 use Doctrine\ORM\Internal\Hydration\SingleScalarHydrator;
 use Doctrine\ORM\Persisters\Entity\BasicEntityPersister;
-use Doctrine\ORM\Query;
 use Doctrine\ORM\Query\ResultSetMapping;
 use Doctrine\ORM\Query\ResultSetMappingBuilder;
 use Doctrine\Tests\Mocks\ArrayResultFactory;
@@ -32,6 +31,7 @@ use Doctrine\Tests\Models\Company\CompanyPerson;
 use Doctrine\Tests\Models\Enums\Suit;
 use Doctrine\Tests\OrmTestCase;
 use PHPUnit\Framework\Attributes\Group;
+use ReflectionClass;
 
 use function array_keys;
 use function class_exists;
@@ -61,7 +61,7 @@ final class GH12272Test extends OrmTestCase
                     'u_email_id' => null,
                 ],
             ],
-            $hydrator->hydrateAll($stmt, $rsm, $this->generatedResultMappingHints()),
+            $hydrator->hydrateAll($stmt, $rsm),
         );
     }
 
@@ -85,63 +85,78 @@ final class GH12272Test extends OrmTestCase
                     'u_email_id' => null,
                 ],
             ],
-            iterator_to_array($hydrator->toIterable($stmt, $rsm, $this->generatedResultMappingHints()), false),
+            iterator_to_array($hydrator->toIterable($stmt, $rsm), false),
         );
     }
 
     #[Group('GH-12272')]
     public function testDqlQueryMarksGeneratedResultSetMappingBeforeHydration(): void
     {
-        GH12272GeneratedMappingHintCapturingHydrator::reset();
+        GH12272GeneratedMappingCapturingHydrator::reset();
 
         $entityManager = $this->createCmsEntityManagerWithDriverResult(
             new OraclePlatform(),
             ArrayResultFactory::createDriverResultFromArray([['ID0' => '1']]),
         );
         $entityManager->getConfiguration()->addCustomHydrationMode(
-            GH12272GeneratedMappingHintCapturingHydrator::class,
-            GH12272GeneratedMappingHintCapturingHydrator::class,
+            GH12272GeneratedMappingCapturingHydrator::class,
+            GH12272GeneratedMappingCapturingHydrator::class,
         );
 
         $entityManager->createQuery('SELECT u FROM ' . CmsUser::class . ' u')
-            ->getResult(GH12272GeneratedMappingHintCapturingHydrator::class);
+            ->getResult(GH12272GeneratedMappingCapturingHydrator::class);
 
-        self::assertSame(
-            true,
-            GH12272GeneratedMappingHintCapturingHydrator::$observedHints[0][Query::HINT_INTERNAL_GENERATED_RESULT_SET_MAPPING] ?? null,
-        );
+        self::assertSame([true], GH12272GeneratedMappingCapturingHydrator::$observedGeneratedMappings);
     }
 
     #[Group('GH-12272')]
     public function testDqlIterableMarksGeneratedResultSetMappingBeforeHydration(): void
     {
-        GH12272GeneratedMappingHintCapturingHydrator::reset();
+        GH12272GeneratedMappingCapturingHydrator::reset();
 
         $entityManager = $this->createCmsEntityManagerWithDriverResult(
             new OraclePlatform(),
             ArrayResultFactory::createDriverResultFromArray([['ID0' => '1']]),
         );
         $entityManager->getConfiguration()->addCustomHydrationMode(
-            GH12272GeneratedMappingHintCapturingHydrator::class,
-            GH12272GeneratedMappingHintCapturingHydrator::class,
+            GH12272GeneratedMappingCapturingHydrator::class,
+            GH12272GeneratedMappingCapturingHydrator::class,
         );
 
         iterator_to_array(
             $entityManager->createQuery('SELECT u FROM ' . CmsUser::class . ' u')
-                ->toIterable([], GH12272GeneratedMappingHintCapturingHydrator::class),
+                ->toIterable([], GH12272GeneratedMappingCapturingHydrator::class),
             false,
         );
 
-        self::assertSame(
-            true,
-            GH12272GeneratedMappingHintCapturingHydrator::$observedHints[0][Query::HINT_INTERNAL_GENERATED_RESULT_SET_MAPPING] ?? null,
+        self::assertSame([true], GH12272GeneratedMappingCapturingHydrator::$observedGeneratedMappings);
+    }
+
+    #[Group('GH-12272')]
+    public function testExplicitDqlResultSetMappingRemainsUserOwned(): void
+    {
+        GH12272GeneratedMappingCapturingHydrator::reset();
+
+        $entityManager = $this->createCmsEntityManagerWithDriverResult(
+            new OraclePlatform(),
+            ArrayResultFactory::createDriverResultFromArray([['ID0' => '1']]),
         );
+        $entityManager->getConfiguration()->addCustomHydrationMode(
+            GH12272GeneratedMappingCapturingHydrator::class,
+            GH12272GeneratedMappingCapturingHydrator::class,
+        );
+
+        $entityManager->createQuery('SELECT u FROM ' . CmsUser::class . ' u')
+            ->setResultSetMapping(new ResultSetMapping())
+            ->getResult(GH12272GeneratedMappingCapturingHydrator::class);
+
+        self::assertSame([false], GH12272GeneratedMappingCapturingHydrator::$observedGeneratedMappings);
     }
 
     #[Group('GH-12272')]
     public function testBasicEntityPersisterMarksGeneratedResultSetMappingBeforeHydration(): void
     {
-        GH12272GeneratedMappingHintCapturingHydrator::reset();
+        GH12272GeneratedMappingCapturingHydrator::reset();
 
         $entityManager = $this->createCapturingCmsEntityManagerWithExecutedDriverResult(
             new OraclePlatform(),
@@ -151,10 +166,7 @@ final class GH12272Test extends OrmTestCase
 
         $persister->loadAll();
 
-        self::assertSame(
-            true,
-            GH12272GeneratedMappingHintCapturingHydrator::$observedHints[0][Query::HINT_INTERNAL_GENERATED_RESULT_SET_MAPPING] ?? null,
-        );
+        self::assertSame([true], GH12272GeneratedMappingCapturingHydrator::$observedGeneratedMappings);
     }
 
     #[Group('GH-12272')]
@@ -167,7 +179,7 @@ final class GH12272Test extends OrmTestCase
         $stmt          = $this->createPortableLowerCaseResult($this->createUpperCaseCmsUserRows(), $entityManager->getConnection());
         $hydrator      = new ObjectHydrator($entityManager);
 
-        $result = $hydrator->hydrateAll($stmt, $rsm, $this->generatedResultMappingHints());
+        $result = $hydrator->hydrateAll($stmt, $rsm);
 
         self::assertCount(1, $result);
         self::assertInstanceOf(CmsUser::class, $result[0]);
@@ -181,8 +193,9 @@ final class GH12272Test extends OrmTestCase
     {
         $this->requireDbalPortabilityResultColumnNames();
 
-        $entityManager = $this->createCompanyEntityManagerWithPlatform(new OraclePlatform());
-        $rsm           = new ResultSetMapping();
+        $entityManager            = $this->createCompanyEntityManagerWithPlatform(new OraclePlatform());
+        $rsm                      = new ResultSetMapping();
+        $rsm->isInternalGenerated = true;
         $rsm->addEntityResult(CompanyPerson::class, 'p');
         $rsm->addFieldResult('p', 'P__ID', 'id');
         $rsm->addFieldResult('p', 'P__NAME', 'name');
@@ -200,7 +213,7 @@ final class GH12272Test extends OrmTestCase
             $entityManager->getConnection(),
         );
         $hydrator = new ObjectHydrator($entityManager);
-        $result   = $hydrator->hydrateAll($stmt, $rsm, $this->generatedResultMappingHints());
+        $result   = $hydrator->hydrateAll($stmt, $rsm);
 
         self::assertCount(1, $result);
         self::assertInstanceOf(CompanyPerson::class, $result[0]);
@@ -218,7 +231,7 @@ final class GH12272Test extends OrmTestCase
 
         $stmt     = $this->createPortableLowerCaseResult($this->createUpperCaseCmsUserRows(), $entityManager->getConnection());
         $hydrator = new ArrayHydrator($entityManager);
-        $result   = $hydrator->hydrateAll($stmt, $rsm, $this->generatedResultMappingHints());
+        $result   = $hydrator->hydrateAll($stmt, $rsm);
 
         self::assertArrayHasKey(1, $result);
         self::assertSame(1, $result[1]['id']);
@@ -236,7 +249,7 @@ final class GH12272Test extends OrmTestCase
 
         $stmt     = $this->createPortableLowerCaseResult($this->createUpperCaseCmsUserRows(), $entityManager->getConnection());
         $hydrator = new ObjectHydrator($entityManager);
-        $result   = $hydrator->hydrateAll($stmt, $rsm, $this->generatedResultMappingHints());
+        $result   = $hydrator->hydrateAll($stmt, $rsm);
 
         self::assertArrayHasKey(1, $result);
         self::assertInstanceOf(CmsUser::class, $result[1]);
@@ -248,8 +261,9 @@ final class GH12272Test extends OrmTestCase
     {
         $this->requireDbalPortabilityResultColumnNames();
 
-        $entityManager = $this->createCmsEntityManagerWithPlatform(new OraclePlatform());
-        $rsm           = new ResultSetMapping();
+        $entityManager            = $this->createCmsEntityManagerWithPlatform(new OraclePlatform());
+        $rsm                      = new ResultSetMapping();
+        $rsm->isInternalGenerated = true;
         $rsm->addScalarResult('ID0', 'id', 'integer');
         $rsm->addScalarResult('NAME1', 'name', 'string');
         $rsm->addIndexByScalar('ID0');
@@ -264,7 +278,7 @@ final class GH12272Test extends OrmTestCase
             $entityManager->getConnection(),
         );
         $hydrator = new ArrayHydrator($entityManager);
-        $result   = $hydrator->hydrateAll($stmt, $rsm, $this->generatedResultMappingHints());
+        $result   = $hydrator->hydrateAll($stmt, $rsm);
 
         self::assertArrayHasKey(1, $result);
         self::assertSame(1, $result[1]['id']);
@@ -276,8 +290,9 @@ final class GH12272Test extends OrmTestCase
     {
         $this->requireDbalPortabilityResultColumnNames();
 
-        $entityManager = $this->createCmsEntityManagerWithPlatform(new OraclePlatform());
-        $rsm           = new ResultSetMapping();
+        $entityManager            = $this->createCmsEntityManagerWithPlatform(new OraclePlatform());
+        $rsm                      = new ResultSetMapping();
+        $rsm->isInternalGenerated = true;
         $rsm->addScalarResult('ID0', 'id', 'integer');
         $rsm->addScalarResult('NAME1', 'name', 'string');
         $rsm->addIndexByScalar('ID0');
@@ -292,7 +307,7 @@ final class GH12272Test extends OrmTestCase
             $entityManager->getConnection(),
         );
         $hydrator = new ObjectHydrator($entityManager);
-        $result   = $hydrator->hydrateAll($stmt, $rsm, $this->generatedResultMappingHints());
+        $result   = $hydrator->hydrateAll($stmt, $rsm);
 
         self::assertArrayHasKey(1, $result);
         self::assertSame(1, $result[1]['id']);
@@ -309,7 +324,7 @@ final class GH12272Test extends OrmTestCase
 
         $stmt     = $this->createPortableLowerCaseResult($this->createUpperCaseIndexedUserPhoneRows(), $entityManager->getConnection());
         $hydrator = new ArrayHydrator($entityManager);
-        $result   = $hydrator->hydrateAll($stmt, $rsm, $this->generatedResultMappingHints());
+        $result   = $hydrator->hydrateAll($stmt, $rsm);
 
         self::assertArrayHasKey(1, $result);
         self::assertArrayHasKey('42', $result[1]['phonenumbers']);
@@ -326,7 +341,7 @@ final class GH12272Test extends OrmTestCase
 
         $stmt     = $this->createPortableLowerCaseResult($this->createUpperCaseIndexedUserPhoneRows(), $entityManager->getConnection());
         $hydrator = new ObjectHydrator($entityManager);
-        $result   = $hydrator->hydrateAll($stmt, $rsm, $this->generatedResultMappingHints());
+        $result   = $hydrator->hydrateAll($stmt, $rsm);
 
         self::assertArrayHasKey(1, $result);
         self::assertTrue(isset($result[1]->getPhonenumbers()['42']));
@@ -338,8 +353,9 @@ final class GH12272Test extends OrmTestCase
     {
         $this->requireDbalPortabilityResultColumnNames();
 
-        $entityManager = $this->createCompanyEntityManagerWithPlatform(new OraclePlatform());
-        $rsm           = new ResultSetMapping();
+        $entityManager            = $this->createCompanyEntityManagerWithPlatform(new OraclePlatform());
+        $rsm                      = new ResultSetMapping();
+        $rsm->isInternalGenerated = true;
         $rsm->addEntityResult(CompanyPerson::class, 'p');
         $rsm->addFieldResult('p', 'P__ID', 'id');
         $rsm->addFieldResult('p', 'P__NAME', 'name');
@@ -357,7 +373,7 @@ final class GH12272Test extends OrmTestCase
             $entityManager->getConnection(),
         );
         $hydrator = new SimpleObjectHydrator($entityManager);
-        $result   = $hydrator->hydrateAll($stmt, $rsm, $this->generatedResultMappingHints());
+        $result   = $hydrator->hydrateAll($stmt, $rsm);
 
         self::assertCount(1, $result);
         self::assertInstanceOf(CompanyPerson::class, $result[0]);
@@ -369,14 +385,15 @@ final class GH12272Test extends OrmTestCase
     {
         $this->requireDbalPortabilityResultColumnNames();
 
-        $entityManager = $this->createCmsEntityManagerWithPlatform(new OraclePlatform());
-        $rsm           = new ResultSetMapping();
+        $entityManager            = $this->createCmsEntityManagerWithPlatform(new OraclePlatform());
+        $rsm                      = new ResultSetMapping();
+        $rsm->isInternalGenerated = true;
         $rsm->addScalarResult('ID0', 'id', 'integer');
 
         $stmt     = $this->createPortableLowerCaseResult([['ID0' => '1']], $entityManager->getConnection());
         $hydrator = new SingleScalarHydrator($entityManager);
 
-        self::assertSame('1', $hydrator->hydrateAll($stmt, $rsm, $this->generatedResultMappingHints()));
+        self::assertSame('1', $hydrator->hydrateAll($stmt, $rsm));
     }
 
     #[Group('GH-12272')]
@@ -384,8 +401,9 @@ final class GH12272Test extends OrmTestCase
     {
         $this->requireDbalPortabilityResultColumnNames();
 
-        $entityManager = $this->createCmsEntityManagerWithPlatform(new OraclePlatform());
-        $rsm           = new ResultSetMapping();
+        $entityManager            = $this->createCmsEntityManagerWithPlatform(new OraclePlatform());
+        $rsm                      = new ResultSetMapping();
+        $rsm->isInternalGenerated = true;
         $rsm->addScalarResult('SUIT0', 'suit', 'string');
         $rsm->addEnumResult('SUIT0', Suit::class);
 
@@ -394,7 +412,7 @@ final class GH12272Test extends OrmTestCase
 
         self::assertSame(
             [['suit' => 'H']],
-            $hydrator->hydrateAll($stmt, $rsm, $this->generatedResultMappingHints()),
+            $hydrator->hydrateAll($stmt, $rsm),
         );
     }
 
@@ -403,8 +421,9 @@ final class GH12272Test extends OrmTestCase
     {
         $this->requireDbalPortabilityResultColumnNames();
 
-        $entityManager = $this->createCmsEntityManagerWithPlatform(new OraclePlatform());
-        $rsm           = new ResultSetMapping();
+        $entityManager            = $this->createCmsEntityManagerWithPlatform(new OraclePlatform());
+        $rsm                      = new ResultSetMapping();
+        $rsm->isInternalGenerated = true;
         $rsm->addScalarResult('NAME0', 1, 'string');
         $rsm->addScalarResult('EMAIL1', 2, 'string');
         $rsm->addScalarResult('CITY2', 3, 'string');
@@ -435,7 +454,7 @@ final class GH12272Test extends OrmTestCase
             $entityManager->getConnection(),
         );
         $hydrator = new ObjectHydrator($entityManager);
-        $result   = $hydrator->hydrateAll($stmt, $rsm, $this->generatedResultMappingHints());
+        $result   = $hydrator->hydrateAll($stmt, $rsm);
 
         self::assertCount(1, $result);
         self::assertInstanceOf(CmsUserDTO::class, $result[0]);
@@ -456,7 +475,7 @@ final class GH12272Test extends OrmTestCase
         $stmt                 = $this->createPortableLowerCaseResult($this->createUpperCaseCmsUserRows(), $entityManager->getConnection());
         $hydrator             = new ScalarHydrator($entityManager);
 
-        $hydrator->hydrateAll($stmt, $rsm, $this->generatedResultMappingHints());
+        $hydrator->hydrateAll($stmt, $rsm);
 
         self::assertSame($originalFieldMapping, $rsm->fieldMappings);
         self::assertSame($originalOwnerMap, $rsm->columnOwnerMap);
@@ -483,8 +502,9 @@ final class GH12272Test extends OrmTestCase
     #[Group('GH-12272')]
     public function testGeneratedAliasReconciliationDoesNotGuessAmbiguousCaseFoldedAliases(): void
     {
-        $entityManager = $this->createCmsEntityManagerWithPlatform(new OraclePlatform());
-        $rsm           = new ResultSetMapping();
+        $entityManager            = $this->createCmsEntityManagerWithPlatform(new OraclePlatform());
+        $rsm                      = new ResultSetMapping();
+        $rsm->isInternalGenerated = true;
         $rsm->addEntityResult(CmsUser::class, 'u');
         $rsm->addFieldResult('u', 'ID0', 'id');
         $rsm->addFieldResult('u', 'Id0', 'name');
@@ -492,14 +512,15 @@ final class GH12272Test extends OrmTestCase
         $stmt     = ArrayResultFactory::createWrapperResultFromArray([['id0' => '1']], $entityManager->getConnection());
         $hydrator = new ScalarHydrator($entityManager);
 
-        self::assertSame([[]], $hydrator->hydrateAll($stmt, $rsm, $this->generatedResultMappingHints()));
+        self::assertSame([[]], $hydrator->hydrateAll($stmt, $rsm));
     }
 
     #[Group('GH-12272')]
     public function testGeneratedAliasReconciliationPrefersExactResultSetMappingMatch(): void
     {
-        $entityManager = $this->createCmsEntityManagerWithPlatform(new OraclePlatform());
-        $rsm           = new ResultSetMapping();
+        $entityManager            = $this->createCmsEntityManagerWithPlatform(new OraclePlatform());
+        $rsm                      = new ResultSetMapping();
+        $rsm->isInternalGenerated = true;
         $rsm->addEntityResult(CmsUser::class, 'u');
         $rsm->addFieldResult('u', 'ID0', 'id');
         $rsm->addScalarResult('id0', 'lower_id', 'string');
@@ -509,7 +530,7 @@ final class GH12272Test extends OrmTestCase
 
         self::assertSame(
             [['lower_id' => 'lower']],
-            $hydrator->hydrateAll($stmt, $rsm, $this->generatedResultMappingHints()),
+            $hydrator->hydrateAll($stmt, $rsm),
         );
     }
 
@@ -521,16 +542,16 @@ final class GH12272Test extends OrmTestCase
         $stmt          = $this->createResultWithoutColumnNames([['id0' => '1']], $entityManager->getConnection());
         $hydrator      = new ScalarHydrator($entityManager);
 
-        self::assertSame([[]], $hydrator->hydrateAll($stmt, $rsm, $this->generatedResultMappingHints()));
+        self::assertSame([[]], $hydrator->hydrateAll($stmt, $rsm));
     }
 
     private function requireDbalPortabilityResultColumnNames(): void
     {
-        if (class_exists(Converter::class) && class_exists(PortabilityResult::class)) {
+        if (class_exists(Converter::class) && class_exists(PortabilityResult::class) && (new ReflectionClass(DbalResult::class))->hasMethod('getColumnName')) {
             return;
         }
 
-        self::markTestSkipped('This test requires DBAL portability result column conversion support.');
+        self::markTestSkipped('This test requires DBAL portability conversion and result column name support.');
     }
 
     private function createCmsEntityManagerWithPlatform(AbstractPlatform $platform): EntityManagerMock
@@ -590,7 +611,7 @@ final class GH12272Test extends OrmTestCase
             AttributeDriverFactory::createAttributeDriver([__DIR__ . '/../../../Models/CMS']),
         );
         $entityManager->method('newHydrator')
-            ->willReturnCallback(static fn () => new GH12272GeneratedMappingHintCapturingHydrator($entityManager));
+            ->willReturnCallback(static fn () => new GH12272GeneratedMappingCapturingHydrator($entityManager));
 
         return $entityManager;
     }
@@ -607,7 +628,8 @@ final class GH12272Test extends OrmTestCase
 
     private function createGeneratedCmsUserResultSetMapping(EntityManagerMock $entityManager): ResultSetMappingBuilder
     {
-        $rsm = new ResultSetMappingBuilder($entityManager, ResultSetMappingBuilder::COLUMN_RENAMING_INCREMENT);
+        $rsm                      = new ResultSetMappingBuilder($entityManager, ResultSetMappingBuilder::COLUMN_RENAMING_INCREMENT);
+        $rsm->isInternalGenerated = true;
         $rsm->addRootEntityFromClassMetadata(CmsUser::class, 'u');
 
         self::assertSame(['ID0', 'STATUS1', 'USERNAME2', 'NAME3'], array_keys($rsm->fieldMappings));
@@ -618,7 +640,8 @@ final class GH12272Test extends OrmTestCase
 
     private function createGeneratedIndexedUserPhoneResultSetMapping(): ResultSetMapping
     {
-        $rsm = new ResultSetMapping();
+        $rsm                      = new ResultSetMapping();
+        $rsm->isInternalGenerated = true;
         $rsm->addEntityResult(CmsUser::class, 'u');
         $rsm->addJoinedEntityResult(CmsPhonenumber::class, 'p', 'u', 'phonenumbers');
         $rsm->addFieldResult('u', 'U__ID', 'id');
@@ -683,28 +706,22 @@ final class GH12272Test extends OrmTestCase
 
         return new DbalResult($driverResult, $connection);
     }
-
-    /** @return array<string, mixed> */
-    private function generatedResultMappingHints(): array
-    {
-        return [Query::HINT_INTERNAL_GENERATED_RESULT_SET_MAPPING => true];
-    }
 }
 
-final class GH12272GeneratedMappingHintCapturingHydrator extends AbstractHydrator
+final class GH12272GeneratedMappingCapturingHydrator extends AbstractHydrator
 {
-    /** @var list<array<string, mixed>> */
-    public static array $observedHints = [];
+    /** @var list<bool> */
+    public static array $observedGeneratedMappings = [];
 
     public static function reset(): void
     {
-        self::$observedHints = [];
+        self::$observedGeneratedMappings = [];
     }
 
     /** @return list<mixed> */
     protected function hydrateAllData(): array
     {
-        self::$observedHints[] = $this->hints;
+        self::$observedGeneratedMappings[] = $this->resultSetMapping()->isInternalGenerated;
 
         return [];
     }
@@ -712,7 +729,7 @@ final class GH12272GeneratedMappingHintCapturingHydrator extends AbstractHydrato
     /** @param array<string, mixed> $row */
     protected function hydrateRowData(array $row, array &$result): void
     {
-        self::$observedHints[] = $this->hints;
-        $result[]              = $row;
+        self::$observedGeneratedMappings[] = $this->resultSetMapping()->isInternalGenerated;
+        $result[]                          = $row;
     }
 }
