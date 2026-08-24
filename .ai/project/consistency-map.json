@@ -771,6 +771,21 @@
           "approval_trigger": "weakening capability gates or protected approvals"
         },
         {
+          "id": "alatyr-full-capability-project-knowledge",
+          "type": "routes",
+          "target": ".ai/project/knowledge/index.json",
+          "target_level": "adapter",
+          "target_area": "project-knowledge",
+          "direction": "outbound",
+          "required_when": [
+            "project-knowledge routing, promotion, or packet policy changes"
+          ],
+          "validation": [
+            "adapter validator plus project-knowledge policy and index review"
+          ],
+          "approval_trigger": "accepting promoted knowledge, changing canonical-owner routing, or weakening retention/redaction policy"
+        },
+        {
           "id": "alatyr-full-capability-code-authoring",
           "type": "routes",
           "target": ".ai/project/code-authoring.md",

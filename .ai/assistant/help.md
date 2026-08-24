@@ -57,6 +57,11 @@ Default routing:
 - Before completing material semantic, architectural, or non-obvious repair
   work, apply the lazy durable engineering-evidence gate. Small local work may
   skip with a specific reason; do not load unrelated evidence records.
+- For non-trivial work, apply bounded project-knowledge routing after profile
+  and area selection and refine it after concrete facts or source surfaces are
+  known. Profile match alone is insufficient. Read canonical owners, deliver
+  only accepted-current items as constraints, and treat contradictions as
+  blockers.
 - When the optional `debug-mode` module is enabled, activate it only from an
   explicit current-task or current-session request. Checkpoint material events,
   classify architectural impacts and direction replacements structurally, and
@@ -101,6 +106,13 @@ Flow: `.ai/assistant/flows/documentation-sync.flow.md`
 Minimum input: changed fact and canonical owner, or bounded source area and
 documentation goal.
 
+Operation: `project-knowledge`
+Use when: proposing, reviewing, promoting, routing, revalidating, superseding,
+or explaining reusable project knowledge.
+Flow: `.ai/assistant/flows/project-knowledge.flow.md`
+Minimum input: knowledge subject, candidate ID, or selected knowledge ID, plus
+the requested lifecycle action.
+
 Detailed blueprint, integrity, update, documentation, and optional-module
 vocabulary is in `.ai/assistant/help-reference.md`. The canonical installed
 operation set remains `.ai/assistant/operation-catalog.json`.
@@ -116,6 +128,11 @@ state, `Alatyr sync dependencies` to compare and update only the reviewed
 project projection, `Alatyr explain dependency <package>` for selected current
 facts, or `Alatyr dependency impact <package-or-change>` for bounded impact.
 These requests never activate nested adapters or update software packages.
+
+Use `Alatyr knowledge` for routed knowledge, `Alatyr remember this` to propose
+review, `Alatyr what do we know <subject>` for lookup, or `Alatyr revalidate
+knowledge <id>` for freshness. Only accepted canonical-owner updates become
+project authority.
 
 When `debug-mode` is enabled, use `Enable Alatyr Debug Mode for this task` to
 start explicit task-local observation, `Alatyr debug status` for read-only

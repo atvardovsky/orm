@@ -82,9 +82,22 @@ Aliases: `sync documentation`, `sync diagrams`, `document code`,
 
 Use for synchronized docs, comments, generated reference material, or companion
 assistant surfaces after a changed fact. The flow is
-`.ai/assistant/flows/documentation-sync.flow.md`. Optional code-documentation
-profiles are not installed; use manual owner review unless a future adapter
-expansion enables them.
+`.ai/assistant/flows/documentation-sync.flow.md`. The enabled
+code-documentation profiles live under `.ai/project/documentation/` and remain
+bounded by their canonical source owners.
+
+### `project-knowledge`
+
+Aliases: `Alatyr knowledge`, `Alatyr remember this`,
+`Alatyr what do we know`, `Alatyr revalidate knowledge`.
+
+Use when proposing, reviewing, promoting, routing, revalidating, superseding,
+or explaining reusable project knowledge. The flow is
+`.ai/assistant/flows/project-knowledge.flow.md`.
+
+Default allowed actions are `read-only` for lookup and proposals.
+Canonical-owner, promotion-record, or route changes require the matching
+current-scope modify authorization and normal approval policy.
 
 ### `adapter-maturity-review`
 
@@ -103,6 +116,9 @@ Use for task-specific adapter readiness and blocker review. The flow is
   `.ai/project/source-of-truth-registry.md` for business-rule routing, fact
   ownership, and blueprint routing.
 - Use `.ai/assistant/gates/index.json` to select installed gate fragments.
+- For non-trivial work, use `.ai/project/knowledge/index.json` and
+  `.ai/assistant/context/project-knowledge-routing.json` after profile/area
+  selection and again after concrete facts or source surfaces are known.
 - Show `.ai/assistant/templates/pre-change-preview.md` before semantic,
   protected, cross-boundary, external-effect, or unclear-scope edits.
 

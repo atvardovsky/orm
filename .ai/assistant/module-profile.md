@@ -117,6 +117,24 @@ Validation or review: adapter validator plus manual evidence-policy review
 Approval needs: approval required before changing retention, privacy, or external patch inclusion policy
 Residual risk: capture quality still depends on explicit finalization and human review
 
+Core item: `project-knowledge-delivery`
+State: required-enabled
+Owner or file: .ai/project/knowledge/README.md
+Required files:
+- `.ai/project/knowledge/README.md`
+- `.ai/project/knowledge/index.json`
+- `.ai/project/knowledge/routes/README.md`
+- `.ai/project/knowledge/promotions/README.md`
+- `.ai/assistant/context/project-knowledge-routing.json`
+- `.ai/assistant/flows/project-knowledge.flow.md`
+- `.ai/assistant/gates/project-knowledge.md`
+- `.ai/assistant/templates/project-knowledge-promotion.json`
+- `.ai/assistant/templates/project-knowledge-route-shard.json`
+Evidence: empty target-owned routing index installed with explicit owner, review, retention, and redaction policy; no knowledge item is promoted without decision-owner review and canonical-owner validation
+Validation or review: adapter validator plus manual project-knowledge policy review
+Approval needs: approval required before accepting a promotion, changing a canonical owner, or altering project-knowledge retention and privacy policy
+Residual risk: no accepted route entries exist yet; useful reusable conclusions must still be proposed, reviewed, and promoted before routine delivery
+
 ## Optional Modules
 
 Module: `blueprint-change`

@@ -15,6 +15,13 @@ Select the smallest task profile and affected project areas. Load
 `.ai/assistant/context-profiles.md` only for ambiguity, conflict, or repair.
 Record context receipt on expansion.
 
+For non-trivial work, route project knowledge after profile/area selection and
+once more after concrete source evidence appears. Profile-only matching is
+invalid. Use area, subsystem, architecture-item, dependency, fact, contract,
+path, symbol, or issue signals. Read only matching shards and their canonical
+owners; only accepted, current items constrain work. Stale items warn and
+contradictions block.
+
 Route IDs and aliases through `.ai/assistant/operation-index.json`; use profile
 candidates for requests. Load `.ai/assistant/operation-catalog.json` only for
 ambiguity or repair. Status operations are read-only.
@@ -48,7 +55,7 @@ Use installed owners for `ALATYR-CONTEXT-001`, `ALATYR-SOURCE-001`,
 `ALATYR-AUTHORIZATION-001`, `ALATYR-SAFETY-002`, `ALATYR-INTEGRITY-001`, `ALATYR-CHANGE-001`,
 `ALATYR-ADAPTER-001`, `ALATYR-MODULE-001`, `ALATYR-OPERATION-001`,
 `ALATYR-BRIDGE-001`, `ALATYR-LIFECYCLE-001`, `ALATYR-PACKAGE-001`,
-`ALATYR-ENGINEERING-EVIDENCE-001`, `ALATYR-DEBUG-001`,
+`ALATYR-ENGINEERING-EVIDENCE-001`, `ALATYR-KNOWLEDGE-001`, `ALATYR-DEBUG-001`,
 `ALATYR-CODEDOC-001`, `ALATYR-VOCABULARY-001`, `ALATYR-TDD-001`,
 `ALATYR-EXTENSION-001`, `ALATYR-DEPENDENCY-001`, `ALATYR-MODE-001`,
 `ALATYR-DIAGRAM-001`, `ALATYR-TEAM-001`, `ALATYR-DELEGATION-001`, and
@@ -89,8 +96,8 @@ excluded paths.
 
 Report selected profile and areas, changed facts/files, invariant/integrity
 result, synchronized surfaces, validation run or skipped with reason, approval
-scope, context expansion, commit-policy check when committing, and residual
-risk.
+scope, context expansion, project-knowledge selectors and packet result for
+non-trivial work, commit-policy check when committing, and residual risk.
 
 ## Full Alatyr Branch Mode
 

@@ -1,5 +1,5 @@
 {
-  "schema_version": 6,
+  "schema_version": 7,
   "router_kind": "target-context-router",
   "human_reference": ".ai/assistant/context-profiles.md",
   "preloaded_context": [
@@ -11,14 +11,14 @@
   "context_budgets": {
     "bootstrap": {
       "max_files": 2,
-      "max_words": 5000,
-      "soft_max_words": 4500
+      "max_words": 1800,
+      "soft_max_words": 1700
     },
     "profile_default": {
       "max_files": 20,
       "max_total_words": 12000,
-      "max_portable_words": 3500,
-      "reserved_target_words": 8500
+      "max_portable_words": 3000,
+      "reserved_target_words": 9000
     },
     "on_exceed": "load required safety and owner evidence, record expansion reason, measured context, and intentionally omitted context"
   },
@@ -33,6 +33,7 @@
       "selected intent overlays",
       "selected task scale overlay",
       "selected project areas",
+      "selected project knowledge and routing stage",
       "loaded files and reasons",
       "approximate context volume",
       "expansion triggers",
@@ -148,6 +149,12 @@
   "migration_routing": {
     "assessment_required_before_changes": true,
     "descriptor": ".ai/assistant/context/migration-routing.json"
+  },
+  "project_knowledge_routing": {
+    "descriptor": ".ai/assistant/context/project-knowledge-routing.json",
+    "initial_after": "task profile and project-area selection",
+    "refined_after": "changed facts paths symbols dependencies contracts or issue lineage become known",
+    "profile_only_match_allowed": false
   },
   "task_scale_overlays": {
     "large-or-resumable": {
@@ -404,6 +411,594 @@
     "ai-infrastructure",
     "framework-upgrade"
   ],
+  "profiles": {
+    "docs-local": {
+      "use_when": [
+        "local wording",
+        "README or documentation text",
+        "non-semantic documentation change"
+      ],
+      "operation_candidates": [
+        "documentation-sync",
+        "drift-review",
+        "logical-integrity-review",
+        "project-knowledge"
+      ],
+      "descriptor": ".ai/assistant/context/profiles/docs-local.json",
+      "required_context": [
+        ".ai/framework/context-discovery.md",
+        ".ai/assistant/gates/core.md",
+        ".ai/assistant/gates/documentation.md",
+        ".ai/assistant/gates/final-evidence.md",
+        "README.md"
+      ],
+      "expand_when": [
+        "semantic_fact_changes",
+        "source_of_truth_conflict",
+        "approval_scope_unclear",
+        "diagram_or_public_contract_changes"
+      ],
+      "approval_gates": [
+        "accepted_behavior_change",
+        "security_posture_change",
+        "public_contract_change",
+        "approval_rule_change"
+      ],
+      "validation": [
+        "docs validation after the docs script resolves a PHP 8-compatible composer command, or manual documentation review when docs dependencies are unavailable"
+      ],
+      "final_evidence": [
+        "changed_docs",
+        "source_of_truth",
+        "skipped_checks",
+        "why_no_logical_integrity_expansion"
+      ]
+    },
+    "code-local": {
+      "use_when": [
+        "implementation change",
+        "test change",
+        "no accepted behavior change",
+        "review comments or defect fixes"
+      ],
+      "operation_candidates": [
+        "logical-integrity-review",
+        "engineering-evidence",
+        "project-knowledge",
+        "drift-review",
+        "product-change",
+        "test-first-change"
+      ],
+      "descriptor": ".ai/assistant/context/profiles/code-local.json",
+      "required_context": [
+        ".ai/framework/context-discovery.md",
+        ".ai/framework/change-risk-model.md",
+        ".ai/framework/logical-integrity.md",
+        ".ai/assistant/gates/core.md",
+        ".ai/assistant/gates/code-and-tests.md",
+        ".ai/assistant/gates/final-evidence.md",
+        "composer.json",
+        ".ai/project/code-authoring.md"
+      ],
+      "conditional_context": [
+        {
+          "path": ".ai/framework/testing-guidance.md",
+          "when": "test level isolation or cross-boundary validation is unfamiliar or disputed"
+        },
+        {
+          "path": ".ai/assistant/gates/semantic-integrity.md",
+          "when": "the repair changes or may contradict an accepted semantic fact"
+        },
+        {
+          "path": ".ai/assistant/gates/security-approval.md",
+          "when": "the repair crosses a protected or security-sensitive boundary"
+        }
+      ],
+      "expand_when": [
+        "accepted_behavior_changes",
+        "architecture_boundary_changes",
+        "data_model_changes",
+        "external_contract_changes",
+        "security_posture_changes",
+        "ai_infrastructure_changes",
+        "shared_invariant_or_review_item_cluster_detected"
+      ],
+      "approval_gates": [
+        "protected_category_crossed"
+      ],
+      "validation": [
+        "/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpunit; /usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpstan analyse -c phpstan.neon --memory-limit=1G; /usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpstan analyse -c phpstan-dbal3.neon --memory-limit=1G; /usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpcs -d memory_limit=1G"
+      ],
+      "final_evidence": [
+        "changed_files",
+        "code_authoring_rules_applied",
+        "re_derived_invariants",
+        "review_item_reconciliation",
+        "validation",
+        "doc_sync_result",
+        "residual_risk"
+      ]
+    },
+    "business-change": {
+      "use_when": [
+        "accepted behavior change",
+        "domain rule change",
+        "product policy change",
+        "workflow or public contract change"
+      ],
+      "operation_candidates": [
+        "product-change",
+        "create-project-blueprint",
+        "logical-integrity-review",
+        "engineering-evidence",
+        "project-knowledge",
+        "test-first-change"
+      ],
+      "descriptor": ".ai/assistant/context/profiles/business-change.json",
+      "required_context": [
+        ".ai/framework/change-risk-model.md",
+        ".ai/framework/logical-integrity.md",
+        ".ai/assistant/gates/core.md",
+        ".ai/assistant/gates/semantic-integrity.md",
+        ".ai/assistant/gates/final-evidence.md",
+        ".ai/project/blueprint.md",
+        ".ai/project/business-logic.md",
+        ".ai/project/source-of-truth-registry.md",
+        ".ai/project/consistency-map.json",
+        "README.md"
+      ],
+      "conditional_context": [
+        {
+          "path": ".ai/framework/blueprint-driven-change.md",
+          "when": "the accepted business decision enters planning"
+        },
+        {
+          "path": ".ai/framework/approval-records.md",
+          "when": "accepted behavior or another protected category changes"
+        },
+        {
+          "path": ".ai/framework/testing-guidance.md",
+          "when": "the decision enters implementation planning or validation"
+        },
+        {
+          "path": ".ai/assistant/flows/blueprint-driven-change.flow.md",
+          "when": "the accepted change is implemented through the product workflow"
+        },
+        {
+          "path": ".ai/assistant/gates/security-approval.md",
+          "when": "the change reaches a protected approval or security boundary"
+        },
+        {
+          "path": ".ai/assistant/gates/checklist.md",
+          "when": "adapter ambiguity or a full acceptance audit requires the complete checklist"
+        },
+        {
+          "path": ".ai/framework/source-of-truth-registry.md",
+          "when": "portable source-of-truth registry behavior is disputed or framework rules are under repair"
+        },
+        {
+          "path": ".ai/framework/context-discovery.md",
+          "when": "context budget or owner selection is disputed"
+        },
+        {
+          "path": ".ai/project/code-authoring.md",
+          "when": "implementation or test code will be changed"
+        }
+      ],
+      "expand_when": [
+        "architecture_boundary_changes",
+        "data_contract_changes",
+        "security_or_privacy_changes",
+        "diagram_changes",
+        "prompt_gate_or_bridge_changes"
+      ],
+      "approval_gates": [
+        "accepted_business_behavior_change"
+      ],
+      "validation": [
+        "/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpunit and relevant documentation review"
+      ],
+      "final_evidence": [
+        "changed_fact",
+        "business_logic_layer_sync",
+        "consistency_map_edges",
+        "derived_surface_sync",
+        "re_derived_invariants",
+        "review_item_reconciliation",
+        "owning_blueprint_or_source_of_truth",
+        "implementation_test_doc_sync",
+        "approvals",
+        "logical_integrity_result"
+      ]
+    },
+    "architecture-change": {
+      "use_when": [
+        "module boundary change",
+        "dependency direction change",
+        "runtime topology change",
+        "public API or cross-component contract change"
+      ],
+      "operation_candidates": [
+        "product-change",
+        "create-project-blueprint",
+        "logical-integrity-review",
+        "engineering-evidence",
+        "project-knowledge",
+        "test-first-change"
+      ],
+      "descriptor": ".ai/assistant/context/profiles/architecture-change.json",
+      "required_context": [
+        ".ai/framework/change-risk-model.md",
+        ".ai/framework/logical-integrity.md",
+        ".ai/assistant/gates/core.md",
+        ".ai/assistant/gates/semantic-integrity.md",
+        ".ai/assistant/gates/final-evidence.md",
+        ".ai/project/blueprint.md",
+        ".ai/project/source-of-truth-registry.md",
+        ".ai/project/consistency-map.json",
+        ".ai/project/architecture/catalog.json"
+      ],
+      "conditional_context": [
+        {
+          "path": ".ai/framework/blueprint-driven-change.md",
+          "when": "an accepted architecture decision enters change planning"
+        },
+        {
+          "path": ".ai/framework/approval-records.md",
+          "when": "the proposed change crosses a protected architecture or dependency boundary"
+        },
+        {
+          "path": ".ai/framework/security-safety-guidance.md",
+          "when": "security privacy external service production or permission boundaries are affected"
+        },
+        {
+          "path": ".ai/framework/testing-guidance.md",
+          "when": "the accepted decision enters implementation planning or validation"
+        },
+        {
+          "path": ".ai/assistant/flows/blueprint-driven-change.flow.md",
+          "when": "the accepted decision is implemented through the blueprint workflow"
+        },
+        {
+          "path": ".ai/assistant/gates/security-approval.md",
+          "when": "the change reaches a protected approval or security boundary"
+        },
+        {
+          "path": ".ai/assistant/gates/checklist.md",
+          "when": "adapter ambiguity or a full acceptance audit requires the complete checklist"
+        },
+        {
+          "path": ".ai/framework/context-discovery.md",
+          "when": "context budget or owner selection is disputed"
+        },
+        {
+          "path": ".ai/framework/source-of-truth-registry.md",
+          "when": "portable source-of-truth registry behavior is disputed or framework rules are under repair"
+        },
+        {
+          "path": "docs/en/reference/architecture.rst",
+          "when": "accepted architecture owner detail is needed for the selected changed fact"
+        },
+        {
+          "path": ".ai/project/code-authoring.md",
+          "when": "implementation or test code will be changed"
+        }
+      ],
+      "expand_when": [
+        "data_ownership_changes",
+        "external_boundary_changes",
+        "security_boundary_changes",
+        "new_dependency_or_service",
+        "diagram_changes",
+        "bridge_or_gate_changes"
+      ],
+      "approval_gates": [
+        "architecture_change",
+        "new_production_dependency_or_service"
+      ],
+      "validation": [
+        "manual architecture review plus /usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpstan analyse -c phpstan.neon --memory-limit=1G when implementation changes"
+      ],
+      "final_evidence": [
+        "architecture_owner_update",
+        "re_derived_invariants",
+        "review_item_reconciliation",
+        "affected_areas",
+        "consistency_map_edges",
+        "validation",
+        "diagram_result",
+        "residual_risk"
+      ]
+    },
+    "data-change": {
+      "use_when": [
+        "schema change",
+        "persistence change",
+        "migration or backfill",
+        "data ownership or retention change"
+      ],
+      "operation_candidates": [
+        "product-change",
+        "logical-integrity-review",
+        "engineering-evidence",
+        "project-knowledge",
+        "drift-review",
+        "test-first-change"
+      ],
+      "descriptor": ".ai/assistant/context/profiles/data-change.json",
+      "required_context": [
+        ".ai/framework/change-risk-model.md",
+        ".ai/framework/logical-integrity.md",
+        ".ai/assistant/gates/core.md",
+        ".ai/assistant/gates/semantic-integrity.md",
+        ".ai/assistant/gates/code-and-tests.md",
+        ".ai/assistant/gates/final-evidence.md",
+        ".ai/project/blueprint.md",
+        ".ai/project/source-of-truth-registry.md",
+        ".ai/project/consistency-map.json",
+        ".ai/project/testing/test-first-policy.json"
+      ],
+      "conditional_context": [
+        {
+          "path": ".ai/framework/security-safety-guidance.md",
+          "when": "privacy credentials destructive live-service or retention boundaries are affected"
+        },
+        {
+          "path": ".ai/framework/testing-guidance.md",
+          "when": "a migration implementation rollback or validation plan is prepared"
+        },
+        {
+          "path": ".ai/assistant/gates/security-approval.md",
+          "when": "the data change reaches a protected destructive privacy live or approval boundary"
+        },
+        {
+          "path": ".ai/assistant/gates/checklist.md",
+          "when": "adapter ambiguity or a full acceptance audit requires the complete checklist"
+        },
+        {
+          "path": "docs/en/reference/basic-mapping.rst",
+          "when": "mapping metadata detail is needed for the selected changed fact"
+        },
+        {
+          "path": ".ai/framework/context-discovery.md",
+          "when": "context budget or owner selection is disputed"
+        },
+        {
+          "path": ".ai/framework/source-of-truth-registry.md",
+          "when": "portable source-of-truth registry behavior is disputed or framework rules are under repair"
+        },
+        {
+          "path": ".ai/project/code-authoring.md",
+          "when": "implementation or test code will be changed"
+        }
+      ],
+      "expand_when": [
+        "destructive_or_data_loss_risk",
+        "privacy_or_security_changes",
+        "migration_rollback_needed",
+        "external_data_contract_changes",
+        "diagram_changes"
+      ],
+      "approval_gates": [
+        "destructive_data_change",
+        "privacy_change",
+        "migration_risk_change",
+        "live_service_data_change"
+      ],
+      "validation": [
+        "/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpunit with relevant database configuration and manual persistence review"
+      ],
+      "final_evidence": [
+        "canonical_data_owner",
+        "re_derived_invariants",
+        "external_failure_distinction",
+        "derived_surfaces",
+        "consistency_map_edges",
+        "migration_or_rollback_notes",
+        "validation",
+        "unresolved_risk"
+      ]
+    },
+    "security-sensitive": {
+      "use_when": [
+        "secrets or credentials",
+        "permissions or authentication",
+        "network or external services",
+        "destructive actions",
+        "production or spend boundary"
+      ],
+      "operation_candidates": [
+        "product-change",
+        "logical-integrity-review",
+        "engineering-evidence",
+        "project-knowledge",
+        "skill-adaptation",
+        "test-first-change"
+      ],
+      "descriptor": ".ai/assistant/context/profiles/security-sensitive.json",
+      "required_context": [
+        ".ai/framework/change-risk-model.md",
+        ".ai/framework/security-safety-guidance.md",
+        ".ai/framework/logical-integrity.md",
+        ".ai/assistant/gates/core.md",
+        ".ai/assistant/gates/semantic-integrity.md",
+        ".ai/assistant/gates/security-approval.md",
+        ".ai/assistant/gates/final-evidence.md",
+        "SECURITY.md",
+        "docs/en/reference/security.rst",
+        ".ai/project/source-of-truth-registry.md",
+        ".ai/project/consistency-map.json"
+      ],
+      "conditional_context": [
+        {
+          "path": ".ai/framework/approval-records.md",
+          "when": "durable approval record behavior is needed or disputed"
+        }
+      ],
+      "expand_when": [
+        "live_external_action_possible",
+        "credential_or_private_data_surface",
+        "dependency_or_permission_change",
+        "imported_ai_infrastructure_involved"
+      ],
+      "approval_gates": [
+        "protected_security_change",
+        "destructive_action",
+        "live_service_access",
+        "permission_broadening"
+      ],
+      "validation": [
+        "SECURITY.md review, docs/en/reference/security.rst review, and applicable tests/static analysis"
+      ],
+      "final_evidence": [
+        "security_owner_evidence",
+        "consistency_map_edges",
+        "actions_avoided",
+        "approvals",
+        "validation",
+        "residual_risk"
+      ]
+    },
+    "ai-infrastructure": {
+      "use_when": [
+        "AI infrastructure inventory, recommendation, or item improvement",
+        "prompt or skill change",
+        "assistant wrapper or bridge change",
+        "MCP or tool config change",
+        "checker gate flow or template change",
+        "third-party assistant infrastructure review",
+        "external extension package lifecycle"
+      ],
+      "operation_candidates": [
+        "ai-infrastructure-inventory",
+        "ai-infrastructure-recommendation",
+        "skill-adaptation",
+        "extension-management"
+      ],
+      "descriptor": ".ai/assistant/context/profiles/ai-infrastructure.json",
+      "required_context": [
+        ".ai/framework/ai-infrastructure-routing.md",
+        ".ai/assistant/ai-infrastructure-router.json",
+        ".ai/project/development-evidence.json",
+        ".ai/project/source-of-truth-registry.md",
+        ".ai/project/consistency-map.json",
+        ".ai/assistant/gates/core.md",
+        ".ai/assistant/gates/security-approval.md",
+        ".ai/assistant/gates/final-evidence.md"
+      ],
+      "expand_when": [
+        "selected item route requires additional context",
+        "item owner path status or permission is unknown",
+        "third_party_source_requested",
+        "tool_permission_changes",
+        "live_destructive_or_credential_surface",
+        "canonical_target_file_integration"
+      ],
+      "approval_gates": [
+        "third_party_infrastructure_import",
+        "tool_permission_change",
+        "live_or_destructive_capability",
+        "weakened_gate_or_approval_rule"
+      ],
+      "validation": [
+        "adapter validator, JSON/YAML parse, local path/placeholder scan, and manual AI-infrastructure policy review"
+      ],
+      "final_evidence": [
+        "inventory",
+        "provenance",
+        "source_hash_or_commit",
+        "license_status",
+        "normalization",
+        "compatibility_review",
+        "registry_and_consistency_map_sync",
+        "approval_evidence"
+      ]
+    },
+    "framework-upgrade": {
+      "use_when": [
+        "installing Alatyr",
+        "updating Alatyr Core",
+        "adapter recheck",
+        "adapter maturity review",
+        "framework drift repair"
+      ],
+      "operation_candidates": [
+        "adapter-health",
+        "recheck-after-framework-update",
+        "recheck-after-installation",
+        "adapter-maturity-review",
+        "extension-management"
+      ],
+      "descriptor": ".ai/assistant/context/profiles/framework-upgrade.json",
+      "required_context": [
+        ".ai/assistant/context/migration-routing.json",
+        ".ai/alatyr.yaml",
+        ".ai/assistant/module-profile.md",
+        ".ai/project/source-of-truth-registry.md",
+        ".ai/project/consistency-map.json",
+        ".ai/assistant/gates/core.md",
+        ".ai/assistant/gates/final-evidence.md"
+      ],
+      "conditional_context": [
+        {
+          "path": ".ai/framework/lifecycle.md",
+          "when": "the impact report selects lifecycle or target migration actions"
+        },
+        {
+          "path": ".ai/framework/migration-diff.md",
+          "when": "migration evidence must be generated repaired or interpreted"
+        },
+        {
+          "path": ".ai/framework/rule-registry.json",
+          "when": "changed rule IDs need canonical detail or the impact report is disputed"
+        },
+        {
+          "path": ".ai/assistant/flows/adapter-recheck.flow.md",
+          "when": "the reviewed assessment enters apply or post-update validation"
+        },
+        {
+          "path": ".ai/assistant/templates/installation-note.md",
+          "when": "installation baseline or current adapter state must be inspected or updated"
+        },
+        {
+          "path": ".ai/assistant/templates/migration-note.md",
+          "when": "reviewed migration impact must be recorded for the target"
+        },
+        {
+          "path": ".ai/assistant/gates/security-approval.md",
+          "when": "the update would overwrite instructions or change protected adapter behavior"
+        }
+      ],
+      "expand_when": [
+        "migration_assessment_identifies_affected_canonical_source",
+        "changed_target_template_surface",
+        "protected_adapter_overwrite",
+        "bridge_capability_change",
+        "target_local_deviation_conflict",
+        "validation_disproves_impact_boundary"
+      ],
+      "approval_gates": [
+        "overwriting_existing_instructions",
+        "protected_adapter_behavior_change",
+        "third_party_assistant_infrastructure_adoption"
+      ],
+      "validation": [
+        "Alatyr source validator from installation checkout or manual adapter review"
+      ],
+      "final_evidence": [
+        "adapter_version_schema_state",
+        "changed_framework_baseline",
+        "migration_assessment",
+        "selected_and_omitted_canonical_sources",
+        "affected_target_files",
+        "registry_and_consistency_map_sync",
+        "gaps",
+        "local_deviations",
+        "validation",
+        "migration_actions"
+      ]
+    }
+  },
   "profile_index": {
     "docs-local": {
       "use_when": [

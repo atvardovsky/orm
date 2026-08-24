@@ -312,9 +312,9 @@ Final evidence: development evidence policy, summarized records only, selected m
 Fact type: `alatyr full capability`
 Canonical owner: .ai/assistant/module-profile.md and .ai/alatyr.yaml
 Consistency level: adapter-owned current state with target evidence review
-Project area: `assistant-adapter, ai-infrastructure, architecture, dependencies, testing, team, vocabulary, workspace-modes`
+Project area: `assistant-adapter, ai-infrastructure, architecture, dependencies, testing, team, vocabulary, workspace-modes, project-knowledge`
 Consistency map node: `alatyr-full-capability`
-Relationship coverage: enabled through `.ai/project/consistency-map.json` node `alatyr-full-capability` for manifest, module profile, context router, operation catalog/index, gates, bridge capability matrix, project catalogs, and bootstrap index
+Relationship coverage: enabled through `.ai/project/consistency-map.json` node `alatyr-full-capability` for manifest, module profile, context router, operation catalog/index, gates, bridge capability matrix, project catalogs, project-knowledge index, and bootstrap index
 Invariant and dependency constraints: enabled modules must have dependency closure, owner files, routed context, installed flows/templates/gates where required, and no unresolved brace placeholders
 Derived surfaces:
 
@@ -325,9 +325,14 @@ Derived surfaces:
 - `.ai/assistant/operation-catalog.json`
 - `.ai/assistant/operation-index.json`
 - `.ai/assistant/gates/index.json`
+- `.ai/assistant/context/project-knowledge-routing.json`
+- `.ai/assistant/flows/project-knowledge.flow.md`
+- `.ai/assistant/gates/project-knowledge.md`
 - `.ai/assistant/bridge-capability-matrix.md`
 - `.ai/assistant/assistant-capabilities.json`
 - `.ai/assistant/bootstrap-index.json`
+- `.ai/project/knowledge/README.md`
+- `.ai/project/knowledge/index.json`
 - `.ai/project/architecture/catalog.json`
 - `.ai/project/dependencies/catalog.json`
 - `.ai/project/documentation/catalog.json`
@@ -338,7 +343,7 @@ Derived surfaces:
 - `.ai/project/workspace-modes/catalog.json`
 - `.ai/project/development-evidence.json`
 
-Sync direction: capability enablement changes must update manifest, module profile, router, operations, gates, help/bridge surfaces, target owner records, and bootstrap together
+Sync direction: capability enablement changes must update manifest, module profile, router, operations, gates, help/bridge surfaces, project-knowledge routing/index policy, target owner records, and bootstrap together
 Validation or manual review: adapter validator, module closure audit, JSON/YAML parse, placeholder/local-path scan, markdown/front-matter review, and git diff check
 Conflict resolver: .ai/framework/capabilities.json defines available module contracts; .ai/assistant/module-profile.md and .ai/alatyr.yaml define target enablement
 Approval trigger: weakening capability gates, enabling external permissions, importing AI infrastructure, or broadening protected action scope

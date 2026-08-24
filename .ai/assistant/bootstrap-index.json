@@ -4,21 +4,21 @@
   "derived_from": {
     "manifest": {
       "path": ".ai/alatyr.yaml",
-      "sha256": "de06f892210275fd665d562ed82aeacdcf42c55043f28892fc206c463059eeff"
+      "sha256": "0058fbd47263010f49bce52173a66db4f52fd35bb812ae7f35c0127f6fe28831"
     },
     "project_map": {
       "path": ".ai/README.md",
-      "sha256": "fe619d6b9b6af6808c510879a6616055c625fdbd84617e0a99c15c45aedf8622"
+      "sha256": "ac4a6c911db6ddcda07c7a0d3fdd5f0bb75cff4981ae83684da83db80a358046"
     },
     "context_router": {
       "path": ".ai/assistant/context-router.json",
-      "sha256": "151ca9d5db1f602ff263ebed6669694dc75b40bcd5945ea3654e54d18347d004"
+      "sha256": "f0a78817643f8afb8a50d042d0aade7ad3f484a05b96bd89d2d69b82ab0ca097"
     }
   },
   "installation": {
-    "framework_version": "0.1.0-alpha.25",
-    "adapter_schema_version": "24",
-    "template_version": "24",
+    "framework_version": "0.1.0-alpha.27",
+    "adapter_schema_version": "25",
+    "template_version": "25",
     "support_profile": "full",
     "framework_pack": "complete"
   },
@@ -327,6 +327,7 @@
       ]
     }
   },
+  "project_knowledge_routing": ".ai/assistant/context/project-knowledge-routing.json",
   "operation_index": ".ai/assistant/operation-index.json",
   "operation_catalog": ".ai/assistant/operation-catalog.json",
   "gate_index": ".ai/assistant/gates/index.json",

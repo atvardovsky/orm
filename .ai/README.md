@@ -10,7 +10,7 @@ projection is stale, routing is ambiguous, or adapter repair is required.
 
 ## Framework Area
 
-`.ai/framework` contains the installed Alatyr Core standard framework pack.
+`.ai/framework` contains the installed Alatyr Core complete framework pack.
 Framework files must not contain Doctrine ORM project facts, target commands,
 security policy, lifecycle facts, or target-specific assistant infrastructure.
 
@@ -27,12 +27,14 @@ security policy, lifecycle facts, or target-specific assistant infrastructure.
 - security reporting and SQL-injection guidance from `SECURITY.md` and `docs/en/reference/security.rst`
 - contribution and test expectations from `CONTRIBUTING.md`, `tests/README.markdown`, and CI workflows
 - source-of-truth registry entries in `.ai/project/source-of-truth-registry.md`
+- durable engineering evidence in `.ai/project/engineering-evidence/index.json`
+- project-knowledge routing policy and empty active index in `.ai/project/knowledge/`
 
 The accepted project blueprint index is `.ai/project/blueprint.md`. The
-accepted project commit policy is `.ai/project/commit-policy.md`. No
-target-owned architecture catalog, consistency map, vocabulary catalog,
-test-first policy, team policy, or diagram policy was accepted during this
-installation.
+accepted project commit policy is `.ai/project/commit-policy.md`. The full
+optional capability graph is accepted on this branch through
+`.ai/assistant/module-profile.md`; target facts remain owned by their
+registered canonical sources.
 
 ## Repository Adapter Area
 

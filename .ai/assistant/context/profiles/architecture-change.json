@@ -12,7 +12,9 @@
     "product-change",
     "create-project-blueprint",
     "logical-integrity-review",
-    "engineering-evidence"
+    "engineering-evidence",
+    "project-knowledge",
+    "test-first-change"
   ],
   "required_context": [
     ".ai/framework/change-risk-model.md",

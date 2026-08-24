@@ -11,6 +11,9 @@ Before reporting completion, state:
 - validation run, skipped, unavailable, or unresolved
 - approval scope and protected actions avoided when applicable
 - context expansion and task-scale, package, team, or delegation evidence used
+- project-knowledge routing stage, selectors, selected or omitted IDs,
+  warnings or blockers, canonical owners reverified, and packet-limit result
+  when non-trivial work used the route
 - `durable_engineering_evidence`: captured, skipped, or blocked with
   repository binding or a fact-specific reason
 - commit-policy check when creating or amending a commit

@@ -39,6 +39,24 @@
         "before reporting completion"
       ]
     },
+    "engineering-evidence": {
+      "path": ".ai/assistant/gates/engineering-evidence.md",
+      "use_when": [
+        "material semantic architectural or non-obvious repair reaches finalization"
+      ]
+    },
+    "project-knowledge": {
+      "path": ".ai/assistant/gates/project-knowledge.md",
+      "use_when": [
+        "reusable knowledge is proposed promoted routed revalidated contradicted or superseded"
+      ]
+    },
+    "debug-mode": {
+      "path": ".ai/assistant/gates/debug-mode.md",
+      "use_when": [
+        "Debug Mode is explicitly active for the current task"
+      ]
+    },
     "dependency-knowledge": {
       "path": ".ai/assistant/gates/dependency-knowledge.md",
       "use_when": [

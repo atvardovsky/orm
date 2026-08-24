@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "index_kind": "target-project-knowledge-routing-index",
+  "project": "Doctrine ORM",
+  "owner": "@atvardovsky",
+  "review_policy": "project knowledge promotions require target decision-owner review, canonical-owner update or verification, and adapter validation before routine routing",
+  "retention_policy": "retain compact reviewed records while relevant to branch history",
+  "redaction_policy": "redact raw private chat, chain-of-thought, prompts, secrets, credentials, personal data, unrelated session history, complete diffs, and verbose validation logs",
+  "routing_policy": {
+    "max_initial_items": 6,
+    "max_refined_items": 8,
+    "max_summary_words": 60,
+    "current_constraint_states": [
+      "accepted",
+      "current"
+    ],
+    "warning_freshness_states": [
+      "revalidation-required"
+    ],
+    "blocking_freshness_states": [
+      "contradicted"
+    ],
+    "selection_order": [
+      "task-profile",
+      "project-area",
+      "subsystem-or-architecture-item",
+      "dependency-or-contract",
+      "changed-fact",
+      "path-or-symbol",
+      "issue-lineage"
+    ],
+    "profile_only_match_allowed": false
+  },
+  "promotion_records": [],
+  "shards": []
+}

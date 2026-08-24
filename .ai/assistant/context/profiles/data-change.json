@@ -12,7 +12,9 @@
     "product-change",
     "logical-integrity-review",
     "engineering-evidence",
-    "drift-review"
+    "project-knowledge",
+    "drift-review",
+    "test-first-change"
   ],
   "required_context": [
     ".ai/framework/change-risk-model.md",

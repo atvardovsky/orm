@@ -15,6 +15,29 @@ After bootstrap, choose the smallest matching profile and only the affected
 project-area overlays. Record context expansion when the task crosses multiple
 areas, exceeds the default budget, or needs protected owner evidence.
 
+## Project Knowledge Routing
+
+For every non-trivial selected task, read the compact project-knowledge index
+after profile and area selection. Open only shard descriptors matching the
+profile plus at least one area, dependency, fact, contract, path, symbol, or
+issue signal. Subsystem and architecture-item relationships are also strong
+selectors. Profile matching alone never selects an item.
+
+The portable policy owner is `.ai/framework/project-knowledge.md`; load it
+only for lifecycle work, ambiguity, conflict, or adapter repair.
+
+Run an initial route before broad orientation and a refined route after source
+inspection identifies changed facts, paths, symbols, dependencies, contracts,
+or issue lineage. Obey the separate packet limits in the index. Read selected
+canonical owners before relying on summaries. Supply only accepted-current
+items as candidate constraints; stale items are warnings and contradictions
+are blockers. Record selected, used, inapplicable, stale, blocked, and omitted
+IDs in the context receipt.
+
+When a material investigation discovers reusable knowledge, the finalization
+flow may propose promotion. Human review and canonical-owner update are
+required before the item enters routine routing.
+
 ## Profile: `docs-local`
 
 Use for local documentation wording, README edits, and non-semantic docs work.
@@ -181,7 +204,15 @@ residual risk.
 
 ## Full Capability Overlays
 
-This branch enables the full Alatyr capability graph. The router includes intent overlays for architecture, diagrams, code documentation, dependency knowledge, vocabulary, test-first work, extensions, workspace modes, and AI infrastructure. Task-scale overlays cover large or resumable work, delegated execution, change packages, and active team coordination. Area overlays include architecture, dependencies, documentation knowledge, vocabulary, testing policy, team, workspace modes, and AI infrastructure in addition to the original Doctrine `src`, `tests`, `docs`, `business-logic`, `ci`, and `commits` overlays.
+This branch enables the full Alatyr capability graph. The router includes
+project-knowledge delivery plus intent overlays for architecture, diagrams,
+code documentation, dependency knowledge, vocabulary, test-first work,
+extensions, workspace modes, and AI infrastructure. Task-scale overlays cover
+large or resumable work, delegated execution, change packages, and active team
+coordination. Area overlays include architecture, dependencies, documentation
+knowledge, vocabulary, testing policy, team, workspace modes, and AI
+infrastructure in addition to the original Doctrine `src`, `tests`, `docs`,
+`business-logic`, `ci`, and `commits` overlays.
 
 Runtime-specific assistant bridge capabilities remain evidence-bound; load `.ai/assistant/assistant-capabilities.json` and `.ai/assistant/bridge-capability-matrix.md` before relying on a non-Codex bridge or delegated execution.
 
