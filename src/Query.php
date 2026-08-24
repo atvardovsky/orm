@@ -112,6 +112,8 @@ class Query extends AbstractQuery
 
     public const HINT_INTERNAL_ITERATION = 'doctrine.internal.iteration';
 
+    public const HINT_INTERNAL_GENERATED_RESULT_SET_MAPPING = 'doctrine.orm.internalGeneratedResultSetMapping';
+
     public const HINT_LOCK_MODE = 'doctrine.lockMode';
 
     /**
@@ -194,6 +196,8 @@ class Query extends AbstractQuery
         if ($this->resultSetMapping === null) {
             $this->resultSetMapping = $this->parse()->getResultSetMapping();
         }
+
+        $this->hints[self::HINT_INTERNAL_GENERATED_RESULT_SET_MAPPING] = true;
 
         return $this->resultSetMapping;
     }

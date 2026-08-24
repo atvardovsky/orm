@@ -2107,18 +2107,6 @@ parameters:
 			path: src/Persisters/Entity/BasicEntityPersister.php
 
 		-
-			message: '#^Parameter \#3 \$hints of method Doctrine\\ORM\\Internal\\Hydration\\AbstractHydrator\:\:hydrateAll\(\) expects array\<string, string\>, array\<string, Doctrine\\ORM\\PersistentCollection\|true\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/Persisters/Entity/BasicEntityPersister.php
-
-		-
-			message: '#^Parameter \#3 \$hints of method Doctrine\\ORM\\Internal\\Hydration\\AbstractHydrator\:\:hydrateAll\(\) expects array\<string, string\>, array\<string, true\> given\.$#'
-			identifier: argument.type
-			count: 4
-			path: src/Persisters/Entity/BasicEntityPersister.php
-
-		-
 			message: '#^Property Doctrine\\ORM\\Persisters\\Entity\\CachedPersisterContext\:\:\$sqlTableAliases \(array\<class\-string, string\>\) does not accept array\<string, string\>\.$#'
 			identifier: assign.propertyType
 			count: 1

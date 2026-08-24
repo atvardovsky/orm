@@ -283,7 +283,7 @@ class ManyToManyPersister extends AbstractCollectionPersister
         return $this
             ->em
             ->newHydrator(Query::HYDRATE_OBJECT)
-            ->hydrateAll($stmt, $rsm);
+            ->hydrateAll($stmt, $rsm, [Query::HINT_INTERNAL_GENERATED_RESULT_SET_MAPPING => true]);
     }
 
     /**

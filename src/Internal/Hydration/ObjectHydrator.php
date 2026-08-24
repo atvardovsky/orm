@@ -53,6 +53,8 @@ class ObjectHydrator extends AbstractHydrator
 
     protected function prepare(): void
     {
+        parent::prepare();
+
         if (! isset($this->hints[UnitOfWork::HINT_DEFEREAGERLOAD])) {
             $this->hints[UnitOfWork::HINT_DEFEREAGERLOAD] = true;
         }
@@ -407,7 +409,7 @@ class ObjectHydrator extends AbstractHydrator
                                 $element = $this->getEntity($data, $dqlAlias);
 
                                 if (isset($this->resultSetMapping()->indexByMap[$dqlAlias])) {
-                                    $indexValue = $row[$this->resultSetMapping()->indexByMap[$dqlAlias]];
+                                    $indexValue = $this->getResultColumnValue($row, $this->resultSetMapping()->indexByMap[$dqlAlias]);
                                     $reflFieldValue->hydrateSet($indexValue, $element);
                                     $this->identifierMap[$path][$id[$parentAlias]][$id[$dqlAlias]] = $indexValue;
                                 } else {
@@ -499,7 +501,7 @@ class ObjectHydrator extends AbstractHydrator
                     }
 
                     if (isset($this->resultSetMapping()->indexByMap[$dqlAlias])) {
-                        $resultKey = $row[$this->resultSetMapping()->indexByMap[$dqlAlias]];
+                        $resultKey = $this->getResultColumnValue($row, $this->resultSetMapping()->indexByMap[$dqlAlias]);
 
                         if (isset($this->hints['collection'])) {
                             $this->hints['collection']->hydrateSet($resultKey, $element);
@@ -542,7 +544,7 @@ class ObjectHydrator extends AbstractHydrator
         if (isset($rowData['scalars'])) {
             if (! isset($resultKey)) {
                 $resultKey = isset($this->resultSetMapping()->indexByMap['scalars'])
-                    ? $row[$this->resultSetMapping()->indexByMap['scalars']]
+                    ? $this->getResultColumnValue($row, $this->resultSetMapping()->indexByMap['scalars'])
                     : $this->resultCounter - 1;
             }
 

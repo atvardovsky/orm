@@ -11,6 +11,7 @@ use Doctrine\DBAL\Types\Type;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Events;
 use Doctrine\ORM\Mapping\ClassMetadata;
+use Doctrine\ORM\Query;
 use Doctrine\ORM\Query\ResultSetMapping;
 use Doctrine\ORM\Tools\Pagination\LimitSubqueryWalker;
 use Doctrine\ORM\UnitOfWork;
@@ -18,6 +19,7 @@ use Generator;
 use LogicException;
 use ReflectionClass;
 use ReflectionEnum;
+use Throwable;
 
 use function array_key_exists;
 use function array_keys;
@@ -30,6 +32,7 @@ use function in_array;
 use function is_array;
 use function is_object;
 use function ksort;
+use function strtolower;
 
 /**
  * Base class for all hydrators. A hydrator is a class that provides some form
@@ -79,6 +82,20 @@ abstract class AbstractHydrator
      * @var array<string, mixed>
      */
     protected array $hints = [];
+
+    /**
+     * Maps actual result-set column names to ResultSetMapping column names.
+     *
+     * @var array<string, string>
+     */
+    private array $mappedColumnNames = [];
+
+    /**
+     * Maps ResultSetMapping column names to actual result-set column names.
+     *
+     * @var array<string, string>
+     */
+    private array $resultColumnNames = [];
 
     /**
      * Initializes a new instance of a class derived from <tt>AbstractHydrator</tt>.
@@ -161,7 +178,7 @@ abstract class AbstractHydrator
     /**
      * Hydrates all rows returned by the passed statement instance at once.
      *
-     * @phpstan-param array<string, string> $hints
+     * @phpstan-param array<string, mixed> $hints
      */
     public function hydrateAll(Result $stmt, ResultSetMapping $resultSetMapping, array $hints = []): mixed
     {
@@ -195,6 +212,7 @@ abstract class AbstractHydrator
      */
     protected function prepare(): void
     {
+        $this->initializeResultColumnNames();
     }
 
     /**
@@ -205,10 +223,12 @@ abstract class AbstractHydrator
     {
         $this->statement()->free();
 
-        $this->stmt          = null;
-        $this->rsm           = null;
-        $this->cache         = [];
-        $this->metadataCache = [];
+        $this->stmt              = null;
+        $this->rsm               = null;
+        $this->cache             = [];
+        $this->metadataCache     = [];
+        $this->mappedColumnNames = [];
+        $this->resultColumnNames = [];
 
         $this
             ->em
@@ -218,6 +238,23 @@ abstract class AbstractHydrator
 
     protected function cleanupAfterRowIteration(): void
     {
+    }
+
+    /** @param array<string, mixed> $row */
+    protected function getResultColumnValue(array $row, string $mappedColumnName): mixed
+    {
+        return $row[$this->getResultColumnName($mappedColumnName)];
+    }
+
+    /** @param array<string, mixed> $row */
+    protected function hasResultColumnValue(array $row, string $mappedColumnName): bool
+    {
+        return isset($row[$this->getResultColumnName($mappedColumnName)]);
+    }
+
+    protected function getResultColumnName(string $mappedColumnName): string
+    {
+        return $this->resultColumnNames[$mappedColumnName] ?? $mappedColumnName;
     }
 
     /**
@@ -323,9 +360,12 @@ abstract class AbstractHydrator
 
                     // If there are field name collisions in the child class, then we need
                     // to only hydrate if we are looking at the correct discriminator value
+                    $discriminatorColumn = $cacheKeyInfo['discriminatorColumn'] ?? null;
+
                     if (
-                        isset($cacheKeyInfo['discriminatorColumn'], $data[$cacheKeyInfo['discriminatorColumn']])
-                        && ! in_array((string) $data[$cacheKeyInfo['discriminatorColumn']], $cacheKeyInfo['discriminatorValues'], true)
+                        $discriminatorColumn !== null
+                        && $this->hasResultColumnValue($data, $discriminatorColumn)
+                        && ! in_array((string) $this->getResultColumnValue($data, $discriminatorColumn), $cacheKeyInfo['discriminatorValues'], true)
                     ) {
                         break;
                     }
@@ -448,19 +488,21 @@ abstract class AbstractHydrator
             return $this->cache[$key];
         }
 
+        $mappingKey = $this->mappedColumnNames[$key] ?? $key;
+
         switch (true) {
             // NOTE: Most of the times it's a field mapping, so keep it first!!!
-            case isset($this->rsm->fieldMappings[$key]):
-                $classMetadata = $this->getClassMetadata($this->rsm->declaringClasses[$key]);
-                $fieldName     = $this->rsm->fieldMappings[$key];
+            case isset($this->rsm->fieldMappings[$mappingKey]):
+                $classMetadata = $this->getClassMetadata($this->rsm->declaringClasses[$mappingKey]);
+                $fieldName     = $this->rsm->fieldMappings[$mappingKey];
                 $fieldMapping  = $classMetadata->fieldMappings[$fieldName];
-                $ownerMap      = $this->rsm->columnOwnerMap[$key];
+                $ownerMap      = $this->rsm->columnOwnerMap[$mappingKey];
                 $columnInfo    = [
                     'isIdentifier' => in_array($fieldName, $classMetadata->identifier, true),
                     'fieldName'    => $fieldName,
                     'type'         => Type::getType($fieldMapping->type),
                     'dqlAlias'     => $ownerMap,
-                    'enumType'     => $this->rsm->enumMappings[$key] ?? null,
+                    'enumType'     => $this->rsm->enumMappings[$mappingKey] ?? null,
                 ];
 
                 // the current discriminator value must be saved in order to disambiguate fields hydration,
@@ -478,60 +520,151 @@ abstract class AbstractHydrator
 
                 return $this->cache[$key] = $columnInfo;
 
-            case isset($this->rsm->newObjectMappings[$key]):
+            case isset($this->rsm->newObjectMappings[$mappingKey]):
                 // WARNING: A NEW object is also a scalar, so it must be declared before!
-                $mapping = $this->rsm->newObjectMappings[$key];
+                $mapping = $this->rsm->newObjectMappings[$mappingKey];
 
                 return $this->cache[$key] = [
                     'isScalar'             => true,
                     'isNewObjectParameter' => true,
-                    'fieldName'            => $this->rsm->scalarMappings[$key],
-                    'type'                 => Type::getType($this->rsm->typeMappings[$key]),
+                    'fieldName'            => $this->rsm->scalarMappings[$mappingKey],
+                    'type'                 => Type::getType($this->rsm->typeMappings[$mappingKey]),
                     'argIndex'             => $mapping['argIndex'],
                     'objIndex'             => $mapping['objIndex'],
-                    'enumType'             => $this->rsm->enumMappings[$key] ?? null,
+                    'enumType'             => $this->rsm->enumMappings[$mappingKey] ?? null,
                 ];
 
-            case isset($this->rsm->scalarMappings[$key], $this->hints[LimitSubqueryWalker::FORCE_DBAL_TYPE_CONVERSION]):
+            case isset($this->rsm->scalarMappings[$mappingKey], $this->hints[LimitSubqueryWalker::FORCE_DBAL_TYPE_CONVERSION]):
                 return $this->cache[$key] = [
-                    'fieldName' => $this->rsm->scalarMappings[$key],
-                    'type'      => Type::getType($this->rsm->typeMappings[$key]),
+                    'fieldName' => $this->rsm->scalarMappings[$mappingKey],
+                    'type'      => Type::getType($this->rsm->typeMappings[$mappingKey]),
                     'dqlAlias'  => '',
-                    'enumType'  => $this->rsm->enumMappings[$key] ?? null,
+                    'enumType'  => $this->rsm->enumMappings[$mappingKey] ?? null,
                 ];
 
-            case isset($this->rsm->scalarMappings[$key]):
+            case isset($this->rsm->scalarMappings[$mappingKey]):
                 return $this->cache[$key] = [
                     'isScalar'  => true,
-                    'fieldName' => $this->rsm->scalarMappings[$key],
-                    'type'      => Type::getType($this->rsm->typeMappings[$key]),
-                    'enumType'  => $this->rsm->enumMappings[$key] ?? null,
+                    'fieldName' => $this->rsm->scalarMappings[$mappingKey],
+                    'type'      => Type::getType($this->rsm->typeMappings[$mappingKey]),
+                    'enumType'  => $this->rsm->enumMappings[$mappingKey] ?? null,
                 ];
 
-            case isset($this->rsm->metaMappings[$key]):
+            case isset($this->rsm->metaMappings[$mappingKey]):
                 // Meta column (has meaning in relational schema only, i.e. foreign keys or discriminator columns).
-                $fieldName = $this->rsm->metaMappings[$key];
-                $dqlAlias  = $this->rsm->columnOwnerMap[$key];
-                $type      = isset($this->rsm->typeMappings[$key])
-                    ? Type::getType($this->rsm->typeMappings[$key])
+                $fieldName = $this->rsm->metaMappings[$mappingKey];
+                $dqlAlias  = $this->rsm->columnOwnerMap[$mappingKey];
+                $type      = isset($this->rsm->typeMappings[$mappingKey])
+                    ? Type::getType($this->rsm->typeMappings[$mappingKey])
                     : null;
 
                 // Cache metadata fetch
                 $this->getClassMetadata($this->rsm->aliasMap[$dqlAlias]);
 
                 return $this->cache[$key] = [
-                    'isIdentifier' => isset($this->rsm->isIdentifierColumn[$dqlAlias][$key]),
+                    'isIdentifier' => isset($this->rsm->isIdentifierColumn[$dqlAlias][$mappingKey]),
                     'isMetaColumn' => true,
                     'fieldName'    => $fieldName,
                     'type'         => $type,
                     'dqlAlias'     => $dqlAlias,
-                    'enumType'     => $this->rsm->enumMappings[$key] ?? null,
+                    'enumType'     => $this->rsm->enumMappings[$mappingKey] ?? null,
                 ];
         }
 
         // this column is a left over, maybe from a LIMIT query hack for example in Oracle or DB2
         // maybe from an additional column that has not been defined in a NativeQuery ResultSetMapping.
         return null;
+    }
+
+    private function initializeResultColumnNames(): void
+    {
+        if (! isset($this->hints[Query::HINT_INTERNAL_GENERATED_RESULT_SET_MAPPING])) {
+            return;
+        }
+
+        $mappedColumnNames = $this->getMappedColumnNames();
+        if ($mappedColumnNames === []) {
+            return;
+        }
+
+        try {
+            $columnCount = $this->statement()->columnCount();
+        } catch (Throwable) {
+            return;
+        }
+
+        for ($index = 0; $index < $columnCount; ++$index) {
+            try {
+                $resultColumnName = $this->statement()->getColumnName($index);
+            } catch (Throwable) {
+                $this->mappedColumnNames = [];
+                $this->resultColumnNames = [];
+
+                return;
+            }
+
+            $mappedColumnName = $this->resolveMappedColumnName($resultColumnName, $mappedColumnNames);
+            if ($mappedColumnName === null) {
+                continue;
+            }
+
+            $this->mappedColumnNames[$resultColumnName] = $mappedColumnName;
+            $this->resultColumnNames[$mappedColumnName] = $resultColumnName;
+        }
+    }
+
+    /** @return array<string, string|null> */
+    private function getMappedColumnNames(): array
+    {
+        $mappedColumnNames = [];
+
+        $resultSetMappingColumnNames = [
+            array_keys($this->resultSetMapping()->fieldMappings),
+            array_keys($this->resultSetMapping()->scalarMappings),
+            array_keys($this->resultSetMapping()->metaMappings),
+            array_keys($this->resultSetMapping()->newObjectMappings),
+            $this->resultSetMapping()->discriminatorColumns,
+            $this->resultSetMapping()->indexByMap,
+        ];
+
+        foreach ($resultSetMappingColumnNames as $columnNames) {
+            foreach ($columnNames as $columnName) {
+                if ($columnName === '') {
+                    continue;
+                }
+
+                $foldedColumnName = strtolower($columnName);
+
+                if (! array_key_exists($foldedColumnName, $mappedColumnNames)) {
+                    $mappedColumnNames[$foldedColumnName] = $columnName;
+
+                    continue;
+                }
+
+                if ($mappedColumnNames[$foldedColumnName] !== $columnName) {
+                    $mappedColumnNames[$foldedColumnName] = null;
+                }
+            }
+        }
+
+        return $mappedColumnNames;
+    }
+
+    /** @param array<string, string|null> $mappedColumnNames */
+    private function resolveMappedColumnName(string $resultColumnName, array $mappedColumnNames): string|null
+    {
+        if (
+            isset($this->resultSetMapping()->fieldMappings[$resultColumnName])
+            || isset($this->resultSetMapping()->scalarMappings[$resultColumnName])
+            || isset($this->resultSetMapping()->metaMappings[$resultColumnName])
+            || isset($this->resultSetMapping()->newObjectMappings[$resultColumnName])
+            || in_array($resultColumnName, $this->resultSetMapping()->discriminatorColumns, true)
+            || in_array($resultColumnName, $this->resultSetMapping()->indexByMap, true)
+        ) {
+            return $resultColumnName;
+        }
+
+        return $mappedColumnNames[strtolower($resultColumnName)] ?? null;
     }
 
     /**

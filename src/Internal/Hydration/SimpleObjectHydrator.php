@@ -30,6 +30,8 @@ class SimpleObjectHydrator extends AbstractHydrator
 
     protected function prepare(): void
     {
+        parent::prepare();
+
         if (count($this->resultSetMapping()->aliasMap) !== 1) {
             throw new RuntimeException('Cannot use SimpleObjectHydrator with a ResultSetMapping that contains more than one object result.');
         }
@@ -86,7 +88,9 @@ class SimpleObjectHydrator extends AbstractHydrator
                 $discrColumnName = $metaMappingDiscrColumnName;
             }
 
-            if (! isset($row[$discrColumnName])) {
+            $discrColumnResultName = $this->getResultColumnName($discrColumnName);
+
+            if (! isset($row[$discrColumnResultName])) {
                 throw HydrationException::missingDiscriminatorColumn(
                     $entityName,
                     $discrColumnName,
@@ -94,7 +98,7 @@ class SimpleObjectHydrator extends AbstractHydrator
                 );
             }
 
-            if ($row[$discrColumnName] === '') {
+            if ($row[$discrColumnResultName] === '') {
                 throw HydrationException::emptyDiscriminatorValue(key(
                     $this->resultSetMapping()->aliasMap,
                 ));
@@ -102,14 +106,14 @@ class SimpleObjectHydrator extends AbstractHydrator
 
             $discrMap = $this->class->discriminatorMap;
 
-            if (! isset($discrMap[$row[$discrColumnName]])) {
-                throw HydrationException::invalidDiscriminatorValue($row[$discrColumnName], array_keys($discrMap));
+            if (! isset($discrMap[$row[$discrColumnResultName]])) {
+                throw HydrationException::invalidDiscriminatorValue($row[$discrColumnResultName], array_keys($discrMap));
             }
 
-            $entityName       = $discrMap[$row[$discrColumnName]];
-            $discrColumnValue = $row[$discrColumnName];
+            $entityName       = $discrMap[$row[$discrColumnResultName]];
+            $discrColumnValue = $row[$discrColumnResultName];
 
-            unset($row[$discrColumnName]);
+            unset($row[$discrColumnResultName]);
         }
 
         foreach ($row as $column => $value) {

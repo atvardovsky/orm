@@ -9,7 +9,6 @@ use Doctrine\DBAL\Platforms\DB2Platform;
 use Doctrine\DBAL\Platforms\OraclePlatform;
 use Doctrine\DBAL\Platforms\PostgreSQLPlatform;
 
-use function method_exists;
 use function strtolower;
 use function strtoupper;
 
@@ -18,15 +17,6 @@ trait SQLResultCasing
 {
     private function getSQLResultCasing(AbstractPlatform $platform, string $column): string
     {
-        // @phpstan-ignore function.alreadyNarrowedType (DBAL 3 compatibility)
-        if (method_exists($platform, 'getUnquotedIdentifierFolding')) {
-            return match ($platform->getUnquotedIdentifierFolding()->name) {
-                'UPPER' => strtoupper($column),
-                'LOWER' => strtolower($column),
-                default => $column,
-            };
-        }
-
         if ($platform instanceof DB2Platform || $platform instanceof OraclePlatform) {
             return strtoupper($column);
         }

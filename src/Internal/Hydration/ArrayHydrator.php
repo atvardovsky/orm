@@ -34,6 +34,8 @@ class ArrayHydrator extends AbstractHydrator
 
     protected function prepare(): void
     {
+        parent::prepare();
+
         $this->isSimpleQuery = count($this->resultSetMapping()->aliasMap) <= 1;
 
         foreach ($this->resultSetMapping()->aliasMap as $dqlAlias => $className) {
@@ -117,7 +119,7 @@ class ArrayHydrator extends AbstractHydrator
                             $element = $data;
 
                             if (isset($this->resultSetMapping()->indexByMap[$dqlAlias])) {
-                                $baseElement[$relationAlias][$row[$this->resultSetMapping()->indexByMap[$dqlAlias]]] = $element;
+                                $baseElement[$relationAlias][$this->getResultColumnValue($row, $this->resultSetMapping()->indexByMap[$dqlAlias])] = $element;
                             } else {
                                 $baseElement[$relationAlias][] = $element;
                             }
@@ -168,7 +170,7 @@ class ArrayHydrator extends AbstractHydrator
                         : $data;
 
                     if (isset($this->resultSetMapping()->indexByMap[$dqlAlias])) {
-                        $resultKey          = $row[$this->resultSetMapping()->indexByMap[$dqlAlias]];
+                        $resultKey          = $this->getResultColumnValue($row, $this->resultSetMapping()->indexByMap[$dqlAlias]);
                         $result[$resultKey] = $element;
                     } else {
                         $resultKey = $this->resultCounter;
@@ -196,7 +198,7 @@ class ArrayHydrator extends AbstractHydrator
             if (! isset($resultKey)) {
                 // this only ever happens when no object is fetched (scalar result only)
                 $resultKey = isset($this->resultSetMapping()->indexByMap['scalars'])
-                    ? $row[$this->resultSetMapping()->indexByMap['scalars']]
+                    ? $this->getResultColumnValue($row, $this->resultSetMapping()->indexByMap['scalars'])
                     : $this->resultCounter - 1;
             }
 

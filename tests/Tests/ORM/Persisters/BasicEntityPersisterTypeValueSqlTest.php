@@ -67,13 +67,8 @@ class BasicEntityPersisterTypeValueSqlTest extends OrmTestCase
             ->willReturn($this->createStub(Driver\Connection::class));
 
         $platform = $this->getMockBuilder(AbstractPlatform::class)
-            ->setConstructorArgs(enum_exists(UnquotedIdentifierFolding::class) ? [UnquotedIdentifierFolding::NONE] : [])
+            ->setConstructorArgs(enum_exists(UnquotedIdentifierFolding::class) ? [UnquotedIdentifierFolding::UPPER] : [])
             ->getMock();
-        if (enum_exists(UnquotedIdentifierFolding::class)) {
-            $platform->method('getUnquotedIdentifierFolding')
-                ->willReturn(UnquotedIdentifierFolding::NONE);
-        }
-
         $platform->method('supportsIdentityColumns')
             ->willReturn(true);
 
