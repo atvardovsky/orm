@@ -8,9 +8,6 @@
     "a broad regression matrix protects one reusable invariant",
     "explicit durable engineering evidence capture or lookup request"
   ],
-  "operation_candidates": [
-    "engineering-evidence"
-  ],
   "required_context": [
     ".ai/framework/engineering-evidence.md",
     ".ai/assistant/gates/engineering-evidence.md",

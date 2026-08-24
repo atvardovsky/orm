@@ -11,7 +11,8 @@
   ],
   "operation_candidates": [
     "product-change",
-    "logical-integrity-review"
+    "logical-integrity-review",
+    "engineering-evidence"
   ],
   "required_context": [
     ".ai/framework/change-risk-model.md",
