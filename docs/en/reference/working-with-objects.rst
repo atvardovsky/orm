@@ -240,6 +240,8 @@ as follows:
     considers entities that are not yet known to the ``EntityManager`` as new entities
     (refer to the ``STATE_NEW`` constant inside the ``UnitOfWork``).
 
+.. _removing-entities:
+
 Removing entities
 -----------------
 
@@ -289,7 +291,12 @@ as follows:
    of the flush operation.
 
 After an entity has been removed, its in-memory state is the same as
-before the removal, except for generated identifiers.
+before the removal, except for generated identifiers. Doctrine clears
+generated identifier properties when PHP allows it to clear the
+property. If the PHP property cannot be cleared, for example because it
+is a ``readonly`` property or a hooked property, Doctrine still
+removes the entity from its internal identity map while leaving the
+object property value unchanged.
 
 During the ``EntityManager#flush()`` operation, the removed entity
 will also be removed from all collections in entities currently

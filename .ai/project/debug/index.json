@@ -8,5 +8,45 @@
   "retention_policy": "retain compact reviewed records while relevant to branch history",
   "redaction_policy": "exclude raw private chat, chain-of-thought, prompts, secrets, credentials, unrelated personal data, complete diffs, and verbose logs",
   "external_patch_policy": "exclude raw private chat secrets credentials and external-only logs",
-  "records": []
+  "records": [
+    {
+      "debug_id": "DEBUG-GH12077-20260824",
+      "status": "active",
+      "record": ".ai/project/debug/records/DEBUG-GH12077-20260824.json",
+      "task_references": ["https://github.com/doctrine/orm/issues/12077"],
+      "scope_kind": "task",
+      "scope_id": "gh-12077-hooked-identifier-delete",
+      "task_class": "bug-analysis",
+      "repository_binding_kind": "unverified",
+      "repository_binding_state": "provisional",
+      "result_revision": "33737202c19a9f0986d1930e84a957cf5fd22095",
+      "event_coverage": "partial",
+      "observer_effect": "unknown",
+      "elapsed_seconds": null,
+      "elapsed_evidence_kind": "unknown",
+      "metrics": {
+        "human_interventions": null,
+        "human_architectural_interventions": null,
+        "alatyr_independent_findings": null,
+        "derived_findings_after_human": null,
+        "alatyr_independent_dependency_checks": null,
+        "human_requested_dependency_checks": null,
+        "derived_dependency_expansions_after_human": null,
+        "hypotheses_tested": null,
+        "hypotheses_rejected": null,
+        "implementation_revisions": null,
+        "implementation_corrections_after_human": null,
+        "validation_expansions": null,
+        "regression_scenarios_added": null,
+        "maintainer_corrections": null,
+        "post_review_rework": null
+      },
+      "residual_uncertainty": [],
+      "record_schema_version": 3,
+      "engineering_evidence_status": "pending",
+      "continuation_kind": "initial",
+      "continued_from_debug_id": "not-applicable",
+      "claim_validation_fidelity": "partial"
+    }
+  ]
 }

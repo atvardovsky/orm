@@ -72,6 +72,7 @@ use function implode;
 use function in_array;
 use function is_array;
 use function is_object;
+use function method_exists;
 use function reset;
 use function spl_object_id;
 use function sprintf;
@@ -1185,11 +1186,17 @@ class UnitOfWork implements PropertyChangedListener
             // Entity with this $oid after deletion treated as NEW, even if the $oid
             // is obtained by a new entity because the old one went out of scope.
             //$this->entityStates[$oid] = self::STATE_NEW;
+            $idAccessor           = $class->propertyAccessors[$class->identifier[0]];
+            $idReflectionProperty = $idAccessor->getUnderlyingReflector();
+            // @phpstan-ignore function.alreadyNarrowedType (ReflectionProperty::getHooks() exists only in runtimes with property hooks)
+            $hasPropertyHooks = method_exists($idReflectionProperty, 'getHooks') && count($idReflectionProperty->getHooks()) > 0;
+
             if (
                 ! $class->isIdentifierNatural() &&
-                ! $class->propertyAccessors[$class->identifier[0]] instanceof ReadonlyAccessor
+                ! $idAccessor instanceof ReadonlyAccessor &&
+                ! $hasPropertyHooks
             ) {
-                $class->propertyAccessors[$class->identifier[0]]->setValue($entity, null);
+                $idAccessor->setValue($entity, null);
             }
 
             if ($invoke !== ListenersInvoker::INVOKE_NONE) {

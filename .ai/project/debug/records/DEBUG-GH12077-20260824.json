@@ -1,0 +1,401 @@
+{
+  "schema_version": 3,
+  "record_kind": "alatyr-debug-session",
+  "evidence_classification": "non-canonical-observability",
+  "debug_id": "DEBUG-GH12077-20260824",
+  "status": "active",
+  "authority": "non-canonical",
+  "owner": "@atvardovsky",
+  "task": {
+    "summary": "Analyze Doctrine ORM GH-12077: deleting an entity with a PHP 8.4 hooked identifier property throws when Doctrine unsets the identifier.",
+    "references": ["https://github.com/doctrine/orm/issues/12077"],
+    "scope_kind": "task",
+    "scope_id": "gh-12077-hooked-identifier-delete",
+    "operation_ids": ["debug-mode", "logical-integrity-review"],
+    "task_class": "bug-analysis"
+  },
+  "activation": {
+    "enabled_by": "explicit-user-request",
+    "request_reference": "User requested a separate branch for Doctrine issue 12077, Alatyr Debug Mode activation, and deep solution analysis.",
+    "enabled_at": {"value": "2026-08-24T16:42:35Z", "evidence_kind": "observed"},
+    "initial_revision": "33737202c19a9f0986d1930e84a957cf5fd22095",
+    "expires_on": "task-completion",
+    "ended_by": "active"
+  },
+  "continuation": {
+    "kind": "initial",
+    "previous_debug_id": "not-applicable",
+    "reason": "This activation starts a new logical Debug scope for GH-12077."
+  },
+  "timing": {
+    "started_at": {"value": "2026-08-24T16:42:35Z", "evidence_kind": "observed"},
+    "completed_at": {"value": null, "evidence_kind": "unknown"},
+    "elapsed_seconds": {"value": null, "evidence_kind": "unknown"},
+    "active_work_seconds": {"value": null, "evidence_kind": "unknown"}
+  },
+  "capture_quality": {
+    "event_coverage": "partial",
+    "missing_intervals": [
+      "Active investigation is not finalized; only branch activation and material root-cause/solution-selection findings are checkpointed."
+    ],
+    "observer_effect": "unknown",
+    "estimated_overhead_seconds": {"value": null, "evidence_kind": "unknown"}
+  },
+  "events": [
+    {
+      "event_id": "DBG12077-E001",
+      "sequence": 1,
+      "occurred_at": {"value": "2026-08-24T16:42:35Z", "evidence_kind": "observed"},
+      "actor": "alatyr",
+      "causal_class": "independent-within-scope",
+      "intervention_kind": "not-applicable",
+      "contribution_kind": "coordination",
+      "category": "other",
+      "summary": "Created bugfix/gh-12077-hooked-identifier-delete from the current branch and activated Debug Mode.",
+      "material_effect": "Bound the investigation to GH-12077 without implementation, commit, or push authorization.",
+      "evidence": [
+        "git branch --show-current => bugfix/gh-12077-hooked-identifier-delete",
+        "git rev-parse --short HEAD => 33737202c",
+        ".ai/project/debug/records/DEBUG-GH12077-20260824.json"
+      ],
+      "caused_by_event_ids": [],
+      "architectural_supervision": false,
+      "architectural_impacts": [],
+      "decision_effect": "none",
+      "dependency_expansion": false,
+      "validation_expansion": false,
+      "post_review_rework": false,
+      "hypothesis_outcome": "not-applicable"
+    },
+    {
+      "event_id": "DBG12077-E002",
+      "sequence": 2,
+      "occurred_at": {"value": "2026-08-24T16:48:48Z", "evidence_kind": "observed"},
+      "actor": "alatyr",
+      "causal_class": "independent-within-scope",
+      "intervention_kind": "not-applicable",
+      "contribution_kind": "finding",
+      "category": "execution-path",
+      "summary": "Identified the failing path as generated-identifier cleanup during UnitOfWork deletion, routed through TypedNoDefaultPropertyAccessor unset.",
+      "material_effect": "Constrained the primary fix surface to UnitOfWork deletion cleanup for generated simple identifiers with property hooks.",
+      "evidence": [
+        "src/UnitOfWork.php:1188-1192 calls propertyAccessors[id]->setValue(entity, null) for non-natural identifiers except readonly accessors",
+        "src/Mapping/PropertyAccessors/TypedNoDefaultPropertyAccessor.php:40-52 unsets non-nullable typed properties when value is null",
+        "https://github.com/doctrine/orm/issues/12077"
+      ],
+      "caused_by_event_ids": ["DBG12077-E001"],
+      "architectural_supervision": false,
+      "architectural_impacts": ["subsystem-responsibility", "lifecycle-semantics"],
+      "decision_effect": "confirms-direction",
+      "dependency_expansion": true,
+      "validation_expansion": false,
+      "post_review_rework": false,
+      "hypothesis_outcome": "confirmed"
+    },
+    {
+      "event_id": "DBG12077-E003",
+      "sequence": 3,
+      "occurred_at": {"value": "2026-08-24T16:48:48Z", "evidence_kind": "observed"},
+      "actor": "alatyr",
+      "causal_class": "independent-within-scope",
+      "intervention_kind": "not-applicable",
+      "contribution_kind": "finding",
+      "category": "invariant",
+      "summary": "Found Doctrine precedent for skipping impossible generated-id object-property clearing while keeping deletion valid.",
+      "material_effect": "Preferred a narrow hook-aware UnitOfWork guard over changing TypedNoDefaultPropertyAccessor null semantics globally.",
+      "evidence": [
+        "git show 9b226894e => fix: Do not change readonly id when deleting (#9538)",
+        "docs/en/reference/working-with-objects.rst:291-292 documents removed entity state is unchanged except for generated identifiers",
+        "src/Mapping/PropertyAccessors/RawValuePropertyAccessor.php:39-49 shows hook-aware raw writes already exist for normal non-null values"
+      ],
+      "caused_by_event_ids": ["DBG12077-E002"],
+      "architectural_supervision": false,
+      "architectural_impacts": ["canonical-source-interpretation", "solution-class", "compatibility-strategy"],
+      "decision_effect": "confirms-direction",
+      "dependency_expansion": true,
+      "validation_expansion": false,
+      "post_review_rework": false,
+      "hypothesis_outcome": "confirmed"
+    },
+    {
+      "event_id": "DBG12077-E004",
+      "sequence": 4,
+      "occurred_at": {"value": "2026-08-24T16:53:52Z", "evidence_kind": "observed"},
+      "actor": "alatyr",
+      "causal_class": "independent-within-scope",
+      "intervention_kind": "not-applicable",
+      "contribution_kind": "finding",
+      "category": "risk",
+      "summary": "Checked the proposed hook-aware deletion cleanup against Doctrine state, event, mapping, and runtime capability contracts.",
+      "material_effect": "Identified the required regression matrix: delete success, internal UnitOfWork cleanup, generated-id state behavior, normal identifier clearing, readonly precedent, hook mapping constraints, and hook-metadata execution.",
+      "evidence": [
+        "docs/en/reference/working-with-objects.rst:291-292 documents generated-id exception after removal",
+        "tests/Tests/ORM/Functional/BasicFunctionalTest.php:81-83 and :177 expect STATE_NEW for normal generated-id deletion",
+        "tests/Tests/ORM/Functional/Ticket/GH9538Test.php:24-30 covers the existing readonly-id deletion exception",
+        "docs/en/reference/basic-mapping.rst:265-307 documents backed non-virtual property-hook mapping and raw-value caveats",
+        "docs/en/reference/events.rst:684-688 documents postRemove timing after database delete"
+      ],
+      "caused_by_event_ids": ["DBG12077-E003"],
+      "architectural_supervision": false,
+      "architectural_impacts": ["public-contract", "compatibility-strategy", "lifecycle-semantics"],
+      "decision_effect": "confirms-direction",
+      "dependency_expansion": true,
+      "validation_expansion": true,
+      "post_review_rework": false,
+      "hypothesis_outcome": "confirmed"
+    },
+    {
+      "event_id": "DBG12077-E005",
+      "sequence": 5,
+      "occurred_at": {"value": "2026-08-24T17:03:54Z", "evidence_kind": "observed"},
+      "actor": "alatyr",
+      "causal_class": "independent-within-scope",
+      "intervention_kind": "not-applicable",
+      "contribution_kind": "implementation",
+      "category": "implementation-revision",
+      "summary": "Implemented a hook-metadata-aware generated-identifier cleanup guard in UnitOfWork deletion.",
+      "material_effect": "Doctrine now skips only the physical generated-id property clear when the property has hook metadata and PHP cannot clear it, while preserving internal deletion cleanup.",
+      "evidence": [
+        "src/UnitOfWork.php: executeDeletions stores the id accessor once and skips setValue(null) for readonly accessors or properties with ReflectionProperty hook metadata",
+        "docs/en/reference/working-with-objects.rst: removal docs now describe capability-aware generated-id clearing",
+        "docs/en/reference/basic-mapping.rst: property-hook docs now point generated hooked identifiers to removal semantics"
+      ],
+      "caused_by_event_ids": ["DBG12077-E004"],
+      "architectural_supervision": false,
+      "architectural_impacts": ["solution-class", "compatibility-strategy", "public-contract"],
+      "decision_effect": "confirms-direction",
+      "dependency_expansion": false,
+      "validation_expansion": false,
+      "post_review_rework": false,
+      "hypothesis_outcome": "not-applicable"
+    },
+    {
+      "event_id": "DBG12077-E006",
+      "sequence": 6,
+      "occurred_at": {"value": "2026-08-24T17:03:54Z", "evidence_kind": "observed"},
+      "actor": "alatyr",
+      "causal_class": "independent-within-scope",
+      "intervention_kind": "not-applicable",
+      "contribution_kind": "validation",
+      "category": "validation",
+      "summary": "Ran focused validation for GH-12077 and adjacent deletion/state behavior.",
+      "material_effect": "Runtime-accessible regression checks passed; exact GH-12077 execution remains pending a runtime exposing property-hook metadata.",
+      "evidence": [
+        "phpunit tests/Tests/ORM/Functional/Ticket/GH12077/GH12077Test.php => skipped only the hooked-property test because ReflectionProperty hook metadata is unavailable",
+        "phpunit GH9538Test, BasicFunctionalTest --filter testRemove, GH6123Test, DDC2790Test, DDC2775Test => passed",
+        "phpunit property accessor tests => passed with PHP 8.4-only raw-value tests skipped",
+        "phpcs changed PHP files => passed",
+        "composer validate --strict => passed",
+        "phpstan phpstan.neon and phpstan-dbal3.neon => failed on existing baseline/dependency findings unrelated to the new hook guard"
+      ],
+      "caused_by_event_ids": ["DBG12077-E005"],
+      "architectural_supervision": false,
+      "architectural_impacts": [],
+      "decision_effect": "confirms-direction",
+      "dependency_expansion": false,
+      "validation_expansion": true,
+      "post_review_rework": false,
+      "hypothesis_outcome": "not-applicable"
+    },
+    {
+      "event_id": "DBG12077-E007",
+      "sequence": 7,
+      "occurred_at": {"value": "2026-08-24T17:10:20Z", "evidence_kind": "observed"},
+      "actor": "alatyr",
+      "causal_class": "independent-within-scope",
+      "intervention_kind": "not-applicable",
+      "contribution_kind": "validation",
+      "category": "test",
+      "summary": "Hardened GH-12077 test coverage so non-hook branches execute locally and only the hooked-property branch requires hook metadata.",
+      "material_effect": "The touched UnitOfWork condition now has explicit regression coverage for generated non-hook ids, assigned/natural ids, readonly ids, and hooked ids.",
+      "evidence": [
+        "tests/Tests/ORM/Functional/Ticket/GH12077/GH12077Test.php now gates only testCanRemoveEntityWithHookedGeneratedIdentifier on ReflectionProperty hook metadata",
+        "tests/Tests/ORM/Functional/Ticket/GH12077/PlainGeneratedIdentifierEntity.php covers generated non-hook identifier clearing",
+        "tests/Tests/ORM/Functional/Ticket/GH12077/AssignedIdentifierEntity.php covers natural identifier non-clearing",
+        "GH12077Test on local runtime after adding post-insert coverage => 4 tests, 9 assertions, 2 hook-metadata capability skips"
+      ],
+      "caused_by_event_ids": ["DBG12077-E006"],
+      "architectural_supervision": false,
+      "architectural_impacts": ["compatibility-strategy", "lifecycle-semantics"],
+      "decision_effect": "confirms-direction",
+      "dependency_expansion": false,
+      "validation_expansion": true,
+      "post_review_rework": false,
+      "hypothesis_outcome": "not-applicable"
+    },
+    {
+      "event_id": "DBG12077-E008",
+      "sequence": 8,
+      "occurred_at": {"value": "2026-08-24T17:14:08Z", "evidence_kind": "observed"},
+      "actor": "alatyr",
+      "causal_class": "independent-within-scope",
+      "intervention_kind": "not-applicable",
+      "contribution_kind": "implementation",
+      "category": "implementation-revision",
+      "summary": "Replaced PHP-version gates with property-hook capability checks.",
+      "material_effect": "The production guard and exact reproducer test now look for ReflectionProperty hook metadata, which is the symptom relevant to GH-12077.",
+      "evidence": [
+        "src/UnitOfWork.php uses method_exists($idReflectionProperty, 'getHooks') and hook count instead of PHP_VERSION_ID",
+        "tests/Tests/ORM/Functional/Ticket/GH12077/GH12077Test.php uses method_exists(ReflectionProperty::class, 'getHooks') instead of RequiresPhp",
+        "docs/en/reference/working-with-objects.rst says hooked property without version-number gating"
+      ],
+      "caused_by_event_ids": ["DBG12077-E007"],
+      "architectural_supervision": false,
+      "architectural_impacts": ["solution-class", "compatibility-strategy"],
+      "decision_effect": "confirms-direction",
+      "dependency_expansion": false,
+      "validation_expansion": true,
+      "post_review_rework": false,
+      "hypothesis_outcome": "not-applicable"
+    },
+    {
+      "event_id": "DBG12077-E009",
+      "sequence": 9,
+      "occurred_at": {"value": "2026-08-24T17:19:55Z", "evidence_kind": "observed"},
+      "actor": "alatyr",
+      "causal_class": "independent-within-scope",
+      "intervention_kind": "not-applicable",
+      "contribution_kind": "validation",
+      "category": "test",
+      "summary": "Added post-insert generated hooked identifier coverage.",
+      "material_effect": "The test matrix now covers both custom/pre-insert and identity/post-insert generated hooked identifiers, plus non-hook generated and assigned identifier branches.",
+      "evidence": [
+        "tests/Tests/ORM/Functional/Ticket/GH12077/GH12077Test.php includes testCanRemoveEntityWithHookedPostInsertGeneratedIdentifier",
+        "tests/Tests/ORM/Functional/Ticket/GH12077/HookedGeneratedIdentifierEntity.php includes HookedPostInsertGeneratedIdentifierEntity with GeneratedValue(strategy: 'IDENTITY')",
+        "GH12077Test on local runtime => 4 tests, 9 assertions, 2 hook-metadata capability skips"
+      ],
+      "caused_by_event_ids": ["DBG12077-E008"],
+      "architectural_supervision": false,
+      "architectural_impacts": ["compatibility-strategy", "lifecycle-semantics"],
+      "decision_effect": "confirms-direction",
+      "dependency_expansion": false,
+      "validation_expansion": true,
+      "post_review_rework": false,
+      "hypothesis_outcome": "not-applicable"
+    }
+  ],
+  "metrics": {
+    "human_interventions": {"value": null, "evidence_kind": "unavailable", "event_ids": []},
+    "human_architectural_interventions": {"value": null, "evidence_kind": "unavailable", "event_ids": []},
+    "alatyr_independent_findings": {"value": null, "evidence_kind": "unavailable", "event_ids": []},
+    "derived_findings_after_human": {"value": null, "evidence_kind": "unavailable", "event_ids": []},
+    "alatyr_independent_dependency_checks": {"value": null, "evidence_kind": "unavailable", "event_ids": []},
+    "human_requested_dependency_checks": {"value": null, "evidence_kind": "unavailable", "event_ids": []},
+    "derived_dependency_expansions_after_human": {"value": null, "evidence_kind": "unavailable", "event_ids": []},
+    "hypotheses_tested": {"value": null, "evidence_kind": "unavailable", "event_ids": []},
+    "hypotheses_rejected": {"value": null, "evidence_kind": "unavailable", "event_ids": []},
+    "implementation_revisions": {"value": null, "evidence_kind": "unavailable", "event_ids": []},
+    "implementation_corrections_after_human": {"value": null, "evidence_kind": "unavailable", "event_ids": []},
+    "validation_expansions": {"value": null, "evidence_kind": "unavailable", "event_ids": []},
+    "regression_scenarios_added": {"value": null, "evidence_kind": "unavailable", "event_ids": []},
+    "maintainer_corrections": {"value": null, "evidence_kind": "unavailable", "event_ids": []},
+    "post_review_rework": {"value": null, "evidence_kind": "unavailable", "event_ids": []}
+  },
+  "final_result": {
+    "summary": "Implemented a narrow GH-12077 fix: UnitOfWork deletion skips only impossible physical generated-id clearing for properties with ReflectionProperty hook metadata, while docs clarify the generated-identifier removal rule.",
+    "repository_binding": {
+      "kind": "unverified",
+      "binding_state": "provisional",
+      "base_revision": "33737202c19a9f0986d1930e84a957cf5fd22095",
+      "result_revision": "33737202c19a9f0986d1930e84a957cf5fd22095",
+      "review_reference": "not-applicable",
+      "selected_paths": [
+        "src/UnitOfWork.php",
+        "docs/en/reference/working-with-objects.rst",
+        "docs/en/reference/basic-mapping.rst",
+        "tests/Tests/ORM/Functional/Ticket/GH12077/GH12077Test.php",
+        "tests/Tests/ORM/Functional/Ticket/GH12077/HookedGeneratedIdentifierEntity.php",
+        "tests/Tests/ORM/Functional/Ticket/GH12077/PlainGeneratedIdentifierEntity.php",
+        "tests/Tests/ORM/Functional/Ticket/GH12077/AssignedIdentifierEntity.php",
+        "tests/Tests/ORM/Functional/Ticket/GH12077/GeneratedIdentifier.php"
+      ],
+      "snapshot_sha256": "not-applicable",
+      "prior_bindings": []
+    },
+    "implementation_surfaces": [
+      "src/UnitOfWork.php",
+      "docs/en/reference/working-with-objects.rst",
+      "docs/en/reference/basic-mapping.rst",
+      "tests/Tests/ORM/Functional/Ticket/GH12077/"
+    ],
+    "validation": {
+      "results": [
+        "phpunit tests/Tests/ORM/Functional/Ticket/GH12077/GH12077Test.php passed executable local coverage with 4 tests, 9 assertions, and 2 hook-metadata capability skips",
+        "phpunit tests/Tests/ORM/Functional/Ticket/GH9538Test.php passed",
+        "phpunit tests/Tests/ORM/Functional/BasicFunctionalTest.php --filter testRemove passed",
+        "phpunit tests/Tests/ORM/Functional/Ticket/GH6123Test.php passed",
+        "phpunit tests/Tests/ORM/Functional/Ticket/DDC2790Test.php passed",
+        "phpunit tests/Tests/ORM/Functional/Ticket/DDC2775Test.php passed",
+        "phpunit tests/Tests/ORM/Mapping/PropertyAccessors/TypedNoDefaultPropertyAccessorTest.php tests/Tests/ORM/Mapping/PropertyAccessors/ReadOnlyAccessorTest.php tests/Tests/ORM/Mapping/PropertyAccessors/RawValuePropertyAccessorTest.php passed with PHP 8.4-only skips",
+        "phpcs changed PHP files passed",
+        "composer validate --strict passed"
+      ],
+      "skipped": [
+        "Exact GH-12077 hook regression execution skipped locally because ReflectionProperty hook metadata is unavailable in /usr/local/bin/php8",
+        "Line coverage metrics were not generated because no Xdebug or PCOV coverage driver is loaded in /usr/local/bin/php8",
+        "phpstan.neon and phpstan-dbal3.neon failed on existing baseline/dependency findings outside this branch's new guard"
+      ]
+    },
+    "claim_validation": {
+      "fidelity": "partial",
+      "claims": [
+        "The implementation preserves local runtime-accessible deletion/state behavior and adds hook-metadata-gated exact regression coverage for GH-12077."
+      ],
+      "evidence": [
+        "Focused PHPUnit and PHPCS results recorded in validation.results",
+        "ReflectionProperty hook metadata is unavailable in the local runtime, so property-hook execution is skipped until that capability is available"
+      ],
+      "limitation": "The exact property-hook reproducer requires ReflectionProperty hook metadata and was not executed in this workspace."
+    },
+    "engineering_evidence_ids": [],
+    "engineering_evidence_decision": {
+      "status": "pending",
+      "event_links": [],
+      "materiality_evaluations": [
+        {"kind": "undocumented-invariant", "outcome": "unknown", "event_ids": [], "evidence": [], "reason": "Assess before completion."},
+        {"kind": "rejected-hypothesis", "outcome": "unknown", "event_ids": [], "evidence": [], "reason": "Assess before completion."},
+        {"kind": "non-obvious-dependency", "outcome": "unknown", "event_ids": [], "evidence": [], "reason": "Assess before completion."},
+        {"kind": "cross-area-impact", "outcome": "unknown", "event_ids": [], "evidence": [], "reason": "Assess before completion."},
+        {"kind": "broad-regression-matrix", "outcome": "unknown", "event_ids": [], "evidence": [], "reason": "Assess before completion."},
+        {"kind": "compatibility-or-public-contract", "outcome": "unknown", "event_ids": [], "evidence": [], "reason": "Assess before completion."},
+        {"kind": "reviewer-correction", "outcome": "unknown", "event_ids": [], "evidence": [], "reason": "Assess before completion."},
+        {"kind": "direction-change", "outcome": "unknown", "event_ids": [], "evidence": [], "reason": "Assess before completion."},
+        {"kind": "expensive-to-reconstruct", "outcome": "unknown", "event_ids": [], "evidence": [], "reason": "Assess before completion."},
+        {"kind": "unresolved-authority-or-contract", "outcome": "unknown", "event_ids": [], "evidence": [], "reason": "Assess before completion."}
+      ],
+      "knowledge_preserved_by": [],
+      "reason": "Durable engineering evidence is assessed when the Debug session is finalized.",
+      "next_safe_action": "Complete the evidence decision before marking this record completed."
+    },
+    "upstream_projection": {
+      "kind": "unknown",
+      "included_debug_files": false,
+      "projected_paths": [],
+      "evidence": []
+    }
+  },
+  "publication": {
+    "storage_mode": "repository-internal",
+    "visibility": "repository-local",
+    "included_in_external_patch": false,
+    "policy_evidence": ".ai/project/debug/README.md"
+  },
+  "privacy": {
+    "raw_ai_conversation_stored": false,
+    "raw_human_conversation_stored": false,
+    "chain_of_thought_stored": false,
+    "prompts_stored": false,
+    "secrets_stored": false,
+    "credentials_stored": false,
+    "unrelated_personal_data_stored": false,
+    "unrelated_session_history_stored": false,
+    "unused_speculation_stored": false,
+    "complete_diffs_stored": false,
+    "verbose_logs_stored": false,
+    "redactions": []
+  },
+  "residual_uncertainty": [],
+  "limitations": [
+    "Debug evidence cannot prove event completeness attribution correctness or engineering quality."
+  ]
+}
