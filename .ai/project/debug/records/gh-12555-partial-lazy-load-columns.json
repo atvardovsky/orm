@@ -56,7 +56,7 @@
   "capture_quality": {
     "event_coverage": "partial",
     "missing_intervals": [
-      "Implementation and target validation have not started in this Debug scope."
+      "Some review-hardening details are summarized in final_result rather than represented as separate versioned Debug events."
     ],
     "observer_effect": "possible",
     "estimated_overhead_seconds": {
@@ -534,113 +534,243 @@
     }
   },
   "final_result": {
-    "summary": "Active issue analysis only; no Doctrine implementation has been produced in this Debug scope.",
+    "summary": "Doctrine implementation, focused regression coverage, and review hardening have been produced for GH-12555 in this Debug scope. The current committed branch result is fc76ea21d1783fe7fb7e359223e4718ff4a77d1e, with additional uncommitted review hardening in the working tree.",
     "repository_binding": {
       "kind": "unverified",
       "binding_state": "provisional",
       "base_revision": "2aa5230e1a28a89a02422d7aff55f5a8c8a12ff5",
-      "result_revision": "2aa5230e1a28a89a02422d7aff55f5a8c8a12ff5",
+      "result_revision": "fc76ea21d1783fe7fb7e359223e4718ff4a77d1e+working-tree-review-hardening",
       "review_reference": "https://github.com/doctrine/orm/issues/12555",
-      "selected_paths": [],
+      "selected_paths": [
+        "src/UnitOfWork.php",
+        "src/Persisters/Entity/BasicEntityPersister.php",
+        "src/Cache/Persister/Entity/AbstractEntityPersister.php",
+        "tests/Tests/ORM/Functional/Ticket/GH12555Test.php",
+        "tests/Tests/ORM/Functional/Ticket/GH12555SecondLevelCacheTest.php",
+        ".ai/project/debug/index.json",
+        ".ai/project/debug/records/gh-12555-partial-lazy-load-columns.json"
+      ],
       "snapshot_sha256": "not-applicable",
-      "prior_bindings": []
+      "prior_bindings": [
+        {
+          "kind": "unverified",
+          "base_revision": "2aa5230e1a28a89a02422d7aff55f5a8c8a12ff5",
+          "result_revision": "2aa5230e1a28a89a02422d7aff55f5a8c8a12ff5",
+          "review_reference": "https://github.com/doctrine/orm/issues/12555",
+          "selected_paths": [],
+          "snapshot_sha256": "not-applicable",
+          "replaced_at": "2026-08-25T12:27:13Z",
+          "reason": "Replaced stale analysis-only provisional binding after implementation commit fc76ea21d1783fe7fb7e359223e4718ff4a77d1e and review-hardening work."
+        }
+      ]
     },
-    "implementation_surfaces": [],
+    "implementation_surfaces": [
+      "src/UnitOfWork.php exposes loaded scalar fields for DQL partial native-lazy objects and clarifies the partial lazy snapshot merge comment.",
+      "src/Persisters/Entity/BasicEntityPersister.php uses a one-shot selected-column context/RSM for eligible partial lazy initialization and falls back for unsupported paths.",
+      "src/Cache/Persister/Entity/AbstractEntityPersister.php bypasses second-level entity cache lookup/put for partial-object lazy initialization.",
+      "tests/Tests/ORM/Functional/Ticket/GH12555Test.php covers selected-column behavior, fallback boundaries, filters, version fields, composite identifiers, nullable owning FKs, eager associations, inheritance, embeddables, and RSM isolation.",
+      "tests/Tests/ORM/Functional/Ticket/GH12555SecondLevelCacheTest.php covers second-level-cache no-poisoning."
+    ],
     "validation": {
-      "results": [],
-      "skipped": []
+      "results": [
+        "docker php:8.4-cli PHPUnit GH12555Test.php and GH12555SecondLevelCacheTest.php passed 13 tests / 82 assertions after review hardening.",
+        "docker php:8.4-cli targeted PHPCS passed for src/UnitOfWork.php and GH-12555 ticket tests.",
+        "docker php:8.4-cli targeted PHPStan passed for GH12555Test.php and GH12555SecondLevelCacheTest.php.",
+        "docker php:8.4-cli adjacent partial-object, value-object, partial-query/PostLoad, and second-level-cache partial-query subsets passed after review hardening.",
+        "docker php:8.4-cli full PHPCS passed for 1509 files after review hardening."
+      ],
+      "skipped": [
+        "Full docker php:8.4-cli PHPStan remains blocked by existing updated-3.7 baseline/dependency findings outside the GH-12555 change.",
+        "Clean no-Alatyr upstream projection has not been created yet."
+      ]
     },
     "claim_validation": {
-      "fidelity": "unavailable",
-      "claims": [],
-      "evidence": [],
-      "limitation": "The active task has not reached a final validation claim."
+      "fidelity": "representative",
+      "claims": [
+        "The selected-column path omits scalar fields already loaded by a DQL partial native-lazy object.",
+        "Identifier columns, version columns when missing, owning to-one join columns, SQL filters, nullable owning FKs, and embeddable missing columns are preserved.",
+        "Inheritance and eager/joined to-one mappings use the existing full-load fallback rather than the restricted path.",
+        "Regular reference proxies and second-level-cache correctness are preserved."
+      ],
+      "evidence": [
+        "tests/Tests/ORM/Functional/Ticket/GH12555Test.php",
+        "tests/Tests/ORM/Functional/Ticket/GH12555SecondLevelCacheTest.php",
+        "docker php:8.4-cli focused ticket tests passed 13 tests / 82 assertions"
+      ],
+      "limitation": "Validation is focused on SQLite functional coverage and selected adjacent subsets; full PHPStan is blocked by unrelated updated-3.7 baseline/dependency findings."
     },
     "engineering_evidence_ids": [],
     "engineering_evidence_decision": {
-      "status": "pending",
-      "event_links": [],
+      "status": "blocked",
+      "event_links": [
+        {
+          "event_id": "GH12555-E1",
+          "role": "finding"
+        },
+        {
+          "event_id": "GH12555-E2",
+          "role": "finding"
+        },
+        {
+          "event_id": "GH12555-E3",
+          "role": "decision"
+        },
+        {
+          "event_id": "GH12555-E4",
+          "role": "validation"
+        },
+        {
+          "event_id": "GH12555-E5",
+          "role": "finding"
+        },
+        {
+          "event_id": "GH12555-E6",
+          "role": "finding"
+        },
+        {
+          "event_id": "GH12555-E7",
+          "role": "decision"
+        },
+        {
+          "event_id": "GH12555-E8",
+          "role": "validation"
+        },
+        {
+          "event_id": "GH12555-E10",
+          "role": "implementation"
+        },
+        {
+          "event_id": "GH12555-E11",
+          "role": "validation"
+        }
+      ],
       "materiality_evaluations": [
         {
           "kind": "undocumented-invariant",
-          "outcome": "unknown",
-          "event_ids": [],
-          "evidence": [],
-          "reason": "Assess before completion."
+          "outcome": "applicable",
+          "event_ids": [
+            "GH12555-E7",
+            "GH12555-E10"
+          ],
+          "evidence": [
+            "The selected-column path depends on preserving the partial lazy snapshot merge invariant in UnitOfWork."
+          ],
+          "reason": "The original partial-query field snapshot must be retained while missing fields are hydrated later."
         },
         {
           "kind": "rejected-hypothesis",
-          "outcome": "unknown",
+          "outcome": "not-applicable",
           "event_ids": [],
           "evidence": [],
-          "reason": "Assess before completion."
+          "reason": "No rejected hypothesis is material to the accepted GH-12555 direction."
         },
         {
           "kind": "non-obvious-dependency",
-          "outcome": "unknown",
-          "event_ids": [],
-          "evidence": [],
-          "reason": "Assess before completion."
+          "outcome": "applicable",
+          "event_ids": [
+            "GH12555-E1",
+            "GH12555-E5",
+            "GH12555-E6"
+          ],
+          "evidence": [
+            "The fix depends on native lazy object partial state, persister RSM isolation, and second-level-cache bypass behavior."
+          ],
+          "reason": "The dependency chain is not obvious from GH-12555 alone and affects multiple Doctrine subsystems."
         },
         {
           "kind": "cross-area-impact",
-          "outcome": "unknown",
-          "event_ids": [],
-          "evidence": [],
-          "reason": "Assess before completion."
+          "outcome": "applicable",
+          "event_ids": [
+            "GH12555-E5",
+            "GH12555-E6",
+            "GH12555-E10"
+          ],
+          "evidence": [
+            "UnitOfWork, entity persisters, second-level cache, filters, mappings, and embeddable partial lazy initialization are affected."
+          ],
+          "reason": "The implementation spans persistence, hydration state, cache, and mapping metadata."
         },
         {
           "kind": "broad-regression-matrix",
-          "outcome": "unknown",
-          "event_ids": [],
-          "evidence": [],
-          "reason": "Assess before completion."
+          "outcome": "applicable",
+          "event_ids": [
+            "GH12555-E4",
+            "GH12555-E8",
+            "GH12555-E11"
+          ],
+          "evidence": [
+            "Review hardening added composite ID, version, inheritance fallback, eager fallback, filter, nullable FK, and embeddable SQL-level tests."
+          ],
+          "reason": "The optimization is narrow but must prove both selected-column behavior and fallback boundaries."
         },
         {
           "kind": "compatibility-or-public-contract",
-          "outcome": "unknown",
-          "event_ids": [],
-          "evidence": [],
-          "reason": "Assess before completion."
+          "outcome": "applicable",
+          "event_ids": [
+            "GH12555-E3",
+            "GH12555-E7",
+            "GH12555-E10"
+          ],
+          "evidence": [
+            "The implementation avoids EntityPersister signature changes and preserves normal proxy/full-load behavior."
+          ],
+          "reason": "Doctrine compatibility depends on keeping the optimization internal and fallback-heavy."
         },
         {
           "kind": "reviewer-correction",
-          "outcome": "unknown",
+          "outcome": "applicable",
           "event_ids": [],
-          "evidence": [],
-          "reason": "Assess before completion."
+          "evidence": [
+            "The pasted branch review identified stale Debug evidence, a misleading UnitOfWork comment, and missing direct regression tests."
+          ],
+          "reason": "The current working-tree hardening implements the review corrections."
         },
         {
           "kind": "direction-change",
-          "outcome": "unknown",
+          "outcome": "not-applicable",
           "event_ids": [],
           "evidence": [],
-          "reason": "Assess before completion."
+          "reason": "The review accepted the implementation architecture and did not require a direction change."
         },
         {
           "kind": "expensive-to-reconstruct",
-          "outcome": "unknown",
-          "event_ids": [],
-          "evidence": [],
-          "reason": "Assess before completion."
+          "outcome": "applicable",
+          "event_ids": [
+            "GH12555-E1",
+            "GH12555-E2",
+            "GH12555-E8",
+            "GH12555-E11"
+          ],
+          "evidence": [
+            "The record summarizes issue dependency, execution path, risk matrix, implementation surfaces, and validation commands."
+          ],
+          "reason": "Reconstructing this analysis from source and branch history would be costly."
         },
         {
           "kind": "unresolved-authority-or-contract",
-          "outcome": "unknown",
+          "outcome": "not-applicable",
           "event_ids": [],
           "evidence": [],
-          "reason": "Assess before completion."
+          "reason": "No unresolved Doctrine authority conflict is currently known; remaining upstream preparation is clean branch projection and maintainer review."
         }
       ],
       "knowledge_preserved_by": [],
-      "reason": "Durable engineering evidence is assessed when the Debug session is finalized.",
-      "next_safe_action": "Complete the evidence decision before marking this record completed."
+      "reason": "Applicable engineering materiality exists, but no canonical engineering-evidence artifact or source-of-truth registry owner has been created for preserving this issue-specific analysis outside the branch-local Debug record.",
+      "next_safe_action": "Decide whether to create a canonical engineering-evidence artifact; otherwise commit the branch-local Debug record as non-canonical evidence and create a clean no-Alatyr Doctrine branch from origin/3.7.x."
     },
     "upstream_projection": {
-      "kind": "unknown",
+      "kind": "clean-external",
       "included_debug_files": false,
-      "projected_paths": [],
-      "evidence": []
+      "projected_paths": [
+        "src/UnitOfWork.php",
+        "src/Persisters/Entity/BasicEntityPersister.php",
+        "src/Cache/Persister/Entity/AbstractEntityPersister.php",
+        "tests/Tests/ORM/Functional/Ticket/GH12555Test.php",
+        "tests/Tests/ORM/Functional/Ticket/GH12555SecondLevelCacheTest.php"
+      ],
+      "evidence": [
+        "Clean upstream branch has not been created yet; projected paths intentionally exclude .ai debug metadata."
+      ]
     }
   },
   "publication": {
@@ -664,9 +794,9 @@
     "redactions": []
   },
   "residual_uncertainty": [
-    "The active branch includes an uncommitted merge of upstream 3.7.x plus Alatyr debug metadata; a later clean no-Alatyr branch is still required for upstream-ready history.",
-    "Full PHPStan is blocked by the merged 3.7 baseline/dependency profile and reports errors outside the new GH-12555 implementation.",
-    "The selected-column optimization intentionally falls back to full load for inheritance, joined association loads, locks, custom criteria, and regular proxies.",
+    "The active branch is based on the updated Alatyr adapter branch and contains uncommitted review-hardening changes; a later clean no-Alatyr branch is still required for upstream-ready history.",
+    "Full PHPStan is blocked by the updated 3.7 baseline/dependency profile and reports errors outside the new GH-12555 implementation.",
+    "The selected-column optimization intentionally falls back to full load for inheritance, joined association loads, locks, custom criteria, association identifiers, and regular proxies.",
     "Second-level cache behavior is conservative: partial lazy initialization bypasses entity cache lookup/put to avoid cache entries built from locally changed partial objects."
   ],
   "limitations": [

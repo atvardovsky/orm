@@ -20,7 +20,7 @@
       "scope_id": "bugfix/gh-12555-partial-lazy-load-columns",
       "task_class": "issue-analysis",
       "repository_binding_kind": "unverified",
-      "result_revision": "2aa5230e1a28a89a02422d7aff55f5a8c8a12ff5",
+      "result_revision": "fc76ea21d1783fe7fb7e359223e4718ff4a77d1e+working-tree-review-hardening",
       "event_coverage": "partial",
       "observer_effect": "possible",
       "elapsed_seconds": null,
@@ -43,17 +43,17 @@
         "post_review_rework": 0
       },
       "residual_uncertainty": [
-        "The active branch includes an uncommitted merge of upstream 3.7.x plus Alatyr debug metadata; a later clean no-Alatyr branch is still required for upstream-ready history.",
-        "Full PHPStan is blocked by the merged 3.7 baseline/dependency profile and reports errors outside the new GH-12555 implementation.",
-        "The selected-column optimization intentionally falls back to full load for inheritance, joined association loads, locks, custom criteria, and regular proxies.",
+        "The active branch is based on the updated Alatyr adapter branch and contains uncommitted review-hardening changes; a later clean no-Alatyr branch is still required for upstream-ready history.",
+        "Full PHPStan is blocked by the updated 3.7 baseline/dependency profile and reports errors outside the new GH-12555 implementation.",
+        "The selected-column optimization intentionally falls back to full load for inheritance, joined association loads, locks, custom criteria, association identifiers, and regular proxies.",
         "Second-level cache behavior is conservative: partial lazy initialization bypasses entity cache lookup/put to avoid cache entries built from locally changed partial objects."
       ],
       "record_schema_version": 3,
       "repository_binding_state": "provisional",
-      "engineering_evidence_status": "pending",
+      "engineering_evidence_status": "blocked",
       "continuation_kind": "initial",
       "continued_from_debug_id": "not-applicable",
-      "claim_validation_fidelity": "unavailable"
+      "claim_validation_fidelity": "representative"
     }
   ]
 }

@@ -2507,9 +2507,10 @@ class UnitOfWork implements PropertyChangedListener
             $this->originalEntityData[$oid] = $existingData + $data;
 
             // Whichever way we got here (lazy ghost initializer, find(), or an explicit
-            // refresh()), $data is always a complete row: the early return above is the
-            // only path left for a caller supplying anything less. The entity can no
-            // longer be considered partially loaded.
+            // refresh()), the managed snapshot is complete after merging $existingData
+            // and $data. The optimized partial lazy path may provide only missing
+            // columns in $data, while $existingData keeps the fields loaded by the
+            // original partial query.
             unset($this->partialObjectLoadedFields[$oid]);
         } else {
             $allowsPartialLazyObject = $this->em->getConfiguration()->isNativeLazyObjectsEnabled()
