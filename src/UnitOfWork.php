@@ -3131,6 +3131,26 @@ class UnitOfWork implements PropertyChangedListener
     }
 
     /**
+     * INTERNAL:
+     *
+     * Returns the scalar fields that were loaded by a DQL partial object query
+     * for a native lazy object, or null for fully loaded entities and plain
+     * reference/association proxies.
+     *
+     * @return list<string>|null
+     */
+    public function getLoadedFieldsOfPartialObject(object $entity): array|null
+    {
+        if (! $this->em->getConfiguration()->isNativeLazyObjectsEnabled()) {
+            return null;
+        }
+
+        $loadedFields = $this->partialObjectLoadedFields[spl_object_id($entity)] ?? null;
+
+        return $loadedFields === [] ? null : $loadedFields;
+    }
+
+    /**
      * @see self::$partialObjectLoadedFields
      *
      * @param list<string> $loadedFields

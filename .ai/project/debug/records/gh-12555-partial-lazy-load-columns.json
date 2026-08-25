@@ -1,0 +1,675 @@
+{
+  "schema_version": 3,
+  "record_kind": "alatyr-debug-session",
+  "evidence_classification": "non-canonical-observability",
+  "debug_id": "DEBUG-GH-12555-20260824",
+  "status": "active",
+  "authority": "non-canonical",
+  "owner": "@atvardovsky",
+  "task": {
+    "summary": "Analyze Doctrine ORM issue #12555 on partial lazy-load column selection and keep any proposed direction aligned with Doctrine rules.",
+    "references": [
+      "https://github.com/doctrine/orm/issues/12555"
+    ],
+    "scope_kind": "task",
+    "scope_id": "bugfix/gh-12555-partial-lazy-load-columns",
+    "operation_ids": [
+      "debug-mode",
+      "architecture-assistance"
+    ],
+    "task_class": "issue-analysis"
+  },
+  "activation": {
+    "enabled_by": "explicit-user-request",
+    "request_reference": "User request on 2026-08-24 to create a branch for Doctrine ORM issue #12555, enable Alatyr Debug Mode, analyze the issue, and verify Doctrine-compatible direction.",
+    "enabled_at": {
+      "value": "2026-08-24T20:56:01Z",
+      "evidence_kind": "observed"
+    },
+    "initial_revision": "2aa5230e1a28a89a02422d7aff55f5a8c8a12ff5",
+    "expires_on": "task-completion",
+    "ended_by": "active"
+  },
+  "continuation": {
+    "kind": "initial",
+    "previous_debug_id": "not-applicable",
+    "reason": "This activation starts a new logical Debug scope for Doctrine ORM issue #12555."
+  },
+  "timing": {
+    "started_at": {
+      "value": "2026-08-24T20:56:01Z",
+      "evidence_kind": "observed"
+    },
+    "completed_at": {
+      "value": null,
+      "evidence_kind": "unknown"
+    },
+    "elapsed_seconds": {
+      "value": null,
+      "evidence_kind": "unknown"
+    },
+    "active_work_seconds": {
+      "value": null,
+      "evidence_kind": "unknown"
+    }
+  },
+  "capture_quality": {
+    "event_coverage": "partial",
+    "missing_intervals": [
+      "Implementation and target validation have not started in this Debug scope."
+    ],
+    "observer_effect": "possible",
+    "estimated_overhead_seconds": {
+      "value": null,
+      "evidence_kind": "unknown"
+    }
+  },
+  "events": [
+    {
+      "event_id": "GH12555-E1",
+      "sequence": 1,
+      "occurred_at": {
+        "value": "2026-08-24T21:02:04Z",
+        "evidence_kind": "observed"
+      },
+      "actor": "alatyr",
+      "causal_class": "independent-within-scope",
+      "intervention_kind": "not-applicable",
+      "contribution_kind": "finding",
+      "category": "dependency",
+      "summary": "Issue #12555 depends on the partial-native-lazy feature merged by PR #12210.",
+      "material_effect": "The analysis target is Doctrine ORM 3.7.x behavior, not the current 3.6.x-based branch that lacks partialObjectLoadedFields.",
+      "evidence": [
+        "https://github.com/doctrine/orm/issues/12555",
+        "https://github.com/doctrine/orm/pull/12210",
+        "git show upstream/3.7.x:src/UnitOfWork.php shows partialObjectLoadedFields and markAsPartiallyLoaded"
+      ],
+      "caused_by_event_ids": [],
+      "architectural_supervision": false,
+      "architectural_impacts": [
+        "compatibility-strategy"
+      ],
+      "decision_effect": "confirms-direction",
+      "dependency_expansion": true,
+      "validation_expansion": false,
+      "post_review_rework": false,
+      "hypothesis_outcome": "not-applicable"
+    },
+    {
+      "event_id": "GH12555-E2",
+      "sequence": 2,
+      "occurred_at": {
+        "value": "2026-08-24T21:02:04Z",
+        "evidence_kind": "observed"
+      },
+      "actor": "alatyr",
+      "causal_class": "independent-within-scope",
+      "intervention_kind": "not-applicable",
+      "contribution_kind": "finding",
+      "category": "execution-path",
+      "summary": "Partial lazy initialization currently delegates to a generic full-entity persister load.",
+      "material_effect": "The inefficiency is triggered after a partial DQL object is created as a native lazy ghost and an unloaded field is accessed; ProxyFactory calls loadById without selected-field context.",
+      "evidence": [
+        "upstream/3.7.x src/UnitOfWork.php createEntity partial branch calls ProxyFactory::getProxy with assignIdentifiers=false",
+        "upstream/3.7.x src/Proxy/ProxyFactory.php native lazy initializer calls EntityPersister::loadById",
+        "upstream/3.7.x src/Persisters/Entity/BasicEntityPersister.php getSelectColumnsSQL selects all field names into a shared cached ResultSetMapping"
+      ],
+      "caused_by_event_ids": [],
+      "architectural_supervision": false,
+      "architectural_impacts": [
+        "subsystem-responsibility"
+      ],
+      "decision_effect": "confirms-direction",
+      "dependency_expansion": false,
+      "validation_expansion": false,
+      "post_review_rework": false,
+      "hypothesis_outcome": "not-applicable"
+    },
+    {
+      "event_id": "GH12555-E3",
+      "sequence": 3,
+      "occurred_at": {
+        "value": "2026-08-24T21:02:04Z",
+        "evidence_kind": "observed"
+      },
+      "actor": "alatyr",
+      "causal_class": "independent-within-scope",
+      "intervention_kind": "not-applicable",
+      "contribution_kind": "decision",
+      "category": "invariant",
+      "summary": "A Doctrine-compatible fix should be a narrow selected-column optimization for partial native lazy initialization.",
+      "material_effect": "The direction must preserve explicit partial opt-in, regular proxy loads, refresh, full loads, second-level cache contracts, and inheritance fallback behavior; it should avoid changing EntityPersister signatures unless maintainers accept that BC cost.",
+      "evidence": [
+        "upstream/3.7.x docs/en/reference/partial-objects.rst documents transparent lazy loading only with native lazy objects enabled",
+        "upstream/3.7.x docs/en/reference/limitations-and-known-issues.rst says custom persisters are not currently replaceable",
+        "upstream/3.7.x src/Cache/Persister/Entity/AbstractEntityPersister.php wraps load and loadById for second-level cache"
+      ],
+      "caused_by_event_ids": [
+        "GH12555-E1",
+        "GH12555-E2"
+      ],
+      "architectural_supervision": false,
+      "architectural_impacts": [
+        "accepted-invariant",
+        "public-contract",
+        "compatibility-strategy"
+      ],
+      "decision_effect": "confirms-direction",
+      "dependency_expansion": false,
+      "validation_expansion": false,
+      "post_review_rework": false,
+      "hypothesis_outcome": "not-applicable"
+    },
+    {
+      "event_id": "GH12555-E4",
+      "sequence": 4,
+      "occurred_at": {
+        "value": "2026-08-24T21:02:04Z",
+        "evidence_kind": "observed"
+      },
+      "actor": "alatyr",
+      "causal_class": "independent-within-scope",
+      "intervention_kind": "not-applicable",
+      "contribution_kind": "validation",
+      "category": "regression-scenario",
+      "summary": "Coverage must prove selected-column SQL and unchanged adjacent behavior.",
+      "material_effect": "Required tests belong near PartialObjectsTest plus focused cache/proxy coverage: omitted already-loaded columns, retained identifier/version columns, unchanged full proxy/find/refresh behavior, no shared RSM cache pollution, embeddable trigger behavior, and inheritance fallback.",
+      "evidence": [
+        "upstream/3.7.x tests/Tests/ORM/Functional/PartialObjectsTest.php covers partial native lazy merge safety but not SQL column selection",
+        "upstream/3.7.x tests/Tests/OrmFunctionalTestCase.php provides getQueryLog and assertQueryCount helpers",
+        "upstream/3.7.x tests/Tests/ORM/Functional/SecondLevelCacheQueryCacheTest.php asserts cacheable partial queries remain unsupported"
+      ],
+      "caused_by_event_ids": [
+        "GH12555-E2",
+        "GH12555-E3"
+      ],
+      "architectural_supervision": false,
+      "architectural_impacts": [
+        "compatibility-strategy"
+      ],
+      "decision_effect": "confirms-direction",
+      "dependency_expansion": false,
+      "validation_expansion": true,
+      "post_review_rework": false,
+      "hypothesis_outcome": "not-applicable"
+    },
+    {
+      "event_id": "GH12555-E5",
+      "sequence": 5,
+      "occurred_at": {
+        "value": "2026-08-24T21:04:14Z",
+        "evidence_kind": "observed"
+      },
+      "actor": "alatyr",
+      "causal_class": "independent-within-scope",
+      "intervention_kind": "not-applicable",
+      "contribution_kind": "finding",
+      "category": "risk",
+      "summary": "Second-level cache needs explicit handling for selected-column partial lazy initialization.",
+      "material_effect": "A selected-load path through cached persisters must avoid storing a cache entry built from an entity whose already-loaded fields may contain local pre-initialization changes.",
+      "evidence": [
+        "upstream/3.7.x src/Cache/Persister/Entity/AbstractEntityPersister.php loadById can load into an existing entity and then build a cache entry from that entity",
+        "upstream/3.7.x tests/Tests/ORM/Functional/SecondLevelCacheQueryCacheTest.php covers partial query cache rejection but not entity-cache lazy-init storage after local partial changes"
+      ],
+      "caused_by_event_ids": [
+        "GH12555-E3"
+      ],
+      "architectural_supervision": false,
+      "architectural_impacts": [
+        "compatibility-strategy",
+        "subsystem-responsibility"
+      ],
+      "decision_effect": "confirms-direction",
+      "dependency_expansion": false,
+      "validation_expansion": false,
+      "post_review_rework": false,
+      "hypothesis_outcome": "not-applicable"
+    },
+    {
+      "event_id": "GH12555-E6",
+      "sequence": 6,
+      "occurred_at": {
+        "value": "2026-08-24T21:05:40Z",
+        "evidence_kind": "observed"
+      },
+      "actor": "alatyr",
+      "causal_class": "independent-within-scope",
+      "intervention_kind": "not-applicable",
+      "contribution_kind": "finding",
+      "category": "risk",
+      "summary": "Selected-column lazy initialization must include owning to-one join columns or preserve their equivalent metadata.",
+      "material_effect": "A scalar-only restricted SELECT can make UnitOfWork treat non-null owning to-one associations as null during createEntity, contradicting normal full-load semantics.",
+      "evidence": [
+        "upstream/3.7.x src/Persisters/Entity/BasicEntityPersister.php getSelectColumnAssociationSQL maps owning to-one join columns as meta results",
+        "upstream/3.7.x src/Internal/Hydration/SimpleObjectHydrator.php copies meta-mapped columns into createEntity data",
+        "upstream/3.7.x src/UnitOfWork.php createEntity derives owning to-one association identifiers from row join-column values"
+      ],
+      "caused_by_event_ids": [
+        "GH12555-E2",
+        "GH12555-E3"
+      ],
+      "architectural_supervision": false,
+      "architectural_impacts": [
+        "accepted-invariant",
+        "subsystem-responsibility"
+      ],
+      "decision_effect": "confirms-direction",
+      "dependency_expansion": false,
+      "validation_expansion": false,
+      "post_review_rework": false,
+      "hypothesis_outcome": "not-applicable"
+    },
+    {
+      "event_id": "GH12555-E7",
+      "sequence": 7,
+      "occurred_at": {
+        "value": "2026-08-25T08:30:20Z",
+        "evidence_kind": "observed"
+      },
+      "actor": "alatyr",
+      "causal_class": "independent-within-scope",
+      "intervention_kind": "not-applicable",
+      "contribution_kind": "decision",
+      "category": "invariant",
+      "summary": "The preferred implementation shape avoids changing the public EntityPersister interface.",
+      "material_effect": "Use a Doctrine-owned internal selected-load capability or equivalent internal path for partial native lazy initialization, falling back to loadById for unsupported persisters, inheritance, eager joins, and regular reference proxies.",
+      "evidence": [
+        "upstream/3.7.x src/Persisters/Entity/EntityPersister.php exposes load and loadById as interface methods",
+        "upstream/3.7.x docs/en/reference/limitations-and-known-issues.rst says per-entity custom persister replacement is not currently supported",
+        "upstream/3.7.x docs/en/reference/second-level-cache.rst documents cache factory/persister extension surfaces"
+      ],
+      "caused_by_event_ids": [
+        "GH12555-E2",
+        "GH12555-E3",
+        "GH12555-E5"
+      ],
+      "architectural_supervision": false,
+      "architectural_impacts": [
+        "public-contract",
+        "compatibility-strategy",
+        "subsystem-responsibility"
+      ],
+      "decision_effect": "confirms-direction",
+      "dependency_expansion": false,
+      "validation_expansion": false,
+      "post_review_rework": false,
+      "hypothesis_outcome": "not-applicable"
+    },
+    {
+      "event_id": "GH12555-E8",
+      "sequence": 8,
+      "occurred_at": {
+        "value": "2026-08-25T08:30:20Z",
+        "evidence_kind": "observed"
+      },
+      "actor": "alatyr",
+      "causal_class": "independent-within-scope",
+      "intervention_kind": "not-applicable",
+      "contribution_kind": "validation",
+      "category": "regression-scenario",
+      "summary": "Coverage must include metadata, cache, fallback, and shared-RSM isolation cases before implementation is accepted.",
+      "material_effect": "The test matrix now explicitly includes owning to-one join-column preservation, null association preservation, second-level cache no-poisoning, simple restricted SQL, embeddable initialization, normal proxy/find/refresh unaffected behavior, inheritance and eager-association fallback, composite identifiers, version fields, filters, and read-only hints.",
+      "evidence": [
+        "upstream/3.7.x src/Persisters/Entity/BasicEntityPersister.php caches full selectColumnListSql and mutates the shared ResultSetMapping",
+        "upstream/3.7.x src/Internal/Hydration/AbstractHydrator.php distinguishes meta mappings from field mappings",
+        "upstream/3.7.x src/Internal/Hydration/ObjectHydrator.php and SimpleObjectHydrator.php pass partial hints into UnitOfWork::createEntity",
+        "upstream/3.7.x tests/Tests/ORM/Functional/PartialObjectsTest.php and ValueObjectsTest.php contain existing partial-native-lazy coverage"
+      ],
+      "caused_by_event_ids": [
+        "GH12555-E4",
+        "GH12555-E5",
+        "GH12555-E6"
+      ],
+      "architectural_supervision": false,
+      "architectural_impacts": [
+        "accepted-invariant",
+        "compatibility-strategy",
+        "subsystem-responsibility"
+      ],
+      "decision_effect": "confirms-direction",
+      "dependency_expansion": false,
+      "validation_expansion": true,
+      "post_review_rework": false,
+      "hypothesis_outcome": "not-applicable"
+    },
+    {
+      "event_id": "GH12555-E9",
+      "sequence": 9,
+      "occurred_at": {
+        "value": "2026-08-25T09:18:34Z",
+        "evidence_kind": "observed"
+      },
+      "actor": "alatyr",
+      "causal_class": "independent-within-scope",
+      "intervention_kind": "not-applicable",
+      "contribution_kind": "validation",
+      "category": "hypothesis",
+      "summary": "PHP 8.4 RED tests confirmed the lazy initializer reselected fields already loaded by the partial DQL query.",
+      "material_effect": "The first GH-12555 regression run failed because the second SELECT still included loaded_field for both a simple entity and an owning-to-one entity.",
+      "evidence": [
+        "docker run php:8.4-cli vendor/bin/phpunit tests/Tests/ORM/Functional/Ticket/GH12555Test.php failed 2/4 before implementation",
+        "Failure SQL selected loaded_field in testPartialLazyInitializationSelectsOnlyColumnsMissingFromPartialQuery",
+        "Failure SQL selected loaded_field in testPartialLazyInitializationKeepsOwningToOneAssociation"
+      ],
+      "caused_by_event_ids": [
+        "GH12555-E2",
+        "GH12555-E8"
+      ],
+      "architectural_supervision": false,
+      "architectural_impacts": [
+        "accepted-invariant",
+        "subsystem-responsibility"
+      ],
+      "decision_effect": "confirms-direction",
+      "dependency_expansion": false,
+      "validation_expansion": true,
+      "post_review_rework": false,
+      "hypothesis_outcome": "confirmed"
+    },
+    {
+      "event_id": "GH12555-E10",
+      "sequence": 10,
+      "occurred_at": {
+        "value": "2026-08-25T09:18:34Z",
+        "evidence_kind": "observed"
+      },
+      "actor": "alatyr",
+      "causal_class": "independent-within-scope",
+      "intervention_kind": "not-applicable",
+      "contribution_kind": "implementation",
+      "category": "implementation-revision",
+      "summary": "Implemented selected-column partial lazy initialization without changing EntityPersister signatures.",
+      "material_effect": "UnitOfWork now exposes DQL partial loaded fields internally; BasicEntityPersister uses a fresh one-shot persister context/RSM for eligible partial lazy loads, includes owning to-one FK metadata, and falls back for inheritance, joined association loads, locks, custom criteria, and regular proxies; cached entity persisters bypass SLC for this path.",
+      "evidence": [
+        "src/UnitOfWork.php getLoadedFieldsOfPartialObject",
+        "src/Persisters/Entity/BasicEntityPersister.php loadPartialObjectFields and local ResultSetMapping selected-column path",
+        "src/Cache/Persister/Entity/AbstractEntityPersister.php partial object cache bypass"
+      ],
+      "caused_by_event_ids": [
+        "GH12555-E7",
+        "GH12555-E9"
+      ],
+      "architectural_supervision": false,
+      "architectural_impacts": [
+        "public-contract",
+        "accepted-invariant",
+        "compatibility-strategy",
+        "subsystem-responsibility"
+      ],
+      "decision_effect": "confirms-direction",
+      "dependency_expansion": false,
+      "validation_expansion": false,
+      "post_review_rework": false,
+      "hypothesis_outcome": "not-applicable"
+    },
+    {
+      "event_id": "GH12555-E11",
+      "sequence": 11,
+      "occurred_at": {
+        "value": "2026-08-25T09:18:34Z",
+        "evidence_kind": "observed"
+      },
+      "actor": "alatyr",
+      "causal_class": "independent-within-scope",
+      "intervention_kind": "not-applicable",
+      "contribution_kind": "validation",
+      "category": "validation",
+      "summary": "Focused PHP 8.4 behavior checks and PHPCS passed after implementation.",
+      "material_effect": "The GH-12555 ticket tests, existing partial-object and embeddable partial tests, DQL/PostLoad partial tests, and second-level-cache partial-query checks passed under PHP 8.4; full PHPCS passed. Full PHPStan remains blocked by the merged 3.7 baseline/dependency profile unrelated to the new GH-12555 code.",
+      "evidence": [
+        "docker run php:8.4-cli vendor/bin/phpunit tests/Tests/ORM/Functional/Ticket/GH12555Test.php tests/Tests/ORM/Functional/Ticket/GH12555SecondLevelCacheTest.php passed 5 tests / 34 assertions",
+        "docker run php:8.4-cli vendor/bin/phpunit tests/Tests/ORM/Functional/PartialObjectsTest.php tests/Tests/ORM/Functional/ValueObjectsTest.php --filter 'PartialDql|PartialObject' passed",
+        "docker run php:8.4-cli vendor/bin/phpunit tests/Tests/ORM/Functional/QueryTest.php tests/Tests/ORM/Functional/PostLoadEventTest.php --filter 'partial|Partial' passed",
+        "docker run php:8.4-cli vendor/bin/phpunit tests/Tests/ORM/Functional/SecondLevelCacheQueryCacheTest.php --filter Partial passed",
+        "/usr/local/bin/php8 vendor/bin/phpcs passed for the whole repository",
+        "/usr/local/bin/php8 vendor/bin/phpstan analyse -c phpstan.neon still reports 48 merged-3.7 baseline/dependency errors outside the new GH-12555 implementation"
+      ],
+      "caused_by_event_ids": [
+        "GH12555-E10"
+      ],
+      "architectural_supervision": false,
+      "architectural_impacts": [
+        "accepted-invariant",
+        "compatibility-strategy"
+      ],
+      "decision_effect": "confirms-direction",
+      "dependency_expansion": false,
+      "validation_expansion": true,
+      "post_review_rework": false,
+      "hypothesis_outcome": "confirmed"
+    }
+  ],
+  "metrics": {
+    "human_interventions": {
+      "value": 0,
+      "evidence_kind": "event-derived",
+      "event_ids": []
+    },
+    "human_architectural_interventions": {
+      "value": 0,
+      "evidence_kind": "event-derived",
+      "event_ids": []
+    },
+    "alatyr_independent_findings": {
+      "value": 4,
+      "evidence_kind": "event-derived",
+      "event_ids": [
+        "GH12555-E1",
+        "GH12555-E2",
+        "GH12555-E5",
+        "GH12555-E6"
+      ]
+    },
+    "derived_findings_after_human": {
+      "value": 0,
+      "evidence_kind": "event-derived",
+      "event_ids": []
+    },
+    "alatyr_independent_dependency_checks": {
+      "value": 1,
+      "evidence_kind": "event-derived",
+      "event_ids": [
+        "GH12555-E1"
+      ]
+    },
+    "human_requested_dependency_checks": {
+      "value": 0,
+      "evidence_kind": "event-derived",
+      "event_ids": []
+    },
+    "derived_dependency_expansions_after_human": {
+      "value": 0,
+      "evidence_kind": "event-derived",
+      "event_ids": []
+    },
+    "hypotheses_tested": {
+      "value": 0,
+      "evidence_kind": "event-derived",
+      "event_ids": []
+    },
+    "hypotheses_rejected": {
+      "value": 0,
+      "evidence_kind": "event-derived",
+      "event_ids": []
+    },
+    "implementation_revisions": {
+      "value": 1,
+      "evidence_kind": "event-derived",
+      "event_ids": [
+        "GH12555-E10"
+      ]
+    },
+    "implementation_corrections_after_human": {
+      "value": 0,
+      "evidence_kind": "event-derived",
+      "event_ids": []
+    },
+    "validation_expansions": {
+      "value": 4,
+      "evidence_kind": "event-derived",
+      "event_ids": [
+        "GH12555-E4",
+        "GH12555-E8",
+        "GH12555-E9",
+        "GH12555-E11"
+      ]
+    },
+    "regression_scenarios_added": {
+      "value": 2,
+      "evidence_kind": "event-derived",
+      "event_ids": [
+        "GH12555-E4",
+        "GH12555-E8"
+      ]
+    },
+    "maintainer_corrections": {
+      "value": 0,
+      "evidence_kind": "event-derived",
+      "event_ids": []
+    },
+    "post_review_rework": {
+      "value": 0,
+      "evidence_kind": "event-derived",
+      "event_ids": []
+    }
+  },
+  "final_result": {
+    "summary": "Active issue analysis only; no Doctrine implementation has been produced in this Debug scope.",
+    "repository_binding": {
+      "kind": "unverified",
+      "binding_state": "provisional",
+      "base_revision": "2aa5230e1a28a89a02422d7aff55f5a8c8a12ff5",
+      "result_revision": "2aa5230e1a28a89a02422d7aff55f5a8c8a12ff5",
+      "review_reference": "https://github.com/doctrine/orm/issues/12555",
+      "selected_paths": [],
+      "snapshot_sha256": "not-applicable",
+      "prior_bindings": []
+    },
+    "implementation_surfaces": [],
+    "validation": {
+      "results": [],
+      "skipped": []
+    },
+    "claim_validation": {
+      "fidelity": "unavailable",
+      "claims": [],
+      "evidence": [],
+      "limitation": "The active task has not reached a final validation claim."
+    },
+    "engineering_evidence_ids": [],
+    "engineering_evidence_decision": {
+      "status": "pending",
+      "event_links": [],
+      "materiality_evaluations": [
+        {
+          "kind": "undocumented-invariant",
+          "outcome": "unknown",
+          "event_ids": [],
+          "evidence": [],
+          "reason": "Assess before completion."
+        },
+        {
+          "kind": "rejected-hypothesis",
+          "outcome": "unknown",
+          "event_ids": [],
+          "evidence": [],
+          "reason": "Assess before completion."
+        },
+        {
+          "kind": "non-obvious-dependency",
+          "outcome": "unknown",
+          "event_ids": [],
+          "evidence": [],
+          "reason": "Assess before completion."
+        },
+        {
+          "kind": "cross-area-impact",
+          "outcome": "unknown",
+          "event_ids": [],
+          "evidence": [],
+          "reason": "Assess before completion."
+        },
+        {
+          "kind": "broad-regression-matrix",
+          "outcome": "unknown",
+          "event_ids": [],
+          "evidence": [],
+          "reason": "Assess before completion."
+        },
+        {
+          "kind": "compatibility-or-public-contract",
+          "outcome": "unknown",
+          "event_ids": [],
+          "evidence": [],
+          "reason": "Assess before completion."
+        },
+        {
+          "kind": "reviewer-correction",
+          "outcome": "unknown",
+          "event_ids": [],
+          "evidence": [],
+          "reason": "Assess before completion."
+        },
+        {
+          "kind": "direction-change",
+          "outcome": "unknown",
+          "event_ids": [],
+          "evidence": [],
+          "reason": "Assess before completion."
+        },
+        {
+          "kind": "expensive-to-reconstruct",
+          "outcome": "unknown",
+          "event_ids": [],
+          "evidence": [],
+          "reason": "Assess before completion."
+        },
+        {
+          "kind": "unresolved-authority-or-contract",
+          "outcome": "unknown",
+          "event_ids": [],
+          "evidence": [],
+          "reason": "Assess before completion."
+        }
+      ],
+      "knowledge_preserved_by": [],
+      "reason": "Durable engineering evidence is assessed when the Debug session is finalized.",
+      "next_safe_action": "Complete the evidence decision before marking this record completed."
+    },
+    "upstream_projection": {
+      "kind": "unknown",
+      "included_debug_files": false,
+      "projected_paths": [],
+      "evidence": []
+    }
+  },
+  "publication": {
+    "storage_mode": "repository-internal",
+    "visibility": "repository-local",
+    "included_in_external_patch": false,
+    "policy_evidence": ".ai/project/debug/README.md"
+  },
+  "privacy": {
+    "raw_ai_conversation_stored": false,
+    "raw_human_conversation_stored": false,
+    "chain_of_thought_stored": false,
+    "prompts_stored": false,
+    "secrets_stored": false,
+    "credentials_stored": false,
+    "unrelated_personal_data_stored": false,
+    "unrelated_session_history_stored": false,
+    "unused_speculation_stored": false,
+    "complete_diffs_stored": false,
+    "verbose_logs_stored": false,
+    "redactions": []
+  },
+  "residual_uncertainty": [
+    "The active branch includes an uncommitted merge of upstream 3.7.x plus Alatyr debug metadata; a later clean no-Alatyr branch is still required for upstream-ready history.",
+    "Full PHPStan is blocked by the merged 3.7 baseline/dependency profile and reports errors outside the new GH-12555 implementation.",
+    "The selected-column optimization intentionally falls back to full load for inheritance, joined association loads, locks, custom criteria, and regular proxies.",
+    "Second-level cache behavior is conservative: partial lazy initialization bypasses entity cache lookup/put to avoid cache entries built from locally changed partial objects."
+  ],
+  "limitations": [
+    "Debug evidence cannot prove event completeness attribution correctness or engineering quality."
+  ]
+}

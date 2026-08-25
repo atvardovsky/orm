@@ -42,11 +42,13 @@ use LengthException;
 use SortDirection;
 
 use function array_combine;
+use function array_diff;
 use function array_diff_key;
 use function array_fill;
 use function array_flip;
 use function array_keys;
 use function array_map;
+use function array_merge;
 use function array_unique;
 use function array_values;
 use function assert;
@@ -733,6 +735,11 @@ class BasicEntityPersister implements EntityPersister
         int|null $limit = null,
         array|null $orderBy = null,
     ): object|null {
+        $partialLoadFields = $this->getPartialObjectLazyLoadFields($entity, $criteria, $assoc, $lockMode, $limit, $orderBy);
+        if ($partialLoadFields !== null) {
+            return $this->loadPartialObjectFields($criteria, $entity, $hints, $partialLoadFields);
+        }
+
         $this->switchPersisterContext(null, $limit);
 
         $sql              = $this->getSelectSQL($criteria, $assoc, $lockMode, $limit, null, $orderBy);
@@ -1116,6 +1123,26 @@ class BasicEntityPersister implements EntityPersister
     ): string {
         $this->switchPersisterContext($offset, $limit);
 
+        $columnList = $this->getSelectColumnsSQL();
+
+        return $this->getSelectSQLForColumnList($columnList, $criteria, $assoc, $lockMode, $limit, $offset, $orderBy);
+    }
+
+    /**
+     * @param string[]|null $orderBy
+     * @phpstan-param LockMode::*|null $lockMode
+     * @phpstan-param array<string, mixed>|Criteria $criteria
+     * @phpstan-param array<string, string>|null $orderBy
+     */
+    private function getSelectSQLForColumnList(
+        string $columnList,
+        array|Criteria $criteria,
+        AssociationMapping|null $assoc = null,
+        LockMode|int|null $lockMode = null,
+        int|null $limit = null,
+        int|null $offset = null,
+        array|null $orderBy = null,
+    ): string {
         $joinSql    = '';
         $orderBySql = '';
 
@@ -1141,7 +1168,6 @@ class BasicEntityPersister implements EntityPersister
             default => '',
         };
 
-        $columnList = $this->getSelectColumnsSQL();
         $tableAlias = $this->getSQLTableAlias($this->class->name);
         $filterSql  = $this->generateFilterConditionSQL($this->class, $tableAlias);
         $tableName  = $this->quoteStrategy->getTableName($this->class, $this->platform);
@@ -1164,6 +1190,124 @@ class BasicEntityPersister implements EntityPersister
             . $orderBySql;
 
         return $this->platform->modifyLimitQuery($query, $limit, $offset ?? 0) . $lockSql;
+    }
+
+    /**
+     * @param mixed[]       $criteria
+     * @param string[]|null $orderBy
+     * @phpstan-param array<string, mixed> $criteria
+     * @phpstan-param LockMode::*|null $lockMode
+     * @phpstan-param array<string, string>|null $orderBy
+     *
+     * @return list<string>|null
+     */
+    private function getPartialObjectLazyLoadFields(
+        object|null $entity,
+        array $criteria,
+        AssociationMapping|null $assoc,
+        LockMode|int|null $lockMode,
+        int|null $limit,
+        array|null $orderBy,
+    ): array|null {
+        if (
+            $entity === null
+            || $assoc !== null
+            || $lockMode !== null
+            || $limit !== null
+            || $orderBy !== null
+            || $this->class->inheritanceType !== ClassMetadata::INHERITANCE_TYPE_NONE
+            || $this->hasJoinedAssociationLoad()
+            || array_diff_key($criteria, array_flip($this->class->identifier)) !== []
+            || count($criteria) !== count($this->class->identifier)
+        ) {
+            return null;
+        }
+
+        foreach ($this->class->identifier as $identifierField) {
+            if (! isset($this->class->fieldMappings[$identifierField])) {
+                return null;
+            }
+        }
+
+        $loadedFields = $this->em->getUnitOfWork()->getLoadedFieldsOfPartialObject($entity);
+        if ($loadedFields === null) {
+            return null;
+        }
+
+        return array_values(array_unique(array_merge(
+            array_diff($this->class->fieldNames, $loadedFields),
+            $this->class->identifier,
+        )));
+    }
+
+    private function hasJoinedAssociationLoad(): bool
+    {
+        foreach ($this->class->associationMappings as $assoc) {
+            if ($assoc->isToOne() && (! $assoc->isOwningSide() || $assoc->fetch === ClassMetadata::FETCH_EAGER)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * @param mixed[]      $criteria
+     * @param mixed[]      $hints
+     * @param list<string> $fields
+     * @phpstan-param array<string, mixed> $criteria
+     * @phpstan-param array<string, mixed> $hints
+     */
+    private function loadPartialObjectFields(array $criteria, object $entity, array $hints, array $fields): object|null
+    {
+        $previousContext               = $this->currentPersisterContext;
+        $this->currentPersisterContext = new CachedPersisterContext(
+            $this->class,
+            new Query\ResultSetMapping(),
+            false,
+        );
+
+        try {
+            $columnList = $this->getSelectColumnsSQLForPartialObject($fields);
+            $sql        = $this->getSelectSQLForColumnList($columnList, $criteria);
+
+            [$params, $types] = $this->expandParameters($criteria);
+            $stmt             = $this->conn->executeQuery($sql, $params, $types);
+
+            $hints[Query::HINT_REFRESH]        = true;
+            $hints[Query::HINT_REFRESH_ENTITY] = $entity;
+
+            $rsm = $this->currentPersisterContext->rsm;
+        } finally {
+            $this->currentPersisterContext = $previousContext;
+        }
+
+        $hydrator = $this->em->newHydrator(Query::HYDRATE_SIMPLEOBJECT);
+        $entities = $hydrator->hydrateAll($stmt, $rsm, $hints);
+
+        return $entities ? $entities[0] : null;
+    }
+
+    /** @param list<string> $fields */
+    private function getSelectColumnsSQLForPartialObject(array $fields): string
+    {
+        $columnList = [];
+        $this->currentPersisterContext->rsm->addEntityResult($this->class->name, 'r');
+        $this->currentPersisterContext->selectJoinSql = '';
+
+        foreach ($fields as $field) {
+            $columnList[] = $this->getSelectColumnSQL($field, $this->class);
+        }
+
+        foreach ($this->class->associationMappings as $assocField => $assoc) {
+            $assocColumnSQL = $this->getSelectColumnAssociationSQL($assocField, $assoc, $this->class);
+
+            if ($assocColumnSQL) {
+                $columnList[] = $assocColumnSQL;
+            }
+        }
+
+        return implode(', ', $columnList);
     }
 
     public function getCountSQL(array|Criteria $criteria = []): string

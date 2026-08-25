@@ -378,6 +378,10 @@ abstract class AbstractEntityPersister implements CachedEntityPersister
      */
     public function loadById(array $identifier, object|null $entity = null): object|null
     {
+        if ($entity !== null && $this->uow->getLoadedFieldsOfPartialObject($entity) !== null) {
+            return $this->persister->loadById($identifier, $entity);
+        }
+
         $cacheKey   = new EntityCacheKey($this->class->rootEntityName, $identifier);
         $cacheEntry = $this->region->get($cacheKey);
         $class      = $this->class;

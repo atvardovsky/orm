@@ -8,5 +8,52 @@
   "retention_policy": "retain compact reviewed records while relevant to branch history",
   "redaction_policy": "exclude raw private chat, chain-of-thought, prompts, secrets, credentials, unrelated personal data, complete diffs, and verbose logs",
   "external_patch_policy": "exclude raw private chat secrets credentials and external-only logs",
-  "records": []
+  "records": [
+    {
+      "debug_id": "DEBUG-GH-12555-20260824",
+      "status": "active",
+      "record": ".ai/project/debug/records/gh-12555-partial-lazy-load-columns.json",
+      "task_references": [
+        "https://github.com/doctrine/orm/issues/12555"
+      ],
+      "scope_kind": "task",
+      "scope_id": "bugfix/gh-12555-partial-lazy-load-columns",
+      "task_class": "issue-analysis",
+      "repository_binding_kind": "unverified",
+      "result_revision": "2aa5230e1a28a89a02422d7aff55f5a8c8a12ff5",
+      "event_coverage": "partial",
+      "observer_effect": "possible",
+      "elapsed_seconds": null,
+      "elapsed_evidence_kind": "unknown",
+      "metrics": {
+        "human_interventions": 0,
+        "human_architectural_interventions": 0,
+        "alatyr_independent_findings": 4,
+        "derived_findings_after_human": 0,
+        "alatyr_independent_dependency_checks": 1,
+        "human_requested_dependency_checks": 0,
+        "derived_dependency_expansions_after_human": 0,
+        "hypotheses_tested": 0,
+        "hypotheses_rejected": 0,
+        "implementation_revisions": 1,
+        "implementation_corrections_after_human": 0,
+        "validation_expansions": 4,
+        "regression_scenarios_added": 2,
+        "maintainer_corrections": 0,
+        "post_review_rework": 0
+      },
+      "residual_uncertainty": [
+        "The active branch includes an uncommitted merge of upstream 3.7.x plus Alatyr debug metadata; a later clean no-Alatyr branch is still required for upstream-ready history.",
+        "Full PHPStan is blocked by the merged 3.7 baseline/dependency profile and reports errors outside the new GH-12555 implementation.",
+        "The selected-column optimization intentionally falls back to full load for inheritance, joined association loads, locks, custom criteria, and regular proxies.",
+        "Second-level cache behavior is conservative: partial lazy initialization bypasses entity cache lookup/put to avoid cache entries built from locally changed partial objects."
+      ],
+      "record_schema_version": 3,
+      "repository_binding_state": "provisional",
+      "engineering_evidence_status": "pending",
+      "continuation_kind": "initial",
+      "continued_from_debug_id": "not-applicable",
+      "claim_validation_fidelity": "unavailable"
+    }
+  ]
 }
