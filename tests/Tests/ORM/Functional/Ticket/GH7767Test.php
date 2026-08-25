@@ -6,8 +6,8 @@ namespace Doctrine\Tests\ORM\Functional\Ticket;
 
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\Criteria;
-use Doctrine\Common\Collections\Order;
 use Doctrine\Common\Collections\Selectable;
+use Doctrine\ORM\Cache\Persister\CompatOrderings;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\GeneratedValue;
@@ -17,13 +17,16 @@ use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\OrderBy;
 use Doctrine\Tests\OrmFunctionalTestCase;
 use PHPUnit\Framework\Attributes\Group;
+use SortDirection;
 
 use function assert;
-use function class_exists;
+use function defined;
 
 #[Group('GH7767')]
 class GH7767Test extends OrmFunctionalTestCase
 {
+    use CompatOrderings;
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -45,7 +48,7 @@ class GH7767Test extends OrmFunctionalTestCase
         $parent = $this->_em->find(GH7767ParentEntity::class, 1);
         assert($parent instanceof GH7767ParentEntity);
 
-        $children = $parent->getChildren()->matching(Criteria::create(true));
+        $children = $parent->getChildren()->matching(defined(Criteria::class . '::ASC') ? Criteria::create(true) : Criteria::create());
 
         self::assertEquals(100, $children[0]->position);
         self::assertEquals(200, $children[1]->position);
@@ -58,7 +61,7 @@ class GH7767Test extends OrmFunctionalTestCase
         assert($parent instanceof GH7767ParentEntity);
 
         $children = $parent->getChildren()->matching(
-            Criteria::create(true)->orderBy(['position' => class_exists(Order::class) ? Order::Descending : 'DESC']),
+            (defined(Criteria::class . '::ASC') ? Criteria::create(true) : Criteria::create())->orderBy(['position' => $this->isCollections31() ? SortDirection::Descending : 'DESC']),
         );
 
         self::assertEquals(300, $children[0]->position);
@@ -77,7 +80,7 @@ class GH7767ParentEntity
 
     /** @phpstan-var Collection<int, GH7767ChildEntity>&Selectable<int, GH7767ChildEntity> */
     #[OneToMany(targetEntity: GH7767ChildEntity::class, mappedBy: 'parent', fetch: 'EXTRA_LAZY', cascade: ['persist'])]
-    #[OrderBy(['position' => 'ASC'])]
+    #[OrderBy(['position' => SortDirection::Ascending])]
     private $children;
 
     public function addChild(int $position): void

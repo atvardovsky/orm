@@ -599,10 +599,13 @@ Example with partial indexes:
 ~~~~~
 
 The annotated instance variable will be marked as entity
-identifier, the primary key in the database. This attribute is a
-marker only and has no required or optional attributes. For
-entities that have multiple identifier columns each column has to
-be marked with ``#[Id]``.
+identifier, the primary key in the database. For entities that have
+multiple identifier columns each column has to be marked with ``#[Id]``.
+
+Optional parameters:
+
+-  **position**: Controls the order of fields in a composite identifier.
+   Lower values come first. If not specified, the default value is ``0``.
 
 Example:
 
@@ -693,6 +696,10 @@ Optional parameters:
    "columnDefinition" attribute on :ref:`#[Column] <attrref_column>` also sets
    the related ``#[JoinColumn]``'s columnDefinition. This is necessary to
    make foreign keys work.
+-  **foreignKeyName**: Allows you to specify a custom name for the foreign key constraint.
+   If not specified, the name will be generated automatically. For composite foreign
+   keys (multiple ``#[JoinColumn]`` attributes), only one join column should specify
+   ``foreignKeyName``.
 -  **options**:
    See "options" attribute on :ref:`#[Column] <attrref_column>`.
 
@@ -705,7 +712,7 @@ Example:
     use Doctrine\ORM\Mapping\JoinColumn;
 
     #[OneToOne(targetEntity: Customer::class)]
-    #[JoinColumn(name: "customer_id", referencedColumnName: "id")]
+    #[JoinColumn(name: "customer_id", referencedColumnName: "id", foreignKeyName: "fk_customer")]
     private $customer;
 
 .. _attrref_jointable:
@@ -724,6 +731,13 @@ Required attribute:
 
 -  **name**: Database name of the join-table
 
+Optional attributes:
+
+-  **foreignKeyName**: Specifies a custom name for the foreign key constraint from the join table
+   to the owning side entity. If not specified, the name will be generated automatically.
+-  **inverseForeignKeyName**: Specifies a custom name for the foreign key constraint from the join
+   table to the inverse side entity. If not specified, the name will be generated automatically.
+
 Example:
 
 .. code-block:: php
@@ -731,9 +745,16 @@ Example:
     <?php
     use Doctrine\ORM\Mapping\ManyToMany;
     use Doctrine\ORM\Mapping\JoinTable;
+    use Doctrine\ORM\Mapping\JoinColumn;
 
-    #[ManyToMany(targetEntity: "Phonenumber")]
-    #[JoinTable(name: "users_phonenumbers")]
+    #[ManyToMany(targetEntity: Phonenumber::class)]
+    #[JoinTable(
+        name: "users_phonenumbers",
+        joinColumns: [new JoinColumn(name: "user_id", referencedColumnName: "id")],
+        inverseJoinColumns: [new JoinColumn(name: "phonenumber_id", referencedColumnName: "id")],
+        foreignKeyName: "fk_users_phonenumbers_user",
+        inverseForeignKeyName: "fk_users_phonenumbers_phonenumber"
+    )]
     public $phonenumbers;
 
 .. _attrref_manytoone:
@@ -955,12 +976,19 @@ Example:
 .. code-block:: php
 
     <?php
+
+    use SortDirection;
+
     #[ManyToMany(targetEntity: Group::class)]
-    #[OrderBy(['name' => 'ASC', 'createdAt' => 'DESC'])]
+    #[OrderBy([
+        'name' => SortDirection::Ascending,
+        'createdAt' => SortDirection::Descending,
+    ])]
     private $groups;
 
 The keys of the array are only allowed to consist of unqualified,
-unquoted field names and the values can be either ``ASC`` or ``DESC``.
+unquoted field names and the values can be either a valid `SortDirection` value,
+or a string with the value ``ASC`` or  ``DESC``.
 
 The referenced field names have to exist on the ``targetEntity``
 class of the ``#[ManyToMany]`` or ``#[OneToMany]`` attribute.

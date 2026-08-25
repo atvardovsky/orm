@@ -553,6 +553,14 @@ You can use the partial syntax when joining as well:
     $usersArray = $query->getArrayResult(); // array of partially loaded CmsUser and CmsArticle fields
     $users = $query->getResult(); // array of partially loaded CmsUser objects
 
+.. note::
+
+    When :ref:`native lazy objects <reference-native-lazy-objects>`
+    are enabled (PHP 8.4+), the objects returned by ``getResult()`` are lazy
+    ghosts. Only the fields listed in the ``PARTIAL`` clause are fetched
+    eagerly; any other field is transparently loaded from the database on
+    first access. See :doc:`/reference/partial-objects` for details.
+
 "NEW" Operator Syntax
 ^^^^^^^^^^^^^^^^^^^^^
 
@@ -617,7 +625,7 @@ You can also nest several DTO :
     $query = $em->createQuery('SELECT NEW CustomerDTO(c.name, e.email, NEW AddressDTO(a.street, a.city, a.zip)) FROM Customer c JOIN c.email e JOIN c.address a');
     $users = $query->getResult(); // array of CustomerDTO
 
-Note that you can only pass scalar expressions or other Data Transfer Objects to the constructor.
+Note that you can only pass scalar expressions, the ``NULL`` literal or other Data Transfer Objects to the constructor.
 
 If you use your data transfer objects for multiple queries, and you would rather not have to
 specify arguments that precede the ones you are really interested in, you can use named arguments.
@@ -1780,7 +1788,7 @@ Scalar and Type Expressions
 
 .. code-block:: php
 
-    ScalarExpression       ::= SimpleArithmeticExpression | StringPrimary | DatetimePrimary | StateFieldPathExpression | BooleanPrimary | CaseExpression | InstanceOfExpression
+    ScalarExpression       ::= SimpleArithmeticExpression | StringPrimary | DatetimePrimary | StateFieldPathExpression | BooleanPrimary | CaseExpression | InstanceOfExpression | "NULL"
     StringExpression       ::= StringPrimary | ResultVariable | "(" Subselect ")"
     StringPrimary          ::= StateFieldPathExpression | string | InputParameter | FunctionsReturningStrings | AggregateExpression | CaseExpression
     BooleanExpression      ::= BooleanPrimary | "(" Subselect ")"

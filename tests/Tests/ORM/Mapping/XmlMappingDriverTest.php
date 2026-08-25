@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Doctrine\Tests\ORM\Mapping;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Cache\Exception\CacheException;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Mapping\ClassMetadataFactory;
@@ -29,8 +30,10 @@ use Doctrine\Tests\Models\Project\ProjectInvalidMapping;
 use Doctrine\Tests\Models\Project\ProjectName;
 use Doctrine\Tests\Models\ValueObjects\Name;
 use Doctrine\Tests\Models\ValueObjects\Person;
+use Doctrine\Tests\ORM\Mapping\Fixtures\CompositeIdWithPosition;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Group;
+use SortDirection;
 
 use function substr_count;
 
@@ -90,6 +93,13 @@ class XmlMappingDriverTest extends MappingDriverTestCase
         self::assertArrayHasKey('article', $class->associationMappings);
 
         self::assertTrue($class->associationMappings['article']->id);
+    }
+
+    public function testCompositeIdPositionOrdering(): void
+    {
+        $class = $this->createClassMetadata(CompositeIdWithPosition::class);
+
+        self::assertSame(['first', 'second'], $class->identifier);
     }
 
     public function testEmbeddableMapping(): void
@@ -255,7 +265,7 @@ class XmlMappingDriverTest extends MappingDriverTestCase
         $driver->loadMetadataForClass(GH7141Article::class, $class);
 
         self::assertSame(
-            'ASC',
+            SortDirection::Ascending,
             $class->getMetadataValue('associationMappings')['tags']->orderBy['position'],
         );
     }
@@ -269,7 +279,7 @@ class XmlMappingDriverTest extends MappingDriverTestCase
         $driver->loadMetadataForClass(GH7316Article::class, $class);
 
         self::assertSame(
-            'ASC',
+            SortDirection::Ascending,
             $class->getMetadataValue('associationMappings')['tags']->orderBy['position'],
         );
     }
@@ -343,6 +353,43 @@ class XmlMappingDriverTest extends MappingDriverTestCase
 
         self::assertCount(1, $class->fieldMappings);
     }
+
+    public function testXmlCustomForeignKeyNames(): void
+    {
+        $class = $this->createClassMetadata(XmlCustomFKArticle::class);
+
+        // Test ManyToOne with custom FK name
+        $authorMapping = $class->getAssociationMapping('author');
+        self::assertCount(1, $authorMapping->joinColumns);
+        self::assertSame('fk_xml_article_author', $authorMapping->joinColumns[0]->foreignKeyName);
+
+        // Test ManyToMany with custom FK names
+        $tagsMapping = $class->getAssociationMapping('tags');
+        self::assertNotNull($tagsMapping->joinTable);
+        self::assertSame('fk_xml_article_tag_article', $tagsMapping->joinTable->foreignKeyName);
+        self::assertSame('fk_xml_article_tag_tag', $tagsMapping->joinTable->inverseForeignKeyName);
+    }
+}
+
+class XmlCustomFKArticle
+{
+    public int|null $id = null;
+    public string $title;
+    public XmlCustomFKAuthor|null $author = null;
+    /** @var Collection<int, XmlCustomFKTag> */
+    public Collection $tags;
+}
+
+class XmlCustomFKAuthor
+{
+    public int|null $id = null;
+    public string $name;
+}
+
+class XmlCustomFKTag
+{
+    public int|null $id = null;
+    public string $name;
 }
 
 class CTI

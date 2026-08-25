@@ -883,7 +883,7 @@ parameters:
 			path: src/Mapping/AnsiQuoteStrategy.php
 
 		-
-			message: '#^Parameter \#1 \$mappingArray of static method Doctrine\\ORM\\Mapping\\JoinTableMapping\:\:fromMappingArray\(\) expects array\{name\: string, quoted\?\: bool\|null, joinColumns\?\: array\<mixed\>, inverseJoinColumns\?\: array\<mixed\>, schema\?\: string\|null, options\?\: array\<string, mixed\>\}, non\-empty\-array\<mixed\> given\.$#'
+			message: '#^Parameter \#1 \$mappingArray of static method Doctrine\\ORM\\Mapping\\JoinTableMapping\:\:fromMappingArray\(\) expects array\{name\: string, quoted\?\: bool\|null, joinColumns\?\: array\<mixed\>, inverseJoinColumns\?\: array\<mixed\>, schema\?\: string\|null, foreignKeyName\?\: string\|null, inverseForeignKeyName\?\: string\|null, options\?\: array\<string, mixed\>\}, non\-empty\-array\<mixed\> given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/Mapping/AssociationMapping.php
@@ -1675,7 +1675,7 @@ parameters:
 			path: src/PersistentCollection.php
 
 		-
-			message: '#^Method Doctrine\\ORM\\PersistentCollection\:\:matching\(\) should return Doctrine\\Common\\Collections\\Collection\<TKey of \(int\|string\), T\> but returns Doctrine\\Common\\Collections\\ReadableCollection\<TKey of \(int\|string\), T\>&Doctrine\\Common\\Collections\\Selectable\<TKey of \(int\|string\), T\>\.$#'
+			message: '#^Method Doctrine\\ORM\\PersistentCollection\:\:matching\(\) should return Doctrine\\Common\\Collections\\Collection\<TKey of \(int\|string\), T\> but returns Doctrine\\Common\\Collections\\ReadableCollection\<TKey of \(int\|string\), T\>\.$#'
 			identifier: return.type
 			count: 1
 			path: src/PersistentCollection.php
@@ -1687,7 +1687,7 @@ parameters:
 			path: src/PersistentCollection.php
 
 		-
-			message: '#^Parameter \#2 \$callback of function array_walk expects callable\(object, int\)\: mixed, array\{Doctrine\\Common\\Collections\\Collection\<TKey of \(int\|string\), T\>&Doctrine\\Common\\Collections\\Selectable\<TKey of \(int\|string\), T\>, ''add''\} given\.$#'
+			message: '#^Parameter \#2 \$callback of function array_walk expects callable\(object, int\)\: mixed, array\{Doctrine\\Common\\Collections\\Collection\<TKey of \(int\|string\), T\>, ''add''\} given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/PersistentCollection.php
@@ -1809,6 +1809,12 @@ parameters:
 		-
 			message: '#^Method Doctrine\\ORM\\Persisters\\Collection\\ManyToManyPersister\:\:count\(\) has parameter \$collection with generic class Doctrine\\ORM\\PersistentCollection but does not specify its types\: TKey, T$#'
 			identifier: missingType.generics
+			count: 1
+			path: src/Persisters/Collection/ManyToManyPersister.php
+
+		-
+			message: '#^Method Doctrine\\ORM\\Persisters\\Collection\\ManyToManyPersister\:\:count\(\) should return int\<0, max\> but returns int\.$#'
+			identifier: return.type
 			count: 1
 			path: src/Persisters/Collection/ManyToManyPersister.php
 
@@ -2719,7 +2725,7 @@ parameters:
 			path: src/Query/SqlWalker.php
 
 		-
-			message: '#^Match arm comparison between 3 and 3 is always true\.$#'
+			message: '#^Match arm comparison between 4 and 4 is always true\.$#'
 			identifier: match.alwaysTrue
 			count: 1
 			path: src/Query/SqlWalker.php
@@ -2983,18 +2989,6 @@ parameters:
 			path: src/Tools/Pagination/Paginator.php
 
 		-
-			message: '#^PHPDoc tag @var for variable \$parameters contains generic interface Doctrine\\Common\\Collections\\Collection but does not specify its types\: TKey, T$#'
-			identifier: missingType.generics
-			count: 1
-			path: src/Tools/Pagination/Paginator.php
-
-		-
-			message: '#^Parameter \#1 \$parameters of method Doctrine\\ORM\\AbstractQuery\:\:setParameters\(\) expects array\<mixed\>\|Doctrine\\Common\\Collections\\ArrayCollection\<int, Doctrine\\ORM\\Query\\Parameter\>, Doctrine\\Common\\Collections\\Collection&iterable\<Doctrine\\ORM\\Query\\Parameter\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/Tools/Pagination/Paginator.php
-
-		-
 			message: '#^Method Doctrine\\ORM\\Tools\\ResolveTargetEntityListener\:\:remapAssociation\(\) has parameter \$classMetadata with generic class Doctrine\\ORM\\Mapping\\ClassMetadata but does not specify its types\: T$#'
 			identifier: missingType.generics
 			count: 1
@@ -3003,7 +2997,7 @@ parameters:
 		-
 			message: '#^Access to an undefined property Doctrine\\ORM\\Mapping\\ManyToManyInverseSideMapping\|Doctrine\\ORM\\Mapping\\ManyToManyOwningSideMapping\|Doctrine\\ORM\\Mapping\\ManyToOneAssociationMapping\|Doctrine\\ORM\\Mapping\\OneToManyAssociationMapping\|Doctrine\\ORM\\Mapping\\OneToOneInverseSideMapping\|Doctrine\\ORM\\Mapping\\OneToOneOwningSideMapping\:\:\$joinColumns\.$#'
 			identifier: property.notFound
-			count: 3
+			count: 5
 			path: src/Tools/SchemaTool.php
 
 		-
@@ -3017,50 +3011,8 @@ parameters:
 
 		-
 			message: '''
-				#^Call to deprecated method getForeignColumns\(\) of class Doctrine\\DBAL\\Schema\\ForeignKeyConstraint\:
-				Use \{@see getReferencedColumnNames\(\)\} instead\.
-
-				Returns the names of the referenced table columns
-				the foreign key constraint is associated with\.$#
-			'''
-			identifier: method.deprecated
-			count: 1
-			path: src/Tools/SchemaTool.php
-
-		-
-			message: '''
-				#^Call to deprecated method getForeignTableName\(\) of class Doctrine\\DBAL\\Schema\\ForeignKeyConstraint\:
-				Use \{@see getReferencedTableName\(\)\} instead\.
-
-				Returns the name of the referenced table
-				the foreign key constraint is associated with\.$#
-			'''
-			identifier: method.deprecated
-			count: 1
-			path: src/Tools/SchemaTool.php
-
-		-
-			message: '''
-				#^Call to deprecated method getLocalColumns\(\) of class Doctrine\\DBAL\\Schema\\ForeignKeyConstraint\:
-				Use \{@see getReferencingColumnNames\(\)\} instead\.$#
-			'''
-			identifier: method.deprecated
-			count: 1
-			path: src/Tools/SchemaTool.php
-
-		-
-			message: '''
 				#^Call to deprecated method getPrimaryKey\(\) of class Doctrine\\DBAL\\Schema\\Table\:
 				Use \{@see getPrimaryKeyConstraint\(\)\} instead\.$#
-			'''
-			identifier: method.deprecated
-			count: 1
-			path: src/Tools/SchemaTool.php
-
-		-
-			message: '''
-				#^Call to deprecated method removeForeignKey\(\) of class Doctrine\\DBAL\\Schema\\Table\:
-				Use \{@link dropForeignKey\(\)\} instead\.$#
 			'''
 			identifier: method.deprecated
 			count: 1
@@ -3107,6 +3059,12 @@ parameters:
 
 		-
 			message: '#^Method Doctrine\\ORM\\Tools\\SchemaTool\:\:dropSchema\(\) has parameter \$classes with generic class Doctrine\\ORM\\Mapping\\ClassMetadata but does not specify its types\: T$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/Tools/SchemaTool.php
+
+		-
+			message: '#^Method Doctrine\\ORM\\Tools\\SchemaTool\:\:experimentalGetSchemaFromMetadata\(\) has parameter \$classes with generic class Doctrine\\ORM\\Mapping\\ClassMetadata but does not specify its types\: T$#'
 			identifier: missingType.generics
 			count: 1
 			path: src/Tools/SchemaTool.php
@@ -3202,9 +3160,27 @@ parameters:
 			path: src/Tools/SchemaTool.php
 
 		-
-			message: '#^Parameter \#2 \$columns of class Doctrine\\DBAL\\Schema\\Index constructor expects non\-empty\-list\<string\>, list\<string\> given\.$#'
+			message: '#^Parameter \#1 \$columnName of method Doctrine\\DBAL\\Schema\\TableEditor\:\:modifyColumnByUnquotedName\(\) expects non\-empty\-string, string given\.$#'
 			identifier: argument.type
 			count: 1
+			path: src/Tools/SchemaTool.php
+
+		-
+			message: '#^Parameter \#1 \$columnNames of method Doctrine\\DBAL\\Schema\\Table\:\:addIndex\(\) expects non\-empty\-list\<string\>, list\<string\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Tools/SchemaTool.php
+
+		-
+			message: '#^Parameter \#1 \$columnNames of method Doctrine\\DBAL\\Schema\\Table\:\:addUniqueIndex\(\) expects non\-empty\-list\<string\>, array\<string\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Tools/SchemaTool.php
+
+		-
+			message: '#^Parameter \#2 \$columns of class Doctrine\\DBAL\\Schema\\Index constructor expects non\-empty\-list\<string\>, list\<string\> given\.$#'
+			identifier: argument.type
+			count: 2
 			path: src/Tools/SchemaTool.php
 
 		-
@@ -3214,19 +3190,37 @@ parameters:
 			path: src/Tools/SchemaTool.php
 
 		-
-			message: '#^Parameter \#2 \$primaryKeyColumns of method Doctrine\\ORM\\Tools\\SchemaTool\:\:addPrimaryKeyConstraint\(\) expects non\-empty\-array\<non\-empty\-string\>, list\<string\> given\.$#'
-			identifier: argument.type
-			count: 2
-			path: src/Tools/SchemaTool.php
-
-		-
-			message: '#^Parameter \#2 \$primaryKeyColumns of method Doctrine\\ORM\\Tools\\SchemaTool\:\:addPrimaryKeyConstraint\(\) expects non\-empty\-array\<non\-empty\-string\>, non\-empty\-list\<string\> given\.$#'
+			message: '#^Parameter \#2 \$modification of method Doctrine\\DBAL\\Schema\\TableEditor\:\:modifyColumnByUnquotedName\(\) expects callable\(Doctrine\\DBAL\\Schema\\ColumnEditor\)\: void, Closure\(Doctrine\\DBAL\\Schema\\ColumnEditor\)\: Doctrine\\DBAL\\Schema\\ColumnEditor given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/Tools/SchemaTool.php
 
 		-
+			message: '#^Parameter \#2 \$primaryKeyColumns of method Doctrine\\ORM\\Tools\\SchemaTool\:\:addPrimaryKeyConstraint\(\) expects non\-empty\-array\<non\-empty\-string\>, list\<string\> given\.$#'
+			identifier: argument.type
+			count: 3
+			path: src/Tools/SchemaTool.php
+
+		-
+			message: '#^Parameter \#2 \$primaryKeyColumns of method Doctrine\\ORM\\Tools\\SchemaTool\:\:addPrimaryKeyConstraint\(\) expects non\-empty\-array\<non\-empty\-string\>, non\-empty\-list\<string\> given\.$#'
+			identifier: argument.type
+			count: 2
+			path: src/Tools/SchemaTool.php
+
+		-
 			message: '#^Parameter \#3 \$foreignColumnNames of method Doctrine\\DBAL\\Schema\\Table\:\:addForeignKeyConstraint\(\) expects non\-empty\-list\<string\>, list\<string\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Tools/SchemaTool.php
+
+		-
+			message: '#^Parameter \$foreignColumnNames of class Doctrine\\DBAL\\Schema\\ForeignKeyConstraint constructor expects non\-empty\-list\<string\>, list\<string\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Tools/SchemaTool.php
+
+		-
+			message: '#^Parameter \$localColumnNames of class Doctrine\\DBAL\\Schema\\ForeignKeyConstraint constructor expects non\-empty\-list\<string\>, list\<string\> given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/Tools/SchemaTool.php
@@ -3409,12 +3403,6 @@ parameters:
 			message: '#^Parameter \#2 \$length of function array_chunk expects int\<1, max\>, int given\.$#'
 			identifier: argument.type
 			count: 2
-			path: src/UnitOfWork.php
-
-		-
-			message: '#^Parameter \#3 \$collection of class Doctrine\\ORM\\PersistentCollection constructor expects Doctrine\\Common\\Collections\\Collection\<\(int\|string\), mixed\>&Doctrine\\Common\\Collections\\Selectable\<\(int\|string\), mixed\>, Doctrine\\Common\\Collections\\Collection given\.$#'
-			identifier: argument.type
-			count: 1
 			path: src/UnitOfWork.php
 
 		-
