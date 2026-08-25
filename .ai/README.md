@@ -8,6 +8,18 @@ projection of this project map, `.ai/alatyr.yaml`, and
 `.ai/assistant/context-router.json`; load those canonical sources when the
 projection is stale, routing is ambiguous, or adapter repair is required.
 
+## Installation State
+
+Read `.ai/alatyr.yaml` before describing this adapter as installed or ready.
+`scaffolded` means only placeholder structure exists. `staged` means adaptation
+or update work remains unresolved. `accepted` requires strict validation for
+the current branch and revision with no active placeholders or blocking gaps.
+`degraded` means a previously accepted contract is no longer satisfied or
+cannot currently be proven. Only `accepted` may qualify for `ready` health.
+The ordered evidence for that claim lives at
+`.ai/assistant/installation-state.json`; its final state must match the
+manifest. The record does not grant authorization or approval.
+
 ## Framework Area
 
 `.ai/framework` contains the installed Alatyr Core complete framework pack.
@@ -28,7 +40,10 @@ security policy, lifecycle facts, or target-specific assistant infrastructure.
 - contribution and test expectations from `CONTRIBUTING.md`, `tests/README.markdown`, and CI workflows
 - source-of-truth registry entries in `.ai/project/source-of-truth-registry.md`
 - durable engineering evidence in `.ai/project/engineering-evidence/index.json`
-- project-knowledge routing policy and empty active index in `.ai/project/knowledge/`
+- project-guidance intake, routing policy, coverage state, and empty active
+  index in `.ai/project/knowledge/`
+- optional non-canonical Debug Mode evidence that separates executor,
+  Alatyr-system, automation, and human contributions in `.ai/project/debug/`
 
 The accepted project blueprint index is `.ai/project/blueprint.md`. The
 accepted project commit policy is `.ai/project/commit-policy.md`. The full
@@ -54,8 +69,8 @@ are not framework core.
 
 `.ai/alatyr.yaml` records framework version, adapter schema version, template
 version, selected support profile, installed framework pack, supported
-assistants, source-of-truth files, module state, validation entry points,
-known gaps, and local deviations.
+assistants, explicit installation state, source-of-truth files, module state,
+validation entry points, known gaps, and local deviations.
 
 ## Recovery Note
 

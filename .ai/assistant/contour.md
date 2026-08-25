@@ -21,7 +21,10 @@ This contour describes how assistants operate in Doctrine ORM.
 - documentation-sync rules and final evidence requirements
 - durable engineering-evidence routing and capture mechanics under
   `.ai/project/engineering-evidence`
-- optional Debug Mode routing and non-canonical records under
+- optional Debug Mode routing, explicit activation/expiry, checkpoint,
+  finalization, executor/Alatyr-system/automation attribution, actor identity,
+  runtime provenance, correction disposition, metric derivation, summary, and
+  structural validation; non-canonical records remain project-owned under
   `.ai/project/debug`
 - required core profile, enabled optional modules, blocked module gaps, framework version, adapter schema version, template version, known gaps, and local deviations
 

@@ -5,6 +5,10 @@ installed in `Doctrine ORM`.
 
 Replace placeholders with target facts before sending the message.
 
+Delivery evidence is separate from this template. Record `sent`, `skipped`, or
+`blocked`, together with the delivery mechanism, reason, and observation time.
+The presence of this file never proves that a chat message reached a user.
+
 ```text
 Alatyr Core is installed for `Doctrine ORM`.
 
@@ -53,6 +57,10 @@ Available next actions:
 - `Alatyr`: show adapter state and up to three relevant installed operations.
 - `adapter-health`: inspect installed adapter health without edits.
 - `create-project-blueprint`: create or repair project source-of-truth docs from target evidence.
+- `project-knowledge`: explain, route, review, promote, reject, defer, record
+  registered decision-owner guidance or an explicit exception, supersede, or
+  revalidate reusable project guidance without treating historical evidence as
+  current authority.
 - `recheck-after-installation`: verify the installed adapter and report gaps.
 - `recheck-after-framework-update`: assess impact from an Alatyr Core update.
 - `product-change`: run blueprint-driven change from intent through validation and evidence.
@@ -67,6 +75,11 @@ Validation run:
 
 Known adapter gaps:
 `backup owner missing; target-local checker wrapper committed at tools/check_alatyr.py; full optional module graph enabled; default php/composer unsuitable; local SQLite lacks SQRT for two full PHPUnit tests`
+
+Delivery status: `<sent-skipped-or-blocked>`
+Delivery mechanism: `<chat-surface-or-unavailable>`
+Delivery reason: `<why-sent-skipped-or-blocked>`
+Delivery observed at: `<delivery-timestamp-or-not-observed>`
 
 Suggested first request:
 Alatyr status

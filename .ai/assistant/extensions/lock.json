@@ -3,9 +3,9 @@
   "lock_kind": "target-alatyr-extension-lock",
   "extension_api": 1,
   "target_baseline": {
-    "framework_version": "0.1.0-alpha.27",
-    "adapter_schema_version": 25,
-    "template_version": 25,
+    "framework_version": "0.1.0-alpha.30",
+    "adapter_schema_version": 28,
+    "template_version": 28,
     "rule_registry": ".ai/framework/rule-registry.json"
   },
   "extensions": []

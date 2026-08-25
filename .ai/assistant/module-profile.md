@@ -2,14 +2,23 @@
 
 Use this file in Doctrine ORM to record which Alatyr Core capabilities are required, enabled, deferred, disabled, not applicable, or blocked.
 
+## Shared Capability Surfaces
+
+Use `.ai/framework/capabilities.json` as the lifecycle owner for target paths
+produced by multiple modules. Merge all enabled producers according to the
+declared strategy. Disabling one module must not remove a surface required by
+another enabled producer. Preserve a target-owned shared surface when
+`preserve_on_disable` is true; any later cleanup requires explicit scope and
+evidence that no target facts or active capability output will be lost.
+
 ## Required Core Profile
 
 Core profile state: complete-with-known-gaps
 Framework pack: complete
 Pack inventory: `.ai/framework/file-inventory.json`
 Required pack expansion: none
-Last reviewed: 2026-08-21
-Reviewed by: Codex adapter expansion for @atvardovsky
+Last reviewed: 2026-08-25
+Reviewed by: Codex alpha.30 adapter migration for @atvardovsky
 
 Core item: `contours`
 State: required-enabled
@@ -130,7 +139,7 @@ Required files:
 - `.ai/assistant/gates/project-knowledge.md`
 - `.ai/assistant/templates/project-knowledge-promotion.json`
 - `.ai/assistant/templates/project-knowledge-route-shard.json`
-Evidence: empty target-owned routing index installed with explicit owner, review, retention, and redaction policy; no knowledge item is promoted without decision-owner review and canonical-owner validation
+Evidence: empty target-owned routing index installed with explicit owner, guidance origin, coverage, exception, review, retention, and redaction policy; no guidance item is promoted without decision-owner review and canonical-owner validation
 Validation or review: adapter validator plus manual project-knowledge policy review
 Approval needs: approval required before accepting a promotion, changing a canonical owner, or altering project-knowledge retention and privacy policy
 Residual risk: no accepted route entries exist yet; useful reusable conclusions must still be proposed, reviewed, and promoted before routine delivery
@@ -452,6 +461,8 @@ State: enabled
 Owner or file: .ai/assistant/templates/effectiveness-report.md
 Required files:
 - `.ai/assistant/templates/effectiveness-report.md`
+- `.ai/assistant/templates/delayed-outcome-evidence.json`
+- `.ai/assistant/templates/adapter-maintenance-evidence.json`
 Reason: effectiveness report template enabled for measuring Alatyr outcomes
 Validation or review: adapter validator, module-specific checker when available, JSON/YAML parse, local path/placeholder scan, and manual review
 Approval needs: explicit approval before protected, external, dependency, permission, live-service, destructive, or weakened-gate changes
@@ -488,3 +499,9 @@ Validation or review: adapter validator, module-specific checker when available,
 Approval needs: explicit approval before protected, external, dependency, permission, live-service, destructive, or weakened-gate changes
 Residual risk: assistant/client runtime features are evidence-bound; unverified bridge capabilities must be reported before use
 Next action: use scaffold helpers only with review and no overwrite unless approved
+
+## Evidence
+
+Report enabled modules, deferred modules, blocked modules, files created or
+skipped, shared surfaces retained or merged, validation, approvals, and
+residual risk before claiming adapter maturity.

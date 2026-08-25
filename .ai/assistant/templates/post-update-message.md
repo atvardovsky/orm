@@ -5,6 +5,10 @@ updated in `Doctrine ORM`.
 
 Replace placeholders with target facts before sending the message.
 
+Delivery evidence is separate from this template. Record `sent`, `skipped`, or
+`blocked`, together with the delivery mechanism, reason, and observation time.
+The presence of this file never proves that a chat message reached a user.
+
 ```text
 Alatyr Core has been updated for `Doctrine ORM`.
 
@@ -64,6 +68,13 @@ Operation help:
   Git object type/ancestry, prior-binding lineage, canonical-owner links, privacy,
   external-patch policy, and record access; never replace existing records
   with source placeholders.
+- Preserve project-guidance promotion IDs and dispositions, canonical owner
+  bindings and digests, candidate origins, guidance kinds, direct
+  decision-owner authority, exception precedence, coverage states, route
+  shards, contradiction and supersession lineage, and retention policy.
+  Revalidate accepted guidance against canonical owners and rebuild derived
+  routes when needed; do not promote historical evidence or source
+  placeholders during update.
 - Preserve Debug Mode IDs, records, active-scope evidence, normalized events,
   timing, metrics, and publication policy when the module is enabled. Recheck
   versioned actor/causality/intervention/contribution attribution, structured
@@ -73,10 +84,11 @@ Operation help:
   preservation, claim-validation fidelity, durable Engineering Evidence
   decisions/references, binding lineage, completed-record comparison,
   dependency closure, schema, lazy route, operation, validator, and activation
-  expiry. Preserve schema-version-1 and version-2 records as migration-limited
-  evidence; do not reactivate or append to a closed scope or include debug
-  files in a clean external patch. Use schema version 3 only for new records;
-  do not silently invent historical attribution or materiality.
+  expiry. Preserve schema versions 1 through 3 as migration-limited evidence;
+  do not reactivate or append to a closed scope or include debug files in a
+  clean external patch. Use schema version 4 only for new records; do not
+  silently invent historical actor identity, runtime provenance, attribution,
+  correction disposition, or materiality.
 - When code documentation is enabled, preserve target profiles and recheck
   source-set matching, accepted state, canonical owners, generator/output
   policy, adapted skill, and validation before generation.
@@ -145,4 +157,9 @@ Known adapter gaps or migrations:
 
 Migration note:
 `.ai/assistant/templates/migration-note.md` or `{MIGRATION_NOTE_RESULT}`
+
+Delivery status: `{SENT_SKIPPED_OR_BLOCKED}`
+Delivery mechanism: `{CHAT_SURFACE_OR_UNAVAILABLE}`
+Delivery reason: `{WHY_SENT_SKIPPED_OR_BLOCKED}`
+Delivery observed at: `{DELIVERY_TIMESTAMP_OR_NOT_OBSERVED}`
 ```

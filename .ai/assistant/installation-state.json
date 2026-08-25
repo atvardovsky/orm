@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "record_kind": "alatyr-installation-state",
+  "current_state": "staged",
+  "transitions": [
+    {
+      "sequence": 1,
+      "previous_state": null,
+      "next_state": "staged",
+      "reason": "legacy-migration-baseline",
+      "operation_id": "recheck-after-framework-update",
+      "repository_revision": "535fb46b04b69b64835aab70de521be6152ca218 before uncommitted alpha.30 adapter update",
+      "current_user_authorization": "The current user explicitly requested: update alatyr. This authorizes inspect and adapter-only working-tree modification, but not commit or publication.",
+      "approval_evidence": "The current request explicitly approves updating existing Alatyr adapter instructions in this repository while preserving Doctrine runtime and project-owned facts.",
+      "validation": {
+        "status": "failed",
+        "evidence": "The unmodified alpha.30 validator reports only DEBUG_MODE_TEMPLATE_VERSION because it expects schema 3 while the shipped alpha.30 template and Debug contract require schema 4. A temporary validator copy with that expectation corrected to 4 passes with zero errors and zero warnings. Prior installation history predates installation-state records and was not reconstructed."
+      },
+      "recorded_at": "2026-08-25T19:19:22Z"
+    }
+  ]
+}

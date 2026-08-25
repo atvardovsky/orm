@@ -16,9 +16,9 @@
     },
     "profile_default": {
       "max_files": 20,
-      "max_total_words": 12000,
+      "max_total_words": 12400,
       "max_portable_words": 3000,
-      "reserved_target_words": 9000
+      "reserved_target_words": 9400
     },
     "on_exceed": "load required safety and owner evidence, record expansion reason, measured context, and intentionally omitted context"
   },

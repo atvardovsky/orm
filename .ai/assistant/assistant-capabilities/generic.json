@@ -1,7 +1,56 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "capability_kind": "target-assistant-surface-capabilities",
   "assistant_surface": "generic",
+  "instruction_loading": {
+    "route": "unknown",
+    "runtime_variant": "unknown: this assistant is not selected or its exact runtime was not verified",
+    "selected_entry_path": "unknown",
+    "competing_sources": [
+      "none recorded"
+    ],
+    "auto_load_observed": "unknown",
+    "precedence_evidence": "manual runtime review required",
+    "configuration_state": "unknown",
+    "verified_at": "2026-08-25: not verified",
+    "client_version": "unknown: exact client was not inspected",
+    "evidence": "No runtime evidence was collected for this assistant during the Alatyr 0.1.0-alpha.30 migration.",
+    "expires_at": "review-trigger: assistant selection, client, configuration, or instruction files change",
+    "review_triggers": [
+      "client or runtime variant changed",
+      "instruction files or toggles changed",
+      "assistant is selected for this repository"
+    ]
+  },
+  "skills": {
+    "route": "unknown",
+    "discovery_paths": [
+      "none verified"
+    ],
+    "selected_source": "unknown",
+    "activation_mode": "unknown",
+    "verified_at": "2026-08-25: not verified",
+    "client_version": "unknown: exact client was not inspected",
+    "evidence": "No skill discovery or activation evidence was collected for this assistant during the migration.",
+    "expires_at": "review-trigger: assistant selection, client, or skill configuration changes",
+    "review_triggers": [
+      "client or skill configuration changed",
+      "assistant is selected for this repository"
+    ]
+  },
+  "tool_permissions": {
+    "client_permission_mode": "unknown",
+    "effective_restrictions": "unknown: Alatyr current-scope authorization remains separate and mandatory",
+    "alatyr_authorization_separate": true,
+    "verified_at": "2026-08-25: not verified",
+    "client_version": "unknown: exact client was not inspected",
+    "evidence": "No client permission evidence was collected for this assistant during the migration.",
+    "expires_at": "review-trigger: assistant selection, client permissions, autonomy, or tool configuration changes",
+    "review_triggers": [
+      "client permissions, autonomy, or tool configuration changed",
+      "assistant is selected for this repository"
+    ]
+  },
   "diagram_discussion": {
     "route": "supported",
     "native_inline_syntaxes": [

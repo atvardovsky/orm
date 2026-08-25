@@ -1,6 +1,29 @@
 {
   "schema_version": 1,
   "capability_kind": "alatyr-optional-module-catalog",
+  "surfaces": {
+    ".ai/assistant/assistant-capabilities.json": {
+      "ownership": "target-adapter-shared",
+      "producers": [
+        "diagrams",
+        "multi-assistant-bridges",
+        "subagent-delegation"
+      ],
+      "merge_strategy": "record-merge-by-assistant-id",
+      "preserve_on_disable": true
+    },
+    ".ai/assistant/bridge-capability-matrix.md": {
+      "ownership": "target-adapter-shared",
+      "producers": [
+        "ai-infrastructure",
+        "diagrams",
+        "multi-assistant-bridges",
+        "subagent-delegation"
+      ],
+      "merge_strategy": "target-owned-section-merge",
+      "preserve_on_disable": true
+    }
+  },
   "modules": {
     "blueprint-change": {
       "min_framework_pack": "standard",
@@ -312,7 +335,11 @@
       "requires": [],
       "rule_ids": ["ALATYR-EVIDENCE-001"],
       "framework_files": ["effectiveness-metrics.md"],
-      "target_files": [".ai/assistant/templates/effectiveness-report.md"],
+      "target_files": [
+        ".ai/assistant/templates/effectiveness-report.md",
+        ".ai/assistant/templates/delayed-outcome-evidence.json",
+        ".ai/assistant/templates/adapter-maintenance-evidence.json"
+      ],
       "check_ids": ["effectiveness-benchmark", "captured-effectiveness-results"]
     },
     "debug-mode": {

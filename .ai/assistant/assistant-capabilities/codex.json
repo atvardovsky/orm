@@ -1,7 +1,56 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "capability_kind": "target-assistant-surface-capabilities",
   "assistant_surface": "codex",
+  "instruction_loading": {
+    "route": "supported",
+    "runtime_variant": "Codex desktop app session",
+    "selected_entry_path": "AGENTS.md",
+    "competing_sources": [
+      "Codex host, system, and developer instructions have higher precedence"
+    ],
+    "auto_load_observed": "yes",
+    "precedence_evidence": "The current Codex session supplied the repository AGENTS.md content as host-preloaded instructions.",
+    "configuration_state": "root AGENTS.md loading active in the current workspace",
+    "verified_at": "2026-08-25",
+    "client_version": "Codex desktop app; exact build not exposed",
+    "evidence": "Current-session instruction context contains the Doctrine ORM AGENTS.md contract and workspace path.",
+    "expires_at": "review-trigger: Codex client, workspace loading, or AGENTS.md changes",
+    "review_triggers": [
+      "client or runtime variant changed",
+      "instruction files or toggles changed",
+      "host loading evidence changes"
+    ]
+  },
+  "skills": {
+    "route": "supported",
+    "discovery_paths": [
+      "Codex host skill catalog"
+    ],
+    "selected_source": "Codex host-managed skills; no project-local skill selected for this migration",
+    "activation_mode": "automatic",
+    "verified_at": "2026-08-25",
+    "client_version": "Codex desktop app; exact build not exposed",
+    "evidence": "The current session exposed the Codex skill catalog and trigger instructions.",
+    "expires_at": "review-trigger: Codex client or skill catalog changes",
+    "review_triggers": [
+      "client or skill configuration changed",
+      "project-local skill loading behavior changes"
+    ]
+  },
+  "tool_permissions": {
+    "client_permission_mode": "approval policy never with unrestricted filesystem and network capability in this session",
+    "effective_restrictions": "Codex tool capability does not grant Alatyr modify, commit, publish, or live-external authorization",
+    "alatyr_authorization_separate": true,
+    "verified_at": "2026-08-25",
+    "client_version": "Codex desktop app; exact build not exposed",
+    "evidence": "Current-session permission profile and repository action-authorization policy were both inspected.",
+    "expires_at": "review-trigger: Codex permission profile, autonomy, or tool configuration changes",
+    "review_triggers": [
+      "client permissions, autonomy, or tool configuration changed",
+      "Alatyr authorization policy changes"
+    ]
+  },
   "diagram_discussion": {
     "route": "supported",
     "native_inline_syntaxes": [
@@ -28,9 +77,9 @@
     "model_override": "supported",
     "parallel_dispatch": "supported",
     "actual_model_evidence": "supported",
-    "verified_at": "2026-08-23",
+    "verified_at": "2026-08-25",
     "client_version": "Codex desktop app session",
-    "evidence": "tool_search exposed multi_agent_v1 spawn_agent, wait_agent, send_input, resume_agent, and close_agent in this session; project policy remains suggest-only",
+    "evidence": "Current tool discovery exposes native multi-agent spawn, wait, input, resume, and close operations; project policy remains explicit-delegation only.",
     "expires_at": "review-trigger: assistant client, model, or delegation tool changes",
     "review_triggers": [
       "client version or assistant bridge changed",

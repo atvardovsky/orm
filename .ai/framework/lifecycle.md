@@ -43,6 +43,49 @@ The source repository may store these facts in simple files such as `VERSION`,
 record them in a discoverable manifest such as `.ai/alatyr.yaml` or a
 target-owned equivalent.
 
+## Adapter Installation State
+
+The target manifest records one explicit installation state:
+
+- `scaffolded`: placeholder structure exists, but target facts have not been
+  adapted or accepted.
+- `staged`: repository-aware adaptation or upgrade work is in progress; active
+  placeholders, unresolved required facts, or acceptance evidence remain.
+- `accepted`: strict validation passed for the branch and revision being
+  accepted, required target facts are resolved, enabled module state agrees
+  across canonical surfaces, and no blocking finding remains.
+- `degraded`: an adapter that was accepted no longer satisfies, or cannot
+  currently prove, its accepted contract because of blocking drift, stale
+  critical evidence, or an invalid required surface.
+
+Scaffolding always starts in `scaffolded`. Beginning repository-aware
+adaptation moves it to `staged`. Only explicit strict acceptance evidence may
+move `staged` to `accepted`. An accepted adapter enters `staged` while an
+approved upgrade introduces unresolved work, or `degraded` when current
+evidence discovers contract failure outside a controlled staging process.
+Repair moves `degraded` to `staged`; strict validation is required before
+returning to `accepted`. No transition grants modify, commit, publication, or
+live-external authorization.
+
+Health and maturity are separate projections. `ready` health requires the
+manifest state `accepted`; `scaffolded`, `staged`, and `degraded` must never be
+reported as `ready`. Unresolved active placeholders always prevent acceptance.
+
+The manifest points to a machine-readable installation-state record. That
+record preserves an ordered transition chain with the previous and next state,
+operation ID, repository revision, current-scope authorization evidence,
+approval evidence when applicable, validation result, reason, and observation
+time. Its final state must equal the manifest state. Direct jumps, broken
+history, or `staged` to `accepted` without passed strict validation invalidate
+acceptance. A transition record documents evidence; it does not create user
+authorization or approval.
+
+An adapter installed before transition records existed must not reconstruct
+events it cannot prove. Its update may start a new record at `staged` with
+reason `legacy-migration-baseline`, the current repository revision, and an
+explicit unavailable-history explanation. Strict validation is still required
+for the next `accepted` transition.
+
 ## Upgrade Process
 
 Before upgrading framework files in a target project:
@@ -62,11 +105,22 @@ Before upgrading framework files in a target project:
    compatibility audit is explicitly requested.
 5. Identify framework-core changes versus target-adapter changes.
 6. Preserve target project facts.
-7. Compare supported assistant bridge needs and limitations.
+7. Compare supported assistant bridge needs and limitations. Merge source
+   surface additions by ID without overwriting target capability evidence.
+   Recheck exact runtime variant, selected entry path, competing instruction
+   sources, toggles/configuration, observed auto-load, skill source, and client
+   permissions. New or changed clients remain runtime-unverified until target
+   evidence exists; client permissions never grant Alatyr authorization.
 8. Identify new approval, testing, security, diagram, or validation guidance.
 9. Compare required core profile, installed framework pack, and optional module
    states. Expand the pack before enabling a module whose portable owner is not
    installed; do not replace target facts while changing the pack.
+   Resolve every shared capability surface from all enabled producers, apply
+   its catalog merge strategy, and preserve it when another enabled module
+   still requires it or its lifecycle contract says `preserve_on_disable`.
+   A source scaffolder must preserve an existing target-owned shared surface;
+   an assistant performs the target-aware merge under exact current-scope
+   authorization and records the retained or merged result.
    When `team-collaboration` is enabled, compare its rule, structured policy,
    local-identity boundary, registry and task schemas, active-work index,
    backend contract, lazy overlay, operation routes, and operating model.
@@ -134,26 +188,38 @@ Before upgrading framework files in a target project:
     bindings and prior-binding lineage, and storage/publication policy. Never replace historical records
     with source placeholders or move them into an external contribution patch
     contrary to target policy.
-    Preserve project-knowledge promotion IDs and dispositions, canonical owner
-    bindings and digests, route-shard IDs, contradiction/supersession lineage,
-    retention policy, and review authority. Revalidate active accepted facts
-    against their canonical owners, rebuild only derived routing surfaces, and
-    never promote historical evidence or source placeholders during an update.
+    Preserve Project Development Model guidance IDs, origins, kinds, promotion
+    and direct-decision dispositions, canonical owner bindings and digests,
+    route-shard IDs, narrowing/exception and contradiction/supersession
+    lineage, mapped/known-gap/unknown coverage, retention policy, and review
+    authority. Revalidate active accepted facts against their canonical owners,
+    rebuild only derived routing and coverage surfaces, and never promote
+    historical evidence, arbitrary messages, or source placeholders during an
+    update. Version-1 knowledge records remain historical-compatible; new
+    records use the current guidance contract.
     Preserve target Debug Mode IDs, completed records, active-scope state,
     event attribution, timing evidence, publication policy, and compact index.
     Never replace records with source placeholders, silently reactivate a
     closed scope, or move debug files into a clean external contribution.
-    Preserve schema-version-1 and version-2 events and records as migration-
-    limited evidence; do not silently infer attribution, materiality, claim
-    fidelity, continuation, or binding lineage. Install the current contract
-    version, authoring templates, and derived index projections for new
-    records. Repair invalid lifecycle bounds, event roles, durable evidence
-    decisions/references, canonical skip claims, and
+    Preserve schema-version-1 through version-3 Debug events and records as
+    migration-limited evidence; do not silently infer executor versus
+    Alatyr-system attribution, actor identity, runtime provenance, correction
+    disposition, materiality, claim fidelity, continuation, or binding
+    lineage. Install Debug contract version 4, authoring templates, and derived
+    index projections for new records. Repair invalid lifecycle bounds, event
+    roles, durable evidence decisions/references, canonical skip claims, and
     keep active records out of finalized comparisons. Never append to a
     completed record; create a linked continuation after explicit activation.
     A finalized historical
     snapshot that no longer matches the current worktree is a reproducibility
     warning, not a reason to rewrite or invalidate the old record.
+    Preserve completed effectiveness reports and their measurement evidence
+    states. Never rewrite unavailable values as zero or infer executor active
+    time from elapsed duration. Preserve delayed-outcome records as append-only
+    linked evidence, and retain adapter-maintenance evidence separately from
+    product-change effort. Install current authoring templates for later
+    records without fabricating historical attention, outcomes, or maintenance
+    cost.
     Preserve target code-documentation profiles and decisions. Never replace
     accepted frontend, backend, shared, or infrastructure conventions with
     source placeholders or a universal style.
@@ -181,6 +247,11 @@ Before upgrading framework files in a target project:
     historical plan/packet/result evidence. Never replace them with source
     placeholders or assume a newly documented model or worker format is
     available on the installed client.
+    Preserve target instruction-loading, skill, permission, diagram, and
+    delegation evidence by assistant ID. Migrate capability records to the
+    current schema and add new source surfaces as unknown; never replace
+    selected client/runtime facts with template placeholders or evidence from
+    another branch, client, or runtime variant.
 14. Recheck root assistant entry points and supported bridge files so future
     sessions can find the installation note, operation catalog, health, help,
     and routing flow.
@@ -235,16 +306,24 @@ Framework lifecycle notes should record:
 - durable engineering-evidence rule, policy, index/record schema, lazy route,
   capture gate, task/revision binding, privacy/publication boundary, existing-
   record preservation, and validator migration
-- project-knowledge rule, promotion/index/route-shard schemas, canonical owner
-  bindings, two-stage routing, authority/freshness states, contradiction and
-  supersession lineage, retained target decisions, and validator migration
+- Project Development Model guidance rule, direct decision-owner and reviewed
+  discovery intake, promotion/index/route-shard schemas, guidance kinds,
+  target-owned exceptions, coverage gaps, canonical owner bindings, semantic
+  bundle receipts, two-stage routing, authority/freshness states, contradiction
+  and supersession lineage, retained target decisions, and validator migration
 - Debug Mode rule, module dependencies, explicit activation/expiry, non-
-  canonical index/record schema, event attribution, timing/capture quality,
+  canonical index/record schema, executor/Alatyr-system/automation role and
+  actor identity/provenance attribution, correction disposition,
+  timing/capture quality,
   structured architectural impacts, direction-change hypothesis/replacement
   causality, supervision metrics, exact durable evidence reference resolution,
   active-versus-finalized comparison, clean-upstream boundary, record
   preservation, operation, lazy route, and validator migration when that module
   is enabled
+- effectiveness metrics schema, evidence-qualified human attention and
+  observed-only executor timing, append-only delayed outcomes, adapter-
+  maintenance evidence, target storage policy, and validator migration when
+  that module is enabled
 - code-documentation rule, catalog/profile schemas, source-set selection,
   accepted style decisions, generator/output policy, adapted skill, lazy
   route, and validator migration when that module is enabled

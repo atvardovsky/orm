@@ -23,8 +23,9 @@ owners; only accepted, current items constrain work. Stale items warn and
 contradictions block.
 
 Route IDs and aliases through `.ai/assistant/operation-index.json`; use profile
-candidates for requests. Load `.ai/assistant/operation-catalog.json` only for
-ambiguity or repair. Status operations are read-only.
+candidates for requests. For `Alatyr`, help, ambiguity, or repair, use
+`.ai/assistant/help.md`, `.ai/assistant/operation-catalog.json`, and
+`.ai/assistant/flows/operation-routing.flow.md`. Status operations are read-only.
 
 ## Session Recovery
 
@@ -72,6 +73,10 @@ owners and selected target files for evidence. Run only validation that exists.
 Select routine acceptance gates through `.ai/assistant/gates/index.json` and
 load only the routed fragments. Load the complete gate checklist only for
 adapter repair, ambiguity, or a full acceptance audit.
+
+Before delegation or diagrams, read
+`.ai/assistant/assistant-capabilities.json`; route selected delegation through
+`.ai/assistant/prompts/worker-orchestration.md`. Unknown presentation uses ASCII.
 
 Routing selects a flow; it does not grant approval or broaden allowed actions.
 A preview is not approval and becomes stale when material risk or scope

@@ -53,9 +53,10 @@ Every accepted installation should provide:
 - final evidence format
 - durable engineering-evidence capture decision, compact index, target storage
   policy, and record validation for material tasks
-- project-knowledge promotion review, canonical-owner update, compact sharded
-  routing index, two-stage bounded delivery, freshness, conflict, supersession,
-  and paired reuse evidence
+- project-knowledge candidate or registered decision-owner guidance intake,
+  promotion review, canonical-owner update, explicit exception and precedence
+  evidence, compact sharded routing index, coverage states, two-stage bounded
+  delivery, freshness, conflict, supersession, and paired reuse evidence
 
 If any required core item is missing, the adapter can still exist, but it must
 report the missing item as a gap before claiming maturity.
@@ -149,6 +150,27 @@ listed in `modules.enabled` must have exactly one matching profile block in
 in the manifest. Migration staging may expose disagreement as repair work, but
 strict adapter acceptance must reject it.
 
+## Shared Capability Surfaces
+
+The machine capability catalog owns lifecycle metadata for target paths
+produced by more than one optional module. Each shared surface declares its
+target-adapter ownership, producer modules, merge strategy, and
+`preserve_on_disable` behavior.
+
+Enablement projects the union of every enabled module's required paths.
+Disabling one producer must not remove or replace a shared surface while
+another producer remains enabled. A shared target-owned surface marked
+`preserve_on_disable` also remains after its final producer is disabled until
+an explicit, separately authorized cleanup verifies that no target facts,
+assistant capability evidence, or other module output would be lost. Module
+state changes are not file-deletion authorization.
+
+Source scaffolding may create a missing shared surface, but must not overwrite
+an existing target-owned shared surface, including when generic overwrite mode
+is enabled. Existing shared content requires the declared adapter-aware merge
+strategy and exact path authorization. Record whether each affected shared
+surface was created, retained, merged, or left blocked.
+
 ## Module States
 
 Use these states in target adapters:
@@ -178,6 +200,9 @@ During installation or update:
    a broader profile or enabled module.
 6. Leave deferred, disabled, not-applicable, or blocked modules in evidence
    with the reason and next safe action.
+7. Resolve shared surfaces from the complete enabled-module set. Apply the
+   catalog merge strategy and retain any surface required by another enabled
+   producer or marked `preserve_on_disable`.
 
 Optional modules must not add target project facts from guesses or from another
 repository.
@@ -226,7 +251,9 @@ Reject module-profile work that:
   primary-agent convergence
 - enables Debug Mode without explicit per-scope activation, target-owned
   privacy/retention/publication policy, non-canonical authority, causal event
-  attribution, event-derived metric validation, bounded context, and expiry
+  attribution that separates executor, Alatyr-system, automation, actor
+  identity, and runtime provenance, correction-disposition evidence,
+  event-derived metric validation, bounded context, and expiry
 - enables a consistency map without target-owned fact IDs, relationship
   coverage, or staleness handling
 - enables architecture knowledge without a project owner, compact catalog,
@@ -238,4 +265,7 @@ Reject module-profile work that:
 - copies source-repository helper behavior into target requirements
 - installs bridge, diagram, skill, or operation-help surfaces the target does
   not use
+- removes a shared capability surface because one producer was disabled while
+  another producer still requires it, or treats module disablement as cleanup
+  authorization
 - hides blocked core gaps behind a broad maturity claim

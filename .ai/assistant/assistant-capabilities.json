@@ -6,12 +6,18 @@
   "surfaces": {
     "agents": ".ai/assistant/assistant-capabilities/agents.json",
     "claude": ".ai/assistant/assistant-capabilities/claude.json",
+    "cline": ".ai/assistant/assistant-capabilities/cline.json",
     "codex": ".ai/assistant/assistant-capabilities/codex.json",
     "cursor": ".ai/assistant/assistant-capabilities/cursor.json",
     "devin-cascade": ".ai/assistant/assistant-capabilities/devin-cascade.json",
     "gemini": ".ai/assistant/assistant-capabilities/gemini.json",
     "generic": ".ai/assistant/assistant-capabilities/generic.json",
     "github-copilot": ".ai/assistant/assistant-capabilities/github-copilot.json",
-    "windsurf": ".ai/assistant/assistant-capabilities/windsurf.json"
+    "junie": ".ai/assistant/assistant-capabilities/junie.json",
+    "kiro": ".ai/assistant/assistant-capabilities/kiro.json",
+    "opencode": ".ai/assistant/assistant-capabilities/opencode.json",
+    "roo-code": ".ai/assistant/assistant-capabilities/roo-code.json",
+    "windsurf": ".ai/assistant/assistant-capabilities/windsurf.json",
+    "zed-agent": ".ai/assistant/assistant-capabilities/zed-agent.json"
   }
 }

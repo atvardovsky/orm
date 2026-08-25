@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "capability_kind": "target-assistant-surface-capabilities",
-  "assistant_surface": "windsurf",
+  "assistant_surface": "cline",
   "instruction_loading": {
     "route": "unknown",
     "runtime_variant": "unknown: this assistant is not selected or its exact runtime was not verified",
@@ -58,44 +58,44 @@
     ],
     "artifact_presentation": "unknown",
     "readable_fallback": "ascii",
-    "verified_at": "unknown: runtime not verified in this workspace",
-    "client_version": "unknown; not verified in this workspace",
-    "evidence": "bridge file installed; runtime not verified",
-    "expires_at": "review-trigger: assistant client or bridge file changes",
+    "verified_at": "unknown: runtime not selected or verified",
+    "client_version": "unknown: exact client was not inspected",
+    "evidence": "No diagram capability evidence was collected for this assistant during the migration.",
+    "expires_at": "review-trigger: assistant selection, client, or bridge changes",
     "review_triggers": [
       "client version changed",
       "assistant bridge changed",
-      "capability behavior changed"
+      "assistant is selected for this repository"
     ]
   },
   "subagent_delegation": {
     "route": "unknown",
     "dispatch_backend": "unknown",
-    "external_dispatcher": "none",
+    "external_dispatcher": "unknown",
+    "client_product": "unknown",
+    "runtime_variant": "unknown",
     "native_subagents": "unknown",
-    "model_override": "unknown",
-    "parallel_dispatch": "unknown",
-    "actual_model_evidence": "unknown",
-    "verified_at": "unknown: runtime not verified in this workspace",
-    "client_version": "unknown: runtime not verified in this workspace",
-    "evidence": "bridge file installed; runtime behavior not verified in this workspace",
-    "expires_at": "review-trigger: assistant client, model, or delegation tool changes",
-    "review_triggers": [
-      "client version or assistant bridge changed",
-      "subagent or model-selection behavior changed",
-      "tool availability changed"
-    ],
-    "client_product": "windsurf",
-    "runtime_variant": "unknown: runtime not verified in this workspace",
     "automatic_delegation": "unknown",
     "explicit_delegation": "unknown",
     "project_worker_definitions": "unknown",
-    "worker_definition_format": "none",
+    "worker_definition_format": "unknown",
     "worker_definition_paths": [],
     "tool_restrictions": "unknown",
     "write_isolation": "unknown",
     "background_execution": "unknown",
     "nested_delegation": "unknown",
-    "role_bindings": []
+    "model_override": "unknown",
+    "parallel_dispatch": "unknown",
+    "actual_model_evidence": "unknown",
+    "role_bindings": [],
+    "verified_at": "2026-08-25: not verified",
+    "client_version": "unknown: exact client was not inspected",
+    "evidence": "No delegation capability evidence was collected for this assistant during the migration.",
+    "expires_at": "review-trigger: assistant selection, client, model, or delegation tools change",
+    "review_triggers": [
+      "client version or assistant bridge changed",
+      "subagent or model-selection behavior changed",
+      "assistant is selected for this repository"
+    ]
   }
 }

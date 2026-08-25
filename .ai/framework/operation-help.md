@@ -65,9 +65,11 @@ Operation help exists to:
 - route durable engineering-evidence capture, lookup, explanation, and repair
   while keeping the materiality decision proportional and the evidence corpus
   outside routine context
-- route project-knowledge proposal, human promotion review, bounded lookup,
-  freshness, contradiction, and supersession while keeping canonical owners
-  authoritative and unrelated knowledge outside routine context
+- route project-knowledge candidate or registered decision-owner guidance
+  intake, human promotion review, explicit exception handling, coverage-aware
+  bounded lookup, freshness, contradiction, and supersession while keeping
+  canonical owners authoritative and unrelated knowledge outside routine
+  context
 - route optional task-local Debug Mode activation, status, checkpoint,
   finalization, disablement, and comparison without treating observability as
   authority or carrying activation across logical scopes; finalization closes
@@ -140,6 +142,12 @@ allowed actions. Allowed actions are a ceiling, not user authorization. Clear
 implementation intent may authorize repository edits for the current scope,
 but it does not authorize commit or publication. Commit does not authorize
 push. A previous scope's phase authorization is never carried forward.
+
+Source conformance may define provider-neutral static routing expectations for
+common request shapes such as help, status, architecture discussion, product
+change, backlog return, framework update, commit, and push. These fixtures
+check protocol alignment with the operation catalog and authorization policy;
+they do not prove that a client interpreted an actual conversation correctly.
 
 ## Adapter Health
 
@@ -246,7 +254,8 @@ Typical operation categories include:
   conflicts, handoffs, decisions, review, and revision-bound merge readiness
 - logical integrity review
 - durable engineering-evidence capture or lookup
-- project-knowledge proposal, review, lookup, revalidation, or supersession
+- project-knowledge candidate or registered decision-owner guidance intake,
+  review, lookup, exception, revalidation, or supersession
 - optional Alatyr Debug Mode activation, status, checkpoint, finalization,
   disablement, or evidence-based comparison
 - discussion diagram creation, comparison, or revision with inline, artifact,

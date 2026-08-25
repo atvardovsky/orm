@@ -298,10 +298,12 @@ Derived surfaces:
 - `.ai/project/development-evidence.json`
 - `.ai/assistant/flows/development-evidence-capture.flow.md`
 - `.ai/assistant/templates/effectiveness-report.md`
+- `.ai/assistant/templates/delayed-outcome-evidence.json`
+- `.ai/assistant/templates/adapter-maintenance-evidence.json`
 - `.ai/assistant/change-packages/index.json`
 - `.ai/assistant/context/task-scales/change-package.json`
 
-Sync direction: development evidence routing changes must update capture flow, effectiveness reporting, change-package routing, and privacy boundary wording together
+Sync direction: development evidence routing changes must update capture flow, effectiveness reporting, delayed-outcome and adapter-maintenance evidence, change-package routing, and privacy boundary wording together
 Validation or manual review: JSON parse, adapter validator, and manual privacy/evidence review
 Conflict resolver: .ai/project/development-evidence.json for target record shape; privacy rules from .ai/assistant/flows/development-evidence-capture.flow.md and prompt-injection policy
 Approval trigger: enabling persistent development-evidence capture, assistant recommendation records, or weakened privacy boundaries
@@ -314,11 +316,12 @@ Canonical owner: .ai/assistant/module-profile.md and .ai/alatyr.yaml
 Consistency level: adapter-owned current state with target evidence review
 Project area: `assistant-adapter, ai-infrastructure, architecture, dependencies, testing, team, vocabulary, workspace-modes, project-knowledge`
 Consistency map node: `alatyr-full-capability`
-Relationship coverage: enabled through `.ai/project/consistency-map.json` node `alatyr-full-capability` for manifest, module profile, context router, operation catalog/index, gates, bridge capability matrix, project catalogs, project-knowledge index, and bootstrap index
-Invariant and dependency constraints: enabled modules must have dependency closure, owner files, routed context, installed flows/templates/gates where required, and no unresolved brace placeholders
+Relationship coverage: enabled through `.ai/project/consistency-map.json` node `alatyr-full-capability` for manifest, installation state, module profile, context router, operation catalog/index, gates, bridge capability records, project catalogs, project-guidance index, and bootstrap index
+Invariant and dependency constraints: enabled modules must have dependency closure, owner files, routed context, installed flows/templates/gates where required, and no unresolved brace placeholders; only a continuous accepted installation-state record with strict validation may support ready health
 Derived surfaces:
 
 - `.ai/alatyr.yaml`
+- `.ai/assistant/installation-state.json`
 - `.ai/assistant/module-profile.md`
 - `.ai/assistant/context-router.json`
 - `.ai/assistant/context/consistency-routing.json`
@@ -330,6 +333,7 @@ Derived surfaces:
 - `.ai/assistant/gates/project-knowledge.md`
 - `.ai/assistant/bridge-capability-matrix.md`
 - `.ai/assistant/assistant-capabilities.json`
+- `.ai/assistant/assistant-capabilities/*.json`
 - `.ai/assistant/bootstrap-index.json`
 - `.ai/project/knowledge/README.md`
 - `.ai/project/knowledge/index.json`
@@ -343,7 +347,7 @@ Derived surfaces:
 - `.ai/project/workspace-modes/catalog.json`
 - `.ai/project/development-evidence.json`
 
-Sync direction: capability enablement changes must update manifest, module profile, router, operations, gates, help/bridge surfaces, project-knowledge routing/index policy, target owner records, and bootstrap together
+Sync direction: capability enablement changes must update manifest, installation state, module profile, router, operations, gates, help/bridge surfaces, assistant capability evidence, project-guidance routing/index policy, target owner records, and bootstrap together
 Validation or manual review: adapter validator, module closure audit, JSON/YAML parse, placeholder/local-path scan, markdown/front-matter review, and git diff check
 Conflict resolver: .ai/framework/capabilities.json defines available module contracts; .ai/assistant/module-profile.md and .ai/alatyr.yaml define target enablement
 Approval trigger: weakening capability gates, enabling external permissions, importing AI infrastructure, or broadening protected action scope
