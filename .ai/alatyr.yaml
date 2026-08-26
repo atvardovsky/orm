@@ -1,9 +1,9 @@
-schema_version: 28
+schema_version: 29
 framework:
   name: Alatyr Core
-  version: 0.1.0-alpha.30
+  version: 0.1.0-alpha.31
   source: https://github.com/atvardovsky/AlatyrCore
-  template_version: 28
+  template_version: 29
   pack: complete
   rule_registry: .ai/framework/rule-registry.json
 installation:
@@ -11,13 +11,13 @@ installation:
   date: '2026-08-21'
   mode: new-install
   support_profile: full
-  state: staged
+  state: accepted
   state_record: .ai/assistant/installation-state.json
 owner:
   responsible_team: atvardovsky fork owner
   technical_owner: '@atvardovsky'
   backup_owner: 'missing: no separate backup owner found in target evidence'
-  last_review_date: '2026-08-25'
+  last_review_date: '2026-08-26'
   review_cadence: quarterly or after Alatyr framework/template updates
   codeowners: CODEOWNERS
   review_triggers:
@@ -233,9 +233,6 @@ operations:
 maturity:
   profile: .ai/assistant/maturity-profile.md
 known_gaps:
-- Alatyr Core 0.1.0-alpha.30 ships a schema-version-4 Debug authoring template
-  and contract but its target validator still hard-codes template schema version
-  3; strict acceptance remains blocked until the Core validator is synchronized.
 - No separate backup owner was found in target evidence; @atvardovsky is the only
   recorded adapter owner.
 - No existing CODEOWNERS file was found before installation; this install creates
@@ -263,7 +260,7 @@ local_deviations:
   target evidence in AGENTS.md alongside the generated bootstrap index.
 - Set the profile target-context reserve to 9400 words and total profile budget
   to 12400 words because schema-7 cost validation measures the full Doctrine
-  owner evidence plus alpha.30 lifecycle and capability guidance directly.
+  owner evidence plus current lifecycle and capability guidance directly.
 ai_infrastructure:
   router: .ai/assistant/ai-infrastructure-router.json
   inventory: .ai/assistant/templates/ai-infrastructure-inventory.md
@@ -336,7 +333,7 @@ change_packages:
   retention_policy: commit compact reviewed records only; do not include secrets or
     raw private chat
 engineering_evidence:
-  contract_version: 2
+  contract_version: 3
   index: .ai/project/engineering-evidence/index.json
   records: .ai/project/engineering-evidence/records
   flow: .ai/assistant/flows/engineering-evidence-capture.flow.md
@@ -347,7 +344,7 @@ engineering_evidence:
   retention_policy: retain compact reviewed records while relevant to branch history
   redaction_policy: redact raw private chat, chain-of-thought, prompts, secrets, credentials, personal data, unrelated session history, complete diffs, and verbose validation logs
 project_knowledge:
-  contract_version: 2
+  contract_version: 3
   index: .ai/project/knowledge/index.json
   route_shards: .ai/project/knowledge/routes
   promotions: .ai/project/knowledge/promotions
@@ -361,7 +358,7 @@ project_knowledge:
   retention_policy: retain compact reviewed records while relevant to branch history
   redaction_policy: redact raw private chat, chain-of-thought, prompts, secrets, credentials, personal data, unrelated session history, complete diffs, and verbose validation logs
 debug_mode:
-  contract_version: 4
+  contract_version: 5
   index: .ai/project/debug/index.json
   records: .ai/project/debug/records
   overlay: .ai/assistant/context/task-scales/debug-mode.json

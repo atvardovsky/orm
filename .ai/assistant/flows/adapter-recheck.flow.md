@@ -103,18 +103,25 @@ when the programmer asks whether the installed adapter is still coherent.
     When change packages are enabled, preserve historical target records and
     check semantic approval fields, companion decisions, correction impact,
     provenance quality, and target validator support.
+    Preserve project-guidance IDs, promotions, routes, coverage, and owner
+    bindings; recheck index contract version, adoption state, and explicit
+    later-task reuse evidence without inventing reuse for an enabled-empty
+    index.
     Preserve durable engineering-evidence IDs and records, then recheck task
     and repository bindings, index synchronization, canonical-owner links,
-    privacy flags, external-patch policy, and existing-record accessibility.
+    reciprocal Debug links, privacy flags, external-patch policy, and existing-
+    record accessibility.
     When Debug Mode is enabled, preserve IDs, records, active-scope evidence,
     events, timing, metrics, and target policy; recheck explicit activation and
     expiry, non-canonical authority, causal attribution, structured
     architectural impacts, direction-change hypothesis/replacement chains,
     privacy, observer effect, exact durable engineering-evidence reference
-    resolution, compact index sync, result binding, completed-record
+    resolution, reciprocal links, lifecycle phase coverage, project-knowledge
+    candidate closure, compact index sync, result binding, completed-record
     comparison, clean-upstream projection, and validator support. Never
-    reactivate a closed scope during update. Preserve older unstructured events
-    as migration-limited evidence instead of inventing classifications.
+    reactivate a closed scope during update. Preserve schema versions 1 through
+    4 as migration-limited evidence instead of inventing attribution,
+    lifecycle, or candidate classifications.
     When test-first development is enabled, preserve target commands, trigger
     severity, modes, levels, isolation, exceptions, policy revision, and
     historical evidence; recheck recommendation and RED/GREEN routing without
@@ -173,6 +180,8 @@ Report:
   validation, contradictions, and revision status
 - context router and context profile status
 - module profile status
+- project-knowledge index version, adoption state, reuse evidence or enabled-
+  empty limitation, and historical record preservation
 - code-documentation profile ownership, source-set match ambiguity, accepted
   state, canonical fact boundaries, generator/output policy, direct-edit rule,
   adapted skill, validation, and evidence revision
@@ -202,12 +211,13 @@ Report:
 - change-package index, record schema, target record preservation, semantic
   approval scope, provenance policy, and validator support
 - durable engineering-evidence index, selected-record preservation, task and
-  repository binding, canonical-owner links, privacy, publication boundary, and
-  validator support
+  repository binding, canonical-owner links, reciprocal Debug links, privacy,
+  publication boundary, and validator support
 - Debug Mode record/index preservation, structured architectural-impact
   classification, direction-replacement chain evidence, durable
-  engineering-evidence reference resolution, active-versus-finalized comparison
-  boundary, clean-upstream projection, and validator support
+  engineering-evidence reference resolution, reciprocal links, lifecycle phase
+  coverage, project-knowledge candidate closure, active-versus-finalized
+  comparison boundary, clean-upstream projection, and validator support
 - development-pattern index schema, owner, retention/privacy policy, evidence
   references, and target-only optimization boundary
 - bridge capability matrix status

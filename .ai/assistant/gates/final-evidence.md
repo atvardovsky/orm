@@ -4,18 +4,21 @@ Canonical owner: `ALATYR-EVIDENCE-001`.
 
 Before reporting completion, state:
 
-- selected profile, areas, changed facts, files, and synchronized surfaces
-- `current_user_authorization`: scope/source, allowed or forbidden phases,
-  invalidation, latest commit/publish/live confirmation, and performed effects
-- invariant and review-item reconciliation result
-- validation run, skipped, unavailable, or unresolved
+- profile/areas, changed facts/files, and synchronized surfaces
+- `current_user_authorization`: source/scope, allowed phases, invalidation,
+  latest commit/publish/live confirmation/effects
+- invariant/review reconciliation
+- validation outcomes/unresolved checks
 - approval scope and protected actions avoided when applicable
-- context expansion and task-scale, package, team, or delegation evidence used
+- context expansions and task/package/team/delegation evidence
 - project-knowledge routing stage, selectors, selected or omitted IDs,
-  warnings or blockers, canonical owners reverified, and packet-limit result
-  when non-trivial work used the route
-- `durable_engineering_evidence`: captured, skipped, or blocked with
-  repository binding or a fact-specific reason
+  warnings or blockers, canonical owners reverified, packet-limit result, and
+  adoption/reuse state or enabled-empty limitation when non-trivial work used
+  the route
+- `durable_engineering_evidence`: captured/skipped/blocked,
+  ID/path/repository binding, or reason
+- `debug_lifecycle_coverage`: state, phases, continuation,
+  `project_knowledge_candidates` dispositions, and reciprocal evidence
 - commit-policy check when creating or amending a commit
 - residual risk and the exact next owner or action for unresolved work
 

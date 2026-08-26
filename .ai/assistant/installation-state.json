@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "record_kind": "alatyr-installation-state",
-  "current_state": "staged",
+  "current_state": "accepted",
   "transitions": [
     {
       "sequence": 1,
@@ -17,6 +17,21 @@
         "evidence": "The unmodified alpha.30 validator reports only DEBUG_MODE_TEMPLATE_VERSION because it expects schema 3 while the shipped alpha.30 template and Debug contract require schema 4. A temporary validator copy with that expectation corrected to 4 passes with zero errors and zero warnings. Prior installation history predates installation-state records and was not reconstructed."
       },
       "recorded_at": "2026-08-25T19:19:22Z"
+    },
+    {
+      "sequence": 2,
+      "previous_state": "staged",
+      "next_state": "accepted",
+      "reason": "strict-acceptance",
+      "operation_id": "recheck-after-framework-update",
+      "repository_revision": "5fe94af6b47262efbc2ac67eca8f73c83fac281f before uncommitted alpha.31 adapter update",
+      "current_user_authorization": "The current user explicitly requested: update alatyr. This authorizes inspection and adapter-only working-tree modification, but not commit or publication.",
+      "approval_evidence": "The request explicitly authorizes synchronization of existing Alatyr adapter infrastructure while preserving Doctrine runtime behavior, target-owned facts, historical records, privacy, retention, and external-action boundaries.",
+      "validation": {
+        "status": "passed",
+        "evidence": "Alatyr Core 0.1.0-alpha.31 strict acceptance validation against source revision 3883b9e28f2104be51abdfcf82ecfbe47a5ce3a5 completed with zero errors, zero warnings, and zero blocking warnings after framework, manifest, current authoring contracts, indexes, routes, gates, and bootstrap were synchronized. Project Knowledge reports the expected informational enabled-empty state."
+      },
+      "recorded_at": "2026-08-26T13:06:46Z"
     }
   ]
 }

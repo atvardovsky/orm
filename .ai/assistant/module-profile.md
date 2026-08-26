@@ -17,8 +17,8 @@ Core profile state: complete-with-known-gaps
 Framework pack: complete
 Pack inventory: `.ai/framework/file-inventory.json`
 Required pack expansion: none
-Last reviewed: 2026-08-25
-Reviewed by: Codex alpha.30 adapter migration for @atvardovsky
+Last reviewed: 2026-08-26
+Reviewed by: Codex alpha.31 adapter migration for @atvardovsky
 
 Core item: `contours`
 State: required-enabled
@@ -128,6 +128,7 @@ Residual risk: capture quality still depends on explicit finalization and human 
 
 Core item: `project-knowledge-delivery`
 State: required-enabled
+Adoption state: enabled-empty
 Owner or file: .ai/project/knowledge/README.md
 Required files:
 - `.ai/project/knowledge/README.md`

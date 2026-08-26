@@ -65,13 +65,14 @@ Operation help:
   historical target records.
 - Preserve durable engineering-evidence IDs and records. Recheck compact index
   synchronization, contract/template versions, task/revision binding state,
-  Git object type/ancestry, prior-binding lineage, canonical-owner links, privacy,
-  external-patch policy, and record access; never replace existing records
-  with source placeholders.
+  Git object type/ancestry, prior-binding lineage, reciprocal Debug links,
+  canonical-owner links, privacy, external-patch policy, and record access;
+  never replace existing records with source placeholders.
 - Preserve project-guidance promotion IDs and dispositions, canonical owner
   bindings and digests, candidate origins, guidance kinds, direct
   decision-owner authority, exception precedence, coverage states, route
-  shards, contradiction and supersession lineage, and retention policy.
+  shards, contradiction and supersession lineage, adoption state, explicit
+  reuse evidence, and retention policy.
   Revalidate accepted guidance against canonical owners and rebuild derived
   routes when needed; do not promote historical evidence or source
   placeholders during update.
@@ -82,13 +83,15 @@ Operation help:
   lifecycle timestamp bounds, immutable completion and continuation lineage,
   typed evidence-event roles, materiality evaluation, canonical skip
   preservation, claim-validation fidelity, durable Engineering Evidence
-  decisions/references, binding lineage, completed-record comparison,
-  dependency closure, schema, lazy route, operation, validator, and activation
-  expiry. Preserve schema versions 1 through 3 as migration-limited evidence;
+  decisions/references, reciprocal links, binding lineage, lifecycle phase
+  coverage, project-knowledge candidate dispositions, completed-record
+  comparison, dependency closure, schema, lazy route, operation, validator,
+  and activation expiry. Preserve schema versions 1 through 4 as migration-limited evidence;
   do not reactivate or append to a closed scope or include debug files in a
-  clean external patch. Use schema version 4 only for new records; do not
+  clean external patch. Use schema version 5 only for new records; do not
   silently invent historical actor identity, runtime provenance, attribution,
-  correction disposition, or materiality.
+  correction disposition, materiality, lifecycle coverage, or candidate
+  dispositions.
 - When code documentation is enabled, preserve target profiles and recheck
   source-set matching, accepted state, canonical owners, generator/output
   policy, adapted skill, and validation before generation.

@@ -3,14 +3,14 @@
 Installation id: `ALATYR-20260821-doctrine-orm`
 
 - Installed from: `https://github.com/atvardovsky/AlatyrCore`
-- Framework version: `0.1.0-alpha.30`
-- Adapter schema version: `28`
-- Template version: `28`
+- Framework source revision: `3883b9e28f2104be51abdfcf82ecfbe47a5ce3a5`
+- Framework version: `0.1.0-alpha.31`
+- Adapter schema version: `29`
+- Template version: `29`
 - Adapter manifest: `.ai/alatyr.yaml`
 - Installation date: `2026-08-21`
-- Last adapter update: `2026-08-25`
-- Installation state: `staged` pending synchronization of the alpha.30 Core
-  validator with the shipped Debug schema-version-4 contract
+- Last adapter update: `2026-08-26`
+- Installation state: `accepted` after strict alpha.31 adapter validation
 - Installation-state record: `.ai/assistant/installation-state.json`
 - Adapter owner: `@atvardovsky`
 - Backup owner: missing; no separate backup owner found in target evidence
@@ -18,7 +18,7 @@ Installation id: `ALATYR-20260821-doctrine-orm`
 - CODEOWNERS or equivalent owner map: `CODEOWNERS`
 - Supported assistants: Codex (`codex` canonical surface ID)
 - Target validation: /usr/local/bin/composer8 install; /usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpunit; /usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpstan analyse -c phpstan.neon --memory-limit=1G; /usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpstan analyse -c phpstan-dbal3.neon --memory-limit=1G; /usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpcs -d memory_limit=1G; docs validation after the docs script resolves a PHP 8-compatible composer command
-- Known adapter gaps: alpha.30 Core validator still expects Debug template schema 3 although alpha.30 ships and requires schema 4; backup owner missing; target-local Alatyr checker wrapper committed at tools/check_alatyr.py; full optional module graph enabled; project-guidance routing has no accepted entries yet; non-selected assistant surfaces remain runtime-unverified; default php/composer are unsuitable for this branch; local SQLite lacks SQRT for two full PHPUnit tests
+- Known adapter gaps: backup owner missing; target-local Alatyr checker wrapper committed at tools/check_alatyr.py; full optional module graph enabled; project-guidance adoption is enabled-empty with no accepted entries or reuse evidence; non-selected assistant surfaces remain runtime-unverified; default php/composer are unsuitable for this branch; local SQLite lacks SQRT for two full PHPUnit tests
 - Local deviations from Alatyr Core: full complete pack adapted to Doctrine ORM; CODEOWNERS scoped to adapter and bridge files; `.ai/project/blueprint.md` accepted as the Doctrine ORM blueprint index; profile budget increased to 12400 words with 9400 reserved for target evidence; `tools/check_alatyr.py` wraps the source validator via `ALATYR_CORE_SOURCE`
 - Root assistant entry points checked: `AGENTS.md`, `AI_ASSISTANTS.md`, `CLAUDE.md`, `GEMINI.md`
 - Supported bridge files checked: Codex is selected and its `AGENTS.md` loading is observed; existing generic, Claude, Cursor, Devin/Cascade, Gemini, GitHub Copilot, and Windsurf bridges are preserved as compatibility surfaces; new Roo and Zed native bridges were not installed because those clients are not selected

@@ -69,6 +69,22 @@ Removed or deprecated rules:
 - bridge files: `<affected-or-not>`
 - validation or manual review: `<affected-or-not>`
 
+## Stateful Evidence Migration
+
+Debug record/index versions and preservation result:
+
+- `<debug-versions-preserved-new-authoring-version-and-lineage-actions-or-not-enabled>`
+
+Engineering-evidence record/index versions and reciprocal Debug-link result:
+
+- `<engineering-evidence-versions-preserved-new-authoring-version-and-link-actions>`
+
+Project-knowledge index version, adoption state, and reuse-evidence result:
+
+- `<project-knowledge-version-adoption-state-and-evidence-actions>`
+
+Historical records remain immutable: `<yes-or-blocker>`
+
 ## Approval And Validation
 
 Approval needed: `<yes-no-reason>`

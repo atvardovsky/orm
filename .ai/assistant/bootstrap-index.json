@@ -4,7 +4,7 @@
   "derived_from": {
     "manifest": {
       "path": ".ai/alatyr.yaml",
-      "sha256": "e3356c80f665464a48846c696ad86be0c33b202f11212001636072bdcf8809d0"
+      "sha256": "4b4aa06d6329215a67b0de0a2e48b6f8dfebcce0e802473859df92cf1ae60cd9"
     },
     "project_map": {
       "path": ".ai/README.md",
@@ -16,9 +16,9 @@
     }
   },
   "installation": {
-    "framework_version": "0.1.0-alpha.30",
-    "adapter_schema_version": "28",
-    "template_version": "28",
+    "framework_version": "0.1.0-alpha.31",
+    "adapter_schema_version": "29",
+    "template_version": "29",
     "support_profile": "full",
     "framework_pack": "complete"
   },
@@ -356,7 +356,6 @@
     "scaffolding"
   ],
   "known_gaps": [
-    "Alatyr Core 0.1.0-alpha.30 ships a schema-version-4 Debug authoring template and contract but its target validator still hard-codes template schema version 3; strict acceptance remains blocked until the Core validator is synchronized.",
     "No separate backup owner was found in target evidence; @atvardovsky is the only recorded adapter owner.",
     "No existing CODEOWNERS file was found before installation; this install creates CODEOWNERS for adapter files only.",
     "Default php and composer binaries are not suitable for this branch in this workspace; use /usr/local/bin/php8 and /usr/local/bin/composer8.",
