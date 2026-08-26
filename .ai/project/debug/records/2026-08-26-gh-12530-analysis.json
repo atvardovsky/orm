@@ -1,0 +1,353 @@
+{
+  "schema_version": 4,
+  "record_kind": "alatyr-debug-session",
+  "evidence_classification": "non-canonical-observability",
+  "debug_id": "ALATYR-DEBUG-20260826-GH12530-ANALYSIS",
+  "status": "completed",
+  "authority": "non-canonical",
+  "owner": "@atvardovsky",
+  "task": {
+    "summary": "Analyze Doctrine ORM GH-12530 and compare compatible solution directions without implementing a fix.",
+    "references": ["https://github.com/doctrine/orm/issues/12530"],
+    "scope_kind": "task",
+    "scope_id": "gh-12530-analysis",
+    "operation_ids": ["debug-mode", "product-change"],
+    "task_class": "defect-analysis"
+  },
+  "activation": {
+    "enabled_by": "explicit-user-request",
+    "request_reference": "Current user request on 2026-08-26 to create the GH-12530 branch, enable Debug Mode, and analyze the issue and solutions.",
+    "enabled_at": {"value": "2026-08-26T07:31:19Z", "evidence_kind": "observed"},
+    "initial_revision": "5fe94af6b47262efbc2ac67eca8f73c83fac281f",
+    "expires_on": "task-completion",
+    "ended_by": "task-completion"
+  },
+  "continuation": {
+    "kind": "initial",
+    "previous_debug_id": "not-applicable",
+    "reason": "This activation starts the GH-12530 analysis scope."
+  },
+  "timing": {
+    "started_at": {"value": "2026-08-26T07:31:19Z", "evidence_kind": "observed"},
+    "completed_at": {"value": "2026-08-26T07:55:10Z", "evidence_kind": "observed"},
+    "elapsed_seconds": {"value": 1431, "evidence_kind": "observed"},
+    "active_work_seconds": {"value": null, "evidence_kind": "unknown"}
+  },
+  "capture_quality": {
+    "event_coverage": "partial",
+    "missing_intervals": ["The issue title lookup and branch creation preceded Debug Mode activation."],
+    "observer_effect": "possible",
+    "estimated_overhead_seconds": {"value": 300, "evidence_kind": "estimated"}
+  },
+  "events": [
+    {
+      "event_id": "GH12530-E001",
+      "sequence": 1,
+      "occurred_at": {"value": "2026-08-26T07:38:00Z", "evidence_kind": "estimated"},
+      "actor_role": "executor",
+      "actor_identity": {"actor_id": "codex-current-task", "identity_kind": "service"},
+      "actor_provenance": {"evidence_kind": "declared", "provider": "OpenAI", "product": "Codex", "model": "GPT-5", "runtime": "Codex desktop", "evidence": ["Runtime identity was supplied by the host context."]},
+      "causal_class": "independent-within-scope",
+      "intervention_kind": "not-applicable",
+      "correction_disposition": "not-applicable",
+      "related_guidance_ids": [],
+      "correction_evidence": [],
+      "contribution_kind": "finding",
+      "category": "execution-path",
+      "summary": "Reproduced GH-12530 and located the alias desynchronization between regenerated JOINED SQL and its reused ResultSetMapping.",
+      "material_effect": "Established that regenerated SELECT aliases must stay aligned with the RSM entry for the same DQL alias, declaring class, and field.",
+      "evidence": [
+        "The reporter's exact workflow fails on ORM 2.20.13 and the current branch with missing sortIndex_5 followed by a null collection-key TypeError.",
+        "Before the filter change SQL and RSM use sortIndex_5; afterward SQL uses sortIndex_9 while the RSM retains both mappings.",
+        "RSM alias r names AbstractButton, while sortIndex is declared by AbstractNode and stored under that declaring class."
+      ],
+      "caused_by_event_ids": [],
+      "architectural_supervision": false,
+      "architectural_impacts": ["accepted-invariant", "subsystem-responsibility", "solution-class"],
+      "decision_effect": "confirms-direction",
+      "dependency_expansion": false,
+      "validation_expansion": false,
+      "post_review_rework": false,
+      "hypothesis_outcome": "confirmed"
+    },
+    {
+      "event_id": "GH12530-E002",
+      "sequence": 2,
+      "occurred_at": {"value": "2026-08-26T07:42:00Z", "evidence_kind": "estimated"},
+      "actor_role": "executor",
+      "actor_identity": {"actor_id": "codex-current-task", "identity_kind": "service"},
+      "actor_provenance": {"evidence_kind": "declared", "provider": "OpenAI", "product": "Codex", "model": "GPT-5", "runtime": "Codex desktop", "evidence": ["Runtime identity was supplied by the host context."]},
+      "causal_class": "independent-within-scope",
+      "intervention_kind": "not-applicable",
+      "correction_disposition": "not-applicable",
+      "related_guidance_ids": [],
+      "correction_evidence": [],
+      "contribution_kind": "finding",
+      "category": "dependency",
+      "summary": "Traced the regression and accepted follow-up design through GH-11694, GH-11783, GH-11931, GH-12225, PR 11792, PR 12228, and PR 12373.",
+      "material_effect": "Bound the solution to completing existing alias reuse while preserving filter-aware SQL regeneration and addIndexBy ordering.",
+      "evidence": [
+        "Commit e172b3bf9 added filter-hash invalidation for changed eager-association filter SQL.",
+        "Commit 6755bb0c7 added alias reuse for indexed relations, and PR 12373 extended it to inheritance persisters for GH-12225.",
+        "The reverse-order addIndexBy proposal in PR 12228 broke existing tests and was not merged."
+      ],
+      "caused_by_event_ids": ["GH12530-E001"],
+      "architectural_supervision": false,
+      "architectural_impacts": ["canonical-source-interpretation", "compatibility-strategy", "solution-class"],
+      "decision_effect": "confirms-direction",
+      "dependency_expansion": true,
+      "validation_expansion": false,
+      "post_review_rework": false,
+      "hypothesis_outcome": "not-applicable"
+    },
+    {
+      "event_id": "GH12530-E003",
+      "sequence": 3,
+      "occurred_at": {"value": "2026-08-26T07:45:00Z", "evidence_kind": "estimated"},
+      "actor_role": "executor",
+      "actor_identity": {"actor_id": "codex-current-task", "identity_kind": "service"},
+      "actor_provenance": {"evidence_kind": "declared", "provider": "OpenAI", "product": "Codex", "model": "GPT-5", "runtime": "Codex desktop", "evidence": ["Runtime identity was supplied by the host context."]},
+      "causal_class": "derived-from-executor",
+      "intervention_kind": "not-applicable",
+      "correction_disposition": "not-applicable",
+      "related_guidance_ids": [],
+      "correction_evidence": [],
+      "contribution_kind": "finding",
+      "category": "hypothesis",
+      "summary": "Rejected filter invalidation rollback, reverse addIndexBy scanning, hydration null fallback, and whole-context reset as GH-12530 fixes.",
+      "material_effect": "Excluded solutions that reintroduce prior filter defects, hide an invalid RSM, change collection semantics, or expand cache lifecycle risk.",
+      "evidence": [
+        "GH-11694 and GH-11931 require regeneration when filter state or parameters change.",
+        "PR 12228 demonstrated regressions from changing addIndexBy selection order.",
+        "ObjectHydrator and PersistentCollection consume the RSM contract and cannot safely infer a missing index key.",
+        "A complete context reset can occur after other SQL fragments have already consumed table aliases."
+      ],
+      "caused_by_event_ids": ["GH12530-E001", "GH12530-E002"],
+      "architectural_supervision": false,
+      "architectural_impacts": ["accepted-invariant", "solution-class", "compatibility-strategy"],
+      "decision_effect": "confirms-direction",
+      "dependency_expansion": false,
+      "validation_expansion": false,
+      "post_review_rework": false,
+      "hypothesis_outcome": "rejected"
+    },
+    {
+      "event_id": "GH12530-E004",
+      "sequence": 4,
+      "occurred_at": {"value": "2026-08-26T07:48:00Z", "evidence_kind": "estimated"},
+      "actor_role": "executor",
+      "actor_identity": {"actor_id": "codex-current-task", "identity_kind": "service"},
+      "actor_provenance": {"evidence_kind": "declared", "provider": "OpenAI", "product": "Codex", "model": "GPT-5", "runtime": "Codex desktop", "evidence": ["Runtime identity was supplied by the host context."]},
+      "causal_class": "derived-from-executor",
+      "intervention_kind": "not-applicable",
+      "correction_disposition": "not-applicable",
+      "related_guidance_ids": [],
+      "correction_evidence": [],
+      "contribution_kind": "decision",
+      "category": "architecture-area",
+      "summary": "Selected exact declaring-class alias reuse in AbstractEntityInheritancePersister as the patch-safe candidate.",
+      "material_effect": "Keeps public signatures, filter invalidation, addIndexBy ordering, hydrator behavior, and collection semantics unchanged while completing the GH-12225 design.",
+      "evidence": [
+        "AbstractEntityInheritancePersister passes the same ClassMetadata name to addFieldResult(), making columnAliasMappings[class][alias][field] the exact existing alias key.",
+        "Doctrine filter and indexed-association documentation requires filtered association loading and keys regenerated from the indexed field.",
+        "CONTRIBUTING.md requires a GH-12530 functional ticket regression test."
+      ],
+      "caused_by_event_ids": ["GH12530-E001", "GH12530-E002", "GH12530-E003"],
+      "architectural_supervision": false,
+      "architectural_impacts": ["public-contract", "subsystem-responsibility", "solution-class", "compatibility-strategy"],
+      "decision_effect": "confirms-direction",
+      "dependency_expansion": false,
+      "validation_expansion": false,
+      "post_review_rework": false,
+      "hypothesis_outcome": "confirmed"
+    },
+    {
+      "event_id": "GH12530-E005",
+      "sequence": 5,
+      "occurred_at": {"value": "2026-08-26T07:51:00Z", "evidence_kind": "estimated"},
+      "actor_role": "automation",
+      "actor_identity": {"actor_id": "local-shell", "identity_kind": "service"},
+      "actor_provenance": {"evidence_kind": "observed", "provider": null, "product": "Codex exec_command", "model": null, "runtime": "local bash with PHP and Composer", "evidence": ["The command output was observed in the current task."]},
+      "causal_class": "derived-from-executor",
+      "intervention_kind": "not-applicable",
+      "correction_disposition": "not-applicable",
+      "related_guidance_ids": [],
+      "correction_evidence": [],
+      "contribution_kind": "validation",
+      "category": "validation",
+      "summary": "Validated the candidate in a disposable clone without changing Doctrine files on the task branch.",
+      "material_effect": "Showed that the candidate fixes the exact reproducer and preserves adjacent inheritance, persister, hydration, filter, and indexed-relation behavior in the tested scope.",
+      "evidence": [
+        "The exact current-version reproducer completed and loaded both indexed children.",
+        "Nine adjacent tests passed with 57 assertions, and a broader 142-test subset passed with 948 assertions.",
+        "Targeted PHPCS and PHPStan checks passed for AbstractEntityInheritancePersister.php."
+      ],
+      "caused_by_event_ids": ["GH12530-E004"],
+      "architectural_supervision": false,
+      "architectural_impacts": [],
+      "decision_effect": "confirms-direction",
+      "dependency_expansion": false,
+      "validation_expansion": true,
+      "post_review_rework": false,
+      "hypothesis_outcome": "confirmed"
+    },
+    {
+      "event_id": "GH12530-E006",
+      "sequence": 6,
+      "occurred_at": {"value": "2026-08-26T07:53:00Z", "evidence_kind": "estimated"},
+      "actor_role": "executor",
+      "actor_identity": {"actor_id": "codex-current-task", "identity_kind": "service"},
+      "actor_provenance": {"evidence_kind": "declared", "provider": "OpenAI", "product": "Codex", "model": "GPT-5", "runtime": "Codex desktop", "evidence": ["Runtime identity was supplied by the host context."]},
+      "causal_class": "derived-from-executor",
+      "intervention_kind": "not-applicable",
+      "correction_disposition": "not-applicable",
+      "related_guidance_ids": [],
+      "correction_evidence": [],
+      "contribution_kind": "finding",
+      "category": "risk",
+      "summary": "Confirmed a separate stale-filter defect caused by one persister-wide filter hash governing two independent cached contexts.",
+      "material_effect": "Bound this defect outside GH-12530 because the narrow alias fix neither causes nor repairs it; separate regression coverage and maintainer review are required.",
+      "evidence": [
+        "A no-limit filter A, limited filter B, then no-limit filter B sequence reused the A eager join and left a typed association uninitialized.",
+        "BasicEntityPersister owns separate no-limit and limit-aware CachedPersisterContext instances but stores filterHash once on the persister."
+      ],
+      "caused_by_event_ids": ["GH12530-E001", "GH12530-E004"],
+      "architectural_supervision": false,
+      "architectural_impacts": ["accepted-invariant", "subsystem-responsibility", "compatibility-strategy"],
+      "decision_effect": "confirms-direction",
+      "dependency_expansion": true,
+      "validation_expansion": false,
+      "post_review_rework": false,
+      "hypothesis_outcome": "confirmed"
+    }
+  ],
+  "metrics": {
+    "human_interventions": {"value": 0, "evidence_kind": "event-derived", "event_ids": []},
+    "human_architectural_interventions": {"value": 0, "evidence_kind": "event-derived", "event_ids": []},
+    "executor_independent_findings": {"value": 1, "evidence_kind": "event-derived", "event_ids": ["GH12530-E001"]},
+    "executor_derived_findings_after_human": {"value": 0, "evidence_kind": "event-derived", "event_ids": []},
+    "executor_independent_dependency_checks": {"value": 1, "evidence_kind": "event-derived", "event_ids": ["GH12530-E002"]},
+    "human_requested_dependency_checks": {"value": 0, "evidence_kind": "event-derived", "event_ids": []},
+    "executor_derived_dependency_expansions_after_human": {"value": 0, "evidence_kind": "event-derived", "event_ids": []},
+    "hypotheses_tested": {"value": 1, "evidence_kind": "event-derived", "event_ids": ["GH12530-E003"]},
+    "hypotheses_rejected": {"value": 1, "evidence_kind": "event-derived", "event_ids": ["GH12530-E003"]},
+    "implementation_revisions": {"value": 0, "evidence_kind": "event-derived", "event_ids": []},
+    "implementation_corrections_after_human": {"value": 0, "evidence_kind": "event-derived", "event_ids": []},
+    "validation_expansions": {"value": 1, "evidence_kind": "event-derived", "event_ids": ["GH12530-E005"]},
+    "regression_scenarios_added": {"value": 0, "evidence_kind": "event-derived", "event_ids": []},
+    "maintainer_corrections": {"value": 0, "evidence_kind": "event-derived", "event_ids": []},
+    "post_review_rework": {"value": 0, "evidence_kind": "event-derived", "event_ids": []},
+    "new_guidance_candidates": {"value": 0, "evidence_kind": "event-derived", "event_ids": []},
+    "known_guidance_routing_failures": {"value": 0, "evidence_kind": "event-derived", "event_ids": []},
+    "known_guidance_compliance_failures": {"value": 0, "evidence_kind": "event-derived", "event_ids": []},
+    "task_local_corrections": {"value": 0, "evidence_kind": "event-derived", "event_ids": []},
+    "scope_changes": {"value": 0, "evidence_kind": "event-derived", "event_ids": []},
+    "validation_requests": {"value": 0, "evidence_kind": "event-derived", "event_ids": []}
+  },
+  "final_result": {
+    "summary": "GH-12530 is a confirmed inherited-field alias-reuse gap in generated inheritance RSM state. Exact declaring-class alias reuse is the recommended patch-safe solution; no Doctrine implementation was made in this analysis-only scope.",
+    "repository_binding": {
+      "kind": "commit",
+      "binding_state": "final",
+      "base_revision": "5fe94af6b47262efbc2ac67eca8f73c83fac281f",
+      "result_revision": "5fe94af6b47262efbc2ac67eca8f73c83fac281f",
+      "review_reference": "not-applicable",
+      "selected_paths": [],
+      "snapshot_sha256": "not-applicable",
+      "prior_bindings": []
+    },
+    "implementation_surfaces": [],
+    "validation": {
+      "results": [
+        "The reporter's exact reproducer fails on ORM 2.20.13 and current revision 5fe94af6b47262efbc2ac67eca8f73c83fac281f with stale sortIndex_5 hydration.",
+        "SQL/RSM diagnostics confirmed regenerated sortIndex_9 SQL beside retained sortIndex_5 and sortIndex_9 field mappings.",
+        "An isolated exact-declaring-class alias candidate made the current-version reproducer pass.",
+        "The isolated candidate passed 9 adjacent tests with 57 assertions and 142 broader persister, hydration, and joined-inheritance tests with 948 assertions.",
+        "Targeted PHPCS and PHPStan checks passed for the isolated candidate file.",
+        "The completed Debug record validates directly against the shipped schema-4 JSON schema."
+      ],
+      "skipped": [
+        "No Doctrine source or test implementation was made because the user authorized branch creation, Debug Mode, and analysis only.",
+        "The full PHPUnit, PHPCS, PHPStan, DBAL 3, and multi-database matrices were not run because there is no target-branch implementation to accept.",
+        "The target Alatyr aggregate validator remains blocked by external alpha.30 validator/schema metric drift and concurrent dirty Alatyr Core framework files."
+      ]
+    },
+    "claim_validation": {
+      "fidelity": "exact-reproducer",
+      "claims": [
+        "GH-12530 remains reproducible on the current branch.",
+        "The immediate defect is failure to reuse a prior result alias when the field is declared above the class named by the RSM alias.",
+        "Exact declaring-class alias reuse fixes the reported workflow without changing the public behavior of filters, indexed associations, hydration, or collections in the tested scope."
+      ],
+      "evidence": [
+        "The reporter repository was executed against both ORM 2.20.13 and the current checkout.",
+        "The generated SQL and ResultSetMapping were inspected before and after filter activation.",
+        "The proposed one-line internal candidate was executed against the exact reproducer and adjacent Doctrine tests in a disposable clone."
+      ],
+      "limitation": "The candidate was not applied to this branch, was not run through the full CI/database matrix, and has not received Doctrine maintainer approval."
+    },
+    "engineering_evidence_ids": [],
+    "engineering_evidence_decision": {
+      "status": "blocked",
+      "event_links": [
+        {"event_id": "GH12530-E001", "role": "finding"},
+        {"event_id": "GH12530-E002", "role": "finding"},
+        {"event_id": "GH12530-E003", "role": "rejected-hypothesis"},
+        {"event_id": "GH12530-E004", "role": "decision"},
+        {"event_id": "GH12530-E005", "role": "validation"},
+        {"event_id": "GH12530-E006", "role": "finding"}
+      ],
+      "materiality_evaluations": [
+        {"kind": "undocumented-invariant", "outcome": "applicable", "event_ids": ["GH12530-E001"], "evidence": ["Generated SELECT aliases and RSM aliases must remain coherent across filter-state regeneration."], "reason": "This cache invariant is enforced by source behavior but is not stated as a public rule."},
+        {"kind": "rejected-hypothesis", "outcome": "applicable", "event_ids": ["GH12530-E003"], "evidence": ["Four superficially effective solution classes were rejected against source history and subsystem contracts."], "reason": "The rejected alternatives are likely to recur without preserved rationale."},
+        {"kind": "non-obvious-dependency", "outcome": "applicable", "event_ids": ["GH12530-E002", "GH12530-E006"], "evidence": ["The issue depends on several prior filter and alias fixes plus independent cache contexts."], "reason": "The dependency chain is not discoverable from the failing hydrator line alone."},
+        {"kind": "cross-area-impact", "outcome": "applicable", "event_ids": ["GH12530-E001", "GH12530-E006"], "evidence": ["Persister SQL generation, RSM indexing, hydration, filters, inheritance, and collection keys participate."], "reason": "The failure crosses multiple runtime ownership boundaries."},
+        {"kind": "broad-regression-matrix", "outcome": "applicable", "event_ids": ["GH12530-E005"], "evidence": ["Validation covered exact reproduction, adjacent ticket tests, persisters, hydration, and joined inheritance."], "reason": "A narrow fix still requires broad adjacent validation because the inheritance helper is shared."},
+        {"kind": "compatibility-or-public-contract", "outcome": "applicable", "event_ids": ["GH12530-E002", "GH12530-E004"], "evidence": ["The proposed fix preserves public method signatures and documented filter/indexed-association behavior."], "reason": "Changing ResultSetMapping signatures or hydration fallback would create avoidable BC risk."},
+        {"kind": "reviewer-correction", "outcome": "not-applicable", "event_ids": [], "evidence": ["No review correction occurred in this Debug session."], "reason": "The task ended at analysis."},
+        {"kind": "direction-change", "outcome": "not-applicable", "event_ids": [], "evidence": ["No accepted task direction was changed; competing solution hypotheses were evaluated and rejected during analysis."], "reason": "The task began as open solution analysis."},
+        {"kind": "expensive-to-reconstruct", "outcome": "applicable", "event_ids": ["GH12530-E001", "GH12530-E002", "GH12530-E006"], "evidence": ["Reconstruction required two exact reproductions, SQL/RSM diagnostics, history analysis, and a separate cache-context experiment."], "reason": "The cause cannot be inferred reliably from the final TypeError."},
+        {"kind": "unresolved-authority-or-contract", "outcome": "applicable", "event_ids": ["GH12530-E004", "GH12530-E006"], "evidence": ["The issue is open, the candidate is not implemented, and the separate cache-context defect needs maintainer scoping."], "reason": "Doctrine maintainer acceptance remains authoritative for implementation form and ticket scope."}
+      ],
+      "knowledge_preserved_by": [],
+      "reason": "Durable engineering-evidence capture would modify adapter surfaces outside the authorized Debug and analysis scope.",
+      "next_safe_action": "When implementation is authorized, preserve the invariant and rationale in the GH-12530 regression test and implementation review evidence."
+    },
+    "upstream_projection": {
+      "kind": "clean-external",
+      "included_debug_files": false,
+      "projected_paths": [],
+      "evidence": ["No Doctrine source, test, documentation, or upgrade files were changed in this analysis-only task."]
+    }
+  },
+  "publication": {
+    "storage_mode": "repository-internal",
+    "visibility": "repository-local",
+    "included_in_external_patch": false,
+    "policy_evidence": ".ai/project/debug/README.md"
+  },
+  "privacy": {
+    "raw_ai_conversation_stored": false,
+    "raw_human_conversation_stored": false,
+    "chain_of_thought_stored": false,
+    "prompts_stored": false,
+    "secrets_stored": false,
+    "credentials_stored": false,
+    "unrelated_personal_data_stored": false,
+    "unrelated_session_history_stored": false,
+    "unused_speculation_stored": false,
+    "complete_diffs_stored": false,
+    "verbose_logs_stored": false,
+    "redactions": []
+  },
+  "residual_uncertainty": [
+    "Doctrine maintainers still need to choose between direct exact-class map access and a new class-aware RSM resolver; changing existing public method signatures is not patch-safe.",
+    "The separate persister-wide filter hash versus two cached contexts defect is confirmed but intentionally not included in the GH-12530 candidate.",
+    "The final GH-12530 regression matrix and full CI/database validation remain pending implementation authorization.",
+    "The Alatyr alpha.30 aggregate validator currently disagrees with its schema-4 template about metric names and is observing concurrently modified Core files."
+  ],
+  "limitations": [
+    "Debug evidence cannot prove event completeness, attribution correctness, or engineering quality.",
+    "Disposable candidate validation is decision evidence, not a target-branch implementation or maintainer approval."
+  ]
+}

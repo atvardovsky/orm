@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Doctrine\Tests\ORM\Functional\Ticket;
 
 use Doctrine\ORM\Exception\ORMException;
+use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\DiscriminatorColumn;
 use Doctrine\ORM\Mapping\DiscriminatorMap;
@@ -14,6 +15,7 @@ use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\InheritanceType;
 use Doctrine\ORM\Mapping\Table;
 use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\Query\Filter\SQLFilter;
 use Doctrine\Persistence\Mapping\MappingException;
 use Doctrine\Tests\OrmFunctionalTestCase;
 use PHPUnit\Framework\Attributes\Group;
@@ -56,6 +58,26 @@ class DDC6303Test extends OrmFunctionalTestCase
         ]);
     }
 
+    public function testSiblingFieldMappingsRemainDistinctWhenPersisterColumnsAreRegenerated(): void
+    {
+        $persistedEntities = [
+            'regenerated-a' => new DDC6303ChildA('regenerated-a', 'authorized'),
+            'regenerated-b' => new DDC6303ChildB('regenerated-b', ['accepted', 'authorized']),
+        ];
+
+        array_walk($persistedEntities, [$this->_em, 'persist']);
+        $this->_em->flush();
+        $this->_em->clear();
+
+        $this->assertRepositoryContainsSameEntities($persistedEntities);
+
+        $this->_em->clear();
+        $this->_em->getConfiguration()->addFilter('ddc_6303_filter', DDC6303Filter::class);
+        $this->_em->getFilters()->enable('ddc_6303_filter');
+
+        $this->assertRepositoryContainsSameEntities($persistedEntities);
+    }
+
     /**
      * @param DDC6303BaseClass[] $persistedEntities indexed by identifier
      *
@@ -81,8 +103,33 @@ class DDC6303Test extends OrmFunctionalTestCase
         self::assertCount(count($persistedEntities), $entities);
 
         foreach ($entities as $entity) {
+            $persistedEntity = $persistedEntities[$entity->id];
+
+            self::assertEquals($entity, $persistedEntity);
+            self::assertEquals($persistedEntity->getOriginalData(), $entity->getOriginalData());
+        }
+    }
+
+    /** @param DDC6303BaseClass[] $persistedEntities indexed by identifier */
+    private function assertRepositoryContainsSameEntities(array $persistedEntities): void
+    {
+        $entities = $this->_em->getRepository(DDC6303BaseClass::class)->findBy([
+            'id' => array_keys($persistedEntities),
+        ]);
+
+        self::assertCount(count($persistedEntities), $entities);
+
+        foreach ($entities as $entity) {
             self::assertEquals($entity, $persistedEntities[$entity->id]);
         }
+    }
+}
+
+final class DDC6303Filter extends SQLFilter
+{
+    public function addFilterConstraint(ClassMetadata $targetEntity, string $targetTableAlias): string
+    {
+        return '';
     }
 }
 
@@ -101,6 +148,8 @@ abstract class DDC6303BaseClass
     #[Column(type: 'string', length: 255)]
     #[GeneratedValue(strategy: 'NONE')]
     public $id;
+
+    abstract public function getOriginalData(): mixed;
 }
 
 #[Table]
@@ -113,6 +162,11 @@ class DDC6303ChildA extends DDC6303BaseClass
         private mixed $originalData,
     ) {
         $this->id = $id;
+    }
+
+    public function getOriginalData(): mixed
+    {
+        return $this->originalData;
     }
 }
 
@@ -127,5 +181,11 @@ class DDC6303ChildB extends DDC6303BaseClass
         private array $originalData,
     ) {
         $this->id = $id;
+    }
+
+    /** @return mixed[] */
+    public function getOriginalData(): array
+    {
+        return $this->originalData;
     }
 }

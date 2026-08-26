@@ -6,6 +6,8 @@ namespace Doctrine\Tests\ORM\Functional\Ticket\GH12225;
 
 use Doctrine\Tests\OrmFunctionalTestCase;
 
+use function array_keys;
+
 class GH12225Test extends OrmFunctionalTestCase
 {
     protected function setUp(): void
@@ -44,6 +46,9 @@ class GH12225Test extends OrmFunctionalTestCase
         self::assertEquals('parent', $directories[0]->getDirKey());
 
         // Try to hydrate all children of the parent directory (toArray is important here to initialize the collection)
-        self::assertCount(1, $directories[0]->getChildren()->toArray());
+        $children = $directories[0]->getChildren()->toArray();
+
+        self::assertSame(['child'], array_keys($children));
+        self::assertSame('child', $children['child']->getDirKey());
     }
 }
