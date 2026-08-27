@@ -2,8 +2,10 @@
 
 Status: enabled
 Owner: `@atvardovsky`
-Last reviewed: 2026-08-21
-Evidence revision: `454db525c`
+Last reviewed: 2026-08-27
+Evidence base revision: `68a7b23a`
+Review scope: current working tree, including the uncommitted Alatyr Core
+`0.1.0-alpha.33` migration and support-information reconciliation.
 
 This matrix records installed assistant bridge surfaces for the full Alatyr adapter. Runtime capability claims remain evidence-bound to each surface record.
 

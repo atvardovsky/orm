@@ -29,6 +29,12 @@ gate file.
 - Use `.ai/project/business-logic.md`, `.ai/project/blueprint.md`, and
   `.ai/project/source-of-truth-registry.md` for business-rule routing and
   changed-fact ownership.
+- After code or support changes, check the target support policy/state and use
+  changed surfaces to seed bounded impact routing. Ignored files remain
+  excluded, and digest equality is not semantic proof.
+- Traverse only accepted consistency relationships. Newly discovered
+  relationships remain candidates until target authority accepts them;
+  rejected or stale candidates do not enter impact traversal.
 - Check `.ai/assistant/module-profile.md` before relying on optional Alatyr
   capabilities.
 - Use `.ai/assistant/operation-catalog.json` and
@@ -94,9 +100,11 @@ For adapter health, installation recheck, or framework update work, verify:
 ## Final Evidence
 
 Every completed task reports selected operation/profile, changed facts/files,
-source-of-truth owners, invariant/integrity result, validation run or skipped
-with reason, approvals used, context expansion when relevant, commit-policy
-check when committing, and residual risk.
+source-of-truth owners, support-state freshness, changed support paths, bounded
+impact closure, candidate dispositions, generated-support actions or skips,
+invariant/integrity result, validation run or skipped with reason, approvals
+used, context expansion when relevant, commit-policy check when committing,
+and residual risk.
 
 ## Full Capability Gate Additions
 

@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "index_kind": "alatyr-context-index",
+  "index_id": "project.workspace-modes",
+  "contour": "project",
+  "title": "Project Workspace Modes Context",
+  "summary": "Recursive navigation for the project contour at workspace-modes.",
+  "max_depth": 8,
+  "entries": [
+    {
+      "id": "project.content.workspace-modes-catalog-json",
+      "kind": "content",
+      "path": "workspace-modes/catalog.json",
+      "summary": "Catalog",
+      "selectors": {
+        "path_terms": [
+          "workspace",
+          "modes",
+          "catalog"
+        ],
+        "rule_ids": [
+          "ALATYR-CONTEXT-001"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [
+        "alatyr:bounded-context-expansion@1"
+      ],
+      "owner_refs": [
+        "ALATYR-CONTEXT-001"
+      ],
+      "estimated_words": 90,
+      "content_digest": "sha256:f8d75bf59aaa274ef8caa00b7605bffebf596b6d6e0a2154fdaaad85a85dd015"
+    },
+    {
+      "id": "project.content.workspace-modes-readme-md",
+      "kind": "content",
+      "path": "workspace-modes/README.md",
+      "summary": "Doctrine ORM Workspace Modes",
+      "selectors": {
+        "path_terms": [
+          "workspace",
+          "modes"
+        ],
+        "rule_ids": [
+          "ALATYR-CONTEXT-001"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [
+        "alatyr:bounded-context-expansion@1"
+      ],
+      "owner_refs": [
+        "ALATYR-CONTEXT-001"
+      ],
+      "estimated_words": 43,
+      "content_digest": "sha256:b74094e5bed46b12cb2649f3688194fa235440731cc96e2d40e221589bbce69c"
+    },
+    {
+      "id": "project.section.workspace-modes-modes",
+      "kind": "index",
+      "path": "workspace-modes/modes/context-index.json",
+      "summary": "Modes section",
+      "selectors": {
+        "path_terms": [
+          "modes"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [],
+      "owner_refs": [],
+      "estimated_words": 118,
+      "content_digest": "sha256:5f841bb000990e078fff296fa371a338e9c92339f7774f2ac3752f2b39865525"
+    },
+    {
+      "id": "project.section.workspace-modes-root",
+      "kind": "index",
+      "path": "workspace-modes/root/context-index.json",
+      "summary": "Root section",
+      "selectors": {
+        "path_terms": [
+          "root"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [],
+      "owner_refs": [],
+      "estimated_words": 136,
+      "content_digest": "sha256:a4cd28924855ba51fca50f6603320fd9099760081089aa073f6c52c22b9783bd"
+    }
+  ]
+}

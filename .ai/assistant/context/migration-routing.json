@@ -24,6 +24,7 @@
     ".ai/framework/change-risk-model.md",
     ".ai/framework/consistency-model.md",
     ".ai/framework/context-discovery.md",
+    ".ai/framework/context-index.json",
     ".ai/framework/context-profiles.md",
     ".ai/framework/context-router.md",
     ".ai/framework/contour.md",
@@ -41,9 +42,13 @@
     ".ai/framework/rule-ownership.md",
     ".ai/framework/rule-registry.md",
     ".ai/framework/security-safety-guidance.md",
+    ".ai/framework/semantics/index.json",
     ".ai/framework/skill-adaptation.md",
     ".ai/framework/source-of-truth-registry.md",
-    ".ai/framework/testing-guidance.md"
+    ".ai/framework/testing-guidance.md",
+    ".ai/project/context-index.json",
+    ".ai/assistant/context-index.json",
+    ".ai/assistant/templates/context-packet.json"
   ],
   "expand_when": [
     "migration assessment identifies an affected canonical source",

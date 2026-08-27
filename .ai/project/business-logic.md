@@ -5,7 +5,7 @@ Doctrine ORM fork.
 
 Path: `.ai/project/business-logic.md`
 Status: accepted for this Alatyr adapter
-Last reviewed: 2026-08-21
+Last reviewed: 2026-08-26
 Owner: `@atvardovsky`
 
 ## Purpose
@@ -25,7 +25,8 @@ and does not replace public docs, source code, tests, or CI.
 Canonical owners:
 
 - `README.md`
-- `docs/en/reference/*.rst`
+- `docs/en/reference/*.rst` and applicable public tutorials under
+  `docs/en/tutorials/`
 - selected implementation under `src/`
 - selected regression coverage under `tests/`
 
@@ -69,11 +70,16 @@ Canonical owners:
 - `docs/en/reference/native-sql.rst`
 - `docs/en/reference/partial-objects.rst`
 - `docs/en/reference/partial-hydration.rst`
+- `docs/en/tutorials/pagination.rst`
 - `src/Query/`
+- `src/Tools/Pagination/`
 - query, parser, hydrator, and functional tests under `tests/Tests/ORM/`
+- pagination tests under `tests/Tests/ORM/Tools/Pagination/`
 
 Use for DQL grammar and functions, QueryBuilder behavior, native SQL mapping,
 hydration, partial object constraints, and query result semantics.
+Use the pagination owners for offset and cursor pagination contracts,
+deterministic ordering requirements, and page/window result behavior.
 
 ### Transactions, Concurrency, And Caching
 

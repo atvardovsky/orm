@@ -1,0 +1,243 @@
+{
+  "schema_version": 1,
+  "index_kind": "alatyr-context-index",
+  "index_id": "assistant.migration-notes",
+  "contour": "assistant",
+  "title": "Assistant Migration Notes Context",
+  "summary": "Recursive navigation for the assistant contour at migration-notes.",
+  "max_depth": 8,
+  "entries": [
+    {
+      "id": "assistant.content.migration-notes-2026-08-22-alatyr-0-1-0-alpha-21-md",
+      "kind": "content",
+      "path": "migration-notes/2026-08-22-alatyr-0.1.0-alpha.21.md",
+      "summary": "Alatyr Migration Note",
+      "selectors": {
+        "path_terms": [
+          "migration",
+          "notes",
+          "2026",
+          "alatyr",
+          "alpha"
+        ],
+        "rule_ids": [
+          "ALATYR-CONTEXT-001"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [
+        "alatyr:bounded-context-expansion@1"
+      ],
+      "owner_refs": [
+        "ALATYR-CONTEXT-001"
+      ],
+      "estimated_words": 578,
+      "content_digest": "sha256:f3f5ba24aff9d94665e756767597a796572233c452bef1dfe1fe6becfc701ac3"
+    },
+    {
+      "id": "assistant.content.migration-notes-2026-08-23-alatyr-0-1-0-alpha-22-md",
+      "kind": "content",
+      "path": "migration-notes/2026-08-23-alatyr-0.1.0-alpha.22.md",
+      "summary": "Alatyr Migration Note",
+      "selectors": {
+        "path_terms": [
+          "migration",
+          "notes",
+          "2026",
+          "alatyr",
+          "alpha"
+        ],
+        "rule_ids": [
+          "ALATYR-CONTEXT-001"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [
+        "alatyr:bounded-context-expansion@1"
+      ],
+      "owner_refs": [
+        "ALATYR-CONTEXT-001"
+      ],
+      "estimated_words": 659,
+      "content_digest": "sha256:254399da2bd13d2582b4869ee297f905b41217e234f8d8b3ea5ba831c3f93f82"
+    },
+    {
+      "id": "assistant.content.migration-notes-2026-08-23-alatyr-0-1-0-alpha-23-md",
+      "kind": "content",
+      "path": "migration-notes/2026-08-23-alatyr-0.1.0-alpha.23.md",
+      "summary": "Alatyr Migration Note",
+      "selectors": {
+        "path_terms": [
+          "migration",
+          "notes",
+          "2026",
+          "alatyr",
+          "alpha"
+        ],
+        "rule_ids": [
+          "ALATYR-CONTEXT-001"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [
+        "alatyr:bounded-context-expansion@1"
+      ],
+      "owner_refs": [
+        "ALATYR-CONTEXT-001"
+      ],
+      "estimated_words": 651,
+      "content_digest": "sha256:b7536a00f0df66ad5a8f12648711e380fef02821ed7fafa80ee58dba7c7e2113"
+    },
+    {
+      "id": "assistant.content.migration-notes-2026-08-24-alatyr-0-1-0-alpha-25-md",
+      "kind": "content",
+      "path": "migration-notes/2026-08-24-alatyr-0.1.0-alpha.25.md",
+      "summary": "Alatyr Migration Note",
+      "selectors": {
+        "path_terms": [
+          "migration",
+          "notes",
+          "2026",
+          "alatyr",
+          "alpha"
+        ],
+        "rule_ids": [
+          "ALATYR-CONTEXT-001"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [
+        "alatyr:bounded-context-expansion@1"
+      ],
+      "owner_refs": [
+        "ALATYR-CONTEXT-001"
+      ],
+      "estimated_words": 734,
+      "content_digest": "sha256:5e6105eae698b2f0544f2eb51893d63bd7f6410d13f0e1b033b4646f0d2723e0"
+    },
+    {
+      "id": "assistant.content.migration-notes-2026-08-25-alatyr-0-1-0-alpha-30-md",
+      "kind": "content",
+      "path": "migration-notes/2026-08-25-alatyr-0.1.0-alpha.30.md",
+      "summary": "Alatyr Migration Note",
+      "selectors": {
+        "path_terms": [
+          "migration",
+          "notes",
+          "2026",
+          "alatyr",
+          "alpha"
+        ],
+        "rule_ids": [
+          "ALATYR-CONTEXT-001"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [
+        "alatyr:bounded-context-expansion@1"
+      ],
+      "owner_refs": [
+        "ALATYR-CONTEXT-001"
+      ],
+      "estimated_words": 723,
+      "content_digest": "sha256:e4adfbf07b897c9a8952a56ada106fa080dabfa9c8e2ac54b2b5c66e68d77f83"
+    },
+    {
+      "id": "assistant.content.migration-notes-2026-08-26-alatyr-0-1-0-alpha-31-md",
+      "kind": "content",
+      "path": "migration-notes/2026-08-26-alatyr-0.1.0-alpha.31.md",
+      "summary": "Alatyr Migration Note",
+      "selectors": {
+        "path_terms": [
+          "migration",
+          "notes",
+          "2026",
+          "alatyr",
+          "alpha"
+        ],
+        "rule_ids": [
+          "ALATYR-CONTEXT-001"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [
+        "alatyr:bounded-context-expansion@1"
+      ],
+      "owner_refs": [
+        "ALATYR-CONTEXT-001"
+      ],
+      "estimated_words": 874,
+      "content_digest": "sha256:5fb867a4e43acc3c97321b9c0da8aa17b6d8b686a954e9c7ec6bea409b4231d5"
+    },
+    {
+      "id": "assistant.content.migration-notes-2026-08-26-alatyr-0-1-0-alpha-32-md",
+      "kind": "content",
+      "path": "migration-notes/2026-08-26-alatyr-0.1.0-alpha.32.md",
+      "summary": "Alatyr Migration Note",
+      "selectors": {
+        "path_terms": [
+          "migration",
+          "notes",
+          "2026",
+          "alatyr",
+          "alpha"
+        ],
+        "rule_ids": [
+          "ALATYR-CONTEXT-001"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [
+        "alatyr:bounded-context-expansion@1"
+      ],
+      "owner_refs": [
+        "ALATYR-CONTEXT-001"
+      ],
+      "estimated_words": 1330,
+      "content_digest": "sha256:0072af33899f9385552801d99564ea85c024b740a32ce30f2c1fcc49f0e30dc0"
+    },
+    {
+      "id": "assistant.content.migration-notes-2026-08-27-alatyr-0-1-0-alpha-33-md",
+      "kind": "content",
+      "path": "migration-notes/2026-08-27-alatyr-0.1.0-alpha.33.md",
+      "summary": "Alatyr Migration Note",
+      "selectors": {
+        "path_terms": [
+          "migration",
+          "notes",
+          "2026",
+          "alatyr",
+          "alpha"
+        ],
+        "rule_ids": [
+          "ALATYR-CONTEXT-001"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [
+        "alatyr:bounded-context-expansion@1"
+      ],
+      "owner_refs": [
+        "ALATYR-CONTEXT-001"
+      ],
+      "estimated_words": 859,
+      "content_digest": "sha256:d7f2774ed1e8758c2764cf5f3cf74255bf23f43d9393d86ce3d878d503da077f"
+    }
+  ]
+}

@@ -51,7 +51,7 @@
     },
     {
       "path": ".ai/framework/context-discovery.md",
-      "when": "context budget or owner selection is disputed"
+      "when": "source selection expansion rules or missing-context handling are disputed"
     },
     {
       "path": ".ai/framework/source-of-truth-registry.md",

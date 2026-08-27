@@ -6,7 +6,7 @@ it does not replace Doctrine public docs, source code, tests, or CI files.
 
 Status: accepted for this Alatyr adapter
 Path: `.ai/project/blueprint.md`
-Last reviewed: 2026-08-21
+Last reviewed: 2026-08-26
 Owner: `@atvardovsky`
 
 ## Rules
@@ -30,8 +30,9 @@ Owner: `@atvardovsky`
 
 Product purpose: `README.md`
 
-Public behavior: `docs/en/reference/*.rst`, with implementation evidence in
-`src/` and regression evidence in `tests/`.
+Public behavior: `docs/en/reference/*.rst` and applicable public tutorials
+under `docs/en/tutorials/`, with implementation evidence in `src/` and
+regression evidence in `tests/`.
 
 Business logic routing: `.ai/project/business-logic.md` maps accepted ORM
 behavior-rule families to their canonical Doctrine docs, source, and tests.
@@ -46,6 +47,9 @@ Architecture boundaries: `docs/en/reference/architecture.rst` and
 Mapping and persistence model: `docs/en/reference/basic-mapping.rst`,
 `docs/en/reference/unitofwork.rst`, `src/Mapping/`, `src/UnitOfWork.php`, and
 related tests under `tests/Tests/ORM/`.
+
+Query pagination: `docs/en/tutorials/pagination.rst`,
+`src/Tools/Pagination/`, and `tests/Tests/ORM/Tools/Pagination/`.
 
 Security posture: `SECURITY.md` and `docs/en/reference/security.rst`.
 
@@ -88,4 +92,4 @@ is changed or the test profile is adjusted.
 
 ## Full Alatyr Capability Routing
 
-Full Alatyr work routes through the enabled module graph in `.ai/assistant/module-profile.md`. Optional capability records are accepted target-owned routing layers and must stay synchronized with `.ai/project/source-of-truth-registry.md`, `.ai/project/consistency-map.json`, `.ai/assistant/context-router.json`, `.ai/assistant/operation-catalog.json`, `.ai/assistant/gates/index.json`, and the generated bootstrap index.
+Full Alatyr work routes through the enabled module graph in `.ai/assistant/module-profile.md`. Optional capability records are accepted target-owned routing layers and must stay synchronized with `.ai/project/source-of-truth-registry.md`, `.ai/project/consistency-map.json`, the three contour `context-index.json` roots, `.ai/framework/semantics/index.json`, `.ai/assistant/context-router.json`, `.ai/assistant/operation-catalog.json`, `.ai/assistant/gates/index.json`, and the generated bootstrap index.

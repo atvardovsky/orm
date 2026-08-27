@@ -1,0 +1,131 @@
+{
+  "schema_version": 1,
+  "index_kind": "alatyr-context-index",
+  "index_id": "project.consistency-areas",
+  "contour": "project",
+  "title": "Project Areas Context",
+  "summary": "Recursive navigation for the project contour at consistency/areas.",
+  "max_depth": 8,
+  "entries": [
+    {
+      "id": "project.content.consistency-areas-assistant-json",
+      "kind": "content",
+      "path": "consistency/areas/assistant.json",
+      "summary": "Assistant",
+      "selectors": {
+        "path_terms": [
+          "consistency",
+          "areas",
+          "assistant"
+        ],
+        "rule_ids": [
+          "ALATYR-CONTEXT-001",
+          "ALATYR-INTEGRITY-001"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [
+        "alatyr:bounded-context-expansion@1",
+        "alatyr:logical-integrity@1"
+      ],
+      "owner_refs": [
+        "ALATYR-CONTEXT-001",
+        "ALATYR-INTEGRITY-001"
+      ],
+      "estimated_words": 2162,
+      "content_digest": "sha256:1c4b0fbe50a01fc392479989c4018f19e13d672306c1e3e933a98f41484e4adf"
+    },
+    {
+      "id": "project.content.consistency-areas-authoring-json",
+      "kind": "content",
+      "path": "consistency/areas/authoring.json",
+      "summary": "Authoring",
+      "selectors": {
+        "path_terms": [
+          "consistency",
+          "areas",
+          "authoring"
+        ],
+        "rule_ids": [
+          "ALATYR-CONTEXT-001",
+          "ALATYR-INTEGRITY-001"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [
+        "alatyr:bounded-context-expansion@1",
+        "alatyr:logical-integrity@1"
+      ],
+      "owner_refs": [
+        "ALATYR-CONTEXT-001",
+        "ALATYR-INTEGRITY-001"
+      ],
+      "estimated_words": 1387,
+      "content_digest": "sha256:39fb22560e7478aee1f33bcff50207dd6eeaf6b18178ac20305381cc01261840"
+    },
+    {
+      "id": "project.content.consistency-areas-product-json",
+      "kind": "content",
+      "path": "consistency/areas/product.json",
+      "summary": "Product",
+      "selectors": {
+        "path_terms": [
+          "consistency",
+          "areas",
+          "product"
+        ],
+        "rule_ids": [
+          "ALATYR-CONTEXT-001",
+          "ALATYR-INTEGRITY-001"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [
+        "alatyr:bounded-context-expansion@1",
+        "alatyr:logical-integrity@1"
+      ],
+      "owner_refs": [
+        "ALATYR-CONTEXT-001",
+        "ALATYR-INTEGRITY-001"
+      ],
+      "estimated_words": 1576,
+      "content_digest": "sha256:820fd853fae643e7d0ee7860758c3092f4f8154e74c5069d2bd52d65af2c44e9"
+    },
+    {
+      "id": "project.content.consistency-areas-template-json",
+      "kind": "content",
+      "path": "consistency/areas/_template.json",
+      "summary": " Template",
+      "selectors": {
+        "path_terms": [
+          "consistency",
+          "areas",
+          "template"
+        ],
+        "rule_ids": [
+          "ALATYR-CONTEXT-001",
+          "ALATYR-INTEGRITY-001"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [
+        "alatyr:bounded-context-expansion@1",
+        "alatyr:logical-integrity@1"
+      ],
+      "owner_refs": [
+        "ALATYR-CONTEXT-001",
+        "ALATYR-INTEGRITY-001"
+      ],
+      "estimated_words": 75,
+      "content_digest": "sha256:16805633ea171411ce32e43585a5e068bc19b2d0d16d089b267a20df35a0a88d"
+    }
+  ]
+}

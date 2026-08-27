@@ -1,0 +1,504 @@
+{
+  "schema_version": 1,
+  "index_kind": "alatyr-context-index",
+  "index_id": "project.root",
+  "contour": "project",
+  "title": "Project Root Context",
+  "summary": "Recursive navigation for the project contour at ..",
+  "max_depth": 8,
+  "entries": [
+    {
+      "id": "project.content.blueprint-md",
+      "kind": "content",
+      "path": "blueprint.md",
+      "summary": "Doctrine ORM Blueprint Index",
+      "selectors": {
+        "path_terms": [
+          "blueprint"
+        ],
+        "rule_ids": [
+          "ALATYR-CONTEXT-001"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [
+        "alatyr:bounded-context-expansion@1"
+      ],
+      "owner_refs": [
+        "ALATYR-CONTEXT-001"
+      ],
+      "estimated_words": 502,
+      "content_digest": "sha256:c98dba73f0e20d42afe18259f50c0b81485249cef529b278310b706bed1def8c"
+    },
+    {
+      "id": "project.content.business-logic-md",
+      "kind": "content",
+      "path": "business-logic.md",
+      "summary": "Doctrine ORM Business Logic Layer",
+      "selectors": {
+        "path_terms": [
+          "business",
+          "logic"
+        ],
+        "rule_ids": [
+          "ALATYR-CONTEXT-001"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [
+        "alatyr:bounded-context-expansion@1"
+      ],
+      "owner_refs": [
+        "ALATYR-CONTEXT-001"
+      ],
+      "estimated_words": 558,
+      "content_digest": "sha256:ef86ac57e1083fd755c7bb5e205ca90dc0b5b6294fb3fbf185f320f3b9d7c579"
+    },
+    {
+      "id": "project.content.code-authoring-md",
+      "kind": "content",
+      "path": "code-authoring.md",
+      "summary": "Doctrine ORM Code Authoring Rules",
+      "selectors": {
+        "path_terms": [
+          "code",
+          "authoring"
+        ],
+        "rule_ids": [
+          "ALATYR-CONTEXT-001"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [
+        "alatyr:bounded-context-expansion@1"
+      ],
+      "owner_refs": [
+        "ALATYR-CONTEXT-001"
+      ],
+      "estimated_words": 1141,
+      "content_digest": "sha256:a1204ddfb7329cfa3021f2e96fbe033845f0ad5b916d6794a38243b2af7c6ca1"
+    },
+    {
+      "id": "project.content.commit-policy-md",
+      "kind": "content",
+      "path": "commit-policy.md",
+      "summary": "Project Commit Policy",
+      "selectors": {
+        "path_terms": [
+          "commit",
+          "policy"
+        ],
+        "rule_ids": [
+          "ALATYR-CONTEXT-001"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [
+        "alatyr:bounded-context-expansion@1"
+      ],
+      "owner_refs": [
+        "ALATYR-CONTEXT-001"
+      ],
+      "estimated_words": 306,
+      "content_digest": "sha256:9c06780fbdb9ea7ca39119f354c069b414a0208392f8737e92a9fe38b1d79781"
+    },
+    {
+      "id": "project.content.consistency-map-json",
+      "kind": "content",
+      "path": "consistency-map.json",
+      "summary": "Consistency Map",
+      "selectors": {
+        "path_terms": [
+          "consistency",
+          "map"
+        ],
+        "rule_ids": [
+          "ALATYR-CONTEXT-001",
+          "ALATYR-INTEGRITY-001"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [
+        "alatyr:bounded-context-expansion@1",
+        "alatyr:logical-integrity@1"
+      ],
+      "owner_refs": [
+        "ALATYR-CONTEXT-001",
+        "ALATYR-INTEGRITY-001"
+      ],
+      "estimated_words": 139,
+      "content_digest": "sha256:2224b1eccb1cf71015c06e296a2145648f9b64805ff9d83803145680d8f808d6"
+    },
+    {
+      "id": "project.content.contour-md",
+      "kind": "content",
+      "path": "contour.md",
+      "summary": "Project Contour",
+      "selectors": {
+        "path_terms": [
+          "contour"
+        ],
+        "rule_ids": [
+          "ALATYR-CONTEXT-001"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [
+        "alatyr:bounded-context-expansion@1"
+      ],
+      "owner_refs": [
+        "ALATYR-CONTEXT-001"
+      ],
+      "estimated_words": 311,
+      "content_digest": "sha256:78e3997b639dbaedc78ec73637e91ccdda5c47682baca9f04ff30841255237a2"
+    },
+    {
+      "id": "project.content.development-evidence-json",
+      "kind": "content",
+      "path": "development-evidence.json",
+      "summary": "Development Evidence",
+      "selectors": {
+        "path_terms": [
+          "development",
+          "evidence"
+        ],
+        "rule_ids": [
+          "ALATYR-CONTEXT-001"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [
+        "alatyr:bounded-context-expansion@1"
+      ],
+      "owner_refs": [
+        "ALATYR-CONTEXT-001"
+      ],
+      "estimated_words": 106,
+      "content_digest": "sha256:27d6e4b5fd72b463d6080c1da645a327c8c0912cece68c724e5b0b63ade2a3fe"
+    },
+    {
+      "id": "project.content.source-of-truth-registry-md",
+      "kind": "content",
+      "path": "source-of-truth-registry.md",
+      "summary": "Source Of Truth Registry",
+      "selectors": {
+        "path_terms": [
+          "source",
+          "truth",
+          "registry"
+        ],
+        "rule_ids": [
+          "ALATYR-CONTEXT-001"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [
+        "alatyr:bounded-context-expansion@1"
+      ],
+      "owner_refs": [
+        "ALATYR-CONTEXT-001"
+      ],
+      "estimated_words": 2198,
+      "content_digest": "sha256:88d61c65dbd4969c7206dab0cd56fd1c1b2b3b14ecebbfd7f9fb369bec64e762"
+    },
+    {
+      "id": "project.content.support-policy-json",
+      "kind": "content",
+      "path": "support-policy.json",
+      "summary": "Support Policy",
+      "selectors": {
+        "path_terms": [
+          "support",
+          "policy"
+        ],
+        "rule_ids": [
+          "ALATYR-CONTEXT-001"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [
+        "alatyr:bounded-context-expansion@1"
+      ],
+      "owner_refs": [
+        "ALATYR-CONTEXT-001"
+      ],
+      "estimated_words": 93,
+      "content_digest": "sha256:fe458d4305f7236f4e5e974cb58461e2308ec30299eeb51841fbf5e594d2ea7a"
+    },
+    {
+      "id": "project.content.team-operating-model-md",
+      "kind": "content",
+      "path": "team-operating-model.md",
+      "summary": "Doctrine ORM Team Operating Model",
+      "selectors": {
+        "path_terms": [
+          "team",
+          "operating",
+          "model"
+        ],
+        "rule_ids": [
+          "ALATYR-CONTEXT-001",
+          "ALATYR-DELEGATION-001"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [
+        "alatyr:bounded-context-expansion@1",
+        "alatyr:bounded-delegation@1"
+      ],
+      "owner_refs": [
+        "ALATYR-CONTEXT-001",
+        "ALATYR-DELEGATION-001"
+      ],
+      "estimated_words": 118,
+      "content_digest": "sha256:58b7a39c42dd10507fa23dc1148eaa3d3a50fd1e6025855459e7060a3feb6f49"
+    },
+    {
+      "id": "project.content.team-policy-json",
+      "kind": "content",
+      "path": "team-policy.json",
+      "summary": "Team Policy",
+      "selectors": {
+        "path_terms": [
+          "team",
+          "policy"
+        ],
+        "rule_ids": [
+          "ALATYR-CONTEXT-001",
+          "ALATYR-DELEGATION-001"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [
+        "alatyr:bounded-context-expansion@1",
+        "alatyr:bounded-delegation@1"
+      ],
+      "owner_refs": [
+        "ALATYR-CONTEXT-001",
+        "ALATYR-DELEGATION-001"
+      ],
+      "estimated_words": 453,
+      "content_digest": "sha256:c49a0ab8c829175ffb71f212d0d9d60d09edd34f2e1b66ef3fa3d53d204aadfc"
+    },
+    {
+      "id": "project.section.architecture",
+      "kind": "index",
+      "path": "architecture/context-index.json",
+      "summary": "Architecture section",
+      "selectors": {
+        "path_terms": [
+          "architecture"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [],
+      "owner_refs": [],
+      "estimated_words": 146,
+      "content_digest": "sha256:f24a1a6d32b14b498c4a4dca6f4767faeb7d4f1f651240e614dfad332f853ff4"
+    },
+    {
+      "id": "project.section.consistency",
+      "kind": "index",
+      "path": "consistency/context-index.json",
+      "summary": "Consistency section",
+      "selectors": {
+        "path_terms": [
+          "consistency"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [],
+      "owner_refs": [],
+      "estimated_words": 129,
+      "content_digest": "sha256:c46889aecc960da923a2f3ba73e0e3cf388bc351eec236c1b0d8eb204b881e97"
+    },
+    {
+      "id": "project.section.debug",
+      "kind": "index",
+      "path": "debug/context-index.json",
+      "summary": "Debug section",
+      "selectors": {
+        "path_terms": [
+          "debug"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [],
+      "owner_refs": [],
+      "estimated_words": 176,
+      "content_digest": "sha256:69f668729e2e3025495266e447ce1b5ceaa2dc91608756edea548f54538a0c1e"
+    },
+    {
+      "id": "project.section.dependencies",
+      "kind": "index",
+      "path": "dependencies/context-index.json",
+      "summary": "Dependencies section",
+      "selectors": {
+        "path_terms": [
+          "dependencies"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [],
+      "owner_refs": [],
+      "estimated_words": 342,
+      "content_digest": "sha256:37218bce6e5ddd2b53987283c45c7cbb1a945d6a54c6f9816a920cf86e6c626a"
+    },
+    {
+      "id": "project.section.documentation",
+      "kind": "index",
+      "path": "documentation/context-index.json",
+      "summary": "Documentation section",
+      "selectors": {
+        "path_terms": [
+          "documentation"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [],
+      "owner_refs": [],
+      "estimated_words": 187,
+      "content_digest": "sha256:9ab7c4362e358937aac1cbfed9aee6933b47d44f81a309ed93d456d309fce702"
+    },
+    {
+      "id": "project.section.engineering-evidence",
+      "kind": "index",
+      "path": "engineering-evidence/context-index.json",
+      "summary": "Engineering Evidence section",
+      "selectors": {
+        "path_terms": [
+          "engineering-evidence"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [],
+      "owner_refs": [],
+      "estimated_words": 179,
+      "content_digest": "sha256:2066e8184fdcabc658e1b5a332ce8294da41e6a74724330036c6aa300f7fc794"
+    },
+    {
+      "id": "project.section.knowledge",
+      "kind": "index",
+      "path": "knowledge/context-index.json",
+      "summary": "Knowledge section",
+      "selectors": {
+        "path_terms": [
+          "knowledge"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [],
+      "owner_refs": [],
+      "estimated_words": 232,
+      "content_digest": "sha256:0f9ed2d1352223680a7d26064f95802a29360a7b0a66a5baf6a151daf4926a64"
+    },
+    {
+      "id": "project.section.support-generation",
+      "kind": "index",
+      "path": "support-generation/context-index.json",
+      "summary": "Support Generation section",
+      "selectors": {
+        "path_terms": [
+          "support-generation"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [],
+      "owner_refs": [],
+      "estimated_words": 82,
+      "content_digest": "sha256:7a9d62c647318667b56461c760163245de71ac1aa233c0364bbfca0c9f484fbb"
+    },
+    {
+      "id": "project.section.testing",
+      "kind": "index",
+      "path": "testing/context-index.json",
+      "summary": "Testing section",
+      "selectors": {
+        "path_terms": [
+          "testing"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [],
+      "owner_refs": [],
+      "estimated_words": 138,
+      "content_digest": "sha256:5c7cc06198ffdb9cefe03ecdbf85a75ecd608659b15dd4329da6d62a47baa062"
+    },
+    {
+      "id": "project.section.vocabulary",
+      "kind": "index",
+      "path": "vocabulary/context-index.json",
+      "summary": "Vocabulary section",
+      "selectors": {
+        "path_terms": [
+          "vocabulary"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [],
+      "owner_refs": [],
+      "estimated_words": 266,
+      "content_digest": "sha256:8788fe5a2ec2ec5568ae59ac2041674237d116a47a4c42ef8f4cc7f458d28632"
+    },
+    {
+      "id": "project.section.workspace-modes",
+      "kind": "index",
+      "path": "workspace-modes/context-index.json",
+      "summary": "Workspace Modes section",
+      "selectors": {
+        "path_terms": [
+          "workspace-modes"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [],
+      "owner_refs": [],
+      "estimated_words": 225,
+      "content_digest": "sha256:e3000efb549a6fe8e90a883516e3793f1057afe14bdf31dd7b5778c7813a6e94"
+    }
+  ]
+}

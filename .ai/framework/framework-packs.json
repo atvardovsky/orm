@@ -20,10 +20,17 @@
         "ALATYR-RISK-001",
         "ALATYR-SAFETY-001",
         "ALATYR-SAFETY-002",
-        "ALATYR-SOURCE-001"
+        "ALATYR-SOURCE-001",
+        "ALATYR-SUPPORT-001"
       ],
       "additional_files": [
         "README.md",
+        "semantics/index.json",
+        "semantics/core.json",
+        "semantics/change.json",
+        "semantics/knowledge.json",
+        "semantics/collaboration.json",
+        "semantics/infrastructure.json",
         "adapter-maturity.md",
         "ai-infrastructure-recommendations.md",
         "ai-infrastructure-routing.md",
@@ -36,6 +43,7 @@
         "installed-operations.md",
         "portability.md",
         "skill-adaptation.md",
+        "support-information.md",
         "testing-guidance.md"
       ]
     },
@@ -60,6 +68,7 @@
   },
   "projected_files": [
     "README.md",
+    "context-index.json",
     "file-inventory.json",
     "rule-ownership.md",
     "rule-registry.json",

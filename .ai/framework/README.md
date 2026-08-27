@@ -141,11 +141,19 @@ Those belong to a project contour or repository adapter.
 - `.ai/framework/context-router.md`: portable machine-readable routing
   contract that maps task profiles to bootstrap context, required files,
   approvals, validation, and final evidence.
+- `.ai/framework/context-index.json`: generated root navigation into bounded
+  framework section indexes under `.ai/framework/catalog/`.
+- `.ai/framework/semantics/index.json`: generated index for versioned semantic
+  codebook shards; core definitions preload once and domain definitions remain
+  lazy.
 - `.ai/framework/context-profiles.md`: portable task profiles that limit the
   initial required reading set and define expansion triggers.
 - `.ai/framework/source-of-truth-registry.md`: portable registry model for
   fact ownership, derived surfaces, sync direction, validation, and conflict
   resolution.
+- `.ai/framework/support-information.md`: required support-surface inventory,
+  canonical cross-platform state, bounded impact routing, relationship
+  candidate review, and optional safe generation contracts.
 - `.ai/framework/consistency-model.md`: portable relationship model for
   bounded impact closure across fact, contract, area, system, and adapter
   levels.

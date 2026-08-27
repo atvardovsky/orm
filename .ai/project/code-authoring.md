@@ -2,7 +2,7 @@
 
 Status: accepted for this Alatyr adapter
 Path: `.ai/project/code-authoring.md`
-Last reviewed: 2026-08-21
+Last reviewed: 2026-08-26
 Owner: `@atvardovsky`
 
 Use this file when an assistant writes or reviews Doctrine ORM source, tests,
@@ -51,6 +51,9 @@ agreement. Stale/conflicting/gap support is proposal-only.
 - Keep DQL grammar, AST, parser, walkers, query execution, and hydration within
   `src/Query/` and `src/Internal/Hydration/`. Query semantics must stay aligned
   with DQL and query-builder docs.
+- Keep offset and cursor pagination behavior in `src/Tools/Pagination/` and
+  align it with `docs/en/tutorials/pagination.rst` and focused pagination
+  tests. Preserve deterministic ordering and DBAL portability.
 - Keep `src/Internal/` as an internal implementation area. Do not make new
   public API promises from internal classes or move public extension contracts
   there.

@@ -62,7 +62,12 @@ Every project using this framework must define these structural bindings:
   capabilities must satisfy the catalog's dependency and required-surface
   closure.
 - **Assistant routing:** bounded context selection, supported assistant entry
-  points, bridge pointers, operation routing, and local action boundaries.
+  points, bridge pointers, operation routing, recursive framework, project,
+  and assistant context indexes, semantic-codebook binding, resolved packet
+  evidence, and local action boundaries.
+- **Support-information state:** target-owned collection/classification policy,
+  canonical cross-platform digests, changed-surface evidence, and bounded
+  impact routing with unresolved relationship candidates kept non-authoritative.
 - **Local execution bindings:** project-specific validation, approval,
   authorization, safety, output-evidence, and checker status. Missing local
   automation must be reported as a gap rather than represented as available.
@@ -78,6 +83,10 @@ vocabulary, test-first development, extensions, dependency knowledge,
 workspace modes, diagrams, team collaboration, delegation, Debug Mode, and AI
 infrastructure each keep their detailed policy outside this structural
 contract.
+
+Optional support generation also remains outside this structural contract. Its
+registry may coordinate existing generators, but it cannot become the owner of
+the facts or generation policies that those artifacts project.
 
 ## Capability Composition
 
@@ -120,6 +129,8 @@ The adapter must not:
 - represent staged, unresolved, or unchecked content as an accepted adapter
 - let assistant bridges or generated summaries become divergent sources of
   truth
+- let recursive indexes, semantic terms, or context packets become canonical
+  fact owners, redefine target vocabulary, or hide unresolved policy
 - weaken a selected rule owner's approval, authorization, safety, integrity,
   or validation contract through adapter-local wording
 - advertise operations or assistant behavior that the target cannot route and

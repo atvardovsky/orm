@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "index_kind": "alatyr-context-index",
+  "index_id": "project.workspace-modes-modes-doctrine-orm-library",
+  "contour": "project",
+  "title": "Project Doctrine Orm Library Context",
+  "summary": "Recursive navigation for the project contour at workspace-modes/modes/doctrine-orm-library.",
+  "max_depth": 8,
+  "entries": [
+    {
+      "id": "project.content.workspace-modes-modes-doctrine-orm-library-mode-json",
+      "kind": "content",
+      "path": "workspace-modes/modes/doctrine-orm-library/mode.json",
+      "summary": "Mode",
+      "selectors": {
+        "path_terms": [
+          "workspace",
+          "modes",
+          "doctrine",
+          "orm",
+          "library",
+          "mode"
+        ],
+        "rule_ids": [
+          "ALATYR-CONTEXT-001"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [
+        "alatyr:bounded-context-expansion@1"
+      ],
+      "owner_refs": [
+        "ALATYR-CONTEXT-001"
+      ],
+      "estimated_words": 223,
+      "content_digest": "sha256:84bc36e20cb397dafc4f9fab803564a1ea2d4d0359f57df7c190e8dba61dd9c1"
+    },
+    {
+      "id": "project.content.workspace-modes-modes-doctrine-orm-library-readme-md",
+      "kind": "content",
+      "path": "workspace-modes/modes/doctrine-orm-library/README.md",
+      "summary": "Workspace Mode: Doctrine ORM Library",
+      "selectors": {
+        "path_terms": [
+          "workspace",
+          "modes",
+          "doctrine",
+          "orm",
+          "library"
+        ],
+        "rule_ids": [
+          "ALATYR-CONTEXT-001"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [
+        "alatyr:bounded-context-expansion@1"
+      ],
+      "owner_refs": [
+        "ALATYR-CONTEXT-001"
+      ],
+      "estimated_words": 25,
+      "content_digest": "sha256:bd57008645ef8c54648d82caec99d845aff1fb870c11bda5ae1115505a893a46"
+    }
+  ]
+}

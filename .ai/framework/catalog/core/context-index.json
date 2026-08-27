@@ -1,0 +1,597 @@
+{
+  "schema_version": 1,
+  "index_kind": "alatyr-context-index",
+  "index_id": "framework.core",
+  "contour": "framework",
+  "title": "Core Framework Context",
+  "summary": "Bounded core framework rules and supporting guidance.",
+  "max_depth": 8,
+  "entries": [
+    {
+      "id": "framework.core.action-authorization-md",
+      "kind": "content",
+      "path": "action-authorization.md",
+      "summary": "Action Authorization",
+      "selectors": {
+        "path_terms": [
+          "action",
+          "authorization"
+        ],
+        "rule_ids": [
+          "ALATYR-AUTHORIZATION-001"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [
+        "alatyr:current-scope-authorization@1"
+      ],
+      "owner_refs": [
+        "ALATYR-AUTHORIZATION-001"
+      ],
+      "estimated_words": 1058,
+      "content_digest": "sha256:2b4383460725aea574a7c0c271b81bf51c0e6888249513df8f4a706411108160"
+    },
+    {
+      "id": "framework.core.approval-records-md",
+      "kind": "content",
+      "path": "approval-records.md",
+      "summary": "Approval Records",
+      "selectors": {
+        "path_terms": [
+          "approval",
+          "records"
+        ],
+        "rule_ids": [
+          "ALATYR-APPROVAL-001"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [
+        "alatyr:protected-change@1"
+      ],
+      "owner_refs": [
+        "ALATYR-APPROVAL-001"
+      ],
+      "estimated_words": 1024,
+      "content_digest": "sha256:0c4cf5bed8cdbe9223ad0470a16eeaeb89ee133e5cff44a9bba57b49c5d11887"
+    },
+    {
+      "id": "framework.core.bridge-capability-matrix-md",
+      "kind": "content",
+      "path": "bridge-capability-matrix.md",
+      "summary": "Bridge Capability Matrix",
+      "selectors": {
+        "path_terms": [
+          "bridge",
+          "capability",
+          "matrix"
+        ],
+        "rule_ids": [
+          "ALATYR-BRIDGE-001"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [],
+      "owner_refs": [
+        "ALATYR-BRIDGE-001"
+      ],
+      "estimated_words": 1597,
+      "content_digest": "sha256:e0e25e7e228919e427e5f79a810df9c730f2f8f56c4fa3d940b29249d5a4f911"
+    },
+    {
+      "id": "framework.core.change-risk-model-md",
+      "kind": "content",
+      "path": "change-risk-model.md",
+      "summary": "AI Framework Change Risk Model",
+      "selectors": {
+        "path_terms": [
+          "change",
+          "risk",
+          "model"
+        ],
+        "rule_ids": [
+          "ALATYR-RISK-001"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [],
+      "owner_refs": [
+        "ALATYR-RISK-001"
+      ],
+      "estimated_words": 636,
+      "content_digest": "sha256:5291465239946e3916f0c7da4c74d5e67db5977f813d7097e930c515dec4c145"
+    },
+    {
+      "id": "framework.core.context-discovery-md",
+      "kind": "content",
+      "path": "context-discovery.md",
+      "summary": "AI Framework Context Discovery",
+      "selectors": {
+        "path_terms": [
+          "discovery"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [],
+      "owner_refs": [],
+      "estimated_words": 739,
+      "content_digest": "sha256:3dcf71e3f3c2369e110237ce4c14fe7d9c951b246f4bf4089876197f74549efb"
+    },
+    {
+      "id": "framework.core.context-profiles-md",
+      "kind": "content",
+      "path": "context-profiles.md",
+      "summary": "Context Profiles",
+      "selectors": {
+        "path_terms": [
+          "profiles"
+        ],
+        "rule_ids": [
+          "ALATYR-CONTEXT-001"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [
+        "alatyr:bounded-context-expansion@1"
+      ],
+      "owner_refs": [
+        "ALATYR-CONTEXT-001"
+      ],
+      "estimated_words": 2793,
+      "content_digest": "sha256:a9e0f372f7f39247b64113f4f42cd29d7d61e7212e70e088b412760626ae24d7"
+    },
+    {
+      "id": "framework.core.context-router-md",
+      "kind": "content",
+      "path": "context-router.md",
+      "summary": "Context Router",
+      "selectors": {
+        "path_terms": [
+          "router"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [],
+      "owner_refs": [],
+      "estimated_words": 2121,
+      "content_digest": "sha256:b7aeada61c36b7e0272664fa88243cf7a6d1bccd69df903ca5535950f19e5889"
+    },
+    {
+      "id": "framework.core.contour-md",
+      "kind": "content",
+      "path": "contour.md",
+      "summary": "Alatyr Core Framework Contour",
+      "selectors": {
+        "path_terms": [
+          "contour"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [],
+      "owner_refs": [],
+      "estimated_words": 687,
+      "content_digest": "sha256:eac1b5d58ccf8035e4fdd6a2589d286a23aa87914a1f93dc7a8e618326e9c380"
+    },
+    {
+      "id": "framework.core.guarantees-md",
+      "kind": "content",
+      "path": "guarantees.md",
+      "summary": "AI Framework Guarantees And Limits",
+      "selectors": {
+        "path_terms": [
+          "guarantees"
+        ],
+        "rule_ids": [
+          "ALATYR-EVIDENCE-001"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [],
+      "owner_refs": [
+        "ALATYR-EVIDENCE-001"
+      ],
+      "estimated_words": 3219,
+      "content_digest": "sha256:f44fe75feaaaeb3082eb96047e1324b72b217abc0ca7ffc3ab16b992421fa147"
+    },
+    {
+      "id": "framework.core.installed-operations-md",
+      "kind": "content",
+      "path": "installed-operations.md",
+      "summary": "AI Framework Installed Operations",
+      "selectors": {
+        "path_terms": [
+          "installed",
+          "operations"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [],
+      "owner_refs": [],
+      "estimated_words": 4092,
+      "content_digest": "sha256:92decd2afa89902bd6fd46d6f4160d8467f455a37f8669e25f5298e0c767ce2c"
+    },
+    {
+      "id": "framework.core.logical-integrity-md",
+      "kind": "content",
+      "path": "logical-integrity.md",
+      "summary": "AI Framework Logical Integrity Review",
+      "selectors": {
+        "path_terms": [
+          "logical",
+          "integrity"
+        ],
+        "rule_ids": [
+          "ALATYR-INTEGRITY-001"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [
+        "alatyr:logical-integrity@1"
+      ],
+      "owner_refs": [
+        "ALATYR-INTEGRITY-001"
+      ],
+      "estimated_words": 1239,
+      "content_digest": "sha256:2d9660b8dc0e989de6d1c8d8ebe9e0c51dfc84b0dd0d5bdb419c02ebce637555"
+    },
+    {
+      "id": "framework.core.module-profile-md",
+      "kind": "content",
+      "path": "module-profile.md",
+      "summary": "Module Profile",
+      "selectors": {
+        "path_terms": [
+          "module",
+          "profile"
+        ],
+        "rule_ids": [
+          "ALATYR-MODULE-001"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [],
+      "owner_refs": [
+        "ALATYR-MODULE-001"
+      ],
+      "estimated_words": 1788,
+      "content_digest": "sha256:c9810db9964c18cb6645f231a38ee0b89a70dd0a9c84655e7930eef8959a6421"
+    },
+    {
+      "id": "framework.core.operation-help-md",
+      "kind": "content",
+      "path": "operation-help.md",
+      "summary": "AI Framework Operation Help",
+      "selectors": {
+        "path_terms": [
+          "operation",
+          "help"
+        ],
+        "rule_ids": [
+          "ALATYR-OPERATION-001"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [],
+      "owner_refs": [
+        "ALATYR-OPERATION-001"
+      ],
+      "estimated_words": 3306,
+      "content_digest": "sha256:9c433d0ecb5bc30ec152df503fcd0f6021dd9c503fa98175a2e13da54c2a0497"
+    },
+    {
+      "id": "framework.core.project-adapter-contract-md",
+      "kind": "content",
+      "path": "project-adapter-contract.md",
+      "summary": "Alatyr Core Project Adapter Contract",
+      "selectors": {
+        "path_terms": [
+          "project",
+          "adapter",
+          "contract"
+        ],
+        "rule_ids": [
+          "ALATYR-ADAPTER-001"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [],
+      "owner_refs": [
+        "ALATYR-ADAPTER-001"
+      ],
+      "estimated_words": 1006,
+      "content_digest": "sha256:c9f95defbaeda82e68a674b4409b7d4280f679e18b18347ccb68ced2c52b5893"
+    },
+    {
+      "id": "framework.core.prompt-injection-md",
+      "kind": "content",
+      "path": "prompt-injection.md",
+      "summary": "Prompt Injection Policy",
+      "selectors": {
+        "path_terms": [
+          "prompt",
+          "injection"
+        ],
+        "rule_ids": [
+          "ALATYR-SAFETY-002"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [
+        "alatyr:untrusted-instructions-are-data@1"
+      ],
+      "owner_refs": [
+        "ALATYR-SAFETY-002"
+      ],
+      "estimated_words": 506,
+      "content_digest": "sha256:fa8b00d5547236cff264a36a3e240efc09bb89f6b29867d447038b9a5f77893e"
+    },
+    {
+      "id": "framework.core.readme-md",
+      "kind": "content",
+      "path": "README.md",
+      "summary": "Alatyr Core Framework",
+      "selectors": {
+        "path_terms": []
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [],
+      "owner_refs": [],
+      "estimated_words": 1578,
+      "content_digest": "sha256:ee59382fa1a98935e754fe170c960c8e7d60a8fa6c7b90e2fd72891da769208a"
+    },
+    {
+      "id": "framework.core.rule-ownership-md",
+      "kind": "content",
+      "path": "rule-ownership.md",
+      "summary": "Rule Ownership",
+      "selectors": {
+        "path_terms": [
+          "rule",
+          "ownership"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [],
+      "owner_refs": [],
+      "estimated_words": 1679,
+      "content_digest": "sha256:c1ce8c5404338541d566572a3c9c047a723ed94bb2924e15ee9fa83e38b0723b"
+    },
+    {
+      "id": "framework.core.rule-registry-json",
+      "kind": "content",
+      "path": "rule-registry.json",
+      "summary": "Rule Registry",
+      "selectors": {
+        "path_terms": [
+          "rule",
+          "registry"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [],
+      "owner_refs": [],
+      "estimated_words": 3859,
+      "content_digest": "sha256:466efc3c601b6e5a971f75ab7b9ea911d8c37dfc474a155c3d9ddb6a00526f1c"
+    },
+    {
+      "id": "framework.core.rule-registry-md",
+      "kind": "content",
+      "path": "rule-registry.md",
+      "summary": "Rule Registry",
+      "selectors": {
+        "path_terms": [
+          "rule",
+          "registry"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [],
+      "owner_refs": [],
+      "estimated_words": 3096,
+      "content_digest": "sha256:e78523dda23c73d64f9e28bfacb2e66b940569b5e4003e66e65fd9a79731dcf4"
+    },
+    {
+      "id": "framework.core.security-safety-guidance-md",
+      "kind": "content",
+      "path": "security-safety-guidance.md",
+      "summary": "AI Framework Security And Safety Guidance",
+      "selectors": {
+        "path_terms": [
+          "security",
+          "safety",
+          "guidance"
+        ],
+        "rule_ids": [
+          "ALATYR-SAFETY-001"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [],
+      "owner_refs": [
+        "ALATYR-SAFETY-001"
+      ],
+      "estimated_words": 509,
+      "content_digest": "sha256:1b92d31d9b6fa0ebef92c256d2f0ab0c01427d494df9cc95c44d3600e2906c68"
+    },
+    {
+      "id": "framework.core.semantics-change-json",
+      "kind": "content",
+      "path": "semantics/change.json",
+      "summary": "Change",
+      "selectors": {
+        "path_terms": [
+          "semantics",
+          "change"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [],
+      "owner_refs": [],
+      "estimated_words": 331,
+      "content_digest": "sha256:5e0ac188c902ba8cb6514c94e7067f8097e74b47adcb0d1e5d39e35950c7922c"
+    },
+    {
+      "id": "framework.core.semantics-collaboration-json",
+      "kind": "content",
+      "path": "semantics/collaboration.json",
+      "summary": "Collaboration",
+      "selectors": {
+        "path_terms": [
+          "semantics",
+          "collaboration"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [],
+      "owner_refs": [],
+      "estimated_words": 147,
+      "content_digest": "sha256:9f87b5f6c8e04dc279201a447224aae8e676d7568ce608e79cbd741440b19820"
+    },
+    {
+      "id": "framework.core.semantics-core-json",
+      "kind": "content",
+      "path": "semantics/core.json",
+      "summary": "Core",
+      "selectors": {
+        "path_terms": [
+          "semantics",
+          "core"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [],
+      "owner_refs": [],
+      "estimated_words": 401,
+      "content_digest": "sha256:b7bd51b3006c3292781853843f2e1ab4df50c506d431f4cdbb48efede8737f21"
+    },
+    {
+      "id": "framework.core.semantics-index-json",
+      "kind": "content",
+      "path": "semantics/index.json",
+      "summary": "Index",
+      "selectors": {
+        "path_terms": [
+          "semantics"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [],
+      "owner_refs": [],
+      "estimated_words": 200,
+      "content_digest": "sha256:c9b656837e72b8075fc5fac9cba8b7ea97db03c6a5c7165ac01b7517ef71d994"
+    },
+    {
+      "id": "framework.core.semantics-infrastructure-json",
+      "kind": "content",
+      "path": "semantics/infrastructure.json",
+      "summary": "Infrastructure",
+      "selectors": {
+        "path_terms": [
+          "semantics",
+          "infrastructure"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [],
+      "owner_refs": [],
+      "estimated_words": 164,
+      "content_digest": "sha256:305e435c6cce0b0b0454727eff6184f71bf96b53cccd04eff082d3cd132a5877"
+    },
+    {
+      "id": "framework.core.semantics-knowledge-json",
+      "kind": "content",
+      "path": "semantics/knowledge.json",
+      "summary": "Knowledge",
+      "selectors": {
+        "path_terms": [
+          "semantics",
+          "knowledge"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [],
+      "owner_refs": [],
+      "estimated_words": 150,
+      "content_digest": "sha256:df16defad839350502cefea040b689189cb7cf3481e7c8ac0948759249b3a783"
+    },
+    {
+      "id": "framework.core.source-of-truth-registry-md",
+      "kind": "content",
+      "path": "source-of-truth-registry.md",
+      "summary": "Source Of Truth Registry",
+      "selectors": {
+        "path_terms": [
+          "source",
+          "truth",
+          "registry"
+        ],
+        "rule_ids": [
+          "ALATYR-SOURCE-001"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [
+        "alatyr:canonical-owner@1"
+      ],
+      "owner_refs": [
+        "ALATYR-SOURCE-001"
+      ],
+      "estimated_words": 1136,
+      "content_digest": "sha256:4ed11289dd267551eafa9fea08edf04a4c06689c3780348a05c8dbe97917e1db"
+    }
+  ]
+}

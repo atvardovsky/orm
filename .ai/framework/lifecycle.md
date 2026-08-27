@@ -37,6 +37,7 @@ Each installed framework should identify:
 - required core profile and optional module states
 - known deviations from the source framework
 - unresolved adapter gaps
+- support-information policy and current support-state digest
 
 The source repository may store these facts in simple files such as `VERSION`,
 `ADAPTER_SCHEMA_VERSION`, and `TEMPLATE_VERSION`. Installed adapters should
@@ -90,7 +91,9 @@ for the next `accepted` transition.
 
 Before upgrading framework files in a target project:
 
-1. Load the compact bootstrap and the generated upgrade impact only.
+1. Load the compact bootstrap and the generated upgrade impact only. Verify
+   the installed semantic-codebook index and resolve the bootstrap preload;
+   then use recursive contour indexes for every additional migration surface.
 2. Inspect the current target manifest, installed framework pack and baseline,
    projected inventory, local deviations, and adapter owner evidence.
 3. Prepare or review a migration assessment before changing target files. It
@@ -103,6 +106,12 @@ Before upgrading framework files in a target project:
    capabilities to select additional context. Load the full framework corpus
    only when impact is ambiguous, validation disproves the boundary, or a full
    compatibility audit is explicitly requested.
+   Rebuild affected framework, project, and assistant context indexes from the
+   installed result, not from an unrelated branch or unprojected source
+   template. Verify indexed paths, content digests, word estimates, parentage,
+   depth, semantic references, and codebook shard digests before accepting the
+   update. Preserve target-owned `project:*` terms and do not silently redefine
+   installed `alatyr:*` term versions.
 5. Identify framework-core changes versus target-adapter changes.
 6. Preserve target project facts.
 7. Compare supported assistant bridge needs and limitations. Merge source
@@ -126,6 +135,11 @@ Before upgrading framework files in a target project:
    backend contract, lazy overlay, operation routes, and operating model.
    When `change-packages` is enabled, compare its record schema, semantic
    approval fields, provenance policy, lazy route, and validator support.
+   Compare the required support policy and state contract. Preserve target-owned
+   classifications, exclusions, accepted relationships, relationship
+   candidates, and generator bindings. Rebuild affected context indexes,
+   consistency reverse index, and optional support-generation index before
+   generating support state last.
    For required durable engineering evidence, compare its policy, compact
    index, contract version, authoring-template record schema, lazy route,
    capture gate, repository binding state/lineage, Git object and ancestry
@@ -173,6 +187,9 @@ Before upgrading framework files in a target project:
 11. Require approval before overwriting existing target AI instructions.
 12. Recheck the installed adapter for framework references, bridge files, gates,
    prompts, skills, lifecycle notes, and maturity gaps.
+    Recheck recursive contour-index coverage, semantic-codebook resolution,
+    compact preload limits, context-packet compatibility, and the absence of
+    stale index entries left by removed or moved files.
 13. Recheck adapter owners, review cadence, CODEOWNERS or equivalent owner
     map, operation catalog, help, routing/health/preview flows, and post-update
     chat message
@@ -298,6 +315,9 @@ Framework lifecycle notes should record:
 - changed logical integrity, blueprint-driven change, or skill-adaptation
   guidance
 - changed approval, safety, testing, diagram, or validation expectations
+- support-information rule, policy/state schemas, consistency-map shards and
+  reverse index, relationship-candidate lifecycle, impact planner, optional
+  generation registry/index, and validator migration
 - bridge or supported-assistant compatibility changes
 - migration actions required by project adapters
 - migration-note requirements for installed adapters

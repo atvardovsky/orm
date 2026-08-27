@@ -9,8 +9,8 @@
   "vocabulary_owner": "@atvardovsky",
   "term_decision_authority": "@atvardovsky",
   "normalization_policy": "lowercase ids; preserve Doctrine product capitalization in display terms",
-  "last_reviewed": "2026-08-21",
-  "evidence_revision": "454db525ccce95aff1057cb57726900560374970",
+  "last_reviewed": "2026-08-26",
+  "evidence_revision": "68a7b23a93b0849adb6f42b31410a04dc9290a56",
   "entries": [
     {
       "term_id": "orm",
@@ -25,7 +25,7 @@
       "state": "accepted",
       "record": ".ai/project/vocabulary/terms.json#orm",
       "replacement_term_id": "none",
-      "last_verified_revision": "454db525ccce95aff1057cb57726900560374970"
+      "last_verified_revision": "68a7b23a93b0849adb6f42b31410a04dc9290a56"
     },
     {
       "term_id": "entity",
@@ -40,7 +40,7 @@
       "state": "accepted",
       "record": ".ai/project/vocabulary/terms.json#entity",
       "replacement_term_id": "none",
-      "last_verified_revision": "454db525ccce95aff1057cb57726900560374970"
+      "last_verified_revision": "68a7b23a93b0849adb6f42b31410a04dc9290a56"
     },
     {
       "term_id": "mapping-metadata",
@@ -55,7 +55,7 @@
       "state": "accepted",
       "record": ".ai/project/vocabulary/terms.json#mapping-metadata",
       "replacement_term_id": "none",
-      "last_verified_revision": "454db525ccce95aff1057cb57726900560374970"
+      "last_verified_revision": "68a7b23a93b0849adb6f42b31410a04dc9290a56"
     },
     {
       "term_id": "unit-of-work",
@@ -70,7 +70,7 @@
       "state": "accepted",
       "record": ".ai/project/vocabulary/terms.json#unit-of-work",
       "replacement_term_id": "none",
-      "last_verified_revision": "454db525ccce95aff1057cb57726900560374970"
+      "last_verified_revision": "68a7b23a93b0849adb6f42b31410a04dc9290a56"
     },
     {
       "term_id": "identity-map",
@@ -85,7 +85,7 @@
       "state": "accepted",
       "record": ".ai/project/vocabulary/terms.json#identity-map",
       "replacement_term_id": "none",
-      "last_verified_revision": "454db525ccce95aff1057cb57726900560374970"
+      "last_verified_revision": "68a7b23a93b0849adb6f42b31410a04dc9290a56"
     },
     {
       "term_id": "dql",
@@ -102,7 +102,7 @@
       "state": "accepted",
       "record": ".ai/project/vocabulary/terms.json#dql",
       "replacement_term_id": "none",
-      "last_verified_revision": "454db525ccce95aff1057cb57726900560374970"
+      "last_verified_revision": "68a7b23a93b0849adb6f42b31410a04dc9290a56"
     },
     {
       "term_id": "dbal",
@@ -119,7 +119,7 @@
       "state": "accepted",
       "record": ".ai/project/vocabulary/terms.json#dbal",
       "replacement_term_id": "none",
-      "last_verified_revision": "454db525ccce95aff1057cb57726900560374970"
+      "last_verified_revision": "68a7b23a93b0849adb6f42b31410a04dc9290a56"
     },
     {
       "term_id": "alatyr-adapter",
@@ -134,7 +134,7 @@
       "state": "accepted",
       "record": ".ai/project/vocabulary/terms.json#alatyr-adapter",
       "replacement_term_id": "none",
-      "last_verified_revision": "454db525ccce95aff1057cb57726900560374970"
+      "last_verified_revision": "68a7b23a93b0849adb6f42b31410a04dc9290a56"
     }
   ],
   "known_gaps": [

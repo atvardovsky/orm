@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "shard_kind": "target-consistency-map-shard",
+  "id": "template-project-area",
+  "project_area": "template only; not selected by the consistency root",
+  "nodes": [
+    {
+      "id": "template-consistency-node",
+      "fact_type": "template consistency node",
+      "level": "surface",
+      "project_area": "template only; not selected by the consistency root",
+      "canonical_owner": ".ai/project/consistency/areas/_template.json",
+      "coverage_state": "known-gap",
+      "coverage_evidence": [
+        "Copy this file to a target area shard, replace the example identity and evidence, and add it to the consistency root only after owner review."
+      ],
+      "bindings": [],
+      "relationships": []
+    }
+  ]
+}

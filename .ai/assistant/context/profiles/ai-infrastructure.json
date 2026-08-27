@@ -24,8 +24,13 @@
     ".ai/project/source-of-truth-registry.md",
     ".ai/project/consistency-map.json",
     ".ai/assistant/gates/core.md",
-    ".ai/assistant/gates/security-approval.md",
-    ".ai/assistant/gates/final-evidence.md"
+    ".ai/assistant/gates/security-approval.md"
+  ],
+  "conditional_context": [
+    {
+      "path": ".ai/assistant/gates/final-evidence.md",
+      "when": "preparing the final evidence report or resolving an evidence-contract conflict"
+    }
   ],
   "expand_when": [
     "selected item route requires additional context",

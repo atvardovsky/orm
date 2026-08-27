@@ -1,0 +1,165 @@
+{
+  "schema_version": 1,
+  "index_kind": "alatyr-context-index",
+  "index_id": "project.dependencies",
+  "contour": "project",
+  "title": "Project Dependencies Context",
+  "summary": "Recursive navigation for the project contour at dependencies.",
+  "max_depth": 8,
+  "entries": [
+    {
+      "id": "project.content.dependencies-catalog-json",
+      "kind": "content",
+      "path": "dependencies/catalog.json",
+      "summary": "Catalog",
+      "selectors": {
+        "path_terms": [
+          "dependencies",
+          "catalog"
+        ],
+        "rule_ids": [
+          "ALATYR-CONTEXT-001"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [
+        "alatyr:bounded-context-expansion@1"
+      ],
+      "owner_refs": [
+        "ALATYR-CONTEXT-001"
+      ],
+      "estimated_words": 427,
+      "content_digest": "sha256:50c265f0e6fa426daa83dcdb0d8ce2f80983a97f527e4eb0fefe239258c9fa8c"
+    },
+    {
+      "id": "project.content.dependencies-deviations-json",
+      "kind": "content",
+      "path": "dependencies/deviations.json",
+      "summary": "Deviations",
+      "selectors": {
+        "path_terms": [
+          "dependencies",
+          "deviations"
+        ],
+        "rule_ids": [
+          "ALATYR-CONTEXT-001"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [
+        "alatyr:bounded-context-expansion@1"
+      ],
+      "owner_refs": [
+        "ALATYR-CONTEXT-001"
+      ],
+      "estimated_words": 10,
+      "content_digest": "sha256:dc0867376d995f2bd950531f988e0bf3698da78c586345238a93dceb4cbd3024"
+    },
+    {
+      "id": "project.content.dependencies-knowledge-lock-json",
+      "kind": "content",
+      "path": "dependencies/knowledge-lock.json",
+      "summary": "Knowledge Lock",
+      "selectors": {
+        "path_terms": [
+          "dependencies",
+          "knowledge",
+          "lock"
+        ],
+        "rule_ids": [
+          "ALATYR-CONTEXT-001",
+          "ALATYR-KNOWLEDGE-001",
+          "ALATYR-SOURCE-001"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [
+        "alatyr:bounded-context-expansion@1",
+        "alatyr:canonical-owner@1",
+        "alatyr:observed-is-not-accepted@1"
+      ],
+      "owner_refs": [
+        "ALATYR-CONTEXT-001",
+        "ALATYR-KNOWLEDGE-001",
+        "ALATYR-SOURCE-001"
+      ],
+      "estimated_words": 732,
+      "content_digest": "sha256:bbc5a76febbf9f5380dd496eab8398e58b374fe7a9c3b154ebc42f2483764151"
+    },
+    {
+      "id": "project.content.dependencies-policy-json",
+      "kind": "content",
+      "path": "dependencies/policy.json",
+      "summary": "Policy",
+      "selectors": {
+        "path_terms": [
+          "dependencies",
+          "policy"
+        ],
+        "rule_ids": [
+          "ALATYR-CONTEXT-001"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [
+        "alatyr:bounded-context-expansion@1"
+      ],
+      "owner_refs": [
+        "ALATYR-CONTEXT-001"
+      ],
+      "estimated_words": 103,
+      "content_digest": "sha256:045ac1bffa285a72bd55727bb52116defceb08fb958d3ac8c09e398f5f2b95db"
+    },
+    {
+      "id": "project.content.dependencies-readme-md",
+      "kind": "content",
+      "path": "dependencies/README.md",
+      "summary": "Doctrine ORM Dependency Knowledge",
+      "selectors": {
+        "path_terms": [
+          "dependencies"
+        ],
+        "rule_ids": [
+          "ALATYR-CONTEXT-001"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [
+        "alatyr:bounded-context-expansion@1"
+      ],
+      "owner_refs": [
+        "ALATYR-CONTEXT-001"
+      ],
+      "estimated_words": 98,
+      "content_digest": "sha256:f80640f709b02913acafb6a709ad683b48784956d72cd7e606311900812b4332"
+    },
+    {
+      "id": "project.section.dependencies-snapshots",
+      "kind": "index",
+      "path": "dependencies/snapshots/context-index.json",
+      "summary": "Snapshots section",
+      "selectors": {
+        "path_terms": [
+          "snapshots"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [],
+      "owner_refs": [],
+      "estimated_words": 81,
+      "content_digest": "sha256:b1b08f9f67de234867e791b1d5183ed2a83d5cb6a4813acc0b222427968efe74"
+    }
+  ]
+}

@@ -32,6 +32,96 @@
         "evidence": "Alatyr Core 0.1.0-alpha.31 strict acceptance validation against source revision 3883b9e28f2104be51abdfcf82ecfbe47a5ce3a5 completed with zero errors, zero warnings, and zero blocking warnings after framework, manifest, current authoring contracts, indexes, routes, gates, and bootstrap were synchronized. Project Knowledge reports the expected informational enabled-empty state."
       },
       "recorded_at": "2026-08-26T13:06:46Z"
+    },
+    {
+      "sequence": 3,
+      "previous_state": "accepted",
+      "next_state": "staged",
+      "reason": "controlled-update",
+      "operation_id": "recheck-after-framework-update",
+      "repository_revision": "68a7b23a93b0849adb6f42b31410a04dc9290a56 before uncommitted alpha.32 adapter update",
+      "current_user_authorization": "The current user explicitly requested: update alatyr. This authorizes inspection and adapter-only working-tree modification, but not commit or publication.",
+      "approval_evidence": "The request explicitly approves synchronization of existing Alatyr adapter instructions to alpha.32, including recursive context routing and semantic-codebook infrastructure, while preserving Doctrine runtime behavior, target-owned facts, historical evidence, privacy, retention, and external-action boundaries.",
+      "validation": {
+        "status": "failed",
+        "evidence": "The branch-bound pre-change alpha.32 migration-staging assessment at target revision 68a7b23a9 reported the expected incompatible alpha.31 state: schema 30 recursive context catalogs and semantic routing were absent, producing 199 errors and 27 blocking warnings. This transition records that migration work is required; it does not claim acceptance."
+      },
+      "recorded_at": "2026-08-26T16:15:25Z"
+    },
+    {
+      "sequence": 4,
+      "previous_state": "staged",
+      "next_state": "accepted",
+      "reason": "strict-acceptance",
+      "operation_id": "recheck-after-framework-update",
+      "repository_revision": "68a7b23a93b0849adb6f42b31410a04dc9290a56 before uncommitted alpha.32 adapter update",
+      "current_user_authorization": "The current user explicitly requested: update alatyr. This authorizes inspection and adapter-only working-tree modification, but not commit or publication.",
+      "approval_evidence": "The request explicitly approves synchronization of existing Alatyr adapter instructions to alpha.32, including recursive context routing and semantic-codebook infrastructure, while preserving Doctrine runtime behavior, target-owned facts, historical evidence, privacy, retention, and external-action boundaries.",
+      "validation": {
+        "status": "passed",
+        "evidence": "Alatyr Core 0.1.0-alpha.32 strict acceptance validation against source revision 138490a871802abe73958cea4da603cba4d26483 completed with zero errors, zero warnings, and zero blocking warnings after the framework, schema-8 router, 52 recursive indexes, semantic codebook, context packet, target owners, lifecycle evidence, and generated bootstrap were synchronized. Project Knowledge retains the expected informational enabled-empty state."
+      },
+      "recorded_at": "2026-08-26T16:24:11Z"
+    },
+    {
+      "sequence": 5,
+      "previous_state": "accepted",
+      "next_state": "staged",
+      "reason": "controlled-update",
+      "operation_id": "recheck-after-framework-update",
+      "repository_revision": "68a7b23a93b0849adb6f42b31410a04dc9290a56 before uncommitted Doctrine reality reconciliation",
+      "current_user_authorization": "The current user explicitly requested: make sure that alatyr are synced with an reality. This authorizes inspection and adapter-only working-tree reconciliation, but not commit or publication.",
+      "approval_evidence": "The request explicitly authorizes synchronization of project-owned Alatyr records with current Doctrine source, documentation, configuration, lockfile metadata, and local validation evidence while preserving Doctrine runtime behavior and dependency files.",
+      "validation": {
+        "status": "failed",
+        "evidence": "The repository reality audit found stale accepted evidence after the Doctrine 3.7.x merge: dependency knowledge omitted symfony/polyfill-php86 and retained older Symfony Console and Cache identities; project evidence revisions predated current Doctrine source and documentation; pagination was absent from architecture and business-rule routing; workspace scope omitted declared CI and validation surfaces. Strict acceptance had not yet been rerun for the reconciled projection."
+      },
+      "recorded_at": "2026-08-26T18:15:02Z"
+    },
+    {
+      "sequence": 6,
+      "previous_state": "staged",
+      "next_state": "accepted",
+      "reason": "strict-acceptance",
+      "operation_id": "recheck-after-framework-update",
+      "repository_revision": "68a7b23a93b0849adb6f42b31410a04dc9290a56 before uncommitted Doctrine reality reconciliation",
+      "current_user_authorization": "The current user explicitly requested: make sure that alatyr are synced with an reality. This authorizes inspection and adapter-only working-tree reconciliation, but not commit or publication.",
+      "approval_evidence": "The request explicitly authorizes synchronization of project-owned Alatyr records with current Doctrine source, documentation, configuration, lockfile metadata, and local validation evidence while preserving Doctrine runtime behavior and dependency files.",
+      "validation": {
+        "status": "passed",
+        "evidence": "Alatyr Core 0.1.0-alpha.32 strict acceptance validation against source revision 138490a871802abe73958cea4da603cba4d26483 completed with zero errors, zero warnings, and zero blocking warnings after Doctrine reality reconciliation. All 52 recursive indexes and the bootstrap are current; the portable framework is exact; dependency projection covers all 23 direct requirements with zero identity drift; Composer validation and git diff checks pass; 144 pagination tests pass with 228 assertions and one platform skip; the two recorded SQLite SQRT errors remain reproducible environment evidence."
+      },
+      "recorded_at": "2026-08-26T18:17:42Z"
+    },
+    {
+      "sequence": 7,
+      "previous_state": "accepted",
+      "next_state": "staged",
+      "reason": "controlled-update",
+      "operation_id": "recheck-after-framework-update",
+      "repository_revision": "68a7b23a93b0849adb6f42b31410a04dc9290a56 before uncommitted alpha.33 adapter update",
+      "current_user_authorization": "The current user explicitly requested: update alatyr. This authorizes inspection and adapter-only working-tree modification, but not commit or publication.",
+      "approval_evidence": "The request explicitly approves synchronization of existing Alatyr adapter instructions to alpha.33, including support-information state, sharded consistency routing, and guarded support-generation infrastructure, while preserving Doctrine runtime behavior, target-owned facts, historical evidence, privacy, retention, and external-action boundaries.",
+      "validation": {
+        "status": "failed",
+        "evidence": "The branch-bound pre-change alpha.33 migration-staging assessment at target revision 68a7b23a9 reported the expected incompatible alpha.32 state: the support-information manifest entry, target support policy, support snapshot, schema-3 sharded consistency graph, reverse index, and alpha.33 framework surfaces were absent or stale, producing 3 errors and 22 blocking warnings. This transition records required migration work and does not claim acceptance."
+      },
+      "recorded_at": "2026-08-27T11:13:42Z"
+    },
+    {
+      "sequence": 8,
+      "previous_state": "staged",
+      "next_state": "accepted",
+      "reason": "strict-acceptance",
+      "operation_id": "recheck-after-framework-update",
+      "repository_revision": "68a7b23a93b0849adb6f42b31410a04dc9290a56 before uncommitted alpha.33 adapter update",
+      "current_user_authorization": "The current user explicitly requested: update alatyr. This authorizes inspection and adapter-only working-tree modification, but not commit or publication.",
+      "approval_evidence": "The request explicitly approves synchronization of existing Alatyr adapter instructions to alpha.33, including support-information state, sharded consistency routing, and guarded support-generation infrastructure, while preserving Doctrine runtime behavior, target-owned facts, historical evidence, privacy, retention, and external-action boundaries.",
+      "validation": {
+        "status": "passed",
+        "evidence": "Alatyr Core 0.1.0-alpha.33 migration-staging validation against source revision 1d87082eff62cff2a26e108992e4a0e5241f535b completed with zero errors, zero warnings, and zero blocking warnings before acceptance. The complete framework, schema-3 graph with 13 preserved fact IDs and 48 preserved accepted relationships, 55 recursive indexes, consistency reverse index, empty guarded support-generation index, bootstrap, and 366-file support snapshot were current. Final strict acceptance is rerun after this transition and final regeneration."
+      },
+      "recorded_at": "2026-08-27T11:24:23Z"
     }
   ]
 }

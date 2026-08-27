@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "index_kind": "alatyr-context-index",
+  "index_id": "project.architecture",
+  "contour": "project",
+  "title": "Project Architecture Context",
+  "summary": "Recursive navigation for the project contour at architecture.",
+  "max_depth": 8,
+  "entries": [
+    {
+      "id": "project.content.architecture-catalog-json",
+      "kind": "content",
+      "path": "architecture/catalog.json",
+      "summary": "Catalog",
+      "selectors": {
+        "path_terms": [
+          "architecture",
+          "catalog"
+        ],
+        "rule_ids": [
+          "ALATYR-CONTEXT-001",
+          "ALATYR-KNOWLEDGE-001",
+          "ALATYR-SOURCE-001"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [
+        "alatyr:bounded-context-expansion@1",
+        "alatyr:canonical-owner@1",
+        "alatyr:observed-is-not-accepted@1"
+      ],
+      "owner_refs": [
+        "ALATYR-CONTEXT-001",
+        "ALATYR-KNOWLEDGE-001",
+        "ALATYR-SOURCE-001"
+      ],
+      "estimated_words": 867,
+      "content_digest": "sha256:dd5d30d78f84deb5cf6e2ab801e10aedde7fbdcf235589fab5af8eb125784a98"
+    },
+    {
+      "id": "project.content.architecture-readme-md",
+      "kind": "content",
+      "path": "architecture/README.md",
+      "summary": "Doctrine ORM Architecture Knowledge",
+      "selectors": {
+        "path_terms": [
+          "architecture"
+        ],
+        "rule_ids": [
+          "ALATYR-CONTEXT-001",
+          "ALATYR-KNOWLEDGE-001",
+          "ALATYR-SOURCE-001"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [
+        "alatyr:bounded-context-expansion@1",
+        "alatyr:canonical-owner@1",
+        "alatyr:observed-is-not-accepted@1"
+      ],
+      "owner_refs": [
+        "ALATYR-CONTEXT-001",
+        "ALATYR-KNOWLEDGE-001",
+        "ALATYR-SOURCE-001"
+      ],
+      "estimated_words": 264,
+      "content_digest": "sha256:f4fb96bc476b66def5edd1674f319768046ac2d8b5b627d393f795b78f43ae8b"
+    }
+  ]
+}

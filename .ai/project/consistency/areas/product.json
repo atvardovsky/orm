@@ -1,0 +1,614 @@
+{
+  "schema_version": 1,
+  "shard_kind": "target-consistency-map-shard",
+  "id": "product",
+  "project_area": "Doctrine behavior, architecture, mapping, and persistence",
+  "nodes": [
+    {
+      "id": "product-behavior",
+      "fact_type": "product behavior",
+      "level": "fact",
+      "project_area": "docs/src/tests",
+      "canonical_owner": ".ai/project/business-logic.md",
+      "coverage_state": "mapped",
+      "coverage_evidence": [
+        "Preserved schema-2 relationship coverage during the Alatyr 0.1.0-alpha.33 migration; no new relationship was accepted."
+      ],
+      "bindings": [
+        {
+          "id": "binding-product-behavior-blueprint-routing",
+          "surface_kind": "doc",
+          "path": ".ai/project/blueprint.md",
+          "selector_kind": "file",
+          "selector": "whole-file",
+          "authority": "derived",
+          "context_ids": []
+        },
+        {
+          "id": "binding-product-behavior-docs",
+          "surface_kind": "doc",
+          "path": "docs/en/**/*.rst",
+          "selector_kind": "glob",
+          "selector": "whole-file",
+          "authority": "evidence",
+          "context_ids": []
+        },
+        {
+          "id": "binding-product-behavior-tests",
+          "surface_kind": "test",
+          "path": "tests/**",
+          "selector_kind": "glob",
+          "selector": "whole-file",
+          "authority": "evidence",
+          "context_ids": []
+        }
+      ],
+      "relationships": [
+        {
+          "id": "product-behavior-blueprint-routing",
+          "type": "routes",
+          "target": "surface-ai-project-blueprint-md",
+          "target_level": "adapter",
+          "target_area": "project",
+          "direction": "outbound",
+          "required_when": [
+            "accepted public behavior source routing changes"
+          ],
+          "validation": [
+            "manual owner evidence review and adapter validator"
+          ],
+          "approval_trigger": "accepted public behavior source-of-truth routing change",
+          "state": "accepted"
+        },
+        {
+          "id": "product-behavior-docs",
+          "type": "documents",
+          "target": "surface-docs-en-rst",
+          "target_level": "contract",
+          "target_area": "docs",
+          "direction": "outbound",
+          "required_when": [
+            "accepted public behavior changes"
+          ],
+          "validation": [
+            "manual docs review and relevant PHPUnit"
+          ],
+          "approval_trigger": "accepted public behavior change",
+          "state": "accepted"
+        },
+        {
+          "id": "product-behavior-tests",
+          "type": "verifies",
+          "target": "surface-tests",
+          "target_level": "system",
+          "target_area": "tests",
+          "direction": "outbound",
+          "required_when": [
+            "accepted behavior or public contract changes"
+          ],
+          "validation": [
+            "/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpunit or relevant subset with skip reason"
+          ],
+          "approval_trigger": "weakened validation or changed public behavior",
+          "state": "accepted"
+        }
+      ]
+    },
+    {
+      "id": "business-rule-routing",
+      "fact_type": "business rule",
+      "level": "adapter",
+      "project_area": "business-logic",
+      "canonical_owner": ".ai/project/business-logic.md",
+      "coverage_state": "mapped",
+      "coverage_evidence": [
+        "Preserved schema-2 relationship coverage during the Alatyr 0.1.0-alpha.33 migration; no new relationship was accepted."
+      ],
+      "bindings": [
+        {
+          "id": "binding-business-rule-to-blueprint",
+          "surface_kind": "doc",
+          "path": ".ai/project/blueprint.md",
+          "selector_kind": "file",
+          "selector": "whole-file",
+          "authority": "derived",
+          "context_ids": []
+        },
+        {
+          "id": "binding-business-rule-to-profile",
+          "surface_kind": "config",
+          "path": ".ai/assistant/context/profiles/business-change.json",
+          "selector_kind": "file",
+          "selector": "whole-file",
+          "authority": "derived",
+          "context_ids": []
+        },
+        {
+          "id": "binding-business-rule-to-integrity-gate",
+          "surface_kind": "gate",
+          "path": ".ai/assistant/gates/semantic-integrity.md",
+          "selector_kind": "file",
+          "selector": "whole-file",
+          "authority": "derived",
+          "context_ids": []
+        }
+      ],
+      "relationships": [
+        {
+          "id": "business-rule-to-blueprint",
+          "type": "routes",
+          "target": "surface-ai-project-blueprint-md",
+          "target_level": "adapter",
+          "target_area": "project",
+          "direction": "outbound",
+          "required_when": [
+            "business-rule family or owner changes"
+          ],
+          "validation": [
+            "adapter validator plus owner evidence review"
+          ],
+          "approval_trigger": "accepted behavior or validation routing change",
+          "state": "accepted"
+        },
+        {
+          "id": "business-rule-to-profile",
+          "type": "routes",
+          "target": "surface-ai-assistant-context-profiles-business-change-json",
+          "target_level": "adapter",
+          "target_area": "assistant-adapter",
+          "direction": "outbound",
+          "required_when": [
+            "business-rule workflow routing changes"
+          ],
+          "validation": [
+            "JSON parse, context router review, and manual owner evidence review"
+          ],
+          "approval_trigger": "accepted behavior or public contract change",
+          "state": "accepted"
+        },
+        {
+          "id": "business-rule-to-integrity-gate",
+          "type": "constrains",
+          "target": "surface-ai-assistant-gates-semantic-integrity-md",
+          "target_level": "adapter",
+          "target_area": "assistant-adapter",
+          "direction": "outbound",
+          "required_when": [
+            "business-rule invariants or approval triggers change"
+          ],
+          "validation": [
+            "manual semantic-integrity review"
+          ],
+          "approval_trigger": "weakened semantic integrity or approval requirement",
+          "state": "accepted"
+        }
+      ]
+    },
+    {
+      "id": "business-logic-layer",
+      "fact_type": "business logic layer",
+      "level": "adapter",
+      "project_area": "business-logic/docs/src/tests",
+      "canonical_owner": ".ai/project/business-logic.md",
+      "coverage_state": "mapped",
+      "coverage_evidence": [
+        "Preserved schema-2 relationship coverage during the Alatyr 0.1.0-alpha.33 migration; no new relationship was accepted."
+      ],
+      "bindings": [
+        {
+          "id": "binding-business-logic-layer-blueprint",
+          "surface_kind": "doc",
+          "path": ".ai/project/blueprint.md",
+          "selector_kind": "file",
+          "selector": "whole-file",
+          "authority": "derived",
+          "context_ids": []
+        },
+        {
+          "id": "binding-business-logic-layer-registry",
+          "surface_kind": "doc",
+          "path": ".ai/project/source-of-truth-registry.md",
+          "selector_kind": "file",
+          "selector": "whole-file",
+          "authority": "derived",
+          "context_ids": []
+        },
+        {
+          "id": "binding-business-logic-layer-context",
+          "surface_kind": "config",
+          "path": ".ai/assistant/context/profiles/business-change.json",
+          "selector_kind": "file",
+          "selector": "whole-file",
+          "authority": "derived",
+          "context_ids": []
+        }
+      ],
+      "relationships": [
+        {
+          "id": "business-logic-layer-blueprint",
+          "type": "routes",
+          "target": "surface-ai-project-blueprint-md",
+          "target_level": "adapter",
+          "target_area": "project",
+          "direction": "outbound",
+          "required_when": [
+            "business-logic layer ownership or rule-family routing changes"
+          ],
+          "validation": [
+            "adapter validator plus manual blueprint sync review"
+          ],
+          "approval_trigger": "accepted behavior, public contract, or source routing change",
+          "state": "accepted"
+        },
+        {
+          "id": "business-logic-layer-registry",
+          "type": "documents",
+          "target": "surface-ai-project-source-of-truth-registry-md",
+          "target_level": "adapter",
+          "target_area": "project",
+          "direction": "outbound",
+          "required_when": [
+            "business-logic derived surfaces or canonical owner statements change"
+          ],
+          "validation": [
+            "registry and consistency-map sync review"
+          ],
+          "approval_trigger": "source-of-truth ownership or derived surface change",
+          "state": "accepted"
+        },
+        {
+          "id": "business-logic-layer-context",
+          "type": "routes",
+          "target": "surface-ai-assistant-context-profiles-business-change-json",
+          "target_level": "adapter",
+          "target_area": "assistant-adapter",
+          "direction": "outbound",
+          "required_when": [
+            "business-change routing changes"
+          ],
+          "validation": [
+            "JSON parse and context-router review"
+          ],
+          "approval_trigger": "accepted behavior workflow routing change",
+          "state": "accepted"
+        }
+      ]
+    },
+    {
+      "id": "architecture-boundaries",
+      "fact_type": "architecture decision",
+      "level": "area",
+      "project_area": "architecture",
+      "canonical_owner": "docs/en/reference/architecture.rst",
+      "coverage_state": "mapped",
+      "coverage_evidence": [
+        "Preserved schema-2 relationship coverage during the Alatyr 0.1.0-alpha.33 migration; no new relationship was accepted."
+      ],
+      "bindings": [
+        {
+          "id": "binding-architecture-to-source",
+          "surface_kind": "code",
+          "path": "src/**",
+          "selector_kind": "glob",
+          "selector": "whole-file",
+          "authority": "evidence",
+          "context_ids": []
+        },
+        {
+          "id": "binding-architecture-to-catalog",
+          "surface_kind": "config",
+          "path": ".ai/project/architecture/catalog.json",
+          "selector_kind": "file",
+          "selector": "whole-file",
+          "authority": "derived",
+          "context_ids": []
+        },
+        {
+          "id": "binding-architecture-to-composer",
+          "surface_kind": "config",
+          "path": "composer.json",
+          "selector_kind": "file",
+          "selector": "whole-file",
+          "authority": "evidence",
+          "context_ids": []
+        }
+      ],
+      "relationships": [
+        {
+          "id": "architecture-to-source",
+          "type": "implements",
+          "target": "surface-src",
+          "target_level": "system",
+          "target_area": "src",
+          "direction": "outbound",
+          "required_when": [
+            "module boundary dependency or public API changes"
+          ],
+          "validation": [
+            "PHPStan and architecture manual review"
+          ],
+          "approval_trigger": "accepted architecture boundary change",
+          "state": "accepted"
+        },
+        {
+          "id": "architecture-to-catalog",
+          "type": "documents",
+          "target": "surface-ai-project-architecture-catalog-json",
+          "target_level": "adapter",
+          "target_area": "architecture",
+          "direction": "outbound",
+          "required_when": [
+            "architecture catalog evidence or source routing changes"
+          ],
+          "validation": [
+            "JSON parse and architecture catalog manual review"
+          ],
+          "approval_trigger": "accepted architecture owner or catalog change",
+          "state": "accepted"
+        },
+        {
+          "id": "architecture-to-composer",
+          "type": "depends-on",
+          "target": "surface-composer-json",
+          "target_level": "system",
+          "target_area": "dependencies",
+          "direction": "outbound",
+          "required_when": [
+            "package boundary or dependency direction changes"
+          ],
+          "validation": [
+            "/usr/local/bin/composer8 validate --strict and dependency review"
+          ],
+          "approval_trigger": "new dependency or changed platform requirement",
+          "state": "accepted"
+        }
+      ]
+    },
+    {
+      "id": "mapping-persistence",
+      "fact_type": "data model",
+      "level": "contract",
+      "project_area": "mapping/persistence",
+      "canonical_owner": "docs/en/reference/basic-mapping.rst",
+      "coverage_state": "mapped",
+      "coverage_evidence": [
+        "Preserved schema-2 relationship coverage during the Alatyr 0.1.0-alpha.33 migration; no new relationship was accepted."
+      ],
+      "bindings": [
+        {
+          "id": "binding-mapping-persistence-source",
+          "surface_kind": "code",
+          "path": "src/Mapping/**",
+          "selector_kind": "glob",
+          "selector": "whole-file",
+          "authority": "evidence",
+          "context_ids": []
+        },
+        {
+          "id": "binding-mapping-persistence-tests",
+          "surface_kind": "test",
+          "path": "tests/Tests/ORM/**",
+          "selector_kind": "glob",
+          "selector": "whole-file",
+          "authority": "evidence",
+          "context_ids": []
+        },
+        {
+          "id": "binding-mapping-persistence-unitofwork-docs",
+          "surface_kind": "doc",
+          "path": "docs/en/reference/unitofwork.rst",
+          "selector_kind": "file",
+          "selector": "whole-file",
+          "authority": "evidence",
+          "context_ids": []
+        }
+      ],
+      "relationships": [
+        {
+          "id": "mapping-persistence-source",
+          "type": "implements",
+          "target": "surface-src-mapping",
+          "target_level": "system",
+          "target_area": "mapping",
+          "direction": "outbound",
+          "required_when": [
+            "mapping metadata or persistence behavior changes"
+          ],
+          "validation": [
+            "manual source review and relevant PHPUnit"
+          ],
+          "approval_trigger": "persistence behavior, schema, identity, query, or data-loss risk change",
+          "state": "accepted"
+        },
+        {
+          "id": "mapping-persistence-tests",
+          "type": "verifies",
+          "target": "surface-tests-tests-orm",
+          "target_level": "system",
+          "target_area": "tests",
+          "direction": "outbound",
+          "required_when": [
+            "mapping metadata identity or persistence behavior changes"
+          ],
+          "validation": [
+            "/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpunit with relevant tests"
+          ],
+          "approval_trigger": "persistence behavior schema identity query or data-loss risk change",
+          "state": "accepted"
+        },
+        {
+          "id": "mapping-persistence-unitofwork-docs",
+          "type": "documents",
+          "target": "surface-docs-en-reference-unitofwork-rst",
+          "target_level": "contract",
+          "target_area": "docs",
+          "direction": "outbound",
+          "required_when": [
+            "UnitOfWork identity lifecycle or persistence semantics change"
+          ],
+          "validation": [
+            "manual docs review and relevant PHPUnit"
+          ],
+          "approval_trigger": "persistence lifecycle or identity behavior change",
+          "state": "accepted"
+        }
+      ]
+    },
+    {
+      "id": "surface-ai-project-blueprint-md",
+      "fact_type": "support surface: .ai/project/blueprint.md",
+      "level": "surface",
+      "project_area": "Doctrine behavior, architecture, mapping, and persistence",
+      "canonical_owner": ".ai/project/blueprint.md",
+      "coverage_state": "isolated-verified",
+      "coverage_evidence": [
+        "Migrated from the accepted schema-2 relationship target .ai/project/blueprint.md; the migration introduces no new relationship."
+      ],
+      "bindings": [],
+      "relationships": []
+    },
+    {
+      "id": "surface-docs-en-rst",
+      "fact_type": "support surface: docs/en/**/*.rst",
+      "level": "surface",
+      "project_area": "Doctrine behavior, architecture, mapping, and persistence",
+      "canonical_owner": "docs/en",
+      "coverage_state": "isolated-verified",
+      "coverage_evidence": [
+        "Migrated from the accepted schema-2 relationship target docs/en/**/*.rst; the migration introduces no new relationship."
+      ],
+      "bindings": [],
+      "relationships": []
+    },
+    {
+      "id": "surface-tests",
+      "fact_type": "support surface: tests/",
+      "level": "surface",
+      "project_area": "Doctrine behavior, architecture, mapping, and persistence",
+      "canonical_owner": "tests",
+      "coverage_state": "isolated-verified",
+      "coverage_evidence": [
+        "Migrated from the accepted schema-2 relationship target tests/; the migration introduces no new relationship."
+      ],
+      "bindings": [],
+      "relationships": []
+    },
+    {
+      "id": "surface-ai-assistant-context-profiles-business-change-json",
+      "fact_type": "support surface: .ai/assistant/context/profiles/business-change.json",
+      "level": "surface",
+      "project_area": "Doctrine behavior, architecture, mapping, and persistence",
+      "canonical_owner": ".ai/assistant/context/profiles/business-change.json",
+      "coverage_state": "isolated-verified",
+      "coverage_evidence": [
+        "Migrated from the accepted schema-2 relationship target .ai/assistant/context/profiles/business-change.json; the migration introduces no new relationship."
+      ],
+      "bindings": [],
+      "relationships": []
+    },
+    {
+      "id": "surface-ai-assistant-gates-semantic-integrity-md",
+      "fact_type": "support surface: .ai/assistant/gates/semantic-integrity.md",
+      "level": "surface",
+      "project_area": "Doctrine behavior, architecture, mapping, and persistence",
+      "canonical_owner": ".ai/assistant/gates/semantic-integrity.md",
+      "coverage_state": "isolated-verified",
+      "coverage_evidence": [
+        "Migrated from the accepted schema-2 relationship target .ai/assistant/gates/semantic-integrity.md; the migration introduces no new relationship."
+      ],
+      "bindings": [],
+      "relationships": []
+    },
+    {
+      "id": "surface-ai-project-source-of-truth-registry-md",
+      "fact_type": "support surface: .ai/project/source-of-truth-registry.md",
+      "level": "surface",
+      "project_area": "Doctrine behavior, architecture, mapping, and persistence",
+      "canonical_owner": ".ai/project/source-of-truth-registry.md",
+      "coverage_state": "isolated-verified",
+      "coverage_evidence": [
+        "Migrated from the accepted schema-2 relationship target .ai/project/source-of-truth-registry.md; the migration introduces no new relationship."
+      ],
+      "bindings": [],
+      "relationships": []
+    },
+    {
+      "id": "surface-src",
+      "fact_type": "support surface: src/",
+      "level": "surface",
+      "project_area": "Doctrine behavior, architecture, mapping, and persistence",
+      "canonical_owner": "src",
+      "coverage_state": "isolated-verified",
+      "coverage_evidence": [
+        "Migrated from the accepted schema-2 relationship target src/; the migration introduces no new relationship."
+      ],
+      "bindings": [],
+      "relationships": []
+    },
+    {
+      "id": "surface-ai-project-architecture-catalog-json",
+      "fact_type": "support surface: .ai/project/architecture/catalog.json",
+      "level": "surface",
+      "project_area": "Doctrine behavior, architecture, mapping, and persistence",
+      "canonical_owner": ".ai/project/architecture/catalog.json",
+      "coverage_state": "isolated-verified",
+      "coverage_evidence": [
+        "Migrated from the accepted schema-2 relationship target .ai/project/architecture/catalog.json; the migration introduces no new relationship."
+      ],
+      "bindings": [],
+      "relationships": []
+    },
+    {
+      "id": "surface-composer-json",
+      "fact_type": "support surface: composer.json",
+      "level": "surface",
+      "project_area": "Doctrine behavior, architecture, mapping, and persistence",
+      "canonical_owner": "composer.json",
+      "coverage_state": "isolated-verified",
+      "coverage_evidence": [
+        "Migrated from the accepted schema-2 relationship target composer.json; the migration introduces no new relationship."
+      ],
+      "bindings": [],
+      "relationships": []
+    },
+    {
+      "id": "surface-src-mapping",
+      "fact_type": "support surface: src/Mapping/",
+      "level": "surface",
+      "project_area": "Doctrine behavior, architecture, mapping, and persistence",
+      "canonical_owner": "src/Mapping",
+      "coverage_state": "isolated-verified",
+      "coverage_evidence": [
+        "Migrated from the accepted schema-2 relationship target src/Mapping/; the migration introduces no new relationship."
+      ],
+      "bindings": [],
+      "relationships": []
+    },
+    {
+      "id": "surface-tests-tests-orm",
+      "fact_type": "support surface: tests/Tests/ORM/",
+      "level": "surface",
+      "project_area": "Doctrine behavior, architecture, mapping, and persistence",
+      "canonical_owner": "tests/Tests/ORM",
+      "coverage_state": "isolated-verified",
+      "coverage_evidence": [
+        "Migrated from the accepted schema-2 relationship target tests/Tests/ORM/; the migration introduces no new relationship."
+      ],
+      "bindings": [],
+      "relationships": []
+    },
+    {
+      "id": "surface-docs-en-reference-unitofwork-rst",
+      "fact_type": "support surface: docs/en/reference/unitofwork.rst",
+      "level": "surface",
+      "project_area": "Doctrine behavior, architecture, mapping, and persistence",
+      "canonical_owner": "docs/en/reference/unitofwork.rst",
+      "coverage_state": "isolated-verified",
+      "coverage_evidence": [
+        "Migrated from the accepted schema-2 relationship target docs/en/reference/unitofwork.rst; the migration introduces no new relationship."
+      ],
+      "bindings": [],
+      "relationships": []
+    }
+  ]
+}

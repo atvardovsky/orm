@@ -18,7 +18,7 @@ Framework pack: complete
 Pack inventory: `.ai/framework/file-inventory.json`
 Required pack expansion: none
 Last reviewed: 2026-08-26
-Reviewed by: Codex alpha.31 adapter migration for @atvardovsky
+Reviewed by: Codex alpha.32 adapter migration for @atvardovsky
 
 Core item: `contours`
 State: required-enabled
@@ -60,7 +60,12 @@ Required files:
 - `.ai/assistant/context-profiles.md`
 - `.ai/assistant/context-router.json`
 - `.ai/assistant/context/profiles/*.json`
-Evidence: profiles, intent overlays, task-scale overlays, workspace mode routing, and area overlays installed
+- `.ai/framework/context-index.json`
+- `.ai/project/context-index.json`
+- `.ai/assistant/context-index.json`
+- `.ai/framework/semantics/index.json`
+- `.ai/assistant/templates/context-packet.json`
+Evidence: profiles, recursive contour indexes, semantic codebook, deterministic context packet, intent overlays, task-scale overlays, workspace mode routing, and area overlays installed
 Validation or review: adapter validator plus manual owner-evidence review
 Approval needs: approval required before weakening gates, protected approvals, validation, or source-of-truth ownership
 Residual risk: backup owner is still unresolved; full runtime tests remain subject to local SQLite SQRT blocker
@@ -145,6 +150,17 @@ Validation or review: adapter validator plus manual project-knowledge policy rev
 Approval needs: approval required before accepting a promotion, changing a canonical owner, or altering project-knowledge retention and privacy policy
 Residual risk: no accepted route entries exist yet; useful reusable conclusions must still be proposed, reviewed, and promoted before routine delivery
 
+Core item: `support-information-state`
+State: required-enabled
+Owner or file: .ai/project/support-policy.json
+Required files:
+- `.ai/project/support-policy.json`
+- `.ai/support-state.json`
+Evidence: Git-visible Alatyr support and installed assistant entry points are classified by the target-owned policy; the generated state is refreshed only after graph, routing, indexes, and generated support are current
+Validation or review: strict adapter validation plus `snapshot_target_support.py` freshness check and bounded impact review
+Approval needs: current adapter-only modification authorization is required before refreshing support state; protected support-policy changes require their applicable approval
+Residual risk: the broad exact-contract classification is conservative and does not itself prove semantic correctness or complete relationship coverage
+
 ## Optional Modules
 
 Module: `blueprint-change`
@@ -165,7 +181,12 @@ Owner or file: .ai/project/consistency-map.json
 Required files:
 - `.ai/project/source-of-truth-registry.md`
 - `.ai/project/consistency-map.json`
-Reason: relationship map accepted for manual impact closure across facts, owners, surfaces, and validation
+- `.ai/project/consistency/areas/_template.json`
+- `.ai/project/consistency/relationship-candidates.json`
+- `.ai/assistant/consistency-reverse-index.json`
+- `.ai/assistant/context/consistency-routing.json`
+- `.ai/assistant/context/cost-scenarios.json`
+Reason: schema-3 sharded relationship map preserves the accepted Doctrine fact IDs and schema-2 path relationships as explicit surface nodes; inferred relationships remain candidates until owner review
 Validation or review: adapter validator, module-specific checker when available, JSON/YAML parse, local path/placeholder scan, and manual review
 Approval needs: explicit approval before protected, external, dependency, permission, live-service, destructive, or weakened-gate changes
 Residual risk: assistant/client runtime features are evidence-bound; unverified bridge capabilities must be reported before use
@@ -489,6 +510,20 @@ Validation or review: adapter validator, module-specific checker when available,
 Approval needs: explicit current-scope adapter-only authorization before creating or updating debug records; approval required before changing privacy, retention, or external patch inclusion policy
 Residual risk: debug capture is inactive unless explicitly enabled per task or session, and record quality depends on honest event attribution
 Next action: keep Debug Mode inactive by default and create records only after explicit per-scope activation
+
+Module: `support-generation`
+State: enabled
+Owner or file: .ai/project/support-generation/registry.json
+Required files:
+- `.ai/project/support-generation/registry.json`
+- `.ai/assistant/support-generation-index.json`
+- `.ai/assistant/flows/support-generation.flow.md`
+- `.ai/assistant/gates/support-generation.md`
+Reason: guarded support-generation routing is installed; the target registry is intentionally empty because no target-owned generated support artifact and generator contract has been accepted
+Validation or review: adapter validator, support-generation plan/check, JSON parse, and manual generator-ownership review
+Approval needs: current modification authorization and a current plan digest are required before deterministic application; protected outputs need applicable scoped approval
+Residual risk: the operation is available but cannot generate artifacts until the target accepts explicit owner, input, output, mode, command, and validation bindings
+Next action: register an artifact only after its canonical generator policy is accepted
 
 Module: `scaffolding`
 State: enabled

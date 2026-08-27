@@ -3,14 +3,14 @@
 Installation id: `ALATYR-20260821-doctrine-orm`
 
 - Installed from: `https://github.com/atvardovsky/AlatyrCore`
-- Framework source revision: `3883b9e28f2104be51abdfcf82ecfbe47a5ce3a5`
-- Framework version: `0.1.0-alpha.31`
-- Adapter schema version: `29`
-- Template version: `29`
+- Framework source revision: `1d87082eff62cff2a26e108992e4a0e5241f535b`
+- Framework version: `0.1.0-alpha.33`
+- Adapter schema version: `31`
+- Template version: `31`
 - Adapter manifest: `.ai/alatyr.yaml`
 - Installation date: `2026-08-21`
-- Last adapter update: `2026-08-26`
-- Installation state: `accepted` after strict alpha.31 adapter validation
+- Last adapter update: `2026-08-27`
+- Installation state: `accepted` after strict alpha.33 adapter validation
 - Installation-state record: `.ai/assistant/installation-state.json`
 - Adapter owner: `@atvardovsky`
 - Backup owner: missing; no separate backup owner found in target evidence
@@ -37,6 +37,15 @@ Installation id: `ALATYR-20260821-doctrine-orm`
 - Project-knowledge routing descriptor: `.ai/assistant/context/project-knowledge-routing.json`
 - Context router: `.ai/assistant/context-router.json`
 - Generated bootstrap index: `.ai/assistant/bootstrap-index.json`
+- Recursive context indexes: `.ai/framework/context-index.json`,
+  `.ai/project/context-index.json`, `.ai/assistant/context-index.json`
+- Support-information policy/state: `.ai/project/support-policy.json`,
+  `.ai/support-state.json`
+- Optional impact/generation derivatives:
+  `.ai/assistant/consistency-reverse-index.json`,
+  `.ai/assistant/support-generation-index.json`
+- Semantic codebook: `.ai/framework/semantics/index.json`
+- Context packet template: `.ai/assistant/templates/context-packet.json`
 - Routed gate index: `.ai/assistant/gates/index.json`
 - Context profiles: `.ai/assistant/context-profiles.md`
 - Module profile: `.ai/assistant/module-profile.md`
@@ -68,10 +77,16 @@ Installation id: `ALATYR-20260821-doctrine-orm`
 ## Future Session Bootstrap
 
 Future assistants should not rely on this chat message being visible. Treat
-`AGENTS.md` as preloaded, then read `.ai/assistant/bootstrap-index.json`.
-Repair a stale index from `.ai/alatyr.yaml`, `.ai/README.md`, and
-`.ai/assistant/context-router.json`. Load this note after installation/update
-or when adapter state is unclear.
+`AGENTS.md` as preloaded, then read `.ai/assistant/bootstrap-index.json`. Use
+its resolved core semantic definitions once, then follow only matching
+branches from the framework, project, and assistant root `context-index.json`
+files. Parent selection does not select every child. Resolve lazy semantic
+references through `.ai/framework/semantics/index.json` and fall back to the
+named canonical owner on missing, stale, ambiguous, or conflicting terms.
+Repair stale recursive indexes before regenerating the bootstrap from
+`.ai/alatyr.yaml`, `.ai/README.md`, `.ai/assistant/context-router.json`, and
+the semantic index. Load this note after installation/update or when adapter
+state is unclear.
 
 Use `Alatyr` as the single conversational entry, `Alatyr status` for read-only
 health, automatic routing for clear requests, and the risk-gated pre-change

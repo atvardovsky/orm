@@ -7,13 +7,39 @@ under `.ai/assistant/context/profiles/` are the exact load lists.
 ## Bootstrap
 
 Treat `AGENTS.md` as preloaded. Routine sessions should read only
-`.ai/assistant/bootstrap-index.json` first. If the generated index is stale or
-routing is ambiguous, reload `.ai/alatyr.yaml`, `.ai/README.md`, and
-`.ai/assistant/context-router.json`, then regenerate the bootstrap index.
+`.ai/assistant/bootstrap-index.json` first. The generated bootstrap embeds the
+required core semantic definitions and is hash-bound to `.ai/alatyr.yaml`,
+`.ai/README.md`, `.ai/assistant/context-router.json`, and the installed
+semantic-codebook index. If it is stale or routing is ambiguous, reload those
+owners and repair the derived projections.
 
 After bootstrap, choose the smallest matching profile and only the affected
 project-area overlays. Record context expansion when the task crosses multiple
 areas, exceeds the default budget, or needs protected owner evidence.
+
+## Recursive Selection And Semantic Terms
+
+For each selected contour, open its root `context-index.json` and follow only
+entries matched by exact task, operation, owner, path, fact, contract,
+dependency, risk, or conflict signals. Repeat through child indexes until the
+minimum content set is resolved. Selecting a parent never selects all children.
+Reject cycles, multiple parents, duplicate content paths, stale digests, stale
+word estimates, and traversal beyond the configured maximum depth.
+
+The generated bootstrap is not assistant catalog content because it digests
+that catalog. Rebuild project and assistant indexes before bootstrap after
+installed target files change.
+
+Use bootstrap semantic definitions by exact ID and version. Resolve any lazy
+`semantic_refs` through `.ai/framework/semantics/index.json`, including term
+dependencies. A term is lossless shorthand for its complete definition; it
+does not own policy or project facts. On missing, stale, ambiguous, superseded,
+or conflicting terms, load the named canonical owner and record the fallback.
+
+For non-trivial work, budget expansion, handoff, or resume, materialize the
+selected indexes, item IDs/paths/digests/reasons, resolved term definitions,
+word totals, and deterministic packet digest with
+`.ai/assistant/templates/context-packet.json`.
 
 ## Project Knowledge Routing
 
@@ -42,6 +68,10 @@ required before the item enters routine routing.
 
 Use for local documentation wording, README edits, and non-semantic docs work.
 Required descriptor: `.ai/assistant/context/profiles/docs-local.json`.
+Operation candidates include `documentation-sync`, `drift-review`,
+`logical-integrity-review`, and `support-generation` when enabled. Load
+`.ai/framework/support-information.md` only when support diff, generation
+ownership, or relationship-candidate semantics are disputed.
 
 Core owners: `README.md`, selected `docs/en/**/*.rst`,
 `.ai/assistant/gates/documentation.md`, and
@@ -56,6 +86,10 @@ unavailable.
 Use for bounded implementation or test changes that do not accept a new public
 behavior, architecture, or data contract.
 Required descriptor: `.ai/assistant/context/profiles/code-local.json`.
+Operation candidates include `logical-integrity-review`, `drift-review`,
+`product-change`, `test-first-change`, and `support-generation` when enabled.
+Load `.ai/framework/support-information.md` only for support-state, bounded
+impact, candidate, or generation-contract ambiguity.
 
 Core owners: `composer.json`, selected `src/` and `tests/` files,
 `CONTRIBUTING.md`, `.ai/project/blueprint.md`, and
@@ -100,6 +134,8 @@ changes.
 Use for mapping, persistence, UnitOfWork, identity, query, migration, or
 data-loss-risk work.
 Required descriptor: `.ai/assistant/context/profiles/data-change.json`.
+Context-discovery guidance is conditional on disputed source selection,
+expansion, or missing-context handling.
 
 Core owners: `.ai/project/blueprint.md`,
 `docs/en/reference/basic-mapping.rst`,
@@ -115,6 +151,8 @@ requires explicit approval.
 Use for secrets, credentials, permissions, network/external services,
 destructive actions, production boundaries, security posture, or privacy risk.
 Required descriptor: `.ai/assistant/context/profiles/security-sensitive.json`.
+The full change-risk owner is conditional on disputed classification or
+escalation semantics; the routed security gate carries the routine obligation.
 
 Core owners: `SECURITY.md`, `docs/en/reference/security.rst`,
 `.ai/assistant/gates/security-approval.md`, and final-evidence gate.
@@ -128,6 +166,9 @@ instructions.
 Use for installing Alatyr, updating Alatyr Core, adapter rechecks, adapter
 maturity review, and framework drift repair.
 Required descriptor: `.ai/assistant/context/profiles/framework-upgrade.json`.
+Operation candidates include `support-generation` when enabled. Load
+`.ai/framework/support-information.md` when migration impact selects support
+policy, state, relationship, or generation contracts.
 
 Core owners: `.ai/alatyr.yaml`, `.ai/README.md`,
 `.ai/assistant/context-router.json`, `.ai/assistant/module-profile.md`,

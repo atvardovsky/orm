@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "index_kind": "alatyr-context-index",
+  "index_id": "project.workspace-modes-modes",
+  "contour": "project",
+  "title": "Project Modes Context",
+  "summary": "Recursive navigation for the project contour at workspace-modes/modes.",
+  "max_depth": 8,
+  "entries": [
+    {
+      "id": "project.section.workspace-modes-modes-doctrine-orm-library",
+      "kind": "index",
+      "path": "workspace-modes/modes/doctrine-orm-library/context-index.json",
+      "summary": "Doctrine Orm Library section",
+      "selectors": {
+        "path_terms": [
+          "doctrine-orm-library"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [],
+      "owner_refs": [],
+      "estimated_words": 145,
+      "content_digest": "sha256:5eabdc9fca640ab686498aafd44d6b1c59efd5fe08af345ad7ada39437c1e962"
+    },
+    {
+      "id": "project.section.workspace-modes-modes-template",
+      "kind": "index",
+      "path": "workspace-modes/modes/_template/context-index.json",
+      "summary": "_Template section",
+      "selectors": {
+        "path_terms": [
+          "template"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [],
+      "owner_refs": [],
+      "estimated_words": 137,
+      "content_digest": "sha256:6736a6771043c290085722026d7e410542fc6e15bd1593833f2cd98051b34ffd"
+    }
+  ]
+}

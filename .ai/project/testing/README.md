@@ -3,8 +3,8 @@
 Status: enabled
 Owner: `@atvardovsky`
 Decision authority: `@atvardovsky`
-Last reviewed: 2026-08-21
-Evidence revision: `454db525c`
+Last reviewed: 2026-08-26
+Evidence revision: `68a7b23a`
 
 Alatyr may recommend regression-first, characterization-first, or
 contract-first tests before implementation when the task changes accepted ORM

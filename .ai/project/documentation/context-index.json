@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "index_kind": "alatyr-context-index",
+  "index_id": "project.documentation",
+  "contour": "project",
+  "title": "Project Documentation Context",
+  "summary": "Recursive navigation for the project contour at documentation.",
+  "max_depth": 8,
+  "entries": [
+    {
+      "id": "project.content.documentation-catalog-json",
+      "kind": "content",
+      "path": "documentation/catalog.json",
+      "summary": "Catalog",
+      "selectors": {
+        "path_terms": [
+          "documentation",
+          "catalog"
+        ],
+        "rule_ids": [
+          "ALATYR-CONTEXT-001"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [
+        "alatyr:bounded-context-expansion@1"
+      ],
+      "owner_refs": [
+        "ALATYR-CONTEXT-001"
+      ],
+      "estimated_words": 212,
+      "content_digest": "sha256:a37951e6b41b23074f30a4e675a0ea501a971cb7bfece40b12a71d055ae01256"
+    },
+    {
+      "id": "project.content.documentation-profiles-json",
+      "kind": "content",
+      "path": "documentation/profiles.json",
+      "summary": "Profiles",
+      "selectors": {
+        "path_terms": [
+          "documentation",
+          "profiles"
+        ],
+        "rule_ids": [
+          "ALATYR-CONTEXT-001"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [
+        "alatyr:bounded-context-expansion@1"
+      ],
+      "owner_refs": [
+        "ALATYR-CONTEXT-001"
+      ],
+      "estimated_words": 721,
+      "content_digest": "sha256:a64e5c99d2928f16fd628c4e9f9cd7c025a51449c0d781be7b7d2cf153321f88"
+    },
+    {
+      "id": "project.content.documentation-readme-md",
+      "kind": "content",
+      "path": "documentation/README.md",
+      "summary": "Doctrine ORM Code Documentation Knowledge",
+      "selectors": {
+        "path_terms": [
+          "documentation"
+        ],
+        "rule_ids": [
+          "ALATYR-CONTEXT-001"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [
+        "alatyr:bounded-context-expansion@1"
+      ],
+      "owner_refs": [
+        "ALATYR-CONTEXT-001"
+      ],
+      "estimated_words": 173,
+      "content_digest": "sha256:abc8dfa2268f5ffd938a48d70292bef720d610805099ffbb029853af5df37f4f"
+    }
+  ]
+}

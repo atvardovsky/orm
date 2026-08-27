@@ -2,7 +2,7 @@
   "schema_version": 1,
   "catalog_kind": "target-dependency-knowledge-catalog",
   "owner": "@atvardovsky",
-  "package_lock_fingerprint": "0e91690d915cf2e63e1ad9ba8b46df2629ae297274d96e727db86e1fb1e795e6",
+  "package_lock_fingerprint": "44f9e859567151aae8b9676c0a1232bdef054a9727b5433155f8c8ad40b229a5",
   "packages": [
     {
       "instance_id": "composer:composer-runtime-api@^2#require",
@@ -125,10 +125,20 @@
       "exports": []
     },
     {
-      "instance_id": "composer:symfony/console@v7.4.16#require",
+      "instance_id": "composer:symfony/console@v7.4.17#require",
       "ecosystem": "composer",
       "name": "symfony/console",
-      "version": "v7.4.16",
+      "version": "v7.4.17",
+      "export_status": "unsupported",
+      "trust": "reviewed",
+      "freshness": "current",
+      "exports": []
+    },
+    {
+      "instance_id": "composer:symfony/polyfill-php86@v1.41.0#require",
+      "ecosystem": "composer",
+      "name": "symfony/polyfill-php86",
+      "version": "v1.41.0",
       "export_status": "unsupported",
       "trust": "reviewed",
       "freshness": "current",
@@ -215,10 +225,10 @@
       "exports": []
     },
     {
-      "instance_id": "composer:symfony/cache@v7.4.16#require-dev",
+      "instance_id": "composer:symfony/cache@v7.4.17#require-dev",
       "ecosystem": "composer",
       "name": "symfony/cache",
-      "version": "v7.4.16",
+      "version": "v7.4.17",
       "export_status": "unsupported",
       "trust": "reviewed",
       "freshness": "current",

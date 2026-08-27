@@ -15,6 +15,21 @@ Select the smallest task profile and affected project areas. Load
 `.ai/assistant/context-profiles.md` only for ambiguity, conflict, or repair.
 Record context receipt on expansion.
 
+Use the semantic definitions embedded in the bootstrap as the meaning of their
+exact versioned term IDs. Resolve other term IDs lazily through
+`.ai/framework/semantics/index.json`; if a term is missing, stale, ambiguous,
+or conflicts with its canonical owner, load the owner prose and stop using the
+compressed term. Semantic terms abbreviate repeated rules but never replace
+their authority.
+
+Start content discovery from the selected contour root `context-index.json`.
+Follow only index entries matched by the task, operation, owner, path, fact,
+contract, dependency, risk, or conflict signal. A child index may lead to
+another child index; do not list or load a whole directory merely because its
+index was selected. Verify entry digest and word estimate before relying on
+content, and stop on a cycle, duplicate content path, depth violation, or stale
+digest.
+
 For non-trivial work, route project knowledge after profile/area selection and
 once more after concrete source evidence appears. Profile-only matching is
 invalid. Use area, subsystem, architecture-item, dependency, fact, contract,
@@ -56,7 +71,7 @@ Use installed owners for `ALATYR-CONTEXT-001`, `ALATYR-SOURCE-001`,
 `ALATYR-AUTHORIZATION-001`, `ALATYR-SAFETY-002`, `ALATYR-INTEGRITY-001`, `ALATYR-CHANGE-001`,
 `ALATYR-ADAPTER-001`, `ALATYR-MODULE-001`, `ALATYR-OPERATION-001`,
 `ALATYR-BRIDGE-001`, `ALATYR-LIFECYCLE-001`, `ALATYR-PACKAGE-001`,
-`ALATYR-ENGINEERING-EVIDENCE-001`, `ALATYR-KNOWLEDGE-001`, `ALATYR-DEBUG-001`,
+`ALATYR-ENGINEERING-EVIDENCE-001`, `ALATYR-KNOWLEDGE-001`, `ALATYR-SUPPORT-001`, `ALATYR-DEBUG-001`,
 `ALATYR-CODEDOC-001`, `ALATYR-VOCABULARY-001`, `ALATYR-TDD-001`,
 `ALATYR-EXTENSION-001`, `ALATYR-DEPENDENCY-001`, `ALATYR-MODE-001`,
 `ALATYR-DIAGRAM-001`, `ALATYR-TEAM-001`, `ALATYR-DELEGATION-001`, and
@@ -67,7 +82,11 @@ assistant contour. Do not invent facts or copy policy into bridges.
 For `src/` or `tests/` changes, load `.ai/project/code-authoring.md` and follow
 the target architecture, PHP format, comment, test, and validation rules before
 editing. For semantic changes, re-derive invariants and reconcile reviews
-sharing a fact or contract. Use `.ai/project/source-of-truth-registry.md` for
+sharing a fact or contract. Compare Git/support changes with
+`.ai/support-state.json`, use the consistency reverse index, and load only
+selected relationship shards. Hashes locate change; they do not replace
+semantic review. Record new relationships as candidates until the target
+decision owner accepts them. Use `.ai/project/source-of-truth-registry.md` for
 owners and selected target files for evidence. Run only validation that exists.
 
 Select routine acceptance gates through `.ai/assistant/gates/index.json` and
@@ -84,10 +103,9 @@ changes.
 
 Before state changes, apply `.ai/assistant/policies/action-authorization.json`
 to the newest request and current scope. Issue/backlog returns and ambiguous
-informational requests are `inspect` only. Implementation does not imply
-commit; commit does not imply push. Prior-scope authorization and other gates
-cannot grant a missing phase.
+informational requests are `inspect` only.
 Implementation does not imply commit; commit does not imply push.
+Prior-scope authorization and other gates cannot grant a missing phase.
 
 ## Protected Changes
 
@@ -99,10 +117,13 @@ excluded paths.
 
 ## Final Evidence
 
-Report selected profile and areas, changed facts/files, invariant/integrity
-result, synchronized surfaces, validation run or skipped with reason, approval
-scope, context expansion, project-knowledge selectors and packet result for
-non-trivial work, commit-policy check when committing, and residual risk.
+Report selected profile and areas, context index chain, selected item
+IDs/digests, resolved semantic term IDs/versions, packet digest or fallback,
+changed facts/files, support-state and impact closure, relationship candidates
+and generation state, invariant/integrity result, synchronized surfaces,
+validation run or skipped with reason, approval scope, context expansion,
+project-knowledge selectors and packet result for non-trivial work,
+commit-policy check when committing, and residual risk.
 
 ## Full Alatyr Branch Mode
 

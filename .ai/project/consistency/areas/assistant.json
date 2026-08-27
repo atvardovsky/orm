@@ -1,0 +1,804 @@
+{
+  "schema_version": 1,
+  "shard_kind": "target-consistency-map-shard",
+  "id": "assistant",
+  "project_area": "Alatyr adapter operations, project routing, and process evidence",
+  "nodes": [
+    {
+      "id": "assistant-operation",
+      "fact_type": "assistant operation",
+      "level": "adapter",
+      "project_area": "assistant-adapter",
+      "canonical_owner": ".ai/assistant/operation-catalog.json",
+      "coverage_state": "mapped",
+      "coverage_evidence": [
+        "Preserved schema-2 relationship coverage during the Alatyr 0.1.0-alpha.33 migration; no new relationship was accepted."
+      ],
+      "bindings": [
+        {
+          "id": "binding-assistant-operation-index",
+          "surface_kind": "config",
+          "path": ".ai/assistant/operation-index.json",
+          "selector_kind": "file",
+          "selector": "whole-file",
+          "authority": "derived",
+          "context_ids": []
+        },
+        {
+          "id": "binding-assistant-operation-help",
+          "surface_kind": "doc",
+          "path": ".ai/assistant/help.md",
+          "selector_kind": "file",
+          "selector": "whole-file",
+          "authority": "derived",
+          "context_ids": []
+        },
+        {
+          "id": "binding-assistant-operation-router",
+          "surface_kind": "config",
+          "path": ".ai/assistant/context-router.json",
+          "selector_kind": "file",
+          "selector": "whole-file",
+          "authority": "derived",
+          "context_ids": []
+        }
+      ],
+      "relationships": [
+        {
+          "id": "assistant-operation-index",
+          "type": "generates",
+          "target": "surface-ai-assistant-operation-index-json",
+          "target_level": "adapter",
+          "target_area": "assistant-adapter",
+          "direction": "outbound",
+          "required_when": [
+            "operation catalog IDs aliases or modules change"
+          ],
+          "validation": [
+            "JSON parse, index/catalog sync review, and adapter validator"
+          ],
+          "approval_trigger": "weakened operation gate or routing rule",
+          "state": "accepted"
+        },
+        {
+          "id": "assistant-operation-help",
+          "type": "documents",
+          "target": "surface-ai-assistant-help-md",
+          "target_level": "adapter",
+          "target_area": "assistant-adapter",
+          "direction": "outbound",
+          "required_when": [
+            "operation catalog user-facing help changes"
+          ],
+          "validation": [
+            "manual help and help-reference sync review"
+          ],
+          "approval_trigger": "operation availability or allowed-action claim changes",
+          "state": "accepted"
+        },
+        {
+          "id": "assistant-operation-router",
+          "type": "routes",
+          "target": "surface-ai-assistant-context-router-json",
+          "target_level": "adapter",
+          "target_area": "assistant-adapter",
+          "direction": "outbound",
+          "required_when": [
+            "operation candidates, aliases, or profile routing changes"
+          ],
+          "validation": [
+            "JSON parse and operation-routing flow review"
+          ],
+          "approval_trigger": "weakened approval, profile, or module-state routing",
+          "state": "accepted"
+        }
+      ]
+    },
+    {
+      "id": "project-blueprint-index",
+      "fact_type": "project blueprint index",
+      "level": "adapter",
+      "project_area": "project/assistant-adapter",
+      "canonical_owner": ".ai/project/blueprint.md",
+      "coverage_state": "mapped",
+      "coverage_evidence": [
+        "Preserved schema-2 relationship coverage during the Alatyr 0.1.0-alpha.33 migration; no new relationship was accepted."
+      ],
+      "bindings": [
+        {
+          "id": "binding-project-blueprint-registry",
+          "surface_kind": "doc",
+          "path": ".ai/project/source-of-truth-registry.md",
+          "selector_kind": "file",
+          "selector": "whole-file",
+          "authority": "derived",
+          "context_ids": []
+        },
+        {
+          "id": "binding-project-blueprint-profile",
+          "surface_kind": "doc",
+          "path": ".ai/assistant/module-profile.md",
+          "selector_kind": "file",
+          "selector": "whole-file",
+          "authority": "derived",
+          "context_ids": []
+        },
+        {
+          "id": "binding-project-blueprint-flow",
+          "surface_kind": "prompt",
+          "path": ".ai/assistant/flows/blueprint-driven-change.flow.md",
+          "selector_kind": "file",
+          "selector": "whole-file",
+          "authority": "derived",
+          "context_ids": []
+        }
+      ],
+      "relationships": [
+        {
+          "id": "project-blueprint-registry",
+          "type": "routes",
+          "target": "surface-ai-project-source-of-truth-registry-md",
+          "target_level": "adapter",
+          "target_area": "project",
+          "direction": "outbound",
+          "required_when": [
+            "blueprint source-of-truth ownership or derived surfaces change"
+          ],
+          "validation": [
+            "registry and consistency-map sync review"
+          ],
+          "approval_trigger": "source-of-truth routing or ownership change",
+          "state": "accepted"
+        },
+        {
+          "id": "project-blueprint-profile",
+          "type": "documents",
+          "target": "surface-ai-assistant-module-profile-md",
+          "target_level": "adapter",
+          "target_area": "assistant-adapter",
+          "direction": "outbound",
+          "required_when": [
+            "blueprint operation or module enablement statements change"
+          ],
+          "validation": [
+            "module profile and adapter validator review"
+          ],
+          "approval_trigger": "enabled module or blueprint workflow change",
+          "state": "accepted"
+        },
+        {
+          "id": "project-blueprint-flow",
+          "type": "routes",
+          "target": "surface-ai-assistant-flows-blueprint-driven-change-flow-md",
+          "target_level": "adapter",
+          "target_area": "assistant-adapter",
+          "direction": "outbound",
+          "required_when": [
+            "blueprint-driven workflow changes"
+          ],
+          "validation": [
+            "manual flow and router sync review"
+          ],
+          "approval_trigger": "accepted behavior, architecture, data, or public-contract workflow change",
+          "state": "accepted"
+        }
+      ]
+    },
+    {
+      "id": "development-process-pattern",
+      "fact_type": "development process pattern",
+      "level": "adapter",
+      "project_area": "process/assistant-adapter",
+      "canonical_owner": ".ai/project/development-evidence.json",
+      "coverage_state": "mapped",
+      "coverage_evidence": [
+        "Preserved schema-2 relationship coverage during the Alatyr 0.1.0-alpha.33 migration; no new relationship was accepted."
+      ],
+      "bindings": [
+        {
+          "id": "binding-development-process-flow",
+          "surface_kind": "prompt",
+          "path": ".ai/assistant/flows/development-evidence-capture.flow.md",
+          "selector_kind": "file",
+          "selector": "whole-file",
+          "authority": "derived",
+          "context_ids": []
+        },
+        {
+          "id": "binding-development-process-effectiveness",
+          "surface_kind": "prompt",
+          "path": ".ai/assistant/templates/effectiveness-report.md",
+          "selector_kind": "file",
+          "selector": "whole-file",
+          "authority": "derived",
+          "context_ids": []
+        },
+        {
+          "id": "binding-development-process-delayed-outcomes",
+          "surface_kind": "prompt",
+          "path": ".ai/assistant/templates/delayed-outcome-evidence.json",
+          "selector_kind": "file",
+          "selector": "whole-file",
+          "authority": "derived",
+          "context_ids": []
+        },
+        {
+          "id": "binding-development-process-adapter-maintenance",
+          "surface_kind": "prompt",
+          "path": ".ai/assistant/templates/adapter-maintenance-evidence.json",
+          "selector_kind": "file",
+          "selector": "whole-file",
+          "authority": "derived",
+          "context_ids": []
+        },
+        {
+          "id": "binding-development-process-change-packages",
+          "surface_kind": "config",
+          "path": ".ai/assistant/change-packages/index.json",
+          "selector_kind": "file",
+          "selector": "whole-file",
+          "authority": "derived",
+          "context_ids": []
+        }
+      ],
+      "relationships": [
+        {
+          "id": "development-process-flow",
+          "type": "routes",
+          "target": "surface-ai-assistant-flows-development-evidence-capture-flow-md",
+          "target_level": "adapter",
+          "target_area": "assistant-adapter",
+          "direction": "outbound",
+          "required_when": [
+            "development evidence capture or recommendation patterns change"
+          ],
+          "validation": [
+            "JSON parse, flow review, and privacy boundary review"
+          ],
+          "approval_trigger": "enabling or weakening development evidence capture",
+          "state": "accepted"
+        },
+        {
+          "id": "development-process-effectiveness",
+          "type": "documents",
+          "target": "surface-ai-assistant-templates-effectiveness-report-md",
+          "target_level": "adapter",
+          "target_area": "assistant-adapter",
+          "direction": "outbound",
+          "required_when": [
+            "effectiveness metrics or summarized recommendation evidence changes"
+          ],
+          "validation": [
+            "manual template and development-evidence sync review"
+          ],
+          "approval_trigger": "persistent assistant recommendation or effectiveness record change",
+          "state": "accepted"
+        },
+        {
+          "id": "development-process-delayed-outcomes",
+          "type": "documents",
+          "target": "surface-ai-assistant-templates-delayed-outcome-evidence-json",
+          "target_level": "adapter",
+          "target_area": "assistant-adapter",
+          "direction": "outbound",
+          "required_when": [
+            "later task outcomes are linked to completed effectiveness evidence"
+          ],
+          "validation": [
+            "JSON parse and append-only evidence policy review"
+          ],
+          "approval_trigger": "persistent delayed-outcome evidence policy changes",
+          "state": "accepted"
+        },
+        {
+          "id": "development-process-adapter-maintenance",
+          "type": "documents",
+          "target": "surface-ai-assistant-templates-adapter-maintenance-evidence-json",
+          "target_level": "adapter",
+          "target_area": "assistant-adapter",
+          "direction": "outbound",
+          "required_when": [
+            "framework maintenance effort is measured separately from product work"
+          ],
+          "validation": [
+            "JSON parse and measurement-boundary review"
+          ],
+          "approval_trigger": "persistent adapter-maintenance evidence policy changes",
+          "state": "accepted"
+        },
+        {
+          "id": "development-process-change-packages",
+          "type": "generates",
+          "target": "surface-ai-assistant-change-packages-index-json",
+          "target_level": "adapter",
+          "target_area": "assistant-adapter",
+          "direction": "outbound",
+          "required_when": [
+            "multi-surface change package tracking is used"
+          ],
+          "validation": [
+            "JSON parse and change-package index review"
+          ],
+          "approval_trigger": "persistent change package evidence or approval scope changes",
+          "state": "accepted"
+        }
+      ]
+    },
+    {
+      "id": "alatyr-full-capability",
+      "fact_type": "alatyr full capability",
+      "level": "adapter",
+      "project_area": "assistant-adapter/ai-infrastructure/full-profile",
+      "canonical_owner": ".ai/alatyr.yaml",
+      "coverage_state": "mapped",
+      "coverage_evidence": [
+        "Preserved schema-2 relationship coverage during the Alatyr 0.1.0-alpha.33 migration; no new relationship was accepted.",
+        "The target support policy classifies every Git-visible .ai file and the installed root assistant entry points as Alatyr support, so those paths bind to this existing adapter-capability node for impact routing."
+      ],
+      "bindings": [
+        {
+          "id": "binding-alatyr-full-capability-all-adapter-support",
+          "surface_kind": "other",
+          "path": ".ai/**",
+          "selector_kind": "glob",
+          "selector": "whole-file",
+          "authority": "derived",
+          "context_ids": []
+        },
+        {
+          "id": "binding-alatyr-full-capability-agents-entrypoint",
+          "surface_kind": "prompt",
+          "path": "AGENTS.md",
+          "selector_kind": "file",
+          "selector": "whole-file",
+          "authority": "derived",
+          "context_ids": []
+        },
+        {
+          "id": "binding-alatyr-full-capability-assistants-entrypoint",
+          "surface_kind": "prompt",
+          "path": "AI_ASSISTANTS.md",
+          "selector_kind": "file",
+          "selector": "whole-file",
+          "authority": "derived",
+          "context_ids": []
+        },
+        {
+          "id": "binding-alatyr-full-capability-profile",
+          "surface_kind": "doc",
+          "path": ".ai/assistant/module-profile.md",
+          "selector_kind": "file",
+          "selector": "whole-file",
+          "authority": "derived",
+          "context_ids": []
+        },
+        {
+          "id": "binding-alatyr-full-capability-installation-state",
+          "surface_kind": "config",
+          "path": ".ai/assistant/installation-state.json",
+          "selector_kind": "file",
+          "selector": "whole-file",
+          "authority": "derived",
+          "context_ids": []
+        },
+        {
+          "id": "binding-alatyr-full-capability-assistant-surfaces",
+          "surface_kind": "config",
+          "path": ".ai/assistant/assistant-capabilities.json",
+          "selector_kind": "file",
+          "selector": "whole-file",
+          "authority": "derived",
+          "context_ids": []
+        },
+        {
+          "id": "binding-alatyr-full-capability-router",
+          "surface_kind": "config",
+          "path": ".ai/assistant/context-router.json",
+          "selector_kind": "file",
+          "selector": "whole-file",
+          "authority": "derived",
+          "context_ids": []
+        },
+        {
+          "id": "binding-alatyr-full-capability-context-catalogs",
+          "surface_kind": "config",
+          "path": ".ai/assistant/context-index.json",
+          "selector_kind": "file",
+          "selector": "whole-file",
+          "authority": "derived",
+          "context_ids": []
+        },
+        {
+          "id": "binding-alatyr-full-capability-bootstrap",
+          "surface_kind": "config",
+          "path": ".ai/assistant/bootstrap-index.json",
+          "selector_kind": "file",
+          "selector": "whole-file",
+          "authority": "derived",
+          "context_ids": []
+        },
+        {
+          "id": "binding-alatyr-full-capability-gates",
+          "surface_kind": "gate",
+          "path": ".ai/assistant/gates/index.json",
+          "selector_kind": "file",
+          "selector": "whole-file",
+          "authority": "derived",
+          "context_ids": []
+        },
+        {
+          "id": "binding-alatyr-full-capability-project-knowledge",
+          "surface_kind": "config",
+          "path": ".ai/project/knowledge/index.json",
+          "selector_kind": "file",
+          "selector": "whole-file",
+          "authority": "derived",
+          "context_ids": []
+        },
+        {
+          "id": "binding-alatyr-full-capability-code-authoring",
+          "surface_kind": "doc",
+          "path": ".ai/project/code-authoring.md",
+          "selector_kind": "file",
+          "selector": "whole-file",
+          "authority": "derived",
+          "context_ids": []
+        }
+      ],
+      "relationships": [
+        {
+          "id": "alatyr-full-capability-profile",
+          "type": "routes",
+          "target": "surface-ai-assistant-module-profile-md",
+          "target_level": "adapter",
+          "target_area": "assistant-adapter",
+          "direction": "outbound",
+          "required_when": [
+            "enabled module graph or capability ownership changes"
+          ],
+          "validation": [
+            "adapter validator plus module closure audit"
+          ],
+          "approval_trigger": "weakening capability gates or enabling external permissions",
+          "state": "accepted"
+        },
+        {
+          "id": "alatyr-full-capability-installation-state",
+          "type": "constrains",
+          "target": "surface-ai-assistant-installation-state-json",
+          "target_level": "adapter",
+          "target_area": "assistant-adapter",
+          "direction": "outbound",
+          "required_when": [
+            "adapter installation update repair acceptance or health state changes"
+          ],
+          "validation": [
+            "installation transition continuity and strict acceptance validation"
+          ],
+          "approval_trigger": "changing accepted adapter state without matching validation evidence",
+          "state": "accepted"
+        },
+        {
+          "id": "alatyr-full-capability-assistant-surfaces",
+          "type": "routes",
+          "target": "surface-ai-assistant-assistant-capabilities-json",
+          "target_level": "adapter",
+          "target_area": "assistant-adapter",
+          "direction": "outbound",
+          "required_when": [
+            "selected assistants instruction loading skills permissions diagrams delegation or bridge contracts change"
+          ],
+          "validation": [
+            "assistant capability schema and selected-runtime evidence review"
+          ],
+          "approval_trigger": "selecting a new assistant or broadening permission and authorization claims",
+          "state": "accepted"
+        },
+        {
+          "id": "alatyr-full-capability-router",
+          "type": "routes",
+          "target": "surface-ai-assistant-context-router-json",
+          "target_level": "adapter",
+          "target_area": "assistant-adapter",
+          "direction": "outbound",
+          "required_when": [
+            "profile, area, intent, or task-scale routing changes"
+          ],
+          "validation": [
+            "JSON parse and router/profile sync review"
+          ],
+          "approval_trigger": "broadening protected action scope or changing required context",
+          "state": "accepted"
+        },
+        {
+          "id": "alatyr-full-capability-context-catalogs",
+          "type": "generates",
+          "target": "surface-ai-assistant-context-index-json",
+          "target_level": "adapter",
+          "target_area": "assistant-adapter",
+          "direction": "outbound",
+          "required_when": [
+            "installed framework, project, assistant, routing, or semantic-codebook content changes"
+          ],
+          "validation": [
+            "regenerate and validate all three recursive contour indexes, semantic references, word estimates, and content digests"
+          ],
+          "approval_trigger": "stale or broadened context routing after protected adapter changes",
+          "state": "accepted"
+        },
+        {
+          "id": "alatyr-full-capability-bootstrap",
+          "type": "generates",
+          "target": "surface-ai-assistant-bootstrap-index-json",
+          "target_level": "adapter",
+          "target_area": "assistant-adapter",
+          "direction": "outbound",
+          "required_when": [
+            "manifest, module profile, operation catalog, gates, router, context catalogs, or semantic codebook changes"
+          ],
+          "validation": [
+            "bootstrap regeneration and adapter validator"
+          ],
+          "approval_trigger": "stale bootstrap after capability surface change",
+          "state": "accepted"
+        },
+        {
+          "id": "alatyr-full-capability-gates",
+          "type": "constrains",
+          "target": "surface-ai-assistant-gates-index-json",
+          "target_level": "adapter",
+          "target_area": "assistant-adapter",
+          "direction": "outbound",
+          "required_when": [
+            "gate catalog or approval boundary changes"
+          ],
+          "validation": [
+            "JSON parse and gate index review"
+          ],
+          "approval_trigger": "weakening capability gates or protected approvals",
+          "state": "accepted"
+        },
+        {
+          "id": "alatyr-full-capability-project-knowledge",
+          "type": "routes",
+          "target": "surface-ai-project-knowledge-index-json",
+          "target_level": "adapter",
+          "target_area": "project-knowledge",
+          "direction": "outbound",
+          "required_when": [
+            "project-knowledge routing, promotion, or packet policy changes"
+          ],
+          "validation": [
+            "adapter validator plus project-knowledge policy and index review"
+          ],
+          "approval_trigger": "accepting promoted knowledge, changing canonical-owner routing, or weakening retention/redaction policy",
+          "state": "accepted"
+        },
+        {
+          "id": "alatyr-full-capability-code-authoring",
+          "type": "routes",
+          "target": "surface-ai-project-code-authoring-md",
+          "target_level": "adapter",
+          "target_area": "project",
+          "direction": "outbound",
+          "required_when": [
+            "source, test, documentation, validation, or authoring-rule surfaces change"
+          ],
+          "validation": [
+            "adapter validator and authoring-rule sync review"
+          ],
+          "approval_trigger": "weakening assistant-facing code authoring rules",
+          "state": "accepted"
+        }
+      ]
+    },
+    {
+      "id": "surface-ai-assistant-operation-index-json",
+      "fact_type": "support surface: .ai/assistant/operation-index.json",
+      "level": "surface",
+      "project_area": "Alatyr adapter operations, project routing, and process evidence",
+      "canonical_owner": ".ai/assistant/operation-index.json",
+      "coverage_state": "isolated-verified",
+      "coverage_evidence": [
+        "Migrated from the accepted schema-2 relationship target .ai/assistant/operation-index.json; the migration introduces no new relationship."
+      ],
+      "bindings": [],
+      "relationships": []
+    },
+    {
+      "id": "surface-ai-assistant-help-md",
+      "fact_type": "support surface: .ai/assistant/help.md",
+      "level": "surface",
+      "project_area": "Alatyr adapter operations, project routing, and process evidence",
+      "canonical_owner": ".ai/assistant/help.md",
+      "coverage_state": "isolated-verified",
+      "coverage_evidence": [
+        "Migrated from the accepted schema-2 relationship target .ai/assistant/help.md; the migration introduces no new relationship."
+      ],
+      "bindings": [],
+      "relationships": []
+    },
+    {
+      "id": "surface-ai-assistant-module-profile-md",
+      "fact_type": "support surface: .ai/assistant/module-profile.md",
+      "level": "surface",
+      "project_area": "Alatyr adapter operations, project routing, and process evidence",
+      "canonical_owner": ".ai/assistant/module-profile.md",
+      "coverage_state": "isolated-verified",
+      "coverage_evidence": [
+        "Migrated from the accepted schema-2 relationship target .ai/assistant/module-profile.md; the migration introduces no new relationship."
+      ],
+      "bindings": [],
+      "relationships": []
+    },
+    {
+      "id": "surface-ai-assistant-flows-blueprint-driven-change-flow-md",
+      "fact_type": "support surface: .ai/assistant/flows/blueprint-driven-change.flow.md",
+      "level": "surface",
+      "project_area": "Alatyr adapter operations, project routing, and process evidence",
+      "canonical_owner": ".ai/assistant/flows/blueprint-driven-change.flow.md",
+      "coverage_state": "isolated-verified",
+      "coverage_evidence": [
+        "Migrated from the accepted schema-2 relationship target .ai/assistant/flows/blueprint-driven-change.flow.md; the migration introduces no new relationship."
+      ],
+      "bindings": [],
+      "relationships": []
+    },
+    {
+      "id": "surface-ai-assistant-flows-development-evidence-capture-flow-md",
+      "fact_type": "support surface: .ai/assistant/flows/development-evidence-capture.flow.md",
+      "level": "surface",
+      "project_area": "Alatyr adapter operations, project routing, and process evidence",
+      "canonical_owner": ".ai/assistant/flows/development-evidence-capture.flow.md",
+      "coverage_state": "isolated-verified",
+      "coverage_evidence": [
+        "Migrated from the accepted schema-2 relationship target .ai/assistant/flows/development-evidence-capture.flow.md; the migration introduces no new relationship."
+      ],
+      "bindings": [],
+      "relationships": []
+    },
+    {
+      "id": "surface-ai-assistant-templates-effectiveness-report-md",
+      "fact_type": "support surface: .ai/assistant/templates/effectiveness-report.md",
+      "level": "surface",
+      "project_area": "Alatyr adapter operations, project routing, and process evidence",
+      "canonical_owner": ".ai/assistant/templates/effectiveness-report.md",
+      "coverage_state": "isolated-verified",
+      "coverage_evidence": [
+        "Migrated from the accepted schema-2 relationship target .ai/assistant/templates/effectiveness-report.md; the migration introduces no new relationship."
+      ],
+      "bindings": [],
+      "relationships": []
+    },
+    {
+      "id": "surface-ai-assistant-templates-delayed-outcome-evidence-json",
+      "fact_type": "support surface: .ai/assistant/templates/delayed-outcome-evidence.json",
+      "level": "surface",
+      "project_area": "Alatyr adapter operations, project routing, and process evidence",
+      "canonical_owner": ".ai/assistant/templates/delayed-outcome-evidence.json",
+      "coverage_state": "isolated-verified",
+      "coverage_evidence": [
+        "Migrated from the accepted schema-2 relationship target .ai/assistant/templates/delayed-outcome-evidence.json; the migration introduces no new relationship."
+      ],
+      "bindings": [],
+      "relationships": []
+    },
+    {
+      "id": "surface-ai-assistant-templates-adapter-maintenance-evidence-json",
+      "fact_type": "support surface: .ai/assistant/templates/adapter-maintenance-evidence.json",
+      "level": "surface",
+      "project_area": "Alatyr adapter operations, project routing, and process evidence",
+      "canonical_owner": ".ai/assistant/templates/adapter-maintenance-evidence.json",
+      "coverage_state": "isolated-verified",
+      "coverage_evidence": [
+        "Migrated from the accepted schema-2 relationship target .ai/assistant/templates/adapter-maintenance-evidence.json; the migration introduces no new relationship."
+      ],
+      "bindings": [],
+      "relationships": []
+    },
+    {
+      "id": "surface-ai-assistant-change-packages-index-json",
+      "fact_type": "support surface: .ai/assistant/change-packages/index.json",
+      "level": "surface",
+      "project_area": "Alatyr adapter operations, project routing, and process evidence",
+      "canonical_owner": ".ai/assistant/change-packages/index.json",
+      "coverage_state": "isolated-verified",
+      "coverage_evidence": [
+        "Migrated from the accepted schema-2 relationship target .ai/assistant/change-packages/index.json; the migration introduces no new relationship."
+      ],
+      "bindings": [],
+      "relationships": []
+    },
+    {
+      "id": "surface-ai-assistant-installation-state-json",
+      "fact_type": "support surface: .ai/assistant/installation-state.json",
+      "level": "surface",
+      "project_area": "Alatyr adapter operations, project routing, and process evidence",
+      "canonical_owner": ".ai/assistant/installation-state.json",
+      "coverage_state": "isolated-verified",
+      "coverage_evidence": [
+        "Migrated from the accepted schema-2 relationship target .ai/assistant/installation-state.json; the migration introduces no new relationship."
+      ],
+      "bindings": [],
+      "relationships": []
+    },
+    {
+      "id": "surface-ai-assistant-assistant-capabilities-json",
+      "fact_type": "support surface: .ai/assistant/assistant-capabilities.json",
+      "level": "surface",
+      "project_area": "Alatyr adapter operations, project routing, and process evidence",
+      "canonical_owner": ".ai/assistant/assistant-capabilities.json",
+      "coverage_state": "isolated-verified",
+      "coverage_evidence": [
+        "Migrated from the accepted schema-2 relationship target .ai/assistant/assistant-capabilities.json; the migration introduces no new relationship."
+      ],
+      "bindings": [],
+      "relationships": []
+    },
+    {
+      "id": "surface-ai-assistant-context-index-json",
+      "fact_type": "support surface: .ai/assistant/context-index.json",
+      "level": "surface",
+      "project_area": "Alatyr adapter operations, project routing, and process evidence",
+      "canonical_owner": ".ai/assistant/context-index.json",
+      "coverage_state": "isolated-verified",
+      "coverage_evidence": [
+        "Migrated from the accepted schema-2 relationship target .ai/assistant/context-index.json; the migration introduces no new relationship."
+      ],
+      "bindings": [],
+      "relationships": []
+    },
+    {
+      "id": "surface-ai-assistant-bootstrap-index-json",
+      "fact_type": "support surface: .ai/assistant/bootstrap-index.json",
+      "level": "surface",
+      "project_area": "Alatyr adapter operations, project routing, and process evidence",
+      "canonical_owner": ".ai/assistant/bootstrap-index.json",
+      "coverage_state": "isolated-verified",
+      "coverage_evidence": [
+        "Migrated from the accepted schema-2 relationship target .ai/assistant/bootstrap-index.json; the migration introduces no new relationship."
+      ],
+      "bindings": [],
+      "relationships": []
+    },
+    {
+      "id": "surface-ai-assistant-gates-index-json",
+      "fact_type": "support surface: .ai/assistant/gates/index.json",
+      "level": "surface",
+      "project_area": "Alatyr adapter operations, project routing, and process evidence",
+      "canonical_owner": ".ai/assistant/gates/index.json",
+      "coverage_state": "isolated-verified",
+      "coverage_evidence": [
+        "Migrated from the accepted schema-2 relationship target .ai/assistant/gates/index.json; the migration introduces no new relationship."
+      ],
+      "bindings": [],
+      "relationships": []
+    },
+    {
+      "id": "surface-ai-project-knowledge-index-json",
+      "fact_type": "support surface: .ai/project/knowledge/index.json",
+      "level": "surface",
+      "project_area": "Alatyr adapter operations, project routing, and process evidence",
+      "canonical_owner": ".ai/project/knowledge/index.json",
+      "coverage_state": "isolated-verified",
+      "coverage_evidence": [
+        "Migrated from the accepted schema-2 relationship target .ai/project/knowledge/index.json; the migration introduces no new relationship."
+      ],
+      "bindings": [],
+      "relationships": []
+    },
+    {
+      "id": "surface-ai-project-code-authoring-md",
+      "fact_type": "support surface: .ai/project/code-authoring.md",
+      "level": "surface",
+      "project_area": "Alatyr adapter operations, project routing, and process evidence",
+      "canonical_owner": ".ai/project/code-authoring.md",
+      "coverage_state": "isolated-verified",
+      "coverage_evidence": [
+        "Migrated from the accepted schema-2 relationship target .ai/project/code-authoring.md; the migration introduces no new relationship."
+      ],
+      "bindings": [],
+      "relationships": []
+    }
+  ]
+}

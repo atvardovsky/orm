@@ -1,0 +1,178 @@
+{
+  "schema_version": 1,
+  "index_kind": "target-consistency-reverse-index",
+  "graph_digest": "sha256:0d2483fed318d0cbf66aa66816fd28dbb7a6f83b744d0ad16fc59fcef7865d7e",
+  "exact_paths": {
+    ".ai/alatyr.yaml": [
+      "validation-commands"
+    ],
+    ".ai/assistant/assistant-capabilities.json": [
+      "alatyr-full-capability"
+    ],
+    ".ai/assistant/bootstrap-index.json": [
+      "alatyr-full-capability"
+    ],
+    ".ai/assistant/change-packages/index.json": [
+      "development-process-pattern"
+    ],
+    ".ai/assistant/context-index.json": [
+      "alatyr-full-capability"
+    ],
+    ".ai/assistant/context-router.json": [
+      "alatyr-full-capability",
+      "assistant-operation",
+      "commit-policy"
+    ],
+    ".ai/assistant/context/profiles/business-change.json": [
+      "business-logic-layer",
+      "business-rule-routing"
+    ],
+    ".ai/assistant/context/profiles/security-sensitive.json": [
+      "security-policy"
+    ],
+    ".ai/assistant/flows/blueprint-driven-change.flow.md": [
+      "project-blueprint-index"
+    ],
+    ".ai/assistant/flows/development-evidence-capture.flow.md": [
+      "development-process-pattern"
+    ],
+    ".ai/assistant/gates/checklist.md": [
+      "validation-commands"
+    ],
+    ".ai/assistant/gates/code-and-tests.md": [
+      "code-authoring-rules"
+    ],
+    ".ai/assistant/gates/final-evidence.md": [
+      "commit-policy"
+    ],
+    ".ai/assistant/gates/index.json": [
+      "alatyr-full-capability"
+    ],
+    ".ai/assistant/gates/security-approval.md": [
+      "security-policy"
+    ],
+    ".ai/assistant/gates/semantic-integrity.md": [
+      "business-rule-routing"
+    ],
+    ".ai/assistant/help.md": [
+      "assistant-operation"
+    ],
+    ".ai/assistant/installation-state.json": [
+      "alatyr-full-capability"
+    ],
+    ".ai/assistant/module-profile.md": [
+      "alatyr-full-capability",
+      "project-blueprint-index"
+    ],
+    ".ai/assistant/operation-index.json": [
+      "assistant-operation"
+    ],
+    ".ai/assistant/templates/adapter-maintenance-evidence.json": [
+      "development-process-pattern"
+    ],
+    ".ai/assistant/templates/delayed-outcome-evidence.json": [
+      "development-process-pattern"
+    ],
+    ".ai/assistant/templates/effectiveness-report.md": [
+      "development-process-pattern"
+    ],
+    ".ai/project/architecture/catalog.json": [
+      "architecture-boundaries"
+    ],
+    ".ai/project/blueprint.md": [
+      "business-logic-layer",
+      "business-rule-routing",
+      "product-behavior"
+    ],
+    ".ai/project/code-authoring.md": [
+      "alatyr-full-capability"
+    ],
+    ".ai/project/documentation/profiles.json": [
+      "code-authoring-rules"
+    ],
+    ".ai/project/knowledge/index.json": [
+      "alatyr-full-capability"
+    ],
+    ".ai/project/source-of-truth-registry.md": [
+      "business-logic-layer",
+      "project-blueprint-index"
+    ],
+    "AGENTS.md": [
+      "alatyr-full-capability",
+      "commit-policy"
+    ],
+    "AI_ASSISTANTS.md": [
+      "alatyr-full-capability"
+    ],
+    "composer.json": [
+      "architecture-boundaries"
+    ],
+    "docs/en/reference/security.rst": [
+      "security-policy"
+    ],
+    "docs/en/reference/unitofwork.rst": [
+      "mapping-persistence"
+    ],
+    "tools/check_alatyr.py": [
+      "validation-commands"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": ".ai/**",
+      "node_id": "alatyr-full-capability",
+      "binding_id": "binding-alatyr-full-capability-all-adapter-support",
+      "surface_kind": "other",
+      "context_ids": []
+    },
+    {
+      "pattern": "src/**",
+      "node_id": "architecture-boundaries",
+      "binding_id": "binding-architecture-to-source",
+      "surface_kind": "code",
+      "context_ids": []
+    },
+    {
+      "pattern": "src/**",
+      "node_id": "code-authoring-rules",
+      "binding_id": "binding-code-authoring-source",
+      "surface_kind": "code",
+      "context_ids": []
+    },
+    {
+      "pattern": "tests/Tests/ORM/**",
+      "node_id": "code-authoring-rules",
+      "binding_id": "binding-code-authoring-tests",
+      "surface_kind": "test",
+      "context_ids": []
+    },
+    {
+      "pattern": "src/Mapping/**",
+      "node_id": "mapping-persistence",
+      "binding_id": "binding-mapping-persistence-source",
+      "surface_kind": "code",
+      "context_ids": []
+    },
+    {
+      "pattern": "tests/Tests/ORM/**",
+      "node_id": "mapping-persistence",
+      "binding_id": "binding-mapping-persistence-tests",
+      "surface_kind": "test",
+      "context_ids": []
+    },
+    {
+      "pattern": "docs/en/**/*.rst",
+      "node_id": "product-behavior",
+      "binding_id": "binding-product-behavior-docs",
+      "surface_kind": "doc",
+      "context_ids": []
+    },
+    {
+      "pattern": "tests/**",
+      "node_id": "product-behavior",
+      "binding_id": "binding-product-behavior-tests",
+      "surface_kind": "test",
+      "context_ids": []
+    }
+  ]
+}

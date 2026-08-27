@@ -14,11 +14,11 @@
     "recheck-after-framework-update",
     "recheck-after-installation",
     "adapter-maturity-review",
-    "extension-management"
+    "extension-management",
+    "support-generation"
   ],
   "required_context": [
     ".ai/assistant/context/migration-routing.json",
-    ".ai/alatyr.yaml",
     ".ai/assistant/module-profile.md",
     ".ai/project/source-of-truth-registry.md",
     ".ai/project/consistency-map.json",
@@ -33,6 +33,10 @@
     {
       "path": ".ai/framework/migration-diff.md",
       "when": "migration evidence must be generated repaired or interpreted"
+    },
+    {
+      "path": ".ai/framework/support-information.md",
+      "when": "support policy state impact or generation contracts changed"
     },
     {
       "path": ".ai/framework/rule-registry.json",

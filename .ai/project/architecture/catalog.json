@@ -12,6 +12,9 @@
     "src/",
     "docs/en/reference/basic-mapping.rst",
     "docs/en/reference/unitofwork.rst",
+    "docs/en/reference/advanced-configuration.rst",
+    "docs/en/reference/second-level-cache.rst",
+    "docs/en/tutorials/pagination.rst",
     ".ai/project/blueprint.md",
     ".ai/project/business-logic.md",
     ".ai/project/code-authoring.md"
@@ -20,8 +23,8 @@
     ".ai/project/source-of-truth-registry.md",
     "CODEOWNERS"
   ],
-  "last_reviewed": "2026-08-21",
-  "evidence_revision": "454db525ccce95aff1057cb57726900560374970",
+  "last_reviewed": "2026-08-26",
+  "evidence_revision": "68a7b23a93b0849adb6f42b31410a04dc9290a56",
   "areas": [
     {
       "id": "mapping-metadata",
@@ -77,6 +80,49 @@
       ],
       "pattern_ids": [
         "platform-backed-persistence"
+      ]
+    },
+    {
+      "id": "pagination",
+      "name": "Offset and cursor pagination",
+      "status": "accepted",
+      "owner": "src/Tools/Pagination/ and docs/en/tutorials/pagination.rst",
+      "detail": "docs/en/tutorials/pagination.rst",
+      "evidence": [
+        "src/Tools/Pagination/",
+        "tests/Tests/ORM/Tools/Pagination/"
+      ],
+      "pattern_ids": [
+        "query-pagination"
+      ]
+    },
+    {
+      "id": "caching",
+      "name": "Query, metadata, and second-level caching",
+      "status": "accepted",
+      "owner": "src/Cache/ and Doctrine cache documentation",
+      "detail": "docs/en/reference/second-level-cache.rst",
+      "evidence": [
+        "src/Cache/",
+        "tests/Tests/ORM/Cache/",
+        "docs/en/reference/advanced-configuration.rst"
+      ],
+      "pattern_ids": [
+        "identity-aware-caching"
+      ]
+    },
+    {
+      "id": "proxy-lazy-loading",
+      "name": "Proxy-backed lazy loading",
+      "status": "accepted",
+      "owner": "src/Proxy/ and docs/en/reference/advanced-configuration.rst",
+      "detail": "docs/en/reference/advanced-configuration.rst",
+      "evidence": [
+        "src/Proxy/",
+        "tests/Tests/ORM/Proxy/"
+      ],
+      "pattern_ids": [
+        "transparent-lazy-loading"
       ]
     },
     {
@@ -141,7 +187,7 @@
       "related_pattern_ids": [
         "identity-map-unit-of-work"
       ],
-      "last_verified_revision": "454db525ccce95aff1057cb57726900560374970"
+      "last_verified_revision": "68a7b23a93b0849adb6f42b31410a04dc9290a56"
     },
     {
       "id": "identity-map-unit-of-work",
@@ -166,7 +212,7 @@
       "related_pattern_ids": [
         "metadata-driven-orm"
       ],
-      "last_verified_revision": "454db525ccce95aff1057cb57726900560374970"
+      "last_verified_revision": "68a7b23a93b0849adb6f42b31410a04dc9290a56"
     },
     {
       "id": "dql-to-sql-pipeline",
@@ -191,7 +237,34 @@
       "related_pattern_ids": [
         "platform-backed-persistence"
       ],
-      "last_verified_revision": "454db525ccce95aff1057cb57726900560374970"
+      "last_verified_revision": "68a7b23a93b0849adb6f42b31410a04dc9290a56"
+    },
+    {
+      "id": "query-pagination",
+      "name": "Deterministic ORM query pagination",
+      "kind": "runtime",
+      "status": "accepted",
+      "scope": [
+        "pagination",
+        "query-hydration",
+        "dbal-integration"
+      ],
+      "problem": "Paginate ORM queries through offset or cursor APIs while preserving deterministic ordering and DBAL portability.",
+      "decision_owner": "@atvardovsky",
+      "decision_record": "docs/en/tutorials/pagination.rst",
+      "detail": "src/Tools/Pagination/",
+      "evidence": [
+        "src/Tools/Pagination/",
+        "tests/Tests/ORM/Tools/Pagination/"
+      ],
+      "validation": [
+        "/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpunit tests/Tests/ORM/Tools/Pagination"
+      ],
+      "related_pattern_ids": [
+        "dql-to-sql-pipeline",
+        "platform-backed-persistence"
+      ],
+      "last_verified_revision": "68a7b23a93b0849adb6f42b31410a04dc9290a56"
     },
     {
       "id": "platform-backed-persistence",
@@ -217,7 +290,60 @@
       "related_pattern_ids": [
         "matrix-backed-validation"
       ],
-      "last_verified_revision": "454db525ccce95aff1057cb57726900560374970"
+      "last_verified_revision": "68a7b23a93b0849adb6f42b31410a04dc9290a56"
+    },
+    {
+      "id": "identity-aware-caching",
+      "name": "Identity-aware ORM caching",
+      "kind": "integration",
+      "status": "accepted",
+      "scope": [
+        "caching",
+        "unit-of-work",
+        "query-hydration"
+      ],
+      "problem": "Integrate metadata, query, and second-level caches without violating UnitOfWork identity semantics or documented cache limitations.",
+      "decision_owner": "@atvardovsky",
+      "decision_record": "docs/en/reference/second-level-cache.rst",
+      "detail": "src/Cache/",
+      "evidence": [
+        "src/Cache/",
+        "tests/Tests/ORM/Cache/",
+        "docs/en/reference/advanced-configuration.rst"
+      ],
+      "validation": [
+        "/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpunit tests/Tests/ORM/Cache"
+      ],
+      "related_pattern_ids": [
+        "identity-map-unit-of-work",
+        "dql-to-sql-pipeline"
+      ],
+      "last_verified_revision": "68a7b23a93b0849adb6f42b31410a04dc9290a56"
+    },
+    {
+      "id": "transparent-lazy-loading",
+      "name": "Transparent proxy-backed lazy loading",
+      "kind": "runtime",
+      "status": "accepted",
+      "scope": [
+        "proxy-lazy-loading",
+        "unit-of-work"
+      ],
+      "problem": "Use generated proxy objects for lazy loading while preserving transparent entity identity and documented proxy configuration.",
+      "decision_owner": "@atvardovsky",
+      "decision_record": "docs/en/reference/advanced-configuration.rst",
+      "detail": "src/Proxy/",
+      "evidence": [
+        "src/Proxy/",
+        "tests/Tests/ORM/Proxy/"
+      ],
+      "validation": [
+        "/usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpunit tests/Tests/ORM/Proxy"
+      ],
+      "related_pattern_ids": [
+        "identity-map-unit-of-work"
+      ],
+      "last_verified_revision": "68a7b23a93b0849adb6f42b31410a04dc9290a56"
     },
     {
       "id": "matrix-backed-validation",
@@ -242,7 +368,7 @@
       "related_pattern_ids": [
         "platform-backed-persistence"
       ],
-      "last_verified_revision": "454db525ccce95aff1057cb57726900560374970"
+      "last_verified_revision": "68a7b23a93b0849adb6f42b31410a04dc9290a56"
     },
     {
       "id": "doctrine-library-authoring",
@@ -273,7 +399,7 @@
       "related_pattern_ids": [
         "matrix-backed-validation"
       ],
-      "last_verified_revision": "8a0328f5b5f7560adc075018860f1a9a0dc363da"
+      "last_verified_revision": "68a7b23a93b0849adb6f42b31410a04dc9290a56"
     }
   ],
   "known_gaps": [

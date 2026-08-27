@@ -14,6 +14,10 @@ when the programmer asks whether the installed adapter is still coherent.
 - Source-of-truth registry: `.ai/project/source-of-truth-registry.md`
 - Consistency map: `.ai/project/consistency-map.json`
 - Context router: `.ai/assistant/context-router.json`
+- Recursive context indexes: `.ai/framework/context-index.json`,
+  `.ai/project/context-index.json`, `.ai/assistant/context-index.json`
+- Semantic codebook: `.ai/framework/semantics/index.json`
+- Context packet template: `.ai/assistant/templates/context-packet.json`
 - Context profiles: `.ai/assistant/context-profiles.md`
 - Module profile: `.ai/assistant/module-profile.md`
 - Maturity profile: `.ai/assistant/maturity-profile.md`
@@ -46,6 +50,9 @@ when the programmer asks whether the installed adapter is still coherent.
    `framework-upgrade` profile plus only affected adapter areas. Do not load
    all `.ai/project` or `.ai/assistant` files before identifying the recheck
    scope.
+   Follow only the selected recursive index branches, resolve semantic term
+   dependencies once, and record the context packet digest or canonical-owner
+   fallback for material update work.
 2. Identify whether this is a post-installation recheck, framework update
    recheck, bridge compatibility review, or maturity audit.
 3. Prepare or review migration assessment evidence before target changes.
@@ -71,6 +78,9 @@ when the programmer asks whether the installed adapter is still coherent.
    chat-message templates, and final-evidence expectations. Check
    optional-module paths only when the module is enabled or the file is
    present.
+   Verify all three recursive index roots, bounded child traversal, content
+   digests, word estimates, semantic references, and the context-packet
+   template before rebuilding the semantic bootstrap.
 9. Check adapter drift hazards: hard-coded local machine paths in `.ai/*`,
    root assistant entry points, bridge files, templates, and policies; stale
    statements about whether local Alatyr or adapter checkers exist; duplicate
@@ -179,6 +189,8 @@ Report:
 - architecture catalog owner, decision authority, states, selected evidence,
   validation, contradictions, and revision status
 - context router and context profile status
+- recursive context index chain, selected item IDs/digests, semantic term
+  IDs/versions, packet digest or canonical-owner fallback
 - module profile status
 - project-knowledge index version, adoption state, reuse evidence or enabled-
   empty limitation, and historical record preservation

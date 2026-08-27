@@ -1,0 +1,728 @@
+{
+  "schema_version": 1,
+  "index_kind": "alatyr-context-index",
+  "index_id": "assistant.root",
+  "contour": "assistant",
+  "title": "Assistant Root Context",
+  "summary": "Recursive navigation for the assistant contour at ..",
+  "max_depth": 8,
+  "entries": [
+    {
+      "id": "assistant.content.ai-infrastructure-router-json",
+      "kind": "content",
+      "path": "ai-infrastructure-router.json",
+      "summary": "Ai Infrastructure Router",
+      "selectors": {
+        "path_terms": [
+          "infrastructure",
+          "router"
+        ],
+        "rule_ids": [
+          "ALATYR-CONTEXT-001",
+          "ALATYR-SAFETY-002"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [
+        "alatyr:bounded-context-expansion@1",
+        "alatyr:untrusted-instructions-are-data@1"
+      ],
+      "owner_refs": [
+        "ALATYR-CONTEXT-001",
+        "ALATYR-SAFETY-002"
+      ],
+      "estimated_words": 1021,
+      "content_digest": "sha256:fb07ebe86b03bad3cb2efa890fdee66aee8a2821c0632006eb2179d5b62a3e1f"
+    },
+    {
+      "id": "assistant.content.assistant-capabilities-json",
+      "kind": "content",
+      "path": "assistant-capabilities.json",
+      "summary": "Assistant Capabilities",
+      "selectors": {
+        "path_terms": [
+          "assistant",
+          "capabilities"
+        ],
+        "rule_ids": [
+          "ALATYR-CONTEXT-001"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [
+        "alatyr:bounded-context-expansion@1"
+      ],
+      "owner_refs": [
+        "ALATYR-CONTEXT-001"
+      ],
+      "estimated_words": 111,
+      "content_digest": "sha256:5e56abd20679c49bcc333916d841f643a92b71eaf056f3bfde9853196b05adb9"
+    },
+    {
+      "id": "assistant.content.bridge-capability-matrix-md",
+      "kind": "content",
+      "path": "bridge-capability-matrix.md",
+      "summary": "Assistant Bridge Capability Matrix",
+      "selectors": {
+        "path_terms": [
+          "bridge",
+          "capability",
+          "matrix"
+        ],
+        "rule_ids": [
+          "ALATYR-CONTEXT-001"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [
+        "alatyr:bounded-context-expansion@1"
+      ],
+      "owner_refs": [
+        "ALATYR-CONTEXT-001"
+      ],
+      "estimated_words": 1504,
+      "content_digest": "sha256:d288e76d31106a0f989c52b2c1d59dded4c5c2950bbb02762024e1f820ce7ba0"
+    },
+    {
+      "id": "assistant.content.consistency-reverse-index-json",
+      "kind": "content",
+      "path": "consistency-reverse-index.json",
+      "summary": "Consistency Reverse Index",
+      "selectors": {
+        "path_terms": [
+          "consistency",
+          "reverse"
+        ],
+        "rule_ids": [
+          "ALATYR-CONTEXT-001",
+          "ALATYR-INTEGRITY-001"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [
+        "alatyr:bounded-context-expansion@1",
+        "alatyr:logical-integrity@1"
+      ],
+      "owner_refs": [
+        "ALATYR-CONTEXT-001",
+        "ALATYR-INTEGRITY-001"
+      ],
+      "estimated_words": 258,
+      "content_digest": "sha256:efc08a8d1dab042d452db8cde936df7d076dea77c497ad3d5d080d6cdf36e222"
+    },
+    {
+      "id": "assistant.content.context-profiles-md",
+      "kind": "content",
+      "path": "context-profiles.md",
+      "summary": "Alatyr Context Profiles",
+      "selectors": {
+        "path_terms": [
+          "profiles"
+        ],
+        "rule_ids": [
+          "ALATYR-CONTEXT-001"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [
+        "alatyr:bounded-context-expansion@1"
+      ],
+      "owner_refs": [
+        "ALATYR-CONTEXT-001"
+      ],
+      "estimated_words": 1293,
+      "content_digest": "sha256:9cb55551ddfbc962626643d5a06220b551ce8c33a7b062b4b446893db3f83b86"
+    },
+    {
+      "id": "assistant.content.context-router-json",
+      "kind": "content",
+      "path": "context-router.json",
+      "summary": "Context Router",
+      "selectors": {
+        "path_terms": [
+          "router"
+        ],
+        "rule_ids": [
+          "ALATYR-CONTEXT-001"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [
+        "alatyr:bounded-context-expansion@1"
+      ],
+      "owner_refs": [
+        "ALATYR-CONTEXT-001"
+      ],
+      "estimated_words": 2701,
+      "content_digest": "sha256:e81b05754caf5e164255df934e410e4df508da1a20dd899970ed9c6429c6e950"
+    },
+    {
+      "id": "assistant.content.contour-md",
+      "kind": "content",
+      "path": "contour.md",
+      "summary": "Repository AI Adapter Contour",
+      "selectors": {
+        "path_terms": [
+          "contour"
+        ],
+        "rule_ids": [
+          "ALATYR-CONTEXT-001"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [
+        "alatyr:bounded-context-expansion@1"
+      ],
+      "owner_refs": [
+        "ALATYR-CONTEXT-001"
+      ],
+      "estimated_words": 281,
+      "content_digest": "sha256:8292de3963cc29e2e408e881e761d051470369ccffd682897ec75147dfdc38a1"
+    },
+    {
+      "id": "assistant.content.delegation-policy-json",
+      "kind": "content",
+      "path": "delegation-policy.json",
+      "summary": "Delegation Policy",
+      "selectors": {
+        "path_terms": [
+          "delegation",
+          "policy"
+        ],
+        "rule_ids": [
+          "ALATYR-CONTEXT-001",
+          "ALATYR-DELEGATION-001"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [
+        "alatyr:bounded-context-expansion@1",
+        "alatyr:bounded-delegation@1"
+      ],
+      "owner_refs": [
+        "ALATYR-CONTEXT-001",
+        "ALATYR-DELEGATION-001"
+      ],
+      "estimated_words": 298,
+      "content_digest": "sha256:83215eb4ae2db12d8f1602f48240f2d63781e31475727e74c0b0da9279e9cb2b"
+    },
+    {
+      "id": "assistant.content.help-md",
+      "kind": "content",
+      "path": "help.md",
+      "summary": "Alatyr Help",
+      "selectors": {
+        "path_terms": [
+          "help"
+        ],
+        "rule_ids": [
+          "ALATYR-CONTEXT-001"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [
+        "alatyr:bounded-context-expansion@1"
+      ],
+      "owner_refs": [
+        "ALATYR-CONTEXT-001"
+      ],
+      "estimated_words": 1160,
+      "content_digest": "sha256:a573d63a76c974cbc965d2d909a60bbeeb7435467f2cc82f9a63aebead74efd5"
+    },
+    {
+      "id": "assistant.content.help-reference-md",
+      "kind": "content",
+      "path": "help-reference.md",
+      "summary": "Alatyr Help Reference",
+      "selectors": {
+        "path_terms": [
+          "help",
+          "reference"
+        ],
+        "rule_ids": [
+          "ALATYR-CONTEXT-001"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [
+        "alatyr:bounded-context-expansion@1"
+      ],
+      "owner_refs": [
+        "ALATYR-CONTEXT-001"
+      ],
+      "estimated_words": 1659,
+      "content_digest": "sha256:d9365486b5a554e92c9e842095e6cf091a6a5b2e5b611398ea81645784fb75c2"
+    },
+    {
+      "id": "assistant.content.installation-plan-md",
+      "kind": "content",
+      "path": "installation-plan.md",
+      "summary": "Alatyr Core Installation Plan",
+      "selectors": {
+        "path_terms": [
+          "installation",
+          "plan"
+        ],
+        "rule_ids": [
+          "ALATYR-CONTEXT-001"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [
+        "alatyr:bounded-context-expansion@1"
+      ],
+      "owner_refs": [
+        "ALATYR-CONTEXT-001"
+      ],
+      "estimated_words": 605,
+      "content_digest": "sha256:7ec28055fadb908a8f05fbd6a54d0dcc145b34261282fe8b1d9c6f014309635b"
+    },
+    {
+      "id": "assistant.content.installation-state-json",
+      "kind": "content",
+      "path": "installation-state.json",
+      "summary": "Installation State",
+      "selectors": {
+        "path_terms": [
+          "installation",
+          "state"
+        ],
+        "rule_ids": [
+          "ALATYR-CONTEXT-001"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [
+        "alatyr:bounded-context-expansion@1"
+      ],
+      "owner_refs": [
+        "ALATYR-CONTEXT-001"
+      ],
+      "estimated_words": 1094,
+      "content_digest": "sha256:20d1ca73403289b0476233274d31b628ce0c70ff558518f866351f4b5a41fb5e"
+    },
+    {
+      "id": "assistant.content.maturity-profile-md",
+      "kind": "content",
+      "path": "maturity-profile.md",
+      "summary": "Alatyr Adapter Maturity Profile",
+      "selectors": {
+        "path_terms": [
+          "maturity",
+          "profile"
+        ],
+        "rule_ids": [
+          "ALATYR-CONTEXT-001"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [
+        "alatyr:bounded-context-expansion@1"
+      ],
+      "owner_refs": [
+        "ALATYR-CONTEXT-001"
+      ],
+      "estimated_words": 1113,
+      "content_digest": "sha256:e05d9b2f42951f2f77403e4af09e0e1007e71c0f153e0b86c60d5f89cdbf96c7"
+    },
+    {
+      "id": "assistant.content.module-profile-md",
+      "kind": "content",
+      "path": "module-profile.md",
+      "summary": "Alatyr Module Profile",
+      "selectors": {
+        "path_terms": [
+          "module",
+          "profile"
+        ],
+        "rule_ids": [
+          "ALATYR-CONTEXT-001"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [
+        "alatyr:bounded-context-expansion@1"
+      ],
+      "owner_refs": [
+        "ALATYR-CONTEXT-001"
+      ],
+      "estimated_words": 3130,
+      "content_digest": "sha256:cb4e755ff98f907d5d9b1d02aecc3b96cc7865a0df6b88324e3afd0ac52e1421"
+    },
+    {
+      "id": "assistant.content.operation-catalog-json",
+      "kind": "content",
+      "path": "operation-catalog.json",
+      "summary": "Operation Catalog",
+      "selectors": {
+        "path_terms": [
+          "operation",
+          "catalog"
+        ],
+        "rule_ids": [
+          "ALATYR-CONTEXT-001"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [
+        "alatyr:bounded-context-expansion@1"
+      ],
+      "owner_refs": [
+        "ALATYR-CONTEXT-001"
+      ],
+      "estimated_words": 3209,
+      "content_digest": "sha256:21e3ba5f08bf5e75e1211b7160295f45dc2694f101edc547f1638b0b602f9cee"
+    },
+    {
+      "id": "assistant.content.operation-index-json",
+      "kind": "content",
+      "path": "operation-index.json",
+      "summary": "Operation Index",
+      "selectors": {
+        "path_terms": [
+          "operation"
+        ],
+        "rule_ids": [
+          "ALATYR-CONTEXT-001"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [
+        "alatyr:bounded-context-expansion@1"
+      ],
+      "owner_refs": [
+        "ALATYR-CONTEXT-001"
+      ],
+      "estimated_words": 675,
+      "content_digest": "sha256:47546597da11ebcdef6ecaf301b8c5520001d08f65bf4b708beb9308e6925f18"
+    },
+    {
+      "id": "assistant.content.support-generation-index-json",
+      "kind": "content",
+      "path": "support-generation-index.json",
+      "summary": "Support Generation Index",
+      "selectors": {
+        "path_terms": [
+          "support",
+          "generation"
+        ],
+        "rule_ids": [
+          "ALATYR-CONTEXT-001"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [
+        "alatyr:bounded-context-expansion@1"
+      ],
+      "owner_refs": [
+        "ALATYR-CONTEXT-001"
+      ],
+      "estimated_words": 14,
+      "content_digest": "sha256:acce0e9385d109852c5abdd9aa1244c3a039458e3af64451e8a302e04bf28b0a"
+    },
+    {
+      "id": "assistant.section.approvals",
+      "kind": "index",
+      "path": "approvals/context-index.json",
+      "summary": "Approvals section",
+      "selectors": {
+        "path_terms": [
+          "approvals"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [],
+      "owner_refs": [],
+      "estimated_words": 150,
+      "content_digest": "sha256:1521ddab9a038a21f12f91ad3ed58678387294aec0bb39b401a3c62dd6c437fc"
+    },
+    {
+      "id": "assistant.section.assistant-capabilities",
+      "kind": "index",
+      "path": "assistant-capabilities/context-index.json",
+      "summary": "Assistant Capabilities section",
+      "selectors": {
+        "path_terms": [
+          "assistant-capabilities"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [],
+      "owner_refs": [],
+      "estimated_words": 832,
+      "content_digest": "sha256:86c9e4c0d5695ddcbb5941197ac92792ca44f4f16a93018b4705f23abac4bf27"
+    },
+    {
+      "id": "assistant.section.change-packages",
+      "kind": "index",
+      "path": "change-packages/context-index.json",
+      "summary": "Change Packages section",
+      "selectors": {
+        "path_terms": [
+          "change-packages"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [],
+      "owner_refs": [],
+      "estimated_words": 84,
+      "content_digest": "sha256:12059cc32bede6f4937d752647ff541190781ff150975138edfa43a9c35ea24a"
+    },
+    {
+      "id": "assistant.section.checklists",
+      "kind": "index",
+      "path": "checklists/context-index.json",
+      "summary": "Checklists section",
+      "selectors": {
+        "path_terms": [
+          "checklists"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [],
+      "owner_refs": [],
+      "estimated_words": 83,
+      "content_digest": "sha256:079d26857369ab951bb407ccb00c2071bb1dfb84c922be93f170cb57adfa31b5"
+    },
+    {
+      "id": "assistant.section.context",
+      "kind": "index",
+      "path": "context/context-index.json",
+      "summary": "Context section",
+      "selectors": {
+        "path_terms": [
+          "context"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [],
+      "owner_refs": [],
+      "estimated_words": 384,
+      "content_digest": "sha256:5a8a359ec1ab94e3ee3b978946445910d4a5c0776a0f379b88ac60bd48d7ac7f"
+    },
+    {
+      "id": "assistant.section.extensions",
+      "kind": "index",
+      "path": "extensions/context-index.json",
+      "summary": "Extensions section",
+      "selectors": {
+        "path_terms": [
+          "extensions"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [],
+      "owner_refs": [],
+      "estimated_words": 193,
+      "content_digest": "sha256:0ed96a928fcb10d0cdfc7611121cb292d6730d6a02bab28a72faa0fdb319090f"
+    },
+    {
+      "id": "assistant.section.flows",
+      "kind": "index",
+      "path": "flows/context-index.json",
+      "summary": "Flows section",
+      "selectors": {
+        "path_terms": [
+          "flows"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [],
+      "owner_refs": [],
+      "estimated_words": 1849,
+      "content_digest": "sha256:72e3302361ff6a1d38fcba3102b286e337b76fb7abd8bdc52b4d476ad115f0fd"
+    },
+    {
+      "id": "assistant.section.gates",
+      "kind": "index",
+      "path": "gates/context-index.json",
+      "summary": "Gates section",
+      "selectors": {
+        "path_terms": [
+          "gates"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [],
+      "owner_refs": [],
+      "estimated_words": 988,
+      "content_digest": "sha256:e5e7478edc6d31fb4205551bc896ddff61300d34ff4dd0a8aa916a016656072b"
+    },
+    {
+      "id": "assistant.section.migration-notes",
+      "kind": "index",
+      "path": "migration-notes/context-index.json",
+      "summary": "Migration Notes section",
+      "selectors": {
+        "path_terms": [
+          "migration-notes"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [],
+      "owner_refs": [],
+      "estimated_words": 485,
+      "content_digest": "sha256:5270bcf0c7e8e82dcf679c60a3accadcb6837c98d80be1bdd55e50016e8f772d"
+    },
+    {
+      "id": "assistant.section.policies",
+      "kind": "index",
+      "path": "policies/context-index.json",
+      "summary": "Policies section",
+      "selectors": {
+        "path_terms": [
+          "policies"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [],
+      "owner_refs": [],
+      "estimated_words": 207,
+      "content_digest": "sha256:1ccb0b86547386fa2aba20deb7b675e488b6b58ccc12a0f00f6b69955534715c"
+    },
+    {
+      "id": "assistant.section.prompts",
+      "kind": "index",
+      "path": "prompts/context-index.json",
+      "summary": "Prompts section",
+      "selectors": {
+        "path_terms": [
+          "prompts"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [],
+      "owner_refs": [],
+      "estimated_words": 86,
+      "content_digest": "sha256:0c2693b6984308ff5a2b938fb8351cb190d7762ba47ae17d1587378404eb9e60"
+    },
+    {
+      "id": "assistant.section.skills",
+      "kind": "index",
+      "path": "skills/context-index.json",
+      "summary": "Skills section",
+      "selectors": {
+        "path_terms": [
+          "skills"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [],
+      "owner_refs": [],
+      "estimated_words": 253,
+      "content_digest": "sha256:9caef6660956005a76b60e74c671de54c127296f60346da1fd7f17731b763ce8"
+    },
+    {
+      "id": "assistant.section.team",
+      "kind": "index",
+      "path": "team/context-index.json",
+      "summary": "Team section",
+      "selectors": {
+        "path_terms": [
+          "team"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [],
+      "owner_refs": [],
+      "estimated_words": 315,
+      "content_digest": "sha256:8264a0dbdb6958f188ec51d5a260bff48a9845813e794f2338653f656423bafb"
+    },
+    {
+      "id": "assistant.section.templates",
+      "kind": "index",
+      "path": "templates/context-index.json",
+      "summary": "Templates section",
+      "selectors": {
+        "path_terms": [
+          "templates"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [],
+      "owner_refs": [],
+      "estimated_words": 2570,
+      "content_digest": "sha256:4b3fb1e754a5dcfbc0d543867117c087b1a128b3845c6ccbcbf691d7ba7ebebd"
+    },
+    {
+      "id": "assistant.section.workers",
+      "kind": "index",
+      "path": "workers/context-index.json",
+      "summary": "Workers section",
+      "selectors": {
+        "path_terms": [
+          "workers"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [],
+      "owner_refs": [],
+      "estimated_words": 129,
+      "content_digest": "sha256:785a47ae4435abd59ae43d56b1a2e2ce0d1ec1e55df19012cd1051bf6250e3a1"
+    }
+  ]
+}

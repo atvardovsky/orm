@@ -66,6 +66,11 @@ Default routing:
   explicit current-task or current-session request. Checkpoint material events,
   classify architectural impacts and direction replacements structurally, and
   expire activation with the scope. Resolve durable evidence links lazily.
+- Use `Alatyr impact` or `Alatyr support diff` to route changed support/code
+  paths into bounded logical-integrity review. When `support-generation` is
+  enabled, `Alatyr check generated support` is read-only and `Alatyr generate
+  support` uses the guarded generation flow; neither command accepts inferred
+  relationships as architecture facts.
 
 ## Quick Operations
 

@@ -63,10 +63,23 @@ Allowed actions: `read-only`, `docs-only`, `code-and-tests`, or
 
 ### `logical-integrity-review`
 
-Aliases: `check integrity`, `logical integrity review`.
+Aliases: `check integrity`, `logical integrity review`, `Alatyr impact`,
+`Alatyr support diff`.
 
 Use for changed facts, invariants, owner conflicts, or companion surface
-review. The flow is `.ai/assistant/flows/logical-integrity-review.flow.md`.
+review. The support diff and consistency reverse index select only matching
+graph shards before semantic/invariant review. The flow is
+`.ai/assistant/flows/logical-integrity-review.flow.md`.
+
+### `support-generation`
+
+Aliases: `Alatyr generate support`, `Alatyr check generated support`.
+
+Use when target-owned derived support is stale and the optional module is
+enabled. Planning and checking are read-only. Apply requires current `modify`
+authorization, an exact current plan digest, unchanged repository state,
+staged deterministic output, and protected approval when triggered. The flow
+is `.ai/assistant/flows/support-generation.flow.md`.
 
 ### `drift-review`
 

@@ -8,8 +8,8 @@
   "documentation_owner": "@atvardovsky",
   "profile_decision_authority": "@atvardovsky",
   "generation_owner": "@atvardovsky",
-  "last_reviewed": "2026-08-21",
-  "evidence_revision": "454db525ccce95aff1057cb57726900560374970",
+  "last_reviewed": "2026-08-26",
+  "evidence_revision": "68a7b23a93b0849adb6f42b31410a04dc9290a56",
   "areas": [
     {
       "id": "runtime-source",

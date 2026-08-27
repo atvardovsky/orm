@@ -2,8 +2,8 @@
 
 Status: enabled
 Owner: `@atvardovsky`
-Last reviewed: 2026-08-21
-Evidence revision: `454db525c`
+Last reviewed: 2026-08-26
+Evidence revision: `68a7b23a`
 
 This layer records how Alatyr handles code documentation and comment work in
 this Doctrine ORM fork. Public behavior belongs in `docs/en/reference/*.rst`.

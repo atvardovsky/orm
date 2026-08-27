@@ -1,9 +1,9 @@
-schema_version: 29
+schema_version: 31
 framework:
   name: Alatyr Core
-  version: 0.1.0-alpha.31
+  version: 0.1.0-alpha.33
   source: https://github.com/atvardovsky/AlatyrCore
-  template_version: 29
+  template_version: 31
   pack: complete
   rule_registry: .ai/framework/rule-registry.json
 installation:
@@ -37,6 +37,10 @@ source_of_truth:
   assistant_contour: .ai/assistant/contour.md
   context_router: .ai/assistant/context-router.json
   bootstrap_index: .ai/assistant/bootstrap-index.json
+  framework_context_index: .ai/framework/context-index.json
+  project_context_index: .ai/project/context-index.json
+  assistant_context_index: .ai/assistant/context-index.json
+  semantic_codebook: .ai/framework/semantics/index.json
   context_profiles: .ai/assistant/context-profiles.md
   module_profile: .ai/assistant/module-profile.md
   project_sources:
@@ -98,19 +102,28 @@ source_of_truth:
   test_first_policy: .ai/project/testing/test-first-policy.json
   team_policy: .ai/project/team-policy.json
   team_operating_model: .ai/project/team-operating-model.md
+support_information:
+  policy: .ai/project/support-policy.json
+  state: .ai/support-state.json
 context_routing:
-  router_schema_version: 7
+  router_schema_version: 8
   preloaded_context:
   - AGENTS.md
   compact_bootstrap:
   - .ai/assistant/bootstrap-index.json
   bootstrap_max_files: 2
-  bootstrap_max_words: 1800
+  bootstrap_max_words: 2300
   profile_default_max_files: 20
   profile_default_max_total_words: 12400
   profile_default_max_portable_words: 3000
   profile_default_reserved_target_words: 9400
   budget_behavior: load required safety and owner evidence, then record measured expansion
+  recursive_index_schema_version: 1
+  recursive_index_max_depth: 8
+  semantic_codebook_schema_version: 1
+  semantic_preload_policy: core definitions are embedded in the generated bootstrap; domain and project term shards remain conditional
+  context_packet_schema_version: 1
+  context_packet_template: .ai/assistant/templates/context-packet.json
 modules:
   core_profile: complete-with-known-gaps
   enabled:
@@ -135,6 +148,7 @@ modules:
   - migration-diff
   - effectiveness-metrics
   - debug-mode
+  - support-generation
   - scaffolding
   deferred: []
   blocked:
@@ -230,6 +244,7 @@ operations:
   effectiveness_report: .ai/assistant/templates/effectiveness-report.md
   delayed_outcome_evidence: .ai/assistant/templates/delayed-outcome-evidence.json
   adapter_maintenance_evidence: .ai/assistant/templates/adapter-maintenance-evidence.json
+  support_generation: .ai/assistant/flows/support-generation.flow.md
 maturity:
   profile: .ai/assistant/maturity-profile.md
 known_gaps:
@@ -240,9 +255,10 @@ known_gaps:
 - Default php and composer binaries are not suitable for this branch in this workspace;
   use /usr/local/bin/php8 and /usr/local/bin/composer8.
 - Local SQLite lacks the SQRT SQL function; with /usr/local/bin/php8 -d memory_limit=1G
-  vendor/bin/phpunit the full PHPUnit suite runs 3486 tests and reports SQRT errors
-  in Doctrine\Tests\ORM\Functional\QueryDqlFunctionTest::testFunctionSqrt and Doctrine\Tests\ORM\Functional\Ticket\GH7941Test::typesShouldBeConvertedForDQLFunctions
-  in this environment.
+  vendor/bin/phpunit the full PHPUnit suite reports SQRT errors in Doctrine\Tests\ORM\Functional\QueryDqlFunctionTest::testFunctionSqrt
+  and Doctrine\Tests\ORM\Functional\Ticket\GH7941Test::typesShouldBeConvertedForDQLFunctions
+  in this environment. The suite-size count is intentionally not cached here because
+  it changes as Doctrine tests evolve.
 - Full Alatyr capability surface is installed and enabled in this branch; runtime-specific
   assistant capabilities remain evidence-bound and unverified until each active client
   proves them.
@@ -256,11 +272,11 @@ local_deviations:
   optional capability graph with target-owned records.
 - Added tools/check_alatyr.py as the target-local wrapper for the Alatyr source validator;
   ALATYR_CORE_SOURCE supplies the external checkout path at runtime.
-- Set the bootstrap budget to 1800 words because this Doctrine adapter preloads
-  target evidence in AGENTS.md alongside the generated bootstrap index.
+- Set the bootstrap budget to 2300 words because this Doctrine adapter preloads
+  target evidence in AGENTS.md alongside the generated semantic bootstrap.
 - Set the profile target-context reserve to 9400 words and total profile budget
-  to 12400 words because schema-7 cost validation measures the full Doctrine
-  owner evidence plus current lifecycle and capability guidance directly.
+  to 12400 words because schema-8 recursive routing still reserves sufficient
+  space for Doctrine owner evidence, lifecycle guidance, and capability rules.
 ai_infrastructure:
   router: .ai/assistant/ai-infrastructure-router.json
   inventory: .ai/assistant/templates/ai-infrastructure-inventory.md
@@ -389,6 +405,11 @@ test_first_development:
   gate: .ai/assistant/gates/test-first-development.md
   skill: .ai/assistant/skills/test-first-development/SKILL.md
   evidence: .ai/assistant/templates/test-first-evidence.md
+support_generation:
+  registry: .ai/project/support-generation/registry.json
+  index: .ai/assistant/support-generation-index.json
+  flow: .ai/assistant/flows/support-generation.flow.md
+  gate: .ai/assistant/gates/support-generation.md
 policies:
   source_access: .ai/assistant/policies/ai-infrastructure-source-access.md
   prompt_injection: .ai/assistant/policies/prompt-injection.md

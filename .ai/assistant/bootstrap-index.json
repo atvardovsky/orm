@@ -4,26 +4,87 @@
   "derived_from": {
     "manifest": {
       "path": ".ai/alatyr.yaml",
-      "sha256": "4b4aa06d6329215a67b0de0a2e48b6f8dfebcce0e802473859df92cf1ae60cd9"
+      "sha256": "c05df2c927f67ec194b31cd8c6997228b03825707de8535968898bf3598cc78f"
     },
     "project_map": {
       "path": ".ai/README.md",
-      "sha256": "619adc7e2e9778ec61776d69fa1bde7ce7376eeba2ffb98fa0efb955f996e8ec"
+      "sha256": "f8100709638278b1a042bbcab30a76567970e09b344b37e1779c29a69db76ba5"
     },
     "context_router": {
       "path": ".ai/assistant/context-router.json",
-      "sha256": "ddf37942581be137bb6ac81959565c3e76ae862fd49ec5fbbef139997364e874"
+      "sha256": "e81b05754caf5e164255df934e410e4df508da1a20dd899970ed9c6429c6e950"
+    },
+    "semantic_codebook": {
+      "path": ".ai/framework/semantics/index.json",
+      "sha256": "c9b656837e72b8075fc5fac9cba8b7ea97db03c6a5c7165ac01b7517ef71d994"
     }
   },
   "installation": {
-    "framework_version": "0.1.0-alpha.31",
-    "adapter_schema_version": "29",
-    "template_version": "29",
+    "framework_version": "0.1.0-alpha.33",
+    "adapter_schema_version": "31",
+    "template_version": "31",
     "support_profile": "full",
     "framework_pack": "complete"
   },
   "project_map": ".ai/README.md",
   "context_router": ".ai/assistant/context-router.json",
+  "recursive_context": {
+    "contour_indexes": {
+      "framework": ".ai/framework/context-index.json",
+      "project": ".ai/project/context-index.json",
+      "assistant": ".ai/assistant/context-index.json"
+    },
+    "max_depth": 8,
+    "on_failure": "stop compact interpretation, load the named canonical owner when safe, and report index drift; never load the complete contour by default"
+  },
+  "semantic_preload": {
+    "index": ".ai/framework/semantics/index.json",
+    "codebook_schema_version": 1,
+    "terms": [
+      {
+        "id": "alatyr:current-scope-authorization@1",
+        "version": 1,
+        "definition": "Inspect, modify, commit, publish, and live-external actions are separate authorization phases for the current logical task. A completed, redirected, ambiguous, discussion-only, or analysis-only request does not authorize a later state-changing phase.",
+        "canonical_owner": ".ai/framework/action-authorization.md"
+      },
+      {
+        "id": "alatyr:canonical-owner@1",
+        "version": 1,
+        "definition": "Use the target-registered canonical owner for a fact type, preserve its conflict resolver and synchronization direction, and treat routing records, summaries, evidence, frequency, and recency as non-authoritative unless that owner says otherwise.",
+        "canonical_owner": ".ai/framework/source-of-truth-registry.md"
+      },
+      {
+        "id": "alatyr:protected-change@1",
+        "version": 1,
+        "definition": "A change that crosses a target-recorded protected category requires a current scoped approval whose semantic and path surfaces cover the actual change; changing the plan or scope invalidates approval as defined by the target policy.",
+        "canonical_owner": ".ai/framework/approval-records.md"
+      },
+      {
+        "id": "alatyr:logical-integrity@1",
+        "version": 1,
+        "definition": "Name changed semantic facts, re-derive their invariants, identify canonical owners and directly dependent surfaces, reconcile related findings as one repair set, validate the result, and report unresolved relationships and residual risk.",
+        "canonical_owner": ".ai/framework/logical-integrity.md"
+      },
+      {
+        "id": "alatyr:bounded-context-expansion@1",
+        "version": 1,
+        "definition": "Start from the smallest matching profile and selected index branch. Expand only for an applicable owner, safety or approval boundary, named dependency, changed-fact relationship, conflict, failed validation, or explicit broader audit, and record why the expansion occurred.",
+        "canonical_owner": ".ai/framework/context-profiles.md"
+      }
+    ],
+    "fallback": "load the referenced canonical owner and do not infer a missing stale conflicting cyclic or unsupported compact term"
+  },
+  "context_packet": {
+    "schema_version": 1,
+    "template": ".ai/assistant/templates/context-packet.json",
+    "receipt_required_for": [
+      "budget exceeded",
+      "multiple project areas",
+      "cross-boundary work",
+      "semantic codebook fallback",
+      "material or protected change"
+    ]
+  },
   "routing_order": [
     "docs-local",
     "code-local",
@@ -353,13 +414,14 @@
     "migration-diff",
     "effectiveness-metrics",
     "debug-mode",
+    "support-generation",
     "scaffolding"
   ],
   "known_gaps": [
     "No separate backup owner was found in target evidence; @atvardovsky is the only recorded adapter owner.",
     "No existing CODEOWNERS file was found before installation; this install creates CODEOWNERS for adapter files only.",
     "Default php and composer binaries are not suitable for this branch in this workspace; use /usr/local/bin/php8 and /usr/local/bin/composer8.",
-    "Local SQLite lacks the SQRT SQL function; with /usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpunit the full PHPUnit suite runs 3486 tests and reports SQRT errors in Doctrine\\Tests\\ORM\\Functional\\QueryDqlFunctionTest::testFunctionSqrt and Doctrine\\Tests\\ORM\\Functional\\Ticket\\GH7941Test::typesShouldBeConvertedForDQLFunctions in this environment.",
+    "Local SQLite lacks the SQRT SQL function; with /usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpunit the full PHPUnit suite reports SQRT errors in Doctrine\\Tests\\ORM\\Functional\\QueryDqlFunctionTest::testFunctionSqrt and Doctrine\\Tests\\ORM\\Functional\\Ticket\\GH7941Test::typesShouldBeConvertedForDQLFunctions in this environment. The suite-size count is intentionally not cached here because it changes as Doctrine tests evolve.",
     "Full Alatyr capability surface is installed and enabled in this branch; runtime-specific assistant capabilities remain evidence-bound and unverified until each active client proves them."
   ],
   "expansion_policy": "load required safety and owner evidence, record expansion reason, measured context, and intentionally omitted context"

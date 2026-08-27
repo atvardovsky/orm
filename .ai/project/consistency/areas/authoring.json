@@ -1,0 +1,536 @@
+{
+  "schema_version": 1,
+  "shard_kind": "target-consistency-map-shard",
+  "id": "authoring",
+  "project_area": "Doctrine authoring, validation, commit, and security policy",
+  "nodes": [
+    {
+      "id": "code-authoring-rules",
+      "fact_type": "code authoring rule",
+      "level": "adapter",
+      "project_area": "src/tests/docs/validation",
+      "canonical_owner": ".ai/project/code-authoring.md",
+      "coverage_state": "mapped",
+      "coverage_evidence": [
+        "Preserved schema-2 relationship coverage during the Alatyr 0.1.0-alpha.33 migration; no new relationship was accepted."
+      ],
+      "bindings": [
+        {
+          "id": "binding-code-authoring-source",
+          "surface_kind": "code",
+          "path": "src/**",
+          "selector_kind": "glob",
+          "selector": "whole-file",
+          "authority": "evidence",
+          "context_ids": []
+        },
+        {
+          "id": "binding-code-authoring-tests",
+          "surface_kind": "test",
+          "path": "tests/Tests/ORM/**",
+          "selector_kind": "glob",
+          "selector": "whole-file",
+          "authority": "evidence",
+          "context_ids": []
+        },
+        {
+          "id": "binding-code-authoring-documentation-profiles",
+          "surface_kind": "config",
+          "path": ".ai/project/documentation/profiles.json",
+          "selector_kind": "file",
+          "selector": "whole-file",
+          "authority": "derived",
+          "context_ids": []
+        },
+        {
+          "id": "binding-code-authoring-code-gate",
+          "surface_kind": "gate",
+          "path": ".ai/assistant/gates/code-and-tests.md",
+          "selector_kind": "file",
+          "selector": "whole-file",
+          "authority": "derived",
+          "context_ids": []
+        }
+      ],
+      "relationships": [
+        {
+          "id": "code-authoring-source",
+          "type": "constrains",
+          "target": "surface-src",
+          "target_level": "system",
+          "target_area": "src",
+          "direction": "outbound",
+          "required_when": [
+            "implementation code changes"
+          ],
+          "validation": [
+            "Doctrine coding standard, PHPStan, focused PHPUnit, and manual subsystem-owner review as applicable"
+          ],
+          "approval_trigger": "weakening public API, subsystem boundary, or validation requirements",
+          "state": "accepted"
+        },
+        {
+          "id": "code-authoring-tests",
+          "type": "constrains",
+          "target": "surface-tests-tests-orm",
+          "target_level": "system",
+          "target_area": "tests",
+          "direction": "outbound",
+          "required_when": [
+            "test code, regression fixture, or behavior proof changes"
+          ],
+          "validation": [
+            "focused PHPUnit and test-first policy review as applicable"
+          ],
+          "approval_trigger": "weakened coverage or changed test strategy",
+          "state": "accepted"
+        },
+        {
+          "id": "code-authoring-documentation-profiles",
+          "type": "documents",
+          "target": "surface-ai-project-documentation-profiles-json",
+          "target_level": "adapter",
+          "target_area": "documentation",
+          "direction": "outbound",
+          "required_when": [
+            "code comment or generated documentation rules change"
+          ],
+          "validation": [
+            "JSON parse and documentation profile review"
+          ],
+          "approval_trigger": "weakened comment policy or public documentation boundary",
+          "state": "accepted"
+        },
+        {
+          "id": "code-authoring-code-gate",
+          "type": "routes",
+          "target": "surface-ai-assistant-gates-code-and-tests-md",
+          "target_level": "adapter",
+          "target_area": "assistant-adapter",
+          "direction": "outbound",
+          "required_when": [
+            "code-local profile or code/test gate behavior changes"
+          ],
+          "validation": [
+            "adapter validator and gate review"
+          ],
+          "approval_trigger": "weakened code/test authoring gate",
+          "state": "accepted"
+        }
+      ]
+    },
+    {
+      "id": "validation-commands",
+      "fact_type": "validation command",
+      "level": "adapter",
+      "project_area": "validation",
+      "canonical_owner": "composer.json",
+      "coverage_state": "mapped",
+      "coverage_evidence": [
+        "Preserved schema-2 relationship coverage during the Alatyr 0.1.0-alpha.33 migration; no new relationship was accepted."
+      ],
+      "bindings": [
+        {
+          "id": "binding-validation-to-manifest",
+          "surface_kind": "config",
+          "path": ".ai/alatyr.yaml",
+          "selector_kind": "file",
+          "selector": "whole-file",
+          "authority": "derived",
+          "context_ids": []
+        },
+        {
+          "id": "binding-validation-to-gates",
+          "surface_kind": "gate",
+          "path": ".ai/assistant/gates/checklist.md",
+          "selector_kind": "file",
+          "selector": "whole-file",
+          "authority": "derived",
+          "context_ids": []
+        },
+        {
+          "id": "binding-validation-to-wrapper",
+          "surface_kind": "other",
+          "path": "tools/check_alatyr.py",
+          "selector_kind": "file",
+          "selector": "whole-file",
+          "authority": "evidence",
+          "context_ids": []
+        }
+      ],
+      "relationships": [
+        {
+          "id": "validation-to-manifest",
+          "type": "routes",
+          "target": "surface-ai-alatyr-yaml",
+          "target_level": "adapter",
+          "target_area": "assistant-adapter",
+          "direction": "outbound",
+          "required_when": [
+            "local validation command or environment requirement changes"
+          ],
+          "validation": [
+            "YAML parse, adapter validator, and command evidence review"
+          ],
+          "approval_trigger": "weakened validation or changed required command",
+          "state": "accepted"
+        },
+        {
+          "id": "validation-to-gates",
+          "type": "constrains",
+          "target": "surface-ai-assistant-gates-checklist-md",
+          "target_level": "adapter",
+          "target_area": "assistant-adapter",
+          "direction": "outbound",
+          "required_when": [
+            "validation command or CI behavior changes"
+          ],
+          "validation": [
+            "JSON/YAML parse, git diff --check, target command evidence"
+          ],
+          "approval_trigger": "weakened tests CI gates or validation requirements",
+          "state": "accepted"
+        },
+        {
+          "id": "validation-to-wrapper",
+          "type": "verifies",
+          "target": "surface-tools-check-alatyr-py",
+          "target_level": "adapter",
+          "target_area": "validation",
+          "direction": "outbound",
+          "required_when": [
+            "adapter validator invocation changes"
+          ],
+          "validation": [
+            "ALATYR_CORE_SOURCE=/path/to/AlatyrCore python3 tools/check_alatyr.py"
+          ],
+          "approval_trigger": "weakened adapter validation wrapper",
+          "state": "accepted"
+        }
+      ]
+    },
+    {
+      "id": "commit-policy",
+      "fact_type": "commit policy",
+      "level": "adapter",
+      "project_area": "commits",
+      "canonical_owner": ".ai/project/commit-policy.md",
+      "coverage_state": "mapped",
+      "coverage_evidence": [
+        "Preserved schema-2 relationship coverage during the Alatyr 0.1.0-alpha.33 migration; no new relationship was accepted."
+      ],
+      "bindings": [
+        {
+          "id": "binding-commit-policy-final-evidence",
+          "surface_kind": "gate",
+          "path": ".ai/assistant/gates/final-evidence.md",
+          "selector_kind": "file",
+          "selector": "whole-file",
+          "authority": "derived",
+          "context_ids": []
+        },
+        {
+          "id": "binding-commit-policy-agent-entry",
+          "surface_kind": "prompt",
+          "path": "AGENTS.md",
+          "selector_kind": "file",
+          "selector": "whole-file",
+          "authority": "derived",
+          "context_ids": []
+        },
+        {
+          "id": "binding-commit-policy-router",
+          "surface_kind": "config",
+          "path": ".ai/assistant/context-router.json",
+          "selector_kind": "file",
+          "selector": "whole-file",
+          "authority": "derived",
+          "context_ids": []
+        }
+      ],
+      "relationships": [
+        {
+          "id": "commit-policy-final-evidence",
+          "type": "constrains",
+          "target": "surface-ai-assistant-gates-final-evidence-md",
+          "target_level": "adapter",
+          "target_area": "assistant-adapter",
+          "direction": "outbound",
+          "required_when": [
+            "creating amending or reviewing commits"
+          ],
+          "validation": [
+            "staged diff review and detailed English commit message review"
+          ],
+          "approval_trigger": "weakening commit policy",
+          "state": "accepted"
+        },
+        {
+          "id": "commit-policy-agent-entry",
+          "type": "documents",
+          "target": "surface-agents-md",
+          "target_level": "adapter",
+          "target_area": "assistant-adapter",
+          "direction": "outbound",
+          "required_when": [
+            "commit instruction routing changes"
+          ],
+          "validation": [
+            "manual bootstrap and bridge pointer review"
+          ],
+          "approval_trigger": "weakening logical-scope or English-message requirements",
+          "state": "accepted"
+        },
+        {
+          "id": "commit-policy-router",
+          "type": "routes",
+          "target": "surface-ai-assistant-context-router-json",
+          "target_level": "adapter",
+          "target_area": "assistant-adapter",
+          "direction": "outbound",
+          "required_when": [
+            "commit profile or staged-diff workflow changes"
+          ],
+          "validation": [
+            "JSON parse and context-router review"
+          ],
+          "approval_trigger": "changed commit policy routing",
+          "state": "accepted"
+        }
+      ]
+    },
+    {
+      "id": "security-policy",
+      "fact_type": "security policy",
+      "level": "contract",
+      "project_area": "security",
+      "canonical_owner": "SECURITY.md",
+      "coverage_state": "mapped",
+      "coverage_evidence": [
+        "Preserved schema-2 relationship coverage during the Alatyr 0.1.0-alpha.33 migration; no new relationship was accepted."
+      ],
+      "bindings": [
+        {
+          "id": "binding-security-policy-docs",
+          "surface_kind": "doc",
+          "path": "docs/en/reference/security.rst",
+          "selector_kind": "file",
+          "selector": "whole-file",
+          "authority": "evidence",
+          "context_ids": []
+        },
+        {
+          "id": "binding-security-policy-gate",
+          "surface_kind": "gate",
+          "path": ".ai/assistant/gates/security-approval.md",
+          "selector_kind": "file",
+          "selector": "whole-file",
+          "authority": "derived",
+          "context_ids": []
+        },
+        {
+          "id": "binding-security-policy-profile",
+          "surface_kind": "config",
+          "path": ".ai/assistant/context/profiles/security-sensitive.json",
+          "selector_kind": "file",
+          "selector": "whole-file",
+          "authority": "derived",
+          "context_ids": []
+        }
+      ],
+      "relationships": [
+        {
+          "id": "security-policy-docs",
+          "type": "documents",
+          "target": "surface-docs-en-reference-security-rst",
+          "target_level": "contract",
+          "target_area": "docs",
+          "direction": "outbound",
+          "required_when": [
+            "security posture or vulnerability handling changes"
+          ],
+          "validation": [
+            "SECURITY.md and security reference manual review"
+          ],
+          "approval_trigger": "security posture or public vulnerability reporting change",
+          "state": "accepted"
+        },
+        {
+          "id": "security-policy-gate",
+          "type": "constrains",
+          "target": "surface-ai-assistant-gates-security-approval-md",
+          "target_level": "adapter",
+          "target_area": "assistant-adapter",
+          "direction": "outbound",
+          "required_when": [
+            "security approval categories or handling rules change"
+          ],
+          "validation": [
+            "manual security gate review"
+          ],
+          "approval_trigger": "weakened security approval requirement",
+          "state": "accepted"
+        },
+        {
+          "id": "security-policy-profile",
+          "type": "routes",
+          "target": "surface-ai-assistant-context-profiles-security-sensitive-json",
+          "target_level": "adapter",
+          "target_area": "assistant-adapter",
+          "direction": "outbound",
+          "required_when": [
+            "security-sensitive context routing changes"
+          ],
+          "validation": [
+            "JSON parse and security policy review"
+          ],
+          "approval_trigger": "security, credential, permission, privacy, dependency trust, live-service, or destructive change",
+          "state": "accepted"
+        }
+      ]
+    },
+    {
+      "id": "surface-ai-project-documentation-profiles-json",
+      "fact_type": "support surface: .ai/project/documentation/profiles.json",
+      "level": "surface",
+      "project_area": "Doctrine authoring, validation, commit, and security policy",
+      "canonical_owner": ".ai/project/documentation/profiles.json",
+      "coverage_state": "isolated-verified",
+      "coverage_evidence": [
+        "Migrated from the accepted schema-2 relationship target .ai/project/documentation/profiles.json; the migration introduces no new relationship."
+      ],
+      "bindings": [],
+      "relationships": []
+    },
+    {
+      "id": "surface-ai-assistant-gates-code-and-tests-md",
+      "fact_type": "support surface: .ai/assistant/gates/code-and-tests.md",
+      "level": "surface",
+      "project_area": "Doctrine authoring, validation, commit, and security policy",
+      "canonical_owner": ".ai/assistant/gates/code-and-tests.md",
+      "coverage_state": "isolated-verified",
+      "coverage_evidence": [
+        "Migrated from the accepted schema-2 relationship target .ai/assistant/gates/code-and-tests.md; the migration introduces no new relationship."
+      ],
+      "bindings": [],
+      "relationships": []
+    },
+    {
+      "id": "surface-ai-alatyr-yaml",
+      "fact_type": "support surface: .ai/alatyr.yaml",
+      "level": "surface",
+      "project_area": "Doctrine authoring, validation, commit, and security policy",
+      "canonical_owner": ".ai/alatyr.yaml",
+      "coverage_state": "isolated-verified",
+      "coverage_evidence": [
+        "Migrated from the accepted schema-2 relationship target .ai/alatyr.yaml; the migration introduces no new relationship."
+      ],
+      "bindings": [],
+      "relationships": []
+    },
+    {
+      "id": "surface-ai-assistant-gates-checklist-md",
+      "fact_type": "support surface: .ai/assistant/gates/checklist.md",
+      "level": "surface",
+      "project_area": "Doctrine authoring, validation, commit, and security policy",
+      "canonical_owner": ".ai/assistant/gates/checklist.md",
+      "coverage_state": "isolated-verified",
+      "coverage_evidence": [
+        "Migrated from the accepted schema-2 relationship target .ai/assistant/gates/checklist.md; the migration introduces no new relationship."
+      ],
+      "bindings": [],
+      "relationships": []
+    },
+    {
+      "id": "surface-tools-check-alatyr-py",
+      "fact_type": "support surface: tools/check_alatyr.py",
+      "level": "surface",
+      "project_area": "Doctrine authoring, validation, commit, and security policy",
+      "canonical_owner": "tools/check_alatyr.py",
+      "coverage_state": "isolated-verified",
+      "coverage_evidence": [
+        "Migrated from the accepted schema-2 relationship target tools/check_alatyr.py; the migration introduces no new relationship."
+      ],
+      "bindings": [],
+      "relationships": []
+    },
+    {
+      "id": "surface-ai-assistant-gates-final-evidence-md",
+      "fact_type": "support surface: .ai/assistant/gates/final-evidence.md",
+      "level": "surface",
+      "project_area": "Doctrine authoring, validation, commit, and security policy",
+      "canonical_owner": ".ai/assistant/gates/final-evidence.md",
+      "coverage_state": "isolated-verified",
+      "coverage_evidence": [
+        "Migrated from the accepted schema-2 relationship target .ai/assistant/gates/final-evidence.md; the migration introduces no new relationship."
+      ],
+      "bindings": [],
+      "relationships": []
+    },
+    {
+      "id": "surface-agents-md",
+      "fact_type": "support surface: AGENTS.md",
+      "level": "surface",
+      "project_area": "Doctrine authoring, validation, commit, and security policy",
+      "canonical_owner": "AGENTS.md",
+      "coverage_state": "isolated-verified",
+      "coverage_evidence": [
+        "Migrated from the accepted schema-2 relationship target AGENTS.md; the migration introduces no new relationship."
+      ],
+      "bindings": [],
+      "relationships": []
+    },
+    {
+      "id": "surface-ai-assistant-context-router-json",
+      "fact_type": "support surface: .ai/assistant/context-router.json",
+      "level": "surface",
+      "project_area": "Doctrine authoring, validation, commit, and security policy",
+      "canonical_owner": ".ai/assistant/context-router.json",
+      "coverage_state": "isolated-verified",
+      "coverage_evidence": [
+        "Migrated from the accepted schema-2 relationship target .ai/assistant/context-router.json; the migration introduces no new relationship."
+      ],
+      "bindings": [],
+      "relationships": []
+    },
+    {
+      "id": "surface-docs-en-reference-security-rst",
+      "fact_type": "support surface: docs/en/reference/security.rst",
+      "level": "surface",
+      "project_area": "Doctrine authoring, validation, commit, and security policy",
+      "canonical_owner": "docs/en/reference/security.rst",
+      "coverage_state": "isolated-verified",
+      "coverage_evidence": [
+        "Migrated from the accepted schema-2 relationship target docs/en/reference/security.rst; the migration introduces no new relationship."
+      ],
+      "bindings": [],
+      "relationships": []
+    },
+    {
+      "id": "surface-ai-assistant-gates-security-approval-md",
+      "fact_type": "support surface: .ai/assistant/gates/security-approval.md",
+      "level": "surface",
+      "project_area": "Doctrine authoring, validation, commit, and security policy",
+      "canonical_owner": ".ai/assistant/gates/security-approval.md",
+      "coverage_state": "isolated-verified",
+      "coverage_evidence": [
+        "Migrated from the accepted schema-2 relationship target .ai/assistant/gates/security-approval.md; the migration introduces no new relationship."
+      ],
+      "bindings": [],
+      "relationships": []
+    },
+    {
+      "id": "surface-ai-assistant-context-profiles-security-sensitive-json",
+      "fact_type": "support surface: .ai/assistant/context/profiles/security-sensitive.json",
+      "level": "surface",
+      "project_area": "Doctrine authoring, validation, commit, and security policy",
+      "canonical_owner": ".ai/assistant/context/profiles/security-sensitive.json",
+      "coverage_state": "isolated-verified",
+      "coverage_evidence": [
+        "Migrated from the accepted schema-2 relationship target .ai/assistant/context/profiles/security-sensitive.json; the migration introduces no new relationship."
+      ],
+      "bindings": [],
+      "relationships": []
+    }
+  ]
+}

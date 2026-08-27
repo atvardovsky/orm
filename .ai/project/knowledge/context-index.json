@@ -1,0 +1,109 @@
+{
+  "schema_version": 1,
+  "index_kind": "alatyr-context-index",
+  "index_id": "project.knowledge",
+  "contour": "project",
+  "title": "Project Knowledge Context",
+  "summary": "Recursive navigation for the project contour at knowledge.",
+  "max_depth": 8,
+  "entries": [
+    {
+      "id": "project.content.knowledge-index-json",
+      "kind": "content",
+      "path": "knowledge/index.json",
+      "summary": "Index",
+      "selectors": {
+        "path_terms": [
+          "knowledge"
+        ],
+        "rule_ids": [
+          "ALATYR-CONTEXT-001",
+          "ALATYR-KNOWLEDGE-001",
+          "ALATYR-SOURCE-001"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [
+        "alatyr:bounded-context-expansion@1",
+        "alatyr:canonical-owner@1",
+        "alatyr:observed-is-not-accepted@1"
+      ],
+      "owner_refs": [
+        "ALATYR-CONTEXT-001",
+        "ALATYR-KNOWLEDGE-001",
+        "ALATYR-SOURCE-001"
+      ],
+      "estimated_words": 111,
+      "content_digest": "sha256:2077b98a156d2760b4908a2c7aa6e46d9a789b7ce0cfde2e8d2629c0405d85d3"
+    },
+    {
+      "id": "project.content.knowledge-readme-md",
+      "kind": "content",
+      "path": "knowledge/README.md",
+      "summary": "Project Knowledge Delivery",
+      "selectors": {
+        "path_terms": [
+          "knowledge"
+        ],
+        "rule_ids": [
+          "ALATYR-CONTEXT-001",
+          "ALATYR-KNOWLEDGE-001",
+          "ALATYR-SOURCE-001"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [
+        "alatyr:bounded-context-expansion@1",
+        "alatyr:canonical-owner@1",
+        "alatyr:observed-is-not-accepted@1"
+      ],
+      "owner_refs": [
+        "ALATYR-CONTEXT-001",
+        "ALATYR-KNOWLEDGE-001",
+        "ALATYR-SOURCE-001"
+      ],
+      "estimated_words": 270,
+      "content_digest": "sha256:87d47bb3a02a16e353b7744fe14c708e81575a13f0167d4cb42253620fb2e228"
+    },
+    {
+      "id": "project.section.knowledge-promotions",
+      "kind": "index",
+      "path": "knowledge/promotions/context-index.json",
+      "summary": "Promotions section",
+      "selectors": {
+        "path_terms": [
+          "promotions"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [],
+      "owner_refs": [],
+      "estimated_words": 89,
+      "content_digest": "sha256:4797aeee102234fa9b88e0944204c920059aef3f01209915a9fef758dd4516aa"
+    },
+    {
+      "id": "project.section.knowledge-routes",
+      "kind": "index",
+      "path": "knowledge/routes/context-index.json",
+      "summary": "Routes section",
+      "selectors": {
+        "path_terms": [
+          "routes"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [],
+      "owner_refs": [],
+      "estimated_words": 89,
+      "content_digest": "sha256:4cbd47411755186472d341cef131bf7052e67aca5a2981ebad206b3707d01435"
+    }
+  ]
+}

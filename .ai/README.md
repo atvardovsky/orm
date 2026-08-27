@@ -5,8 +5,15 @@ This directory is split by ownership for the Doctrine ORM fork.
 For routine routing, treat root `AGENTS.md` as preloaded and read only
 `.ai/assistant/bootstrap-index.json`. That file is a generated, hash-bound
 projection of this project map, `.ai/alatyr.yaml`, and
-`.ai/assistant/context-router.json`; load those canonical sources when the
-projection is stale, routing is ambiguous, or adapter repair is required.
+`.ai/assistant/context-router.json`, plus the installed semantic-codebook index;
+load those canonical sources when the projection is stale, routing is
+ambiguous, or adapter repair is required.
+
+The bootstrap embeds the small core semantic codebook once. After routing,
+start from the selected contour's `context-index.json` and follow only matching
+child indexes or content entries. The indexes are derived navigation and cost
+metadata, not project authority. Domain codebook shards are lazy; every compact
+term resolves to versioned prose and its canonical owner before use.
 
 ## Installation State
 
@@ -39,6 +46,10 @@ security policy, lifecycle facts, or target-specific assistant infrastructure.
 - security reporting and SQL-injection guidance from `SECURITY.md` and `docs/en/reference/security.rst`
 - contribution and test expectations from `CONTRIBUTING.md`, `tests/README.markdown`, and CI workflows
 - source-of-truth registry entries in `.ai/project/source-of-truth-registry.md`
+- required support collection/classification policy and canonical state for
+  locating changed support surfaces without loading them all
+- optional dependency-ordered generation registry for target-selected derived
+  support artifacts
 - durable engineering evidence in `.ai/project/engineering-evidence/index.json`
 - project-guidance intake, routing policy, coverage state, and empty active
   index in `.ai/project/knowledge/`
@@ -56,6 +67,9 @@ registered canonical sources.
 `.ai/assistant` contains local assistant operating rules:
 
 - compact generated bootstrap index
+- recursive, digest-bound context indexes that expose only selected branches
+- a versioned semantic codebook for lossless compact rule references
+- deterministic context-packet evidence for non-trivial or expanded routes
 - context profiles and machine router
 - module and maturity profiles
 - flows, gates, help, operation catalog, and output templates

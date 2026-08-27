@@ -2,7 +2,7 @@
   "schema_version": 1,
   "lock_kind": "target-dependency-knowledge-lock",
   "knowledge_api": 1,
-  "package_lock_fingerprint": "0e91690d915cf2e63e1ad9ba8b46df2629ae297274d96e727db86e1fb1e795e6",
+  "package_lock_fingerprint": "44f9e859567151aae8b9676c0a1232bdef054a9727b5433155f8c8ad40b229a5",
   "instances": [
     {
       "instance_id": "composer:composer-runtime-api@^2#require",
@@ -209,13 +209,30 @@
       }
     },
     {
-      "instance_id": "composer:symfony/console@v7.4.16#require",
+      "instance_id": "composer:symfony/console@v7.4.17#require",
       "ecosystem": "composer",
       "name": "symfony/console",
-      "version": "v7.4.16",
-      "source": "https://api.github.com/repos/symfony/console/zipball/f4c69c9aed03abf933b294257d618bdd9b30a06d",
-      "integrity": "f4c69c9aed03abf933b294257d618bdd9b30a06d",
-      "revision": "f4c69c9aed03abf933b294257d618bdd9b30a06d",
+      "version": "v7.4.17",
+      "source": "https://api.github.com/repos/symfony/console/zipball/962e18f09ebe68a49039b4c82fc0ea4871824fca",
+      "integrity": "962e18f09ebe68a49039b4c82fc0ea4871824fca",
+      "revision": "962e18f09ebe68a49039b4c82fc0ea4871824fca",
+      "modifications": [],
+      "manifest": null,
+      "exports": [],
+      "graph": {
+        "dependency_set": "require",
+        "direct": true,
+        "public_instance_ids": []
+      }
+    },
+    {
+      "instance_id": "composer:symfony/polyfill-php86@v1.41.0#require",
+      "ecosystem": "composer",
+      "name": "symfony/polyfill-php86",
+      "version": "v1.41.0",
+      "source": "https://api.github.com/repos/symfony/polyfill-php86/zipball/6bc356ed3d8dbfeea8f0de235e34d670704e880e",
+      "integrity": "6bc356ed3d8dbfeea8f0de235e34d670704e880e",
+      "revision": "6bc356ed3d8dbfeea8f0de235e34d670704e880e",
       "modifications": [],
       "manifest": null,
       "exports": [],
@@ -362,13 +379,13 @@
       }
     },
     {
-      "instance_id": "composer:symfony/cache@v7.4.16#require-dev",
+      "instance_id": "composer:symfony/cache@v7.4.17#require-dev",
       "ecosystem": "composer",
       "name": "symfony/cache",
-      "version": "v7.4.16",
-      "source": "https://api.github.com/repos/symfony/cache/zipball/23a2c5298ca72c4d26b04611ed966c86762ffd49",
-      "integrity": "23a2c5298ca72c4d26b04611ed966c86762ffd49",
-      "revision": "23a2c5298ca72c4d26b04611ed966c86762ffd49",
+      "version": "v7.4.17",
+      "source": "https://api.github.com/repos/symfony/cache/zipball/f6028442dd1dfa4f88e9c7360d753948d165e938",
+      "integrity": "f6028442dd1dfa4f88e9c7360d753948d165e938",
+      "revision": "f6028442dd1dfa4f88e9c7360d753948d165e938",
       "modifications": [],
       "manifest": null,
       "exports": [],

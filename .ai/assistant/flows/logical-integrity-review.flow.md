@@ -17,11 +17,18 @@ This flow adapts `.ai/framework/logical-integrity.md` to `Doctrine ORM`.
    dependency, caller, and external-boundary invariants from target evidence.
    If the task starts from multiple review comments or defects, cluster them
    by fact and contract before choosing local repairs.
-5. Load `.ai/project/consistency-map.json` and select applicable direct
+5. Start from Git changed paths, differences from `.ai/support-state.json`,
+   explicit changed fact IDs, and
+   `.ai/assistant/consistency-reverse-index.json`. Load only matching graph
+   shards from `.ai/project/consistency-map.json`, then select accepted
    relationship edges from the changed fact's registry node. Record skipped
    edges, missing relationships, and any manual expansion needed for
    cross-area or contradicted owner evidence.
-6. Map each changed fact to target contracts:
+6. Treat hashes and graph traversal as routing evidence, not semantic proof.
+   Record newly observed relationships in
+   `.ai/project/consistency/relationship-candidates.json`; do not traverse them
+   as accepted until the target decision owner records that disposition.
+7. Map each changed fact to target contracts:
    - business/domain rules
    - use cases or workflows
    - architecture levels or module boundaries
@@ -29,15 +36,15 @@ This flow adapts `.ai/framework/logical-integrity.md` to `Doctrine ORM`.
    - diagrams
    - tests and validation
    - prompts, gates, skills, and bridge files
-7. Compare only the selected code, docs, tests, diagrams, prompts, skills,
+8. Compare only the selected code, docs, tests, diagrams, prompts, skills,
    bridge files, gates,
    generated artifacts, and assistant rules.
-8. Choose the source of truth.
-9. Repair the smallest coherent set of files that preserves the re-derived
+9. Choose the source of truth.
+10. Repair the smallest coherent set of files that preserves the re-derived
    invariants across all related review items.
-10. Run target validation that exists, including observable failure-class
+11. Run target validation that exists, including observable failure-class
     distinctions when external callers or operators depend on them.
-11. For multi-workstream operations, reconcile the combined repair set in one
+12. For multi-workstream operations, reconcile the combined repair set in one
    global review after local workstream checks. Confirm shared fact owners,
    dependency order, approval scope, and generated artifacts agree.
 

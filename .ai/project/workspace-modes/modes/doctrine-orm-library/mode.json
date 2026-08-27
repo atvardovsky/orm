@@ -8,15 +8,25 @@
   "purpose": "Work on this Doctrine ORM PHP Composer library fork with source, tests, docs, CI, and Alatyr adapter layers.",
   "owner": "@atvardovsky",
   "decision_authority": "@atvardovsky",
-  "last_reviewed": "2026-08-21",
-  "evidence_revision": "454db525ccce95aff1057cb57726900560374970",
+  "last_reviewed": "2026-08-26",
+  "evidence_revision": "68a7b23a93b0849adb6f42b31410a04dc9290a56",
   "workspace_scope": {
     "root": ".",
     "include": [
       "src",
       "tests",
       "docs",
+      ".github",
+      "ci",
       "composer.json",
+      "README.md",
+      "CONTRIBUTING.md",
+      "SECURITY.md",
+      "phpunit.xml.dist",
+      "phpstan.neon",
+      "phpstan-dbal3.neon",
+      "phpstan-params.neon",
+      "phpcs.xml.dist",
       ".ai"
     ],
     "exclude": [
@@ -57,6 +67,10 @@
       {
         "path": "docs/en/reference/unitofwork.rst",
         "when": "UnitOfWork behavior or documentation changes"
+      },
+      {
+        "path": "docs/en/tutorials/pagination.rst",
+        "when": "offset or cursor pagination behavior or documentation changes"
       }
     ]
   },

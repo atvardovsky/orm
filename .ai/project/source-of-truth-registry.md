@@ -2,11 +2,16 @@
 
 Use this registry in Doctrine ORM to decide which file owns each fact type.
 When an owner is missing, report the gap instead of inventing a project fact.
+Every live Fact Type names one unique consistency-map node with an exact
+`fact_type` match. Additional nodes may represent derived contracts, areas,
+systems, adapter surfaces, or concrete support surfaces. A detected
+relationship candidate is evidence for owner review, not an accepted edge or
+a new source of truth.
 
 ### Fact Type: `product behavior`
 
 Fact type: `product behavior`
-Canonical owner: .ai/project/business-logic.md and .ai/project/blueprint.md for source routing, README.md for high-level purpose, and docs/en/reference/*.rst for documented behavior
+Canonical owner: .ai/project/business-logic.md and .ai/project/blueprint.md for source routing, README.md for high-level purpose, docs/en/reference/*.rst for documented behavior, and applicable public tutorials under docs/en/tutorials/
 Consistency level: manual review required for semantic changes
 Project area: `docs, src, tests`
 Consistency map node: `product-behavior`
@@ -30,7 +35,7 @@ Final evidence: changed facts, docs/source/test sync, selected map edges, valida
 ### Fact Type: `business rule`
 
 Fact type: `business rule`
-Canonical owner: .ai/project/business-logic.md for business-rule routing plus .ai/project/blueprint.md, public docs under docs/en/reference/*.rst, relevant source, and tests
+Canonical owner: .ai/project/business-logic.md for business-rule routing plus .ai/project/blueprint.md, public docs under docs/en/reference/*.rst and applicable docs/en/tutorials/, relevant source, and tests
 Consistency level: manual review required
 Project area: `business-logic, docs, src, tests`
 Consistency map node: `business-rule-routing`
@@ -48,6 +53,7 @@ Derived surfaces:
 - `src/`
 - `tests/Tests/ORM/`
 - `docs/en/reference/`
+- `docs/en/tutorials/`
 
 Sync direction: implementation, tests, docs, business-logic routing, and semantic gates must be reconciled before final evidence
 Validation or manual review: /usr/local/bin/php8 -d memory_limit=1G vendor/bin/phpunit; docs review for public behavior
@@ -316,14 +322,19 @@ Canonical owner: .ai/assistant/module-profile.md and .ai/alatyr.yaml
 Consistency level: adapter-owned current state with target evidence review
 Project area: `assistant-adapter, ai-infrastructure, architecture, dependencies, testing, team, vocabulary, workspace-modes, project-knowledge`
 Consistency map node: `alatyr-full-capability`
-Relationship coverage: enabled through `.ai/project/consistency-map.json` node `alatyr-full-capability` for manifest, installation state, module profile, context router, operation catalog/index, gates, bridge capability records, project catalogs, project-guidance index, and bootstrap index
-Invariant and dependency constraints: enabled modules must have dependency closure, owner files, routed context, installed flows/templates/gates where required, and no unresolved brace placeholders; only a continuous accepted installation-state record with strict validation may support ready health
+Relationship coverage: enabled through `.ai/project/consistency-map.json` node `alatyr-full-capability` for manifest, installation state, module profile, recursive context catalogs, semantic codebook, context router, operation catalog/index, gates, bridge capability records, project catalogs, project-guidance index, and bootstrap index
+Invariant and dependency constraints: enabled modules must have dependency closure, owner files, digest-current bounded context routes, lossless semantic references, installed flows/templates/gates where required, and no unresolved brace placeholders; only a continuous accepted installation-state record with strict validation may support ready health
 Derived surfaces:
 
 - `.ai/alatyr.yaml`
 - `.ai/assistant/installation-state.json`
 - `.ai/assistant/module-profile.md`
 - `.ai/assistant/context-router.json`
+- `.ai/framework/context-index.json`
+- `.ai/project/context-index.json`
+- `.ai/assistant/context-index.json`
+- `.ai/framework/semantics/index.json`
+- `.ai/assistant/templates/context-packet.json`
 - `.ai/assistant/context/consistency-routing.json`
 - `.ai/assistant/operation-catalog.json`
 - `.ai/assistant/operation-index.json`
@@ -347,7 +358,7 @@ Derived surfaces:
 - `.ai/project/workspace-modes/catalog.json`
 - `.ai/project/development-evidence.json`
 
-Sync direction: capability enablement changes must update manifest, installation state, module profile, router, operations, gates, help/bridge surfaces, assistant capability evidence, project-guidance routing/index policy, target owner records, and bootstrap together
+Sync direction: capability enablement changes must update manifest, installation state, module profile, recursive catalogs, semantic codebook, router, operations, gates, help/bridge surfaces, assistant capability evidence, project-guidance routing/index policy, target owner records, and bootstrap together
 Validation or manual review: adapter validator, module closure audit, JSON/YAML parse, placeholder/local-path scan, markdown/front-matter review, and git diff check
 Conflict resolver: .ai/framework/capabilities.json defines available module contracts; .ai/assistant/module-profile.md and .ai/alatyr.yaml define target enablement
 Approval trigger: weakening capability gates, enabling external permissions, importing AI infrastructure, or broadening protected action scope

@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "index_kind": "target-support-generation-index",
+  "registry": ".ai/project/support-generation/registry.json",
+  "registry_digest": "sha256:0acf0dc39c21b48f6cf78e6ae8ee1a8994f1d5f4fdafeaca8070e9a3b0a92bd1",
+  "order": [],
+  "artifacts": []
+}

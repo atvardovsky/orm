@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "index_kind": "alatyr-context-index",
+  "index_id": "assistant.skills",
+  "contour": "assistant",
+  "title": "Assistant Skills Context",
+  "summary": "Recursive navigation for the assistant contour at skills.",
+  "max_depth": 8,
+  "entries": [
+    {
+      "id": "assistant.section.skills-code-documentation",
+      "kind": "index",
+      "path": "skills/code-documentation/context-index.json",
+      "summary": "Code Documentation section",
+      "selectors": {
+        "path_terms": [
+          "code-documentation"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [],
+      "owner_refs": [],
+      "estimated_words": 86,
+      "content_digest": "sha256:60586c3f193bf564a53f69f2438abd8d1f85e05e180ab45446f394a6f2e17a69"
+    },
+    {
+      "id": "assistant.section.skills-example",
+      "kind": "index",
+      "path": "skills/example/context-index.json",
+      "summary": "Example section",
+      "selectors": {
+        "path_terms": [
+          "example"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [],
+      "owner_refs": [],
+      "estimated_words": 83,
+      "content_digest": "sha256:8b61c30f84fb2dfa8d0b84849bcfd6f50a332040503713e1a3ac2d4b48e2f0c4"
+    },
+    {
+      "id": "assistant.section.skills-project-vocabulary",
+      "kind": "index",
+      "path": "skills/project-vocabulary/context-index.json",
+      "summary": "Project Vocabulary section",
+      "selectors": {
+        "path_terms": [
+          "project-vocabulary"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [],
+      "owner_refs": [],
+      "estimated_words": 91,
+      "content_digest": "sha256:c632c05b1f14651ed6c139f435f9b14f74a54ca372f25de03ea941f04e514df0"
+    },
+    {
+      "id": "assistant.section.skills-team-collaboration",
+      "kind": "index",
+      "path": "skills/team-collaboration/context-index.json",
+      "summary": "Team Collaboration section",
+      "selectors": {
+        "path_terms": [
+          "team-collaboration"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [],
+      "owner_refs": [],
+      "estimated_words": 88,
+      "content_digest": "sha256:2dd7756e582edee2f92f146df9b840c7b6eb380eb26fae36abadaf42754a8a70"
+    },
+    {
+      "id": "assistant.section.skills-test-first-development",
+      "kind": "index",
+      "path": "skills/test-first-development/context-index.json",
+      "summary": "Test First Development section",
+      "selectors": {
+        "path_terms": [
+          "test-first-development"
+        ]
+      },
+      "load_when": [
+        "selected by an exact task, operation, owner, path, fact, contract, dependency, risk, or conflict signal"
+      ],
+      "semantic_refs": [],
+      "owner_refs": [],
+      "estimated_words": 87,
+      "content_digest": "sha256:2d82cfdeb947840f5a5eb8f39f7644827d3964b44e6b275023380f3e60ac1bb9"
+    }
+  ]
+}
